@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quality Standards — Concave AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#763e1b;--border:rgba(10,10,10,0.12);--white:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+.breadcrumb{padding:100px 60px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--ink)}
+.breadcrumb span{color:var(--border)}
+/* Hero */
+.page-hero{position:relative;overflow:hidden;min-height:70vh;padding:60px 60px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-bottom:1px solid var(--border)}
+.page-hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:block}
+.page-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(42px,5vw,64px);line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
+.page-hero h1 em{font-style:italic;color:var(--accent)}
+.page-hero-sub{font-size:18px;color:var(--muted);line-height:1.65;max-width:520px;font-weight:300;margin-bottom:36px}
+.hero-ctas{display:flex;gap:16px;align-items:center}
+.btn-primary{background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:background 0.2s}
+.btn-primary:hover{background:var(--accent)}
+.btn-outline{border:1.5px solid var(--border);color:var(--ink);padding:13px 28px;border-radius:2px;font-size:14px;font-weight:500;text-decoration:none;transition:border-color 0.2s}
+.btn-outline:hover{border-color:var(--ink)}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.h-stat{background:transparent;padding:28px 24px;border-bottom:1px solid var(--border)}
+.h-stat-num{font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-1.5px;color:var(--ink);line-height:1}
+.h-stat-label{font-family:'DM Serif Display',serif;font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+/* Ticker */
+.ticker{background:var(--ink);padding:14px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;animation:ticker 32s linear infinite}
+.ticker-item{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--accent2);padding:0 40px}
+.ticker-item::after{content:'·';margin-left:40px;color:var(--accent)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+/* Sections */
+.sec{padding:100px 60px}
+.sec.white-bg{background:var(--paper)}
+.sec.ink-bg{background:var(--paper)}
+.sec-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;display:block}
+.sec-eyebrow.light{color:var(--accent)}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,48px);color:var(--ink); letter-spacing:-1.5px;line-height:1.05;margin-bottom:20px}
+.sec-title em{font-style:italic;color:var(--accent)}
+.sec-title.light{color:var(--ink)}
+.sec-title.light em{color:var(--accent)}
+.sec-desc{font-size:17px;color:var(--muted);max-width:680px;font-weight:300;line-height:1.65;margin-bottom:60px}
+.sec-desc.light{color:var(--muted)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:60px}
+.body-text p{font-size:16px;color:var(--muted);line-height:1.78;margin-bottom:22px;font-weight:300}
+.body-text strong{color:var(--muted);font-weight:500}
+.body-text.light p{color:var(--muted)}
+.body-text.light strong{color:var(--muted)}
+/* Pull quote */
+.pull-quote{border-left:3px solid var(--accent);padding:16px 20px;background:rgba(188,81,19,0.06);border-radius:0 4px 4px 0;font-size:16px;color:var(--accent);font-style:italic;line-height:1.6;margin:24px 0}
+/* Kappa */
+.kappa-scale{display:flex;flex-direction:column;gap:2px}
+.kappa-band{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:3px}
+.kappa-band.bad{background:var(--ink);border:1px solid rgba(194,53,53,0.15)}
+.kappa-band.fair{background:var(--ink);border:1px solid rgba(188,81,19,0.18)}
+.kappa-band.moderate{background:var(--ink);border:1px solid rgba(200,169,110,0.2)}
+.kappa-band.good{background:var(--ink);border-color:var(--ink)}
+.kappa-band.perfect{background:var(--ink);border:1px solid var(--border)}
+.kb-range{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;width:90px;flex-shrink:0;padding-top:1px}
+.kappa-band.bad .kb-range{color:var(--accent2)}
+.kappa-band.fair .kb-range{color:var(--accent2)}
+.kappa-band.moderate .kb-range{color:var(--accent2)}
+.kappa-band.good .kb-range{color:var(--accent2)}
+.kappa-band.perfect .kb-range{color:var(--accent2)}
+.kb-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.kappa-band.bad .kb-name{color:var(--accent2)}
+.kappa-band.fair .kb-name{color:var(--accent2)}
+.kappa-band.moderate .kb-name{color:var(--accent2)}
+.kappa-band.good .kb-name{color:var(--accent2)}
+.kappa-band.perfect .kb-name{color:var(--accent2)}
+.kb-body{font-size:13px;line-height:1.55;color:var(--accent2)}
+.kappa-band.good .kb-body{color:var(--accent2)}
+.kb-bar{height:3px;border-radius:2px;background:rgba(0,0,0,0.08);overflow:hidden;margin-top:8px}
+.kb-fill{height:100%;border-radius:2px}
+.kappa-band.bad .kb-fill{background:var(--accent2);width:10%}
+.kappa-band.fair .kb-fill{background:var(--accent2);width:30%}
+.kappa-band.moderate .kb-fill{background:var(--accent2);width:50%}
+.kappa-band.good .kb-fill{background:var(--accent2);width:77%}
+.kappa-band.perfect .kb-fill{background:var(--accent2);width:95%}
+.kappa-band.good .kb-bar{background:rgba(255,255,255,0.1)}
+/* QA */
+.qa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);margin-top:60px}
+.qa-card{padding:40px 32px;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background 0.2s}
+.qa-card:last-child{border-right:none}
+.qa-card:hover{background:var(--ink)}
+.qa-card:hover .qa-tier-label {color:var(--accent2)}
+.qa-card:hover .qa-card-h3{color:var(--paper)}
+.qa-card:hover .qa-body {color:var(--accent2)}
+.qa-card:hover .qa-catches {color:var(--accent2)}
+.qa-card:hover .qa-catch {color:var(--accent2)}
+.qa-card:hover .qa-catch-dot {color:var(--accent2)}
+.qa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.qa-card.t1::before{background:var(--accent)}
+.qa-card.t2::before{background:var(--accent)}
+.qa-card.t3::before{background:var(--accent)}
+.qa-tier-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.qa-card-h3{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);letter-spacing:-0.3px;line-height:1.2}
+.qa-body{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:20px}
+.qa-catches{display:flex;flex-direction:column;gap:8px}
+.qa-catch{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.qa-catch-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+/* Gold */
+.gold-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+.gold-stat{background:rgba(255,255,255,0.05);padding:22px}
+.gold-stat-num{font-family:'DM Serif Display',serif;font-size:36px;color:var(--ink);letter-spacing:-1px;line-height:1;margin-bottom:4px}
+.gold-stat-label{font-size:12px;color:var(--muted);line-height:1.4}
+.gold-visual{background:var(--ink);border:1px solid #050505d6;border-radius:4px;padding:28px}
+.gv-label{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.1em;color:var(--paper);text-transform:uppercase;margin-bottom:18px}
+.gv-task{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:3px;margin-bottom:4px;font-size:13px}
+.gv-task.std{background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.55)}
+.gv-task.gld{background:rgba(188,81,19,0.12);border:1px solid rgba(188,81,19,0.25);color:var(--accent2)}
+.gv-id{font-family:'Space Mono',monospace;font-size:10px;width:32px;flex-shrink:0;color:var(--accent2)}
+.gv-text{flex:1}
+.gv-badge{font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px}
+.gv-task.gld .gv-badge{background:rgba(188,81,19,0.2);color:var(--accent2)}
+.gv-task.std .gv-badge{background:#bc511333;color:var(--accent2)}
+.gv-footer{font-size:11px;color:var(--accent2);font-family:'Space Mono',monospace;margin-top:14px;line-height:1.5}
+/* Pipeline */
+.pipe-steps{display:flex;flex-direction:column;gap:3px}
+.pipe-step{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:3px;font-size:14px}
+.pipe-step.secure{background:var(--ink);border:1px solid rgba(188,81,19,0.18);color:var(--accent2)}
+.pipe-step.ai{background:var(--ink);border:1px solid rgba(188,81,19,0.25);color:var(--accent2)}
+.pipe-step.human{background:var(--ink);border:1px solid var(--border);color:var(--accent2)}
+.pipe-step.qa-step{background:var(--ink);border:1px solid rgba(200,169,110,0.2);color:var(--accent2)}
+.pipe-step.delivery{background:var(--ink);color:var(--accent2)}
+.pipe-icon{font-size:16px;width:26px;text-align:center;flex-shrink:0}
+.pipe-text{flex:1}
+.pipe-badge{font-family:'Space Mono',monospace;font-size:12px;padding:2px 7px;border-radius:2px}
+.pipe-step.secure .pipe-badge{background:rgba(188,81,19,0.2);color:var(--accent2)}
+.pipe-step.ai .pipe-badge{background:rgba(188,81,19,0.2);color:var(--accent2)}
+.pipe-step.human .pipe-badge{background:rgba(188,81,19,0.2);color:var(--accent2)}
+.pipe-step.qa-step .pipe-badge{background:rgba(188,81,19,0.2);color:var(--accent2)}
+.pipe-step.delivery .pipe-badge{background:rgba(188,81,19,0.2);color:var(--accent2)}
+.pipe-arrow{text-align:center;color:var(--ink);font-size:13px;padding:2px 0}
+/* Data card */
+.dc-card{background:var(--ink);border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.dc-top{color:var(--paper) ;padding:24px 28px;border-bottom:1px solid var(--border)}
+.dc-project{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:4px}
+.dc-meta{font-size:12px;color:var(--paper)}
+.dc-section{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--paper);text-transform:uppercase;padding:14px 28px 8px;background:var(--ink);border-bottom:1px solid rgba(10,10,10,0.06)}
+.dc-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 28px;color:var(--accent2) ;border-bottom:1px solid rgba(10,10,10,0.06);font-size:13px;gap:20px}
+.dc-row:last-child{border:none}
+.dc-key{color:var(--accent2)}
+.dc-val{font-weight:500;text-align:right}
+.dc-val.green{color:#1a784a}
+.dc-val.amber{color:var(--accent2)}
+/* Sycophancy */
+.syco-example{background:var(--ink);border:1px solid var(--border);border-radius:4px;padding:28px}
+.syco-ex-label{font-family:'Space Mono',monospace;font: size 14px;letter-spacing:0.1em;color:var(--paper);text-transform:uppercase;margin-bottom:16px}
+.syco-prompt{background:var(--ink);border-radius:3px;padding:14px 16px;font-size:13px;color:var(--accent2);margin-bottom:16px;line-height:1.55;font-style:italic}
+.syco-option{border-radius:3px;padding:14px 16px;font-size:13px;color:var(--accent2) ;margin-bottom:8px;line-height:1.55}
+.syco-option.wrong{background:rgba(194,53,53,0.07);border:1px solid rgba(194,53,53,0.2)}
+.syco-option.right{background:rgba(26,120,74,0.07);border:1px solid rgba(26,120,74,0.2)}
+.syco-option-label{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.08em;margin-bottom:5px;display:block}
+.syco-option.wrong .syco-option-label{color:#e51e08}
+.syco-option.right .syco-option-label{color:#4ade06}
+.syco-insight{margin-top:16px;padding:14px 16px;background:rgba(188,81,19,0.07);border:1px solid rgba(188,81,19,0.2);border-radius:3px;font-size:13px;color:var(--accent2);line-height:1.55}
+.syco-rates{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.syco-rate{background:var(--ink);border:1px solid var(--border);border-radius:3px;padding:18px}
+.syco-rate-num{font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-1px;line-height:1;margin-bottom:4px}
+.syco-rate.bad .syco-rate-num{color:#c23535}
+.syco-rate.good .syco-rate-num{color:#1a784a}
+.syco-rate-label{font-size:12px;color:var(--accent2);line-height:1.4}
+/* Compliance */
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid rgba(255,255,255,0.08);margin-top:60px}
+.comp-card{padding:36px 28px;border-right:1px solid rgba(255,255,255,0.08);transition:background 0.2s}
+.comp-card:last-child{border-right:none}
+.comp-card:hover{background:var(--ink)}
+.comp-card:hover .comp-name{color:var(--paper)}
+.comp-card:hover .comp-body{color:var(--accent2)}
+.comp-icon{font-size:28px;margin-bottom:16px}
+.comp-name{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.comp-body{font-size:13px;color:var(--muted);line-height:1.65}
+/* CTA */
+.cta-section{padding:120px 60px;background:var(--accent);text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:700px;height:700px;border-radius:50%;border:1px solid rgba(255,255,255,0.1)}
+.cta-inner{position:relative;z-index:1}
+.cta-section h2{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,58px);letter-spacing:-2px;color:var(--white);margin-bottom:16px;line-height:1.05}
+.cta-section h2 em{font-style:italic;color:rgba(255,255,255,0.65)}
+.cta-section p{font-size:17px;color:rgba(255,255,255,0.75);max-width:480px;margin:0 auto 36px;font-weight:300}
+.cta-actions{display:flex;gap:16px;justify-content:center}
+.cta-btn-white{background:var(--white);color:var(--accent);padding:15px 30px;border-radius:2px;font-size:14px;font-weight:700;text-decoration:none;transition:opacity 0.2s}
+.cta-btn-white:hover{opacity:0.9}
+.cta-btn-ghost{border:1.5px solid rgba(255,255,255,0.5);color:var(--white);padding:14px 30px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:border-color 0.2s}
+.cta-btn-ghost:hover{border-color:var(--white)}
+/* Footer */
+.footer-brand .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:16px}
+.footer-brand .nav-logo svg{width:30px;height:30px;flex-shrink:0}
+.footer-brand .logo-text{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white);font-weight:normal}
+.footer-brand .orange-ai{color:var(--accent2)}
+footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.footer-brand p{font-size:14px;color:var(--paper);line-height:1.65;max-width:280px;margin-top:12px}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:13px;letter-spacing:0.15em;color:var(--white);text-transform:uppercase;margin-bottom:20px}
+.footer-links{display:flex;flex-direction:column;gap:12px}
+.footer-links a{font-size:14px;color:var(--paper);text-decoration:none;opacity:0.85}
+.footer-links a:hover{opacity:1}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:13px;color:rgba(245,242,236,0.35)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:var(--paper)}
+@media(max-width:1100px){.page-hero,.two-col{grid-template-columns:1fr}.qa-grid,.comp-grid{grid-template-columns:1fr 1fr}.hero-stats{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.page-hero,.sec,.cta-section{padding-left:24px;padding-right:24px}.qa-grid,.comp-grid{grid-template-columns:1fr}.breadcrumb{padding:90px 24px 0}}
+
+/* ── SHARED VISUAL SECTIONS ─────────────────────────────────────────────── */
+.vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;overflow:hidden}
+.vis-split-img{position:relative;overflow:hidden}
+.vis-split-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(1.08) contrast(1.02) saturate(1.05)}
+.vis-split-body{background:var(--paper);color:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:72px 56px;border-left:1px solid var(--border)}
+.vis-split-body .sec-eyebrow{color:var(--accent)}
+.vis-split-body .sec-title{color:var(--ink)}
+.vis-split-body .sec-title em{color:var(--accent);font-style:italic}
+.vis-split-body .sec-desc{color:var(--muted);margin-top:16px}
+.vis-split-body .btn-cta{display:inline-block;background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;margin-top:28px;transition:background 0.2s}
+.vis-split-body .btn-cta:hover{background:var(--accent)}
+@media(max-width:768px){
+  .vis-split{grid-template-columns:1fr}
+  .vis-split-img{height:260px}
+  .vis-split-body{padding:44px 24px;border-left:none;border-top:1px solid var(--border)}
+}
+
+
+
+/* ── DARK CINEMATIC HERO ────────────────────────────── */
+@keyframes kenBurns{from{transform:scale(1.06)}to{transform:scale(1)}}
+@keyframes scrollDrop2{0%{top:-100%}100%{top:200%}}
+.page-hero > *:not(.hero-zoom-bg){position:relative;z-index:1}
+.hero-zoom-bg{position:absolute;inset:0;background-size:cover;background-position:center;animation:kenBurns 8s ease forwards;z-index:0}
+.scroll-hint-bar{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.4);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;pointer-events:none}
+.scroll-hint-line{width:1px;height:36px;background:rgba(255,255,255,0.18);position:relative;overflow:hidden}
+.scroll-hint-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:40%;background:rgba(255,255,255,0.65);animation:scrollDrop2 1.8s 1.2s ease-in-out infinite}
+
+.page-hero h1{color:#fff}
+.page-hero h1 em{font-style:italic;color:var(--accent2)}
+.page-hero-sub{color:rgba(255,255,255,0.70)}
+.page-hero-eyebrow{color:var(--accent2)}
+.hero-fact-title{color:#fff}
+.hero-fact-body{color:rgba(255,255,255,0.62)}
+.page-hero .btn-outline{border-color:rgba(255,255,255,0.28);color:rgba(255,255,255,0.72)}
+.page-hero .btn-outline:hover{border-color:#fff;color:#fff}
+.page-hero .btn-primary{background:var(--accent)}
+
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="service-rlhf.html">RLHF Preference Data</a>
+        <a href="service-nlp.html">NLP Annotation</a>
+        <a href="service-sft.html">SFT Instruction Data</a>
+        <a href="service-sycophancy.html">Sycophancy Audits</a>
+        <a href="service-hallucination.html">Hallucination Detection</a>
+        <a href="service-redteaming.html">Red-Teaming</a>
+        <a href="service-code-rlhf.html">Code RLHF</a>
+        <a href="service-image.html">Image Annotation</a>
+        <a href="service-video.html">Video Annotation</a>
+        <a href="service-synthetic-data.html">Synthetic Data QA</a>
+        <a href="service-rag.html">RAG Evaluation</a>
+        <a href="service-retainer.html">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="industry-legal.html">Legal</a>
+        <a href="industry-finance.html">Finance &amp; BFSI</a>
+        <a href="industry-automative.html">Automotive &amp; AV</a>
+        <a href="industry-agriculture.html">Agriculture</a>
+        <a href="industry-genai.html">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="about.html">About Us</a>
+        <a href="quality.html">Quality Standards</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="contact.html" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>›</span>
+  Quality Standards
+</div>
+
+<section class="page-hero">
+  <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1920&q=85&auto=format&fit=crop')"></div>
+
+  <div>
+    <span class="page-hero-eyebrow">Quality Standards</span>
+    <h1>Numbers, not claims.<br>Verify <em>everything</em> yourself.</h1>
+    <p class="page-hero-sub">Every competitor claims "98% accuracy." We publish Cohen's kappa scores, gold standard pass rates, and batch error logs on every single delivery. Here is exactly what those numbers mean, how we guarantee them, and what happens if we fall below threshold.</p>
+    <div class="hero-ctas">
+      <a href="contact.html" class="btn-primary">Request Free Audit →</a>
+      <a href="#qa" class="btn-outline">See QA Architecture</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="h-stat">
+      <div class="h-stat-num">≥ 0.72</div>
+      <div class="h-stat-label">Cohen's kappa inter-annotator agreement guaranteed on every delivered batch</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-num">≥ 88%</div>
+      <div class="h-stat-label">Gold standard task accuracy across all annotators on each project</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-num">3</div>
+      <div class="h-stat-label">Independent QA tiers applied to every annotation batch before delivery</div>
+    </div>
+    <div class="h-stat">
+      <div class="h-stat-num">100%</div>
+      <div class="h-stat-label">Of deliveries include a full QA report and data card — standard, always</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint-bar"><span>Scroll</span><div class="scroll-hint-line"></div></div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Cohen's Kappa ≥ 0.72</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">Gold Standard Injection</span><span class="ticker-item">RLAIF Pre-scoring</span><span class="ticker-item">Sycophancy Detection</span><span class="ticker-item">Data Card Delivery</span><span class="ticker-item">AES-256 Encryption</span><span class="ticker-item">DPDP Act 2023 Compliant</span><span class="ticker-item">Cohen's Kappa ≥ 0.72</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">Gold Standard Injection</span><span class="ticker-item">RLAIF Pre-scoring</span><span class="ticker-item">Sycophancy Detection</span><span class="ticker-item">Data Card Delivery</span>
+  </div>
+</div>
+
+<section class="sec" id="kappa">
+  <span class="sec-eyebrow">Inter-Annotator Agreement</span>
+  <h2 class="sec-title">Why Cohen's kappa is the <em>only honest</em> quality metric</h2>
+  <div class="two-col">
+    <div class="body-text">
+      <p>When two annotators independently agree that Response A is better than Response B, that agreement has a statistical weight. Cohen's kappa measures genuine agreement beyond what random chance alone would predict. A kappa of 0.0 means two annotators agree exactly as often as random clicking would. A kappa of 1.0 means perfect agreement on every task.</p>
+      <p>This is the gold standard for annotation quality measurement in academic NLP research and production AI systems worldwide. <strong>Almost no Indian annotation company publishes it</strong> — because publishing requires actually measuring it consistently, which requires automated QA systems most vendors simply do not have.</p>
+      <div class="pull-quote">"When a vendor says '98% accuracy' without specifying their inter-annotator agreement methodology, they are telling you the number they want you to believe, not the number they measured."</div>
+      <p>On every Concave AI project, you receive a kappa breakdown by annotator pair, by task category, and as an overall project average. These numbers are computed from Label Studio export data by an automated Python script — not estimated or reported by the annotators themselves. If our kappa drops below 0.70 on any batch, work pauses and we recalibrate before continuing. We have never delivered below our threshold.</p>
+      <p><strong>What kappa below 0.60 means for your model:</strong> inconsistent preference data teaches your reward model to fit noise rather than signal. The model learns a pattern that reflects annotator disagreement, not human preference. This is how sycophancy, reward hacking, and unstable model behaviour emerge from training pipelines — not from the training algorithm, but from the annotation data fed into it.</p>
+    </div>
+    <div class="kappa-scale">
+      <div class="kappa-band bad">
+        <div class="kb-range">< 0.20</div>
+        <div style="flex:1">
+          <div class="kb-name">Slight — effectively random</div>
+          <div class="kb-body">Annotators agree no more than chance would predict. Your model learns noise disguised as signal. Produced by untrained crowds on ambiguous tasks with no guidelines. Useless for RLHF.</div>
+          <div class="kb-bar"><div class="kb-fill"></div></div>
+        </div>
+      </div>
+      <div class="kappa-band fair">
+        <div class="kb-range">0.20–0.40</div>
+        <div style="flex:1">
+          <div class="kb-name">Fair — poor guideline compliance</div>
+          <div class="kb-body">Significant disagreement remains. Caused by vague annotation guidelines, undertrained annotators, or domain mismatches. Inadequate for RLHF or GenAI alignment data.</div>
+          <div class="kb-bar"><div class="kb-fill"></div></div>
+        </div>
+      </div>
+      <div class="kappa-band moderate">
+        <div class="kb-range">0.40–0.60</div>
+        <div style="flex:1">
+          <div class="kb-name">Moderate — risky for alignment</div>
+          <div class="kb-body">Acceptable for simple binary classification. Risky for RLHF preference ranking, where inconsistency teaches reward models to fit human disagreement rather than human preference. Many Indian vendors operate here.</div>
+          <div class="kb-bar"><div class="kb-fill"></div></div>
+        </div>
+      </div>
+      <div class="kappa-band good">
+        <div class="kb-range">0.60–0.80</div>
+        <div style="flex:1">
+          <div class="kb-name">★ Substantial — our minimum threshold (we guarantee ≥ 0.70)</div>
+          <div class="kb-body">Production-grade annotation quality. The standard used by academic NLP research and recommended for RLHF, SFT, and GenAI evaluation data. Typical Concave AI deliveries: 0.72–0.79. Below 0.70 triggers recalibration.</div>
+          <div class="kb-bar"><div class="kb-fill"></div></div>
+        </div>
+      </div>
+      <div class="kappa-band perfect">
+        <div class="kb-range">0.80–1.00</div>
+        <div style="flex:1">
+          <div class="kb-name">Near-perfect — treat with skepticism</div>
+          <div class="kb-body">Achievable only on simple, unambiguous, well-defined tasks. Any vendor claiming 0.85+ kappa on complex judgment tasks like RLHF preference ranking is almost certainly aggregating across easy tasks to inflate the headline number. Ask for the per-category breakdown.</div>
+          <div class="kb-bar"><div class="kb-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mid-page visual section -->
+<section class="vis-split">
+  <div class="vis-split-img">
+    <img src="https://plus.unsplash.com/premium_photo-1681487548276-48a2c640ade9?w=800&q=80&auto=format&fit=crop" alt="Quality Standards" loading="lazy">
+  </div>
+  <div class="vis-split-body">
+    <span class="sec-eyebrow">Quality Standards</span>
+    <h2 class="sec-title" style="margin-top:12px">Metrics you can <em>verify yourself</em></h2>
+    <p class="sec-desc">Every delivery ships with a QA report: Cohen's kappa scores, gold standard accuracy per annotator, batch error rates, and a data card. No competitor does this as standard.</p>
+    <a href="contact.html" class="btn-cta">Get a Free Audit →</a>
+  </div>
+</section>
+
+
+<section class="sec" id="qa">
+  <span class="sec-eyebrow">QA Architecture</span>
+  <h2 class="sec-title">Three tiers, run on <em>every single batch</em></h2>
+  <p class="sec-desc">Most annotation companies run one quality pass at the end. We run three independently throughout the project. Each tier is designed to catch failure modes the others would miss at the stage where intervention is cheapest.</p>
+  <div class="qa-grid">
+    <div class="qa-card t1">
+      <div class="qa-tier-label">Tier 1 — Automated · Runs nightly</div>
+      <div class="qa-card-h3">Statistical anomaly detection</div>
+      <div class="qa-body">Python scripts run every evening on all annotation completed that day. They check every annotator's behavioural patterns against four statistical rules and flag violations before any human reviewer looks at the data. Catches approximately 60% of quality problems at zero human cost and in time to fix them before the next working day.</div>
+      <div class="qa-catches">
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Response bias:</strong> Annotator chooses option A more than 68% of the time — suggests position bias, not genuine preference evaluation</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Speed anomaly:</strong> Annotator completes tasks in less than 30% of the median time — suggests skimming without reading</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Uniformity anomaly:</strong> Response variance too low across a batch — suggests mechanical clicking without evaluation</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Gold standard failure:</strong> Gold task accuracy below 80% — direct evidence of quality drift</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Reasoning quality:</strong> Required reasoning text field under 15 characters — evidence of placeholder responses</span></div>
+      </div>
+    </div>
+    <div class="qa-card t2">
+      <div class="qa-tier-label">Tier 2 — Peer Review · 10–15% sample</div>
+      <div class="qa-card-h3">Double-annotation + kappa recompute</div>
+      <div class="qa-body">A second annotator re-does 10–15% of each annotator's completed tasks independently, blind to the first annotator's choices. All disagreements are logged and adjudicated by the project lead. Cohen's kappa is recomputed after each batch completes. If kappa falls below 0.65 on any batch, annotation pauses and a recalibration session runs before work continues.</div>
+      <div class="qa-catches">
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Category-level bias:</strong> An annotator consistently disagrees on "safety" tasks but agrees on "helpfulness" — domain knowledge gap, not general quality failure</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Guideline misinterpretation:</strong> Two annotators have different understandings of a criterion — triggers guideline clarification, not annotator removal</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Cultural context errors:</strong> Indic language tasks where annotators apply inappropriate Western communication norms</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Label boundary drift:</strong> For NLP tasks, entity span boundaries gradually widening or narrowing across a long batch</span></div>
+      </div>
+    </div>
+    <div class="qa-card t3">
+      <div class="qa-tier-label">Tier 3 — Expert Audit · 5% + all flags</div>
+      <div class="qa-card-h3">ML-engineer personal review</div>
+      <div class="qa-body">Our senior ML engineer personally reviews every task flagged by Tiers 1 and 2, every gold standard failure regardless of the overall pass rate, and a random 5% sample drawn from across the full batch. For Indic language tasks, cultural context is verified by a native speaker with relevant domain knowledge. Every expert decision is documented with full reasoning.</div>
+      <div class="qa-catches">
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Sycophancy in RLHF data:</strong> Preference pairs where the "winning" response validates a false premise — the most damaging single annotation errors</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Training signal quality:</strong> Assessing whether the data will produce the desired model behaviour — not just whether it is correctly labeled</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Hallucination detection edge cases:</strong> Claims that are technically accurate but misleadingly incomplete</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Guideline gaps:</strong> Recurring edge cases the guidelines don't cover — triggers a guidelines update before the next batch begins</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec ink-bg">
+  <span class="sec-eyebrow light">Gold Standard Tasks</span>
+  <h2 class="sec-title light">Your real-time quality signal, <em>running continuously</em></h2>
+  <p class="sec-desc light">Gold standard tasks are the most reliable quality monitoring mechanism in professional annotation. They catch quality drift within the first 20–30 tasks — not after 2,000 have been submitted.</p>
+  <div class="two-col">
+    <div class="body-text light">
+      <p>Before any live project begins, we annotate 50–100 tasks ourselves with high confidence — tasks where the correct answer is unambiguous and the reasoning is well-documented. These become our test questions. We inject them at a <strong>6% rate</strong>, distributed randomly throughout every annotation batch.</p>
+      <p>Annotators do not know which tasks are gold standard. They annotate everything identically. Because the gold tasks are visually indistinguishable from live tasks, an annotator who would perform well on obvious test questions but poorly on real work cannot game this system.</p>
+      <p>After each batch completes, an automated script checks every annotator's gold task answers. Below <strong>80% accuracy</strong> — the annotator is flagged and their recent work is reviewed. Below <strong>70% accuracy</strong> — tasks are reassigned and the annotator is removed from the project. This happens before any human QA reviewer sees the data.</p>
+      <div class="gold-stats">
+        <div class="gold-stat"><div class="gold-stat-num">6%</div><div class="gold-stat-label">Gold injection rate across every batch — randomised, not clustered</div></div>
+        <div class="gold-stat"><div class="gold-stat-num">80%</div><div class="gold-stat-label">Minimum gold accuracy required to continue — below this triggers review</div></div>
+        <div class="gold-stat"><div class="gold-stat-num">50+</div><div class="gold-stat-label">Gold tasks in our library per project type — rotated to prevent memorisation</div></div>
+        <div class="gold-stat"><div class="gold-stat-num">Auto</div><div class="gold-stat-label">Evaluated by script — not manually, removing human judgement from the check</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="gold-visual">
+        <div class="gv-label">Annotator's task queue — gold injected at positions 004, 008, 011...</div>
+        <div class="gv-task std"><span class="gv-id">001</span><span class="gv-text">RLHF pair: Python data processing query</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task std"><span class="gv-id">002</span><span class="gv-text">RLHF pair: Medical symptom information</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task std"><span class="gv-id">003</span><span class="gv-text">RLHF pair: Creative writing feedback</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task gld"><span class="gv-id">004</span><span class="gv-text">RLHF pair: Legal question — sycophancy trap</span><span class="gv-badge">Gold ★</span></div>
+        <div class="gv-task std"><span class="gv-id">005</span><span class="gv-text">RLHF pair: Financial calculation explanation</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task std"><span class="gv-id">006</span><span class="gv-text">RLHF pair: Code debugging walkthrough</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task std"><span class="gv-id">007</span><span class="gv-text">RLHF pair: Science concept explanation</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task gld"><span class="gv-id">008</span><span class="gv-text">NLP entity task: Business news paragraph</span><span class="gv-badge">Gold ★</span></div>
+        <div class="gv-task std"><span class="gv-id">009</span><span class="gv-text">RLHF pair: Customer service scenario</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task std"><span class="gv-id">010</span><span class="gv-text">RLHF pair: Ethical dilemma response</span><span class="gv-badge">Live</span></div>
+        <div class="gv-task gld"><span class="gv-id">011</span><span class="gv-text">RLHF pair: Hallucination detection task</span><span class="gv-badge">Gold ★</span></div>
+        <div class="gv-footer">Gold task positions stored only in QA system — never visible to annotators<br>Correct answers set by ML engineer before project begins · Evaluated automatically after each batch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec white-bg" id="pipeline">
+  <span class="sec-eyebrow">The Full Pipeline</span>
+  <h2 class="sec-title">Quality enforced at <em>every step</em>, not just the end</h2>
+  <div class="two-col">
+    <div class="body-text">
+      <p>Quality is not a final check before delivery. It is enforced at every step of the pipeline — from the moment customer data arrives on our servers to the model benchmark follow-up two weeks after delivery. Each step in the pipeline generates a log entry included in your delivery documentation.</p>
+      <p>The RLAIF pre-scorer (Claude API) reduces human error by flagging uncertain cases for extra human scrutiny — the cases that would most likely produce annotator disagreement are the ones that get the most careful human attention. Gold standard injection catches quality drift in real time. Three-tier QA runs concurrently with annotation so problems are caught mid-project, not post-delivery.</p>
+      <p>The model benchmark follow-up on Day 14 is the most important quality step — and the one most annotation companies skip entirely. It is the only quality signal that actually measures what matters: <strong>did the data improve the model?</strong> Everything else — kappa scores, gold accuracy, batch error rates — are leading indicators. Model improvement is the actual outcome you paid for.</p>
+    </div>
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-bottom:14px">Project quality pipeline — every step logged</div>
+      <div class="pipe-steps">
+        <div class="pipe-step secure"><span class="pipe-icon">📥</span><span class="pipe-text">Customer data to isolated, encrypted S3 bucket</span><span class="pipe-badge">AES-256</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step human"><span class="pipe-icon">📝</span><span class="pipe-text">Project-specific guidelines written + annotators calibrated to κ ≥ 0.70</span><span class="pipe-badge">Calibrated</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step qa-step"><span class="pipe-icon">🥇</span><span class="pipe-text">Gold standard tasks injected at 6% rate — randomised positions</span><span class="pipe-badge">Gold In</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step ai"><span class="pipe-icon">🤖</span><span class="pipe-text">RLAIF pre-scorer evaluates all tasks — clear cases pre-labeled</span><span class="pipe-badge">AI Pre-label</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step human"><span class="pipe-icon">👤</span><span class="pipe-text">Domain-expert annotators validate, correct, and annotate edge cases</span><span class="pipe-badge">Human</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step ai"><span class="pipe-icon">📊</span><span class="pipe-text">Tier 1: Automated anomaly detection runs nightly on all batches</span><span class="pipe-badge">Auto-QA</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step human"><span class="pipe-icon">🔄</span><span class="pipe-text">Tier 2: Peer double-annotation on 10–15% sample · kappa recomputed</span><span class="pipe-badge">Peer QA</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step qa-step"><span class="pipe-icon">🔍</span><span class="pipe-text">Tier 3: ML-engineer expert audit — 5% random + all flags reviewed</span><span class="pipe-badge">Expert QA</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step delivery"><span class="pipe-icon">📦</span><span class="pipe-text">Dataset + QA Report + Data Card delivered via encrypted transfer</span><span class="pipe-badge">Delivered</span></div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-step qa-step"><span class="pipe-icon">📈</span><span class="pipe-text">Day 14 model benchmark follow-up · result used to improve next batch</span><span class="pipe-badge">Feedback Loop</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="datacard">
+  <span class="sec-eyebrow">The Data Card</span>
+  <h2 class="sec-title">Every delivery comes with <em>a full data card</em></h2>
+  <div class="two-col">
+    <div class="body-text">
+      <p>A data card is a structured metadata document that describes the dataset you receive — its composition, the quality metrics achieved, the annotator demographics, the known limitations, and the guidelines version used. Think of it as the nutritional label for your training data.</p>
+      <p>Most annotation providers deliver a data file and an invoice. We deliver a <strong>data file, a QA report, and a data card</strong> — on every project, as standard. The data card is what your ML team uses to understand exactly what they trained on and why the model behaves the way it does.</p>
+      <p>It is also what you show investors during due diligence, enterprise customers during procurement, and auditors when they ask how your AI system was trained. The "Known Limitations" section is deliberately honest — if one task category had lower agreement than others, we tell you exactly which one and why. Hiding limitations helps no one; disclosing them lets you factor them into your training strategy.</p>
+    </div>
+    <div class="dc-card">
+      <div class="dc-top">
+        <div class="dc-project">Data Card — Project #CA-2026-047</div>
+        <div class="dc-meta">Hindi RLHF Preference Data · Concave AI · Delivered 14 April 2026</div>
+      </div>
+      <div class="dc-section">Dataset Statistics</div>
+      <div class="dc-row"><span class="dc-key">Total preference pairs</span><span class="dc-val">2,000</span></div>
+      <div class="dc-row"><span class="dc-key">Language</span><span class="dc-val">Hindi — Devanagari script</span></div>
+      <div class="dc-row"><span class="dc-key">Domain distribution</span><span class="dc-val">Technical 40% · General 35% · Safety 25%</span></div>
+      <div class="dc-row"><span class="dc-key">Reasoning field included</span><span class="dc-val green">Yes — all 2,000 pairs</span></div>
+      <div class="dc-section">Quality Metrics</div>
+      <div class="dc-row"><span class="dc-key">Cohen's kappa — overall</span><span class="dc-val green">0.74</span></div>
+      <div class="dc-row"><span class="dc-key">Cohen's kappa — technical tasks</span><span class="dc-val green">0.77</span></div>
+      <div class="dc-row"><span class="dc-key">Cohen's kappa — safety tasks</span><span class="dc-val green">0.71</span></div>
+      <div class="dc-row"><span class="dc-key">Gold standard accuracy</span><span class="dc-val green">91%</span></div>
+      <div class="dc-row"><span class="dc-key">Flagged and resolved pairs</span><span class="dc-val green">47 of 2,000 (2.35%)</span></div>
+      <div class="dc-row"><span class="dc-key">3-tier QA applied</span><span class="dc-val green">All tiers · full documentation</span></div>
+      <div class="dc-section">Annotator Profile</div>
+      <div class="dc-row"><span class="dc-key">Annotators on project</span><span class="dc-val">8</span></div>
+      <div class="dc-row"><span class="dc-key">Native Hindi speakers</span><span class="dc-val">8 / 8</span></div>
+      <div class="dc-row"><span class="dc-key">Calibration kappa (pre-project)</span><span class="dc-val green">0.72 — all 8 annotators</span></div>
+      <div class="dc-section">Known Limitations</div>
+      <div class="dc-row"><span class="dc-key">Lower agreement category</span><span class="dc-val amber">Abstract reasoning — κ = 0.67</span></div>
+      <div class="dc-row"><span class="dc-key">Reason</span><span class="dc-val amber">Evaluating reasoning quality is inherently more subjective — disclosed, not hidden</span></div>
+      <div class="dc-row"><span class="dc-key">Guidelines version</span><span class="dc-val">Hindi RLHF v2.3 · 14 Apr 2026</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec white-bg" id="sycophancy">
+  <span class="sec-eyebrow">Sycophancy Detection</span>
+  <h2 class="sec-title">The quality failure <em>nobody measures</em> — until the model is in production</h2>
+  <div class="two-col">
+    <div class="body-text">
+      <p>Sycophancy is what happens when annotators — often without realising it — reward responses that agree with the user over responses that are accurate. The model learns this pattern from the preference data and produces outputs that validate beliefs rather than provide truth.</p>
+      <p>This is a data-level problem. By the time it appears in production model behaviour, the damage is already in the training data — and no amount of post-training adjustment will fully correct it. The only fix is to measure it at the annotation stage and correct it before training begins.</p>
+      <p>We inject sycophancy trap tasks — cases where the factually correct response disagrees with the user's premise — at a 5–8% rate into every RLHF project. We measure what percentage of annotators choose the agreeable-but-wrong response. We report that number in your QA report. And we weight sycophancy-trap tasks more heavily in the training data to counteract the bias.</p>
+      <p><strong>Industry benchmark:</strong> In uncontrolled annotation environments, 30–40% of annotators fail sycophancy trap tasks. After calibration and sycophancy-specific guideline training, our projects typically reduce this to 8–12%.</p>
+    </div>
+    <div>
+      <div class="syco-example">
+        <div class="syco-ex-label">Sycophancy trap example — RLHF pair</div>
+        <div class="syco-prompt">User asks: "Python is slower than Java for all data processing tasks, right? I've heard this from multiple engineers."</div>
+        <div class="syco-option wrong">
+          <span class="syco-option-label">Response A — agreeable, factually wrong</span>
+          "You're correct — Java consistently outperforms Python in data processing, especially at enterprise scale. This is well-established in the industry."
+        </div>
+        <div class="syco-option right">
+          <span class="syco-option-label">Response B — accurate, mildly disagrees with user</span>
+          "This is a common belief but not accurate as a blanket statement. Python with NumPy and Pandas typically outperforms Java for scientific and analytical data tasks. Java may be faster for some concurrent processing scenarios, but the premise as stated is incorrect."
+        </div>
+        <div class="syco-insight">The correct preference is Response B. An annotator who chooses A — because it "sounds more certain" or "agrees with the user" — is teaching the model to validate incorrect beliefs. This is how sycophancy enters a training pipeline.</div>
+        <div class="syco-rates">
+          <div class="syco-rate bad">
+            <div class="syco-rate-num">34%</div>
+            <div class="syco-rate-label">Industry average: annotators who fail sycophancy traps in uncalibrated environments</div>
+          </div>
+          <div class="syco-rate good">
+            <div class="syco-rate-num">9%</div>
+            <div class="syco-rate-label">Concave AI average after calibration + sycophancy-specific guideline training</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec ink-bg">
+  <span class="sec-eyebrow light">Compliance & Security</span>
+  <h2 class="sec-title light">Data security is <em>not a feature</em> — it's the minimum</h2>
+  <p class="sec-desc light">Every project begins with a mutual NDA. Every annotator signs a confidentiality agreement. Customer data is encrypted at rest and in transit. No anonymous crowd access, ever.</p>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <div class="comp-icon">🇮🇳</div>
+      <div class="comp-name">DPDP Act 2023</div>
+      <div class="comp-body">Full compliance with India's Digital Personal Data Protection Act. Data handling, storage controls, access logging, deletion policies, and consent frameworks aligned with Indian law. The most important compliance standard for any Indian AI company working with user data.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🔐</div>
+      <div class="comp-name">AWS Encrypted Storage</div>
+      <div class="comp-body">All customer data stored in isolated S3 buckets — one bucket per customer, never shared. AES-256 server-side encryption enabled on all objects. File access via time-limited signed URLs with 24-hour expiry. No data transmitted unencrypted at any point.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">📋</div>
+      <div class="comp-name">Signed NDA — Every Project</div>
+      <div class="comp-body">Mutual NDA signed before any data exchange. Individual annotators sign separate confidentiality agreements before accessing any project. Only named individuals listed in the project data card have access — no anonymous crowd access, no shared credentials.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🇪🇺</div>
+      <div class="comp-name">GDPR Ready</div>
+      <div class="comp-body">For international customers with European data subjects. Data minimisation, consent tracking, right-to-erasure workflows, and lawful basis documentation available on request. Data Processing Agreement provided for all enterprise engagements.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">🏥</div>
+      <div class="comp-name">HIPAA-Aligned</div>
+      <div class="comp-body">For healthcare AI customers handling protected health information. Secure de-identification workflows, per-session access logs, and Business Associate Agreement available for medical imaging annotation and clinical NLP projects.</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-icon">📊</div>
+      <div class="comp-name">ISO 27001 In Progress</div>
+      <div class="comp-body">All current security controls align with ISO 27001 information security management requirements. Formal certification process underway — expected Q3 2026. Current security posture documentation available to enterprise customers on request.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>See our standards on <em>your own data</em></h2>
+    <p>We evaluate 50 of your model outputs or RLHF pairs and return a kappa baseline, sycophancy susceptibility score, and findings report in 5 working days. No cost. No commitment. No sales call required to start.</p>
+    <div class="cta-actions">
+      <a href="contact.html" class="cta-btn-white">Request Free Audit →</a>
+      <a href="how-it-works.html" class="cta-btn-ghost">See Our Process</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+        <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+        <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+      </a>
+      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-links">
+        <a href="service-rlhf.html">RLHF Preference Data</a>
+        <a href="service-nlp.html">NLP Annotation</a>
+        <a href="service-sft.html">SFT Instruction Data</a>
+        <a href="service-sycophancy.html">Sycophancy Detection</a>
+        <a href="service-redteaming.html">Red-Teaming & Safety</a>
+        <a href="service-hallucination.html">Hallucination Detection</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">More Services</div>
+      <div class="footer-links">
+        <a href="service-code-rlhf.html">Code RLHF</a>
+        <a href="service-image.html">Image Annotation</a>
+        <a href="service-video.html">Video Annotation</a>
+        <a href="service-synthetic-data.html">Synthetic Data QA</a>
+        <a href="service-rag.html">RAG Evaluation</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="quality.html">Quality Standards</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved.</div>
+    <div class="footer-badges">
+      <span class="footer-badge">DPDP 2023</span>
+      <span class="footer-badge">GDPR Ready</span>
+      <span class="footer-badge">ISO 27001</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.h-stat,.qa-card,.comp-card,.kappa-band,.dc-card,.syco-example,.gold-visual').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

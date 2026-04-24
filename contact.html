@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start a Conversation — Concave AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#763e1b;--border:rgba(10,10,10,0.12);--white:#ffffff;--error:#c0392b}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+
+/* ── FORM SECTION ── */
+.page-wrap{display:grid;grid-template-columns:1fr 1fr;margin-top:80px}
+.left-panel{background:var(--paper);padding:80px 64px;display:flex;flex-direction:column;justify-content:space-between;position:sticky;top:80px;height:calc(100vh - 80px);overflow:auto}
+.left-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:block}
+.left-panel h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,3.5vw,54px);letter-spacing:-2px;line-height:1.05;color:var(--ink);margin-bottom:20px}
+.left-panel h1 em{font-style:italic;color:var(--accent)}
+.left-panel>div>p{font-size:17px;color:var(--muted);line-height:1.68;font-weight:300;max-width:400px}
+.left-options{margin-top:40px;display:flex;flex-direction:column;gap:3px}
+.left-option{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:background .2s;cursor:default}
+.left-option:hover{background:var(--ink)}
+.left-option:hover .lo-title{color:var(--paper)}
+.left-option:hover .lo-body{color:var(--accent2)}
+.lo-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.lo-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.lo-body{font-size:12px;color:var(--muted);line-height:1.5}
+.left-trust{margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:10px}
+.trust-pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;padding:5px 11px;border:1px solid rgba(255,255,255,.12);border-radius:2px;color:rgba(255,255,255,.35);text-transform:uppercase}
+.right-panel{padding:80px 64px;background:var(--paper);overflow:auto}
+.form-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:12px}
+.form-header h2{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,42px);letter-spacing:-1.5px;line-height:1.05;margin-bottom:10px}
+.form-header h2 em{font-style:italic;color:var(--accent)}
+.form-header p{font-size:15px;color:var(--muted);font-weight:300;line-height:1.6;margin-bottom:40px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+label .req{color:var(--accent);margin-left:2px}
+input,select,textarea{font-family:'DM Sans',sans-serif;font-size:15px;color:var(--ink);background:var(--white);border:1px solid var(--border);border-radius:2px;padding:13px 15px;transition:border-color .2s,box-shadow .2s;outline:none;width:100%;-webkit-appearance:none;appearance:none}
+input::placeholder,textarea::placeholder{color:rgba(10,10,10,.3)}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(188,81,19,.08)}
+input.err,select.err,textarea.err{border-color:var(--error);box-shadow:0 0 0 3px rgba(192,57,43,.07)}
+textarea{resize:vertical;min-height:120px;line-height:1.55}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23763e1b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.form-section-label{grid-column:1/-1;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid var(--border);margin-top:6px}
+.checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:4px}
+.cb-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border:1px solid var(--border);border-radius:2px;background:var(--paper);cursor:pointer;transition:all .18s;position:relative}
+.cb-item:hover{border-color:var(--accent);background:rgba(188,81,19,.04)}
+.cb-item input[type="checkbox"]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.cb-box{width:17px;height:17px;border:1.5px solid var(--border);border-radius:2px;flex-shrink:0;background:var(--white);transition:all .18s;display:flex;align-items:center;justify-content:center}
+.cb-box svg{display:none;width:10px;height:10px}
+.cb-item.checked .cb-box{background:var(--accent);border-color:var(--accent)}
+.cb-item.checked .cb-box svg{display:block}
+.cb-item.checked{border-color:var(--accent);background:rgba(188,81,19,.06)}
+.cb-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.05em;color:var(--ink);cursor:pointer;line-height:1.3;text-transform:uppercase}
+.field-err{font-size:11px;color:var(--error);font-family:'Space Mono',monospace;margin-top:3px;display:none}
+.field-err.on{display:block}
+.submit-row{grid-column:1/-1;display:flex;align-items:center;gap:20px;margin-top:10px;flex-wrap:wrap}
+.btn-submit{background:var(--ink);color:var(--paper);padding:15px 34px;border-radius:2px;font-size:15px;font-weight:600;letter-spacing:.02em;border:none;cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:10px;font-family:'DM Sans',sans-serif}
+.btn-submit:hover{background:var(--accent)}
+.btn-submit:disabled{background:rgba(10,10,10,.3);cursor:not-allowed}
+.spinner{width:15px;height:15px;border:2px solid rgba(245,242,236,.3);border-top-color:var(--paper);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-submit.loading .spinner{display:block}
+.btn-submit.loading .btn-text{opacity:.7}
+@keyframes spin{to{transform:rotate(360deg)}}
+.submit-note{font-size:12px;color:var(--muted);line-height:1.5;font-weight:300}
+.sub-err{display:none;grid-column:1/-1;background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.2);border-radius:3px;padding:13px 16px;font-size:13px;color:var(--error);line-height:1.55}
+.sub-err.on{display:block}
+.form-success{display:none;text-align:center;padding:60px 32px}
+.form-success.on{display:block}
+.form-container.sent .form-grid{display:none}
+.suc-icon{font-size:52px;margin-bottom:20px}
+.suc-title{font-family:'DM Serif Display',serif;font-size:34px;letter-spacing:-1px;margin-bottom:12px}
+.suc-body{font-size:16px;color:var(--muted);line-height:1.65;max-width:400px;margin:0 auto 32px;font-weight:300}
+.suc-cta{display:inline-block;background:var(--ink);color:var(--paper);padding:13px 26px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.suc-cta:hover{background:var(--accent)}
+
+/* ── TICKER ── */
+.ticker{background:var(--ink);padding:14px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;animation:ticker 32s linear infinite}
+.ticker-item{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--accent2);padding:0 40px}
+.ticker-item::after{content:'·';margin-left:40px;color:var(--accent)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── WHAT HAPPENS NEXT ── */
+.sec{padding:100px 60px;border-bottom:1px solid var(--border)}
+.sec.white{background:var(--paper)}
+.sec.dark{background:var(--paper)}
+.sec.orange{background:var(--accent)}
+.sec-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;display:block}
+.sec-eyebrow.light{color:var(--accent)}
+.sec-eyebrow.white{color:rgba(255,255,255,.6)}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,52px);letter-spacing:-1.5px;line-height:1.05;margin-bottom:20px}
+.sec-title em{font-style:italic;color:var(--accent)}
+.sec-title.light{color:var(--ink)}
+.sec-title.light em{color:var(--accent)}
+.sec-desc{font-size:17px;color:var(--muted);max-width:600px;font-weight:300;line-height:1.65;margin-bottom:60px}
+.sec-desc.light{color:var(--muted)}
+
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.step-card{padding:40px 32px;position:relative;overflow:hidden}
+.step-card:last-child{border-right:none}
+.step-card:hover {background:var(--ink);}
+.step-card:hover .step-title{color:var(--paper);}
+.step-card:hover .step-body{color:var(--accent2);}
+.step-card:hover .step-num{color:var(--accent2);}
+.step-num{font-family:'DM Serif Display',serif;font-size:80px;color:var(--ink);position:absolute;top:10px;right:14px;line-height:1;letter-spacing:-3px}
+.step-icon{font-size:28px;margin-bottom:16px}
+.step-day{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+.step-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px;letter-spacing:-.3px;line-height:1.2}
+.step-body{font-size:13px;color:var(--muted);line-height:1.65}
+
+/* ── FAQ ── */
+.faq-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
+.faq-sticky{position:sticky;top:120px}
+.faq-list{display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:22px 0;cursor:pointer;gap:20px}
+.faq-q-text{font-family:'DM Serif Display',serif;font-size:20px;letter-spacing:-.3px;line-height:1.2;color:var(--ink);transition:color .2s}
+.faq-q:hover .faq-q-text{color:var(--accent)}
+.faq-icon{font-size:18px;color:var(--muted);flex-shrink:0;transition:transform .25s;font-family:'Space Mono',monospace;font-weight:700}
+.faq-a{font-size:15px;color:var(--muted);line-height:1.7;padding-bottom:22px;font-weight:300;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--accent)}
+
+/* ── DIRECT CONTACT ── */
+.contact-alts{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:60px}
+.contact-alt{padding:40px 32px;transition:background .2s}
+.contact-alt:last-child{border-right:none}
+.contact-alt:hover{background:var(--ink)}
+.contact-alt:hover .ca-title{color:var(--paper)}
+.contact-alt:hover .ca-body{color:var(--accent2)}
+.contact-alt:hover .ca-link{color:var(--accent2)}
+.ca-icon{font-size:32px;margin-bottom:16px}
+.ca-title{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px;letter-spacing:-.3px}
+.ca-body{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
+.ca-link{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;letter-spacing:.02em;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.ca-link:hover{gap:10px}
+
+/* ── LOCATION STRIP ── */
+.location-strip{padding:50px 60px;background:var(--paper) ;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.location-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.location-items{display:flex;gap:40px;flex-wrap:wrap}
+.location-item{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--muted)}
+.location-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+
+/* ── FOOTER ── */
+.footer-brand .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:16px}
+.footer-brand .nav-logo svg{width:30px;height:30px;flex-shrink:0}
+.footer-brand .logo-text{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white);font-weight:normal}
+.footer-brand .orange-ai{color:var(--accent2)}
+footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer-brand p{font-size:14px;color:var(--paper);opacity:.7;line-height:1.65;max-width:280px;margin-top:12px}
+.footer-wordmark{font-family:'DM Serif Display',serif;font-size:22px;color:var(--white)}
+.footer-wordmark em{font-style:italic;color:var(--accent2)}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:13px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:20px}
+.footer-links{display:flex;flex-direction:column;gap:12px}
+.footer-links a{font-size:14px;color:var(--paper);opacity:.8;text-decoration:none;transition:opacity .2s}
+.footer-links a:hover{opacity:1}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:13px;color:rgba(245,242,236,.4)}
+.footer-badges{display:flex;gap:10px;flex-wrap:wrap}
+.footer-badge{font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid rgba(255,255,255,.15);border-radius:2px;color:rgba(245,242,236,.5)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .page-wrap{grid-template-columns:1fr}
+  .left-panel{position:static;height:auto;padding:60px 40px}
+  .right-panel{padding:60px 40px}
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .step-card:nth-child(2){border-right:none}
+  .faq-layout{grid-template-columns:1fr}
+  .contact-alts{grid-template-columns:1fr}
+  .contact-alt{border-right:none;border-bottom:1px solid var(--border)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px}.nav-links{display:none}
+  .left-panel,.right-panel,.sec{padding-left:24px;padding-right:24px}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full,.form-section-label,.submit-row,.sub-err{grid-column:1}
+  .checkbox-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .step-card{border-right:none;border-bottom:1px solid var(--border)}
+  .location-strip{padding-left:24px;padding-right:24px}
+  footer{padding:60px 24px 32px}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="service-rlhf.html">RLHF Preference Data</a>
+        <a href="service-nlp.html">NLP Annotation</a>
+        <a href="service-sft.html">SFT Instruction Data</a>
+        <a href="service-sycophancy.html">Sycophancy Audits</a>
+        <a href="service-hallucination.html">Hallucination Detection</a>
+        <a href="service-redteaming.html">Red-Teaming</a>
+        <a href="service-code-rlhf.html">Code RLHF</a>
+        <a href="service-image.html">Image Annotation</a>
+        <a href="service-video.html">Video Annotation</a>
+        <a href="service-synthetic-data.html">Synthetic Data QA</a>
+        <a href="service-rag.html">RAG Evaluation</a>
+        <a href="service-retainer.html">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="industry-legal.html">Legal</a>
+        <a href="industry-finance.html">Finance &amp; BFSI</a>
+        <a href="industry-automative.html">Automotive &amp; AV</a>
+        <a href="industry-agriculture.html">Agriculture</a>
+        <a href="industry-genai.html">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="about.html">About Us</a>
+        <a href="quality.html">Quality Standards</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="contact.html" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     FORM SECTION
+════════════════════════════════════════ -->
+<div class="page-wrap">
+
+  <!-- LEFT VALUE PANEL -->
+  <div class="left-panel">
+    <div>
+      <span class="left-eyebrow">Get in touch · Concave AI</span>
+      <h1>Let's look at your <em>model data</em> together</h1>
+      <p>Tell us about your AI model and annotation needs. We respond within one working day with a specific plan — or a free diagnostic on 50 of your outputs.</p>
+      <div class="left-options">
+        <div class="left-option">
+          <span class="lo-icon">🔍</span>
+          <div><div class="lo-title">Free model diagnosis</div><div class="lo-body">50 outputs evaluated. Sycophancy susceptibility score and hallucination rate back in 5 working days. No cost, no commitment.</div></div>
+        </div>
+        <div class="left-option">
+          <span class="lo-icon">📊</span>
+          <div><div class="lo-title">Annotation project pilot</div><div class="lo-body">A small scoped pilot — 200 RLHF pairs or 500 NLP documents — so you can verify our quality before committing.</div></div>
+        </div>
+        <div class="left-option">
+          <span class="lo-icon">🔄</span>
+          <div><div class="lo-title">Continuous evaluation retainer</div><div class="lo-body">Standing expert team evaluating live model outputs weekly. Monthly retraining batch included. For enterprise GenAI in production.</div></div>
+        </div>
+        <div class="left-option">
+          <span class="lo-icon">⚙️</span>
+          <div><div class="lo-title">Custom pipeline design</div><div class="lo-body">We design your full RLAIF + human QA annotation pipeline before a single task is run.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="left-trust">
+      <span class="trust-pill">DPDP 2023</span>
+      <span class="trust-pill">GDPR Ready</span>
+      <span class="trust-pill">AWS Encrypted</span>
+      <span class="trust-pill">NDA Every Project</span>
+      <span class="trust-pill">Published κ Scores</span>
+      <span class="trust-pill">Vendor Neutral</span>
+      <span class="trust-pill">Bengaluru, India</span>
+    </div>
+  </div>
+
+  <!-- RIGHT FORM PANEL -->
+  <div class="right-panel">
+    <div class="form-header">
+      <span class="form-eyebrow">Contact form</span>
+      <h2>Start the <em>conversation</em></h2>
+      <p>Fill in the details below and we will respond within one working day. All information is kept confidential under our standard NDA.</p>
+    </div>
+
+    <div class="form-container" id="formContainer">
+
+      <!-- SUCCESS STATE -->
+      <div class="form-success" id="formSuccess">
+        <div class="suc-icon">✅</div>
+        <div class="suc-title">Enquiry received</div>
+        <div class="suc-body">Our ML team will review your details and respond within one working day. If you selected the free audit, we will reach out to arrange a secure data transfer.</div>
+        <a href="index.html" class="suc-cta">Back to Concave AI →</a>
+      </div>
+
+      <!--
+      ══════════════════════════════════════════════════════
+      FORMSPREE SETUP — 3 steps:
+      1. Create free account at https://formspree.io
+      2. Create a new form → copy your Form ID (e.g. xpwzabcd)
+      3. Replace YOUR_FORMSPREE_ID below with your actual ID
+      Free tier: 50 submissions/month
+      ══════════════════════════════════════════════════════
+      -->
+      <form id="leadForm" action="https://formspree.io/aniketnerali16@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New lead — Concave AI">
+        <input type="text" name="_gotcha" style="display:none">
+
+        <div class="form-grid">
+
+          <div class="form-section-label">About you</div>
+
+          <div class="form-group">
+            <label for="firstName">First name <span class="req">*</span></label>
+            <input type="text" id="firstName" name="first_name" placeholder="Anika" autocomplete="given-name">
+            <div class="field-err" id="e-fn">Please enter your first name</div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last name <span class="req">*</span></label>
+            <input type="text" id="lastName" name="last_name" placeholder="Sharma" autocomplete="family-name">
+            <div class="field-err" id="e-ln">Please enter your last name</div>
+          </div>
+          <div class="form-group">
+            <label for="email">Work email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="anika@company.ai" autocomplete="email">
+            <div class="field-err" id="e-em">Please enter a valid email address</div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" autocomplete="tel">
+          </div>
+
+          <div class="form-section-label">Your company</div>
+
+          <div class="form-group">
+            <label for="company">Company name <span class="req">*</span></label>
+            <input type="text" id="company" name="company_name" placeholder="Sarvam AI" autocomplete="organization">
+            <div class="field-err" id="e-co">Please enter your company name</div>
+          </div>
+          <div class="form-group">
+            <label for="role">Your role</label>
+            <input type="text" id="role" name="role" placeholder="Head of AI / ML Lead / CTO">
+          </div>
+          <div class="form-group full">
+            <label for="companySize">Company size</label>
+            <select id="companySize" name="company_size">
+              <option value="" disabled selected>Select company size</option>
+              <option>1–10 people (early stage)</option>
+              <option>11–50 people (startup)</option>
+              <option>51–200 people (growth stage)</option>
+              <option>201–500 people (scale-up)</option>
+              <option>500+ people (enterprise)</option>
+            </select>
+          </div>
+
+          <div class="form-section-label">What you need</div>
+
+          <div class="form-group full">
+            <label>Services interested in <span class="req">*</span></label>
+            <div class="checkbox-grid" id="svcGrid">
+              <label class="cb-item"><input type="checkbox" name="svc_rlhf" value="RLHF Preference Data"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">RLHF Preference Data</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_nlp" value="NLP Annotation"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">NLP Annotation</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_sft" value="SFT Instruction Data"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">SFT Instruction Data</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_syco" value="Sycophancy Audit"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Sycophancy Audit</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_hall" value="Hallucination Detection"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Hallucination Detection</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_red" value="Red-Teaming &amp; Safety"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Red-Teaming &amp; Safety</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_code" value="Code RLHF"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Code RLHF</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_img" value="Image Annotation"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Image Annotation</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_vid" value="Video Annotation"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Video Annotation</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_rag" value="RAG Evaluation"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">RAG Evaluation</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_ret" value="Continuous Retainer"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Continuous Retainer</span></label>
+              <label class="cb-item"><input type="checkbox" name="svc_ns" value="Not sure yet"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">Not sure yet</span></label>
+            </div>
+            <div class="field-err" id="e-svc">Please select at least one service</div>
+          </div>
+
+          <div class="form-group full">
+            <label for="industry">Industry / Domain</label>
+            <select id="industry" name="industry">
+              <option value="" disabled selected>Select your industry (optional)</option>
+              <option>AI / ML Startup</option>
+              <option>Legal</option>
+              <option>Finance &amp; BFSI</option>
+              <option>Healthcare</option>
+              <option>Automotive / AV</option>
+              <option>Agriculture</option>
+              <option>Enterprise GenAI</option>
+              <option>Technology</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="budget">Estimated budget</label>
+            <select id="budget" name="budget">
+              <option value="" disabled selected>Select a range (optional)</option>
+              <option>Under ₹3L — exploring</option>
+              <option>₹3L – ₹10L</option>
+              <option>₹10L – ₹25L</option>
+              <option>₹25L – ₹75L</option>
+              <option>₹75L+ (enterprise)</option>
+              <option>Monthly retainer — flexible</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="timeline">When to start?</label>
+            <select id="timeline" name="timeline">
+              <option value="" disabled selected>Select a timeline (optional)</option>
+              <option>As soon as possible</option>
+              <option>Within 2 weeks</option>
+              <option>Within 1 month</option>
+              <option>Within 3 months</option>
+              <option>Just exploring for now</option>
+            </select>
+          </div>
+
+          <div class="form-section-label">Project details</div>
+
+          <div class="form-group full">
+            <label for="description">Project description <span class="req">*</span></label>
+            <textarea id="description" name="project_description" placeholder="Describe your AI model, what data you need annotated, any quality problems you are experiencing, approximate volume, and any specific domain or language requirements. The more context you give us, the more specific we can be in our response."></textarea>
+            <div class="field-err" id="e-desc">Please describe your project (at least 20 characters)</div>
+          </div>
+
+          <div class="form-group full">
+            <label for="howFound">How did you find us?</label>
+            <select id="howFound" name="how_found">
+              <option value="" disabled selected>Select (optional)</option>
+              <option>LinkedIn</option>
+              <option>Google search</option>
+              <option>Referral from a colleague</option>
+              <option>Conference or event</option>
+              <option>Article or blog post</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="sub-err" id="subErr">Something went wrong. Please try again or email us at <strong>hello@concave.ai</strong></div>
+
+          <div class="submit-row">
+            <button type="submit" class="btn-submit" id="submitBtn">
+              <span class="btn-text">Send enquiry →</span>
+              <div class="spinner"></div>
+            </button>
+            <p class="submit-note">We respond within one working day.<br>All enquiries covered by our NDA.</p>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ═══════════════════════════════════════
+     TICKER
+════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Response within 1 working day</span>
+    <span class="ticker-item">Free 50-output diagnosis</span>
+    <span class="ticker-item">NDA before any data exchange</span>
+    <span class="ticker-item">DPDP Act 2023 compliant</span>
+    <span class="ticker-item">Published kappa scores</span>
+    <span class="ticker-item">ML-engineer led quality</span>
+    <span class="ticker-item">Bengaluru, India</span>
+    <span class="ticker-item">8 Indic languages</span>
+    <span class="ticker-item">Response within 1 working day</span>
+    <span class="ticker-item">Free 50-output diagnosis</span>
+    <span class="ticker-item">NDA before any data exchange</span>
+    <span class="ticker-item">DPDP Act 2023 compliant</span>
+    <span class="ticker-item">Published kappa scores</span>
+    <span class="ticker-item">ML-engineer led quality</span>
+    <span class="ticker-item">Bengaluru, India</span>
+    <span class="ticker-item">8 Indic languages</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     WHAT HAPPENS NEXT
+════════════════════════════════════════ -->
+<section class="sec white">
+  <span class="sec-eyebrow">What Happens Next</span>
+  <h2 class="sec-title">From enquiry to <em>first delivery</em> in four steps</h2>
+  <p class="sec-desc">Here is exactly what happens after you submit this form — no black boxes, no sales runaround.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-icon">📬</div>
+      <div class="step-day">Within 1 working day</div>
+      <div class="step-title">We review your enquiry and respond</div>
+      <div class="step-body">Our ML engineer reviews your project description personally and replies with specific questions, a rough scope estimate, and — if you selected the free audit — instructions for sending us 50 model outputs securely.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-icon">📋</div>
+      <div class="step-day">Days 2–4</div>
+      <div class="step-title">Scoping call + Scope of Work</div>
+      <div class="step-body">A 30-minute call to clarify your requirements — task type, data format, volume, quality threshold, delivery format, and timeline. We then produce a detailed Scope of Work document with exact pricing before anything begins. No surprises.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-icon">🔏</div>
+      <div class="step-day">Days 4–6</div>
+      <div class="step-title">NDA signed + data transfer</div>
+      <div class="step-body">Mutual NDA executed before any data moves. Your data arrives in an encrypted, isolated S3 bucket — named access only. We set up Label Studio, write your project-specific annotation guidelines, and run annotator calibration. Cohen's kappa ≥ 0.70 before annotation begins.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-icon">📦</div>
+      <div class="step-day">Project completion + Day 14</div>
+      <div class="step-title">Delivery with QA report + data card</div>
+      <div class="step-body">Dataset delivered with a full QA report (kappa scores, gold standard accuracy, batch error log) and a data card. Two weeks later we follow up for your model benchmark result. If the data does not improve your model, we investigate and re-deliver at no cost.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FAQ
+════════════════════════════════════════ -->
+<section class="sec">
+  <div class="faq-layout">
+    <div class="faq-sticky">
+      <span class="sec-eyebrow">FAQ</span>
+      <h2 class="sec-title">Questions before <em>reaching out?</em></h2>
+      <p style="font-size:16px;color:var(--muted);line-height:1.7;margin-top:16px;font-weight:300;max-width:340px">The most common questions we receive before a first conversation. If yours is not here, email us at <a href="mailto:hello@concave.ai" style="color:var(--accent);text-decoration:none">hello@concave.ai</a></p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What does the free audit actually involve?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">You send us 50 model outputs or RLHF preference pairs — securely, via a signed URL to an encrypted S3 bucket. We evaluate them for sycophancy susceptibility and/or hallucination rate depending on what you need. You receive a 1-page findings report within 5 working days. No cost. No sales call required beforehand. No obligation to engage further. If the finding is not interesting, you have lost nothing. If it is, we discuss next steps.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What is the minimum project size?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">For RLHF preference data: 500 pairs minimum. For NLP annotation: 300 documents minimum. For image annotation: 500 images minimum. For evaluation audits (sycophancy, hallucination, red-teaming): these are fixed-scope projects with no minimum volume requirement — we scope them based on your model and risk profile. We do not have a minimum spend threshold.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How do you handle data confidentiality?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">A mutual NDA is signed before any data exchange. Your data is stored in an isolated, encrypted S3 bucket — one bucket per client, never shared. Access is restricted to named individuals listed in your project data card. Every annotator signs an individual confidentiality agreement before they see any task. We are DPDP Act 2023 compliant for Indian data, GDPR-ready for European data, and HIPAA-aligned for healthcare data. After delivery, data is deleted from our systems on your request.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">How long does a typical project take?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">After the Scope of Work is signed: scoping and guidelines take 3–5 days. Calibration takes 2–3 days. Annotation time depends on volume — typically 1,000 RLHF pairs take 5–8 working days of annotation, 5,000 NLP documents take 7–10 days. QA and delivery adds 2–3 days. Total from signed SOW to delivery: typically 2–4 weeks depending on volume and complexity. We include a project timeline in every SOW.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">What quality guarantee do you offer?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">We guarantee a Cohen's kappa inter-annotator agreement score of ≥ 0.70 on every delivery. If a batch falls below this threshold, we recalibrate and re-annotate the affected tasks at no cost. Every delivery includes a QA report with the actual kappa score, gold standard pass rates, and batch error log — so you can verify the quality claim yourself rather than taking our word for it. Two weeks post-delivery, we follow up for your model benchmark result. If the data did not produce the expected improvement, we investigate and re-deliver.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Do you work with Indian AI startups or only large enterprises?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Both — and our pricing is designed to work for both. Indian AI startups at Seed and Series A stage are our core ICP. We have project-based pricing starting at ₹3L that works for teams that need 500 RLHF pairs on a startup budget. We also work with MNC India AI labs and enterprise teams deploying GenAI products, where projects are larger and often convert to monthly retainers. The free audit is available to everyone regardless of company size.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">Can you annotate in Indian languages?</span>
+          <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-a">Yes — this is one of our core capabilities. We maintain native-speaker annotator pools for Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, and Gujarati. For RLHF annotation in Indian languages, our annotators are not just native speakers but also culturally aware of communication norms specific to each language — which affects how sycophancy, politeness, and directness are interpreted in preference data. We also provide cultural context notes in guidelines for cross-language annotation consistency.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     DIRECT CONTACT ALTERNATIVES
+════════════════════════════════════════ -->
+<section class="sec white">
+  <span class="sec-eyebrow">Other Ways to Reach Us</span>
+  <h2 class="sec-title">Prefer a more <em>direct conversation?</em></h2>
+  <p class="sec-desc">Not ready to fill a form? Reach out directly through any of the channels below.</p>
+  <div class="contact-alts">
+    <div class="contact-alt">
+      <div class="ca-icon">📧</div>
+      <div class="ca-title">Email directly</div>
+      <div class="ca-body">For general enquiries, data security questions, or if you want to share a large data sample before committing to a form submission.</div>
+      <a href="mailto:hello@concave.ai" class="ca-link">hello@concave.ai →</a>
+    </div>
+    <div class="contact-alt">
+      <div class="ca-icon">💼</div>
+      <div class="ca-title">LinkedIn</div>
+      <div class="ca-body">Connect with our founder directly on LinkedIn for a technical peer conversation about your annotation challenge — no sales pitch, just a genuine ML discussion.</div>
+      <a href="https://linkedin.com" target="_blank" class="ca-link">Connect on LinkedIn →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     LOCATION STRIP
+════════════════════════════════════════ -->
+<div class="location-strip">
+  <div class="location-label">Concave AI · Bengaluru, India</div>
+  <div class="location-items">
+    <div class="location-item"><span class="location-dot"></span>DPDP Act 2023 Compliant</div>
+    <div class="location-item"><span class="location-dot"></span>GDPR Ready</div>
+    <div class="location-item"><span class="location-dot"></span>AWS Encrypted Storage</div>
+    <div class="location-item"><span class="location-dot"></span>NDA on Every Project</div>
+    <div class="location-item"><span class="location-dot"></span>8 Indic Languages</div>
+    <div class="location-item"><span class="location-dot"></span>Vendor Neutral · Founder-Owned</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+        <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+      </a>
+      <p>ML-engineer-led AI data annotation and alignment. RLHF, NLP, SFT, and GenAI evaluation data with published quality metrics. Built in Bengaluru for India's AI ecosystem.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-links">
+        <a href="service-rlhf.html">RLHF Preference Data</a>
+        <a href="service-nlp.html">NLP Annotation</a>
+        <a href="service-sft.html">SFT Instruction Data</a>
+        <a href="service-sycophancy.html">Sycophancy Audits</a>
+        <a href="service-hallucination.html">Hallucination Detection</a>
+        <a href="service-redteaming.html">Red-Teaming</a>
+        <a href="service-code-rlhf.html">Code RLHF</a>
+        <a href="service-image.html">Image Annotation</a>
+        <a href="service-video.html">Video Annotation</a>
+        <a href="service-synthetic-data.html">Synthetic Data QA</a>
+        <a href="service-rag.html">RAG Evaluation</a>
+        <a href="service-retainer.html">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Industries</div>
+      <div class="footer-links">
+        <a href="#industries">Healthcare</a>
+        <a href="industry-legal.html">Legal</a>
+        <a href="industry-finance.html">Finance &amp; BFSI</a>
+        <a href="industry-automative.html">Automotive &amp; AV</a>
+        <a href="industry-agriculture.html">Agriculture</a>
+        <a href="industry-genai.html">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="quality.html">Quality Standards</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+    <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-badges">
+      <div class="footer-badge">DPDP Compliant</div>
+      <div class="footer-badge">GDPR Ready</div>
+      <div class="footer-badge">AWS Secured</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+
+// Checkbox visual toggle
+document.querySelectorAll('.cb-item input[type="checkbox"]').forEach(cb=>{
+  cb.addEventListener('change',function(){
+    this.closest('.cb-item').classList.toggle('checked',this.checked);
+  });
+});
+
+// FAQ accordion
+function toggleFaq(el){
+  const item=el.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// Validation helpers
+function setErr(id,errId,show){
+  const f=document.getElementById(id),e=document.getElementById(errId);
+  if(f) f.classList.toggle('err',show);
+  if(e) e.classList.toggle('on',show);
+}
+
+['firstName','lastName','email','company','description'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el) el.addEventListener('input',()=>{
+    const map={firstName:'e-fn',lastName:'e-ln',email:'e-em',company:'e-co',description:'e-desc'};
+    setErr(id,map[id],false);
+  });
+});
+
+function validate(){
+  let ok=true;
+  const fn=document.getElementById('firstName').value.trim();
+  const ln=document.getElementById('lastName').value.trim();
+  const em=document.getElementById('email').value.trim();
+  const co=document.getElementById('company').value.trim();
+  const desc=document.getElementById('description').value.trim();
+  const anySvc=[...document.querySelectorAll('#svcGrid input[type="checkbox"]')].some(c=>c.checked);
+
+  setErr('firstName','e-fn',!fn); if(!fn) ok=false;
+  setErr('lastName','e-ln',!ln); if(!ln) ok=false;
+  setErr('email','e-em',!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)); if(!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) ok=false;
+  setErr('company','e-co',!co); if(!co) ok=false;
+  document.getElementById('e-svc').classList.toggle('on',!anySvc); if(!anySvc) ok=false;
+  setErr('description','e-desc',!desc||desc.length<20); if(!desc||desc.length<20) ok=false;
+
+  return ok;
+}
+
+// Form submit
+document.getElementById('leadForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  if(!validate()){
+    const first=document.querySelector('.err,.field-err.on');
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const btn=document.getElementById('submitBtn');
+  const subErr=document.getElementById('subErr');
+  btn.disabled=true; btn.classList.add('loading'); subErr.classList.remove('on');
+  try{
+    const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
+    if(res.ok){
+      document.getElementById('formContainer').classList.add('sent');
+      document.getElementById('formSuccess').classList.add('on');
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else throw new Error();
+  }catch{
+    btn.disabled=false; btn.classList.remove('loading'); subErr.classList.add('on');
+    subErr.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+});
+
+// Animate on scroll
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});
+},{threshold:0.08});
+document.querySelectorAll('.step-card,.contact-alt').forEach(el=>{
+  el.style.opacity='0'; el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+  io.observe(el);
+});
+</script>
+</body>
+</html>

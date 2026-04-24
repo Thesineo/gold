@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RLHF Preference Data | Concave AI</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        :root { --accent: #FF5C00; --paper: #F8F8F6; --ink: #1a1a1a; }
+        body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; padding-top: 100px; }
+        .hero-inner { padding: 60px; max-width: 1200px; margin: 0 auto; }
+        h1 { font-family: 'DM Serif Display', serif; font-size: 64px; margin-bottom: 20px; line-height: 1.1; }
+        .highlight { color: var(--accent); font-style: italic; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; }
+        .feature-box { border: 1px solid rgba(0,0,0,0.1); padding: 30px; border-radius: 4px; }
+        .cta-btn { background: var(--ink); color: white; padding: 15px 30px; text-decoration: none; display: inline-block; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="hero-inner">
+        <a href="index.html" style="text-decoration: none; color: var(--accent);">← Back to Home</a>
+        <h1>Expert-Vetted <span class="highlight">RLHF</span> Preference Data</h1>
+        <p style="font-size: 20px; max-width: 700px;">We provide high-quality pairwise response ranking for LLM training. Our domain-specialist annotators evaluate helpfulness, safety, and cultural appropriateness.</p>
+        
+        <div class="grid">
+            <div class="feature-box">
+                <h3>Pairwise Ranking</h3>
+                <p>Detailed comparison of model outputs to establish a clear reward signal for PPO or DPO pipelines.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Structured Reasoning</h3>
+                <p>Every label includes a "Chain of Thought" justification, explaining why one response outperformed the other.</p>
+            </div>
+        </div>
+        <a href="contact.html" class="cta-btn">Start RLHF Project</a>
+    </div>
+</body>
+</html>
