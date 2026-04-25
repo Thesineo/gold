@@ -329,9 +329,11 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       Free tier: 50 submissions/month
       ══════════════════════════════════════════════════════
       -->
-      <form id="leadForm" action="https://formspree.io/aniketnerali16@gmail.com" method="POST" novalidate>
+      <form id="leadForm" action="https://formsubmit.co/ajax/aniketnerali16@gmail.com" method="POST" novalidate>
         <input type="hidden" name="_subject" value="New lead — Concave AI">
-        <input type="text" name="_gotcha" style="display:none">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 
         <div class="form-grid">
 
@@ -462,7 +464,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
             </select>
           </div>
 
-          <div class="sub-err" id="subErr">Something went wrong. Please try again or email us at <strong>hello@concave.ai</strong></div>
+          <div class="sub-err" id="subErr">Something went wrong. Please try again or email us directly at <strong>aniketnerali16@gmail.com</strong></div>
 
           <div class="submit-row">
             <button type="submit" class="btn-submit" id="submitBtn">
@@ -770,7 +772,8 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   btn.disabled=true; btn.classList.add('loading'); subErr.classList.remove('on');
   try{
     const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    if(res.ok){
+    const data=await res.json();
+    if(res.ok && data.success){
       document.getElementById('formContainer').classList.add('sent');
       document.getElementById('formSuccess').classList.add('on');
       window.scrollTo({top:0,behavior:'smooth'});
