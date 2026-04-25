@@ -772,12 +772,12 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   btn.disabled=true; btn.classList.add('loading'); subErr.classList.remove('on');
   try{
     const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    const data=await res.json();
-    if(res.ok && data.success){
+    const data=await res.json().catch(()=>({}));
+    if(res.ok && (data.success==='true'||data.success===true)){
       document.getElementById('formContainer').classList.add('sent');
       document.getElementById('formSuccess').classList.add('on');
       window.scrollTo({top:0,behavior:'smooth'});
-    } else throw new Error();
+    } else throw new Error(data.message||'failed');
   }catch{
     btn.disabled=false; btn.classList.remove('loading'); subErr.classList.add('on');
     subErr.scrollIntoView({behavior:'smooth',block:'center'});
