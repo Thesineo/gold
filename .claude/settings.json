@@ -5,7 +5,11 @@
       "Bash(python3 -c ' *)",
       "Bash(git remote *)",
       "Bash(git push *)",
-      "Read(//home/aniketnerali16/**)"
+      "Read(//home/aniketnerali16/**)",
+      "Bash(git -C /home/aniketnerali16/gold status)",
+      "Bash(git -C /home/aniketnerali16/gold log --oneline -3)",
+      "Bash(git -C /home/aniketnerali16/gold log origin/main..HEAD --oneline)",
+      "Bash(git -C /home/aniketnerali16/gold status -sb)"
     ]
   }
 }
