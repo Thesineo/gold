@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://theconcaveai.com/</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Service Pages (From your navigation menu) -->
+  <url><loc>https://theconcaveai.com/service-rlhf.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-nlp.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-sft.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-sycophancy.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-hallucination.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-redteaming.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-code-rlhf.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-image.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-video.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-synthetic-data.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-rag.html</loc></url>
+  <url><loc>https://theconcaveai.com/service-retainer.html</loc></url>
+
+  <!-- Industry Pages -->
+  <url><loc>https://theconcaveai.com/industry-legal.html</loc></url>
+  <url><loc>https://theconcaveai.com/industry-finance.html</loc></url>
+  <url><loc>https://theconcaveai.com/industry-automotive.html</loc></url>
+  <url><loc>https://theconcaveai.com/industry-agriculture.html</loc></url>
+  <url><loc>https://theconcaveai.com/industry-genai.html</loc></url>
+
+
+  <!--Company Pages-->
+  <url><loc>https://theconcaveai.com/about</loc></url>
+  <url><loc>https://theconcaveai.com/quality</loc></url>
+  <url><loc>https://theconcaveai.com/how-it-works</loc></url>
+  <url><loc>https://theconcaveai.com/contact</loc></url>
+
+</urlset>
