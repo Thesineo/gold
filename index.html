@@ -275,6 +275,47 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .img-trio-cell:hover img{transform:scale(1.05)}
 .img-trio-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(245,242,236,0.92),transparent);color:var(--muted);padding:28px 20px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase}
 
+/* 1. Basic Hamburger Styling */
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--accent); /* Uses your accent color from the image */
+  border-radius: 2px;
+}
+
+/* 2. Mobile Responsive Rules */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; /* Show button on mobile */
+  }
+
+  .nav-links {
+    display: none; /* Hide links by default on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: var(--paper);
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  /* When the 'active' class is added via JS, show the menu */
+  .nav-links.active {
+    display: flex;
+  }
+}
+
 /* ANNOTATION STUDIO ANIMATIONS */
 @keyframes ann-pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(0,184,148,0.4)}50%{box-shadow:0 0 0 5px rgba(0,184,148,0)}}
 @keyframes ann-pulse-amber{0%,100%{opacity:1}50%{opacity:0.3}}
@@ -322,6 +363,14 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
     <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
   </a>
+
+  <!-- The Hamburger Button -->
+  <button class="menu-toggle" aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button> 
+
   <div class="nav-links">
     <div class="nav-item">
       <a href="#">Services</a>
@@ -1467,6 +1516,14 @@ document.querySelectorAll('.svc-card,.ind-card,.how-step,.diff-item,.price-card'
   }
   tick();
 })();
+// This waits for the button to be clicked
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      menuToggle.addEventListener('click', () => {
+        // This 'toggles' the active class to show/hide the menu
+        navLinks.classList.toggle('active');
+      });
 </script>
 </body>
 </html>
