@@ -226,18 +226,13 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 
 /* ── HAMBURGER MENU ── */
-.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:101}
-.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block;transition:all 0.3s}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
 @media(max-width:768px){
   .menu-toggle{display:flex}
-  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(10,10,10,0.12);border-bottom:1px solid var(--border);z-index:100;gap:0}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}
   .nav-links.active{display:flex}
-  .nav-item{width:100%}
-  .nav-item>a{font-size:18px;padding:12px 0;border-bottom:1px solid var(--border);width:100%}
-  .nav-item>a::after{display:none}
-  .nav-dropdown{display:block!important;position:static;box-shadow:none;border:none;border-left:2px solid var(--border);margin-left:12px;padding-left:4px;margin-bottom:4px}
-  .nav-dropdown a{font-size:13px;padding:8px 12px;border-bottom:none;color:var(--muted)}
-  .nav-cta{margin-top:12px;text-align:center;display:block;padding:12px 22px}
+  .nav-cta{margin-top:8px;text-align:center;display:block}
 }
 </style>
 </head>
