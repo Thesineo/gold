@@ -239,6 +239,21 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .page-hero .btn-outline:hover{border-color:#fff;color:#fff}
 .page-hero .btn-primary{background:var(--accent)}
 
+
+/* ── HAMBURGER MENU ── */
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:101}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block;transition:all 0.3s}
+@media(max-width:768px){
+  .menu-toggle{display:flex}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(10,10,10,0.12);border-bottom:1px solid var(--border);z-index:100;gap:0}
+  .nav-links.active{display:flex}
+  .nav-item{width:100%}
+  .nav-item>a{font-size:18px;padding:12px 0;border-bottom:1px solid var(--border);width:100%}
+  .nav-item>a::after{display:none}
+  .nav-dropdown{display:block!important;position:static;box-shadow:none;border:none;border-left:2px solid var(--border);margin-left:12px;padding-left:4px;margin-bottom:4px}
+  .nav-dropdown a{font-size:13px;padding:8px 12px;border-bottom:none;color:var(--muted)}
+  .nav-cta{margin-top:12px;text-align:center;display:block;padding:12px 22px}
+}
 </style>
 </head>
 <body>
@@ -247,6 +262,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
     <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
   </a>
+  <!-- Hamburger -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
   <div class="nav-links">
     <div class="nav-item">
       <a href="#">Services</a>
@@ -655,5 +676,20 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});},{threshold:0.08});
 document.querySelectorAll('.hero-fact,.why-card,.problem-card,.stat-box').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';observer.observe(el);});
 window.addEventListener('scroll',()=>{document.querySelector('nav').style.boxShadow=window.scrollY>20?'0 1px 28px rgba(0,0,0,0.08)':'none';});
+
+// Hamburger menu toggle
+(function(){
+  var btn=document.getElementById('menuToggle');
+  var nav=document.querySelector('.nav-links');
+  if(btn&&nav){
+    btn.addEventListener('click',function(){
+      nav.classList.toggle('active');
+      btn.setAttribute('aria-label', nav.classList.contains('active') ? 'Close Menu' : 'Open Menu');
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!nav.contains(e.target)){nav.classList.remove('active')}
+    });
+  }
+})();
 </script>
 </body></html>
