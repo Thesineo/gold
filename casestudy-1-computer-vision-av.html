@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond the Box — Precision Annotation for 80% Occluded Objects in Urban Traffic Scenes · Concave AI</title>
+<meta name="description" content="Auto-labeling tools achieve 92% accuracy on clearly visible objects. On objects that are 60–80% occluded, that accuracy drops to 38%. A methodology demonstration of human-in-the-loop annotation for ADAS and autonomous vehicle perception.">
+<meta property="og:title" content="Beyond the Box — Precision Annotation for Heavily Occluded Objects in Urban Traffic Scenes">
+<meta property="og:url" content="https://theconcaveai.com/casestudy-1-computer-vision-av.html">
+<link rel="canonical" href="https://theconcaveai.com/casestudy-1-computer-vision-av.html">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#5a4a3a;--border:rgba(10,10,10,0.1);--white:#ffffff;--green:#1a784a;--red:#a32d2d;--amber:#b58a10}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* HERO */
+.article-hero{position:relative;min-height:72vh;display:flex;align-items:flex-end;padding:0 60px 80px;overflow:hidden}
+.article-hero-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(245,242,236,0.05) 0%,rgba(10,10,10,0.75) 100%),url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&q=85');background-size:cover;background-position:center}
+.article-hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none}
+.article-hero-inner{position:relative;z-index:2;max-width:780px}
+.article-hero-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;transition:color .2s}
+.article-hero-back:hover{color:white}
+.article-hero-tags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.article-hero-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:2px;color:rgba(255,255,255,0.7);text-transform:uppercase}
+.article-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,4.5vw,58px);line-height:1.06;letter-spacing:-2px;color:var(--white);margin-bottom:20px}
+.article-hero h1 em{font-style:italic;color:var(--accent2)}
+.article-meta{font-size:14px;color:rgba(255,255,255,0.5);display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.article-meta-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.3)}
+
+/* LAYOUT */
+.article-layout{display:grid;grid-template-columns:1fr 400px;gap:80px;padding:80px 60px 60px;align-items:start}
+.article-wrap{padding:0}
+.article-sidebar{position:sticky;top:100px;display:flex;flex-direction:column;gap:28px}
+.sidebar-img{border-radius:6px;overflow:hidden;height:480px;background-size:cover;background-position:center}
+.sidebar-fact{background:var(--ink);border-radius:6px;padding:28px}
+.sidebar-fact-num{font-family:'DM Serif Display',serif;font-size:52px;letter-spacing:-2px;color:var(--accent);line-height:1;margin-bottom:8px}
+.sidebar-fact-label{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55}
+.sidebar-caption{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.5;border-top:1px solid var(--border);padding-top:12px}
+
+/* ARTICLE TYPOGRAPHY */
+.article-wrap h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,36px);letter-spacing:-1px;line-height:1.1;margin:56px 0 20px;color:var(--ink)}
+.article-wrap h2 em{font-style:italic;color:var(--accent)}
+.article-wrap h3{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px;margin:40px 0 12px;color:var(--ink)}
+.article-wrap p{font-size:17px;color:var(--muted);line-height:1.82;margin-bottom:24px;font-weight:300}
+.article-wrap strong{color:var(--ink);font-weight:500}
+
+/* PULL QUOTE */
+.pull-quote{border-left:3px solid var(--accent);padding:20px 24px;background:rgba(188,81,19,0.05);border-radius:0 6px 6px 0;font-size:19px;color:var(--accent);font-style:italic;line-height:1.55;margin:40px 0;font-family:'DM Serif Display',serif;letter-spacing:-.3px}
+
+/* STAT PAIR */
+.stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0}
+.stat-card{border:1px solid var(--border);border-radius:4px;padding:24px;text-align:center}
+.stat-card.bad{border-color:rgba(163,45,45,0.2);background:rgba(163,45,45,0.04)}
+.stat-card.good{border-color:rgba(26,120,74,0.2);background:rgba(26,120,74,0.04)}
+.stat-num{font-family:'DM Serif Display',serif;font-size:44px;letter-spacing:-2px;line-height:1;margin-bottom:8px}
+.stat-card.bad .stat-num{color:var(--red)}
+.stat-card.good .stat-num{color:var(--green)}
+.stat-label{font-size:13px;color:var(--muted);line-height:1.45}
+
+/* STAT ROW — 3 cards */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0}
+.stat-box{border:1px solid var(--border);border-radius:4px;padding:22px;text-align:center}
+.stat-box-num{font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-1.5px;line-height:1;margin-bottom:8px}
+.stat-box-label{font-size:12px;color:var(--muted);line-height:1.45;font-weight:300}
+.stat-box.accent{border-color:rgba(188,81,19,0.2);background:rgba(188,81,19,0.04)}
+.stat-box.accent .stat-box-num{color:var(--accent)}
+.stat-box.good{border-color:rgba(26,120,74,0.2);background:rgba(26,120,74,0.04)}
+.stat-box.good .stat-box-num{color:var(--green)}
+.stat-box.bad{border-color:rgba(163,45,45,0.2);background:rgba(163,45,45,0.04)}
+.stat-box.bad .stat-box-num{color:var(--red)}
+
+/* DATA TABLES */
+.dt-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.table-scroll{overflow-x:auto;margin:32px 0}
+.data-table{border:1px solid var(--border);border-radius:6px;overflow:hidden;min-width:520px}
+.dt-head,.dt-row{display:flex;border-bottom:1px solid var(--border)}
+.dt-row:last-child{border-bottom:none}
+.dt-head{background:var(--ink)}
+.dt-head .dt-cell{color:rgba(255,255,255,0.75);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.04em;border-right-color:rgba(255,255,255,0.08)}
+.dt-cell{flex:1;padding:11px 14px;font-size:13px;color:var(--muted);border-right:1px solid var(--border)}
+.dt-cell:last-child{border-right:none}
+.dt-cell.wide{flex:1.8}
+.dt-cell.label{font-weight:500;color:var(--ink)}
+.dt-row.alt{background:rgba(245,242,236,0.4)}
+.dt-row.sep{border-top:2px solid rgba(188,81,19,0.15);background:rgba(188,81,19,0.02)}
+.dt-ok{color:var(--green)!important}
+.dt-bad{color:var(--red)!important}
+.dt-imp{color:var(--accent)!important;font-weight:700!important}
+.dt-good{color:var(--green)!important;font-weight:600!important}
+
+/* PHASE LIST */
+.phase-list{display:flex;flex-direction:column;gap:14px;margin:40px 0}
+.phase-item{display:flex;gap:20px;padding:22px 24px;background:var(--white);border:1px solid var(--border);border-radius:4px}
+.phase-num{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--accent);font-weight:700;white-space:nowrap;min-width:68px;padding-top:3px;text-transform:uppercase}
+.phase-body h4{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.phase-body p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:0}
+
+/* CODE BLOCK */
+.code-block{background:var(--ink);border-radius:6px;padding:24px;margin:32px 0;overflow-x:auto}
+.code-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;margin-bottom:12px}
+.code-block pre{font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.8;white-space:pre}
+.code-block .val{color:var(--accent2)}
+.code-block .label-k{color:rgba(255,255,255,0.4)}
+
+/* STEP LIST */
+.step-list{display:flex;flex-direction:column;gap:0;margin:40px 0}
+.step-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
+.step-item:last-child{border:none}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-content h4{font-size:16px;font-weight:600;margin-bottom:4px;color:var(--ink)}
+.step-content p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+
+/* KEY TAKEAWAY */
+.key-takeaway{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.key-takeaway-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+.key-takeaway-list{display:flex;flex-direction:column;gap:10px}
+.key-takeaway-item{display:flex;gap:10px;font-size:15px;color:var(--muted);line-height:1.6;align-items:flex-start}
+.key-takeaway-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+
+/* CTA + AUTHOR */
+.article-cta-banner{background:var(--ink);border-radius:6px;padding:48px 40px;margin:60px 0 40px;text-align:center}
+.article-cta-banner h3{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:-1px;color:var(--white);margin-bottom:12px}
+.article-cta-banner h3 em{color:var(--accent2)}
+.article-cta-banner p{font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 24px;font-weight:300}
+.article-cta-btn{background:var(--accent);color:var(--white);padding:13px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.article-cta-btn:hover{background:var(--accent2)}
+.author-card{display:flex;gap:20px;align-items:center;padding:28px 0;border-top:1px solid var(--border);margin-top:40px}
+.author-avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:24px;color:var(--white);flex-shrink:0}
+.author-name{font-size:16px;font-weight:600;margin-bottom:2px}
+.author-role{font-size:13px;color:var(--muted)}
+
+/* RELATED */
+.related{padding:0 60px 80px}
+.related-title{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-.5px;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .2s}
+.related-card:hover{transform:translateY(-3px)}
+.related-card-img{height:140px;background-size:cover;background-position:center}
+.related-card-body{padding:16px}
+.related-card-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.related-card-title{font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:-.3px;line-height:1.2}
+
+/* FOOTER */
+footer{background:var(--accent);color:var(--paper);padding:60px 60px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-wm{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white)}
+.footer-wm em{color:var(--accent2)}
+.footer-brand p{font-size:13px;color:rgba(245,242,236,0.6);line-height:1.6;margin-top:10px;max-width:260px}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:11px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(245,242,236,0.3)}
+
+/* MOBILE */
+@media(max-width:768px){nav{padding:14px 24px}.article-hero{padding:0 24px 60px;min-height:55vh}.article-layout{grid-template-columns:1fr;padding:48px 20px 40px;gap:40px}.article-sidebar{position:relative;top:0}.sidebar-img{height:280px}.stat-pair,.stat-row,.related-grid{grid-template-columns:1fr}.related{padding:0 20px 60px}footer{padding:40px 24px 24px}.footer-grid{grid-template-columns:1fr}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
+@media(max-width:768px){.menu-toggle{display:flex}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}.nav-links.active{display:flex}.nav-cta{margin-top:8px;text-align:center;display:block}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="service-rlhf.html">RLHF Preference Data</a>
+        <a href="service-nlp.html">NLP Annotation</a>
+        <a href="service-sft.html">SFT Instruction Data</a>
+        <a href="service-sycophancy.html">Sycophancy Audits</a>
+        <a href="service-hallucination.html">Hallucination Detection</a>
+        <a href="service-redteaming.html">Red-Teaming</a>
+        <a href="service-code-rlhf.html">Code RLHF</a>
+        <a href="service-image.html">Image Annotation</a>
+        <a href="service-video.html">Video Annotation</a>
+        <a href="service-synthetic-data.html">Synthetic Data QA</a>
+        <a href="service-rag.html">RAG Evaluation</a>
+        <a href="service-retainer.html">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="industry-legal.html">Legal</a>
+        <a href="industry-finance.html">Finance &amp; BFSI</a>
+        <a href="industry-automative.html">Automotive &amp; AV</a>
+        <a href="industry-agriculture.html">Agriculture</a>
+        <a href="industry-genai.html">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="about.html">About Us</a>
+        <a href="quality.html">Quality Standards</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="resources.html">Resources</a>
+      <div class="nav-dropdown">
+        <a href="resources.html">Blogs</a>
+        <a href="casestudies.html">Case Studies</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="contact.html" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-grain"></div>
+  <div class="article-hero-inner">
+    <a href="casestudies.html" class="article-hero-back">← All case studies</a>
+    <div class="article-hero-tags">
+      <span class="article-hero-tag">Computer Vision</span>
+      <span class="article-hero-tag">ADAS</span>
+      <span class="article-hero-tag">Occlusion</span>
+      <span class="article-hero-tag">Human-in-the-Loop</span>
+      <span class="article-hero-tag">Autonomous Vehicles</span>
+    </div>
+    <h1>Beyond the box: precision annotation for <em>80% occluded objects</em> in urban traffic scenes</h1>
+    <div class="article-meta">
+      <span>Concave AI Team</span>
+      <span class="article-meta-dot"></span>
+      <span>14 min read</span>
+      <span class="article-meta-dot"></span>
+      <span>Methodology Demonstration · Computer Vision</span>
+    </div>
+  </div>
+</section>
+
+<div class="article-layout">
+<article class="article-wrap">
+
+  <p>Auto-labeling tools achieve 92% accuracy on fully visible objects. On objects that are 60–80% occluded — hidden behind other vehicles, poles, or barriers — that accuracy drops to 38%. This is the gap where human-in-the-loop annotation is not optional. It is the only thing that works.</p>
+
+  <p>In real urban traffic, partial occlusion is not an edge case. It is the norm. A pedestrian stepping out from between parked cars is 70–80% occluded until they are in the lane. A motorcycle filtering between two trucks is visible only as a handlebar and a helmet. A child behind a bus is a pair of shoes below the bumper line. These are precisely the scenarios where an ADAS system must perform correctly.</p>
+
+  <div class="stat-pair">
+    <div class="stat-card bad">
+      <div class="stat-num">38%</div>
+      <div class="stat-label">Best auto-labeling accuracy (SAM2) on 60–80% occluded objects — the category most critical for pedestrian safety</div>
+    </div>
+    <div class="stat-card good">
+      <div class="stat-num">93%</div>
+      <div class="stat-label">Human-in-the-loop detection rate on the same 60–80% occluded objects using a structured four-phase annotation protocol</div>
+    </div>
+  </div>
+
+  <h2>Why occlusion <em>breaks automated annotation</em></h2>
+
+  <p>Object detection in urban driving is a solved problem — for visible objects. Modern auto-labeling pipelines using YOLO, Detectron2, or proprietary models from annotation platforms can draw tight bounding boxes around cars, pedestrians, cyclists, and trucks when those objects are clearly visible in the frame. The problem begins the moment an object is partially hidden.</p>
+
+  <p>A missed detection at 80% occlusion becomes a safety-critical failure 500 milliseconds later when the object is 40% occluded and the vehicle has not begun braking because the perception system never registered the object's presence. Auto-labeling tools fail on occluded objects for three specific, measurable reasons.</p>
+
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Visible footprint mismatch</h4>
+        <p>The object's visible portion does not match any template in the detection model's training data. A car that is 80% hidden behind a truck presents as a thin vertical slice of door panel and a wheel — the model has learned to recognise "car" as a horizontal rectangle with a roof line, windshield, and four wheels. The visible slice does not trigger a detection.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Ambiguous pixel boundary</h4>
+        <p>The boundary between the occluding object and the occluded object is ambiguous at the pixel level. Where does the truck end and the hidden car begin? The colour similarity between two vehicles of similar shade makes the boundary almost invisible to automated segmentation. A human with scene understanding knows there are two separate objects. The algorithm sees one continuous shape.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Broken temporal continuity</h4>
+        <p>If a tracking algorithm (ByteTrack, DeepSORT) loses track of an object when it becomes occluded, it assigns a new ID when the object re-emerges. The training data now contains two objects — one that disappeared and one that appeared — rather than one continuous object that was temporarily hidden. A model trained on this data learns that objects cease to exist when occluded and new objects appear spontaneously.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>The Indian road context <em>multiplies the problem</em></h2>
+
+  <p>Standard occlusion datasets — Cityscapes (Germany), nuScenes (Boston/Singapore), KITTI (Karlsruhe) — contain European and American traffic patterns. Occlusion in these datasets is dominated by car-behind-car scenarios at traffic lights and intersections with clear lane structure. Indian urban traffic introduces occlusion patterns that these datasets do not contain.</p>
+
+  <p>Auto-rickshaws weaving between cars create three-layer occlusion stacks (rickshaw behind car behind truck) that Western datasets never show. Two-wheelers filtering through traffic at sub-lane widths are 60–90% occluded at any given frame. Pedestrians crossing multi-lane roads without crosswalks create occlusion from unexpected angles. Cattle standing between vehicles create non-rigid occlusion boundaries that differ from vehicle-to-vehicle occlusion.</p>
+
+  <div class="pull-quote">An ADAS system trained only on Western occlusion patterns deployed on Indian roads will fail on exactly these scenarios — the scenarios that are most frequent and most safety-critical in Indian driving conditions.</div>
+
+  <h2>The approach — <em>dataset and scope</em></h2>
+
+  <p>For this methodology demonstration, we used the Cityscapes dataset — 5,000 finely annotated urban driving images from 50 European cities — as the baseline. We selected <strong>500 images</strong> containing at least one object with 50% or greater occlusion, categorised by level: 50–60% (moderate), 60–80% (heavy), and 80%+ (extreme). We then added <strong>200 images</strong> from Indian urban traffic — sourced from publicly available Indian driving datasets — containing occlusion patterns specific to Indian roads.</p>
+
+  <h3>Step 1 — Baseline auto-labeling performance</h3>
+
+  <p>We ran the full 700-image set through three auto-labeling pipelines to establish baseline performance on occluded objects specifically.</p>
+
+  <div class="dt-label">Auto-labeling detection accuracy by occlusion level</div>
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Occlusion level</div>
+      <div class="dt-cell">Tool A · YOLO</div>
+      <div class="dt-cell">Tool B · Detectron2</div>
+      <div class="dt-cell">Tool C · SAM2</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">0–30% — clear</div>
+      <div class="dt-cell dt-ok">94%</div>
+      <div class="dt-cell dt-ok">96%</div>
+      <div class="dt-cell dt-ok">97%</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">30–50% — partial</div>
+      <div class="dt-cell dt-ok">82%</div>
+      <div class="dt-cell dt-ok">87%</div>
+      <div class="dt-cell dt-ok">91%</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">50–60% — moderate</div>
+      <div class="dt-cell">63%</div>
+      <div class="dt-cell">71%</div>
+      <div class="dt-cell">78%</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">60–80% — heavy</div>
+      <div class="dt-cell dt-bad">34%</div>
+      <div class="dt-cell dt-bad">42%</div>
+      <div class="dt-cell">54%</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">80%+ — extreme</div>
+      <div class="dt-cell dt-bad">11%</div>
+      <div class="dt-cell dt-bad">18%</div>
+      <div class="dt-cell dt-bad">31%</div>
+    </div>
+    <div class="dt-row sep">
+      <div class="dt-cell wide label">Indian road scenes · 60%+ occlusion</div>
+      <div class="dt-cell dt-bad">28%</div>
+      <div class="dt-cell dt-bad">35%</div>
+      <div class="dt-cell dt-bad">47%</div>
+    </div>
+  </div>
+  </div>
+
+  <p>The pattern is consistent across all three tools: performance degrades sharply beyond 50% occlusion. SAM2 performs best due to its foundation model architecture, but still fails on nearly half of heavily occluded objects. On Indian road scenes with heavy occlusion, even the best automated tool misses more than half of the objects that a human annotator correctly identifies.</p>
+
+  <h3>Step 2 — Human-in-the-loop correction protocol</h3>
+
+  <p>We did not ask annotators to simply "fix the auto-labels." We designed a structured human-in-the-loop protocol with four specific phases.</p>
+
+  <div class="phase-list">
+    <div class="phase-item">
+      <div class="phase-num">Phase 01</div>
+      <div class="phase-body">
+        <h4>SAM2 pre-annotation as starting point</h4>
+        <p>Every image was first processed through SAM2 to generate initial segmentation masks. For clearly visible objects, SAM2's masks were used as-is with minor boundary corrections. For occluded objects, SAM2's masks served as a starting point — annotators knew an object was there but needed to determine the correct boundary. This hybrid approach meant annotators spent zero time on the 97% of clearly visible objects that SAM2 handles well. 100% of their time was focused on the occluded objects where human judgment is required.</p>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-num">Phase 02</div>
+      <div class="phase-body">
+        <h4>Occlusion-specific annotation guidelines</h4>
+        <p>Standard annotation guidelines say "draw a bounding box around the object." For occluded objects, this instruction is ambiguous. Our guidelines specified precisely: annotate the <strong>estimated full extent</strong> of the object, including the occluded portion. Use the visible portion as an anchor and extend the boundary based on contextual cues — the angle of the visible roofline, the position of visible wheels, the expected size of the vehicle class. Mark the occlusion boundary separately so the training data distinguishes between the visible portion and the inferred portion.</p>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-num">Phase 03</div>
+      <div class="phase-body">
+        <h4>Annotator calibration on occlusion tasks specifically</h4>
+        <p>Before any live annotation, all annotators completed a 30-task calibration set consisting exclusively of heavily occluded objects. Each annotator independently annotated the same 30 images. We then measured Cohen's kappa on three dimensions: object detection (did they find the occluded object?), class assignment (car / pedestrian / cyclist / other?), and boundary accuracy (does the segmentation mask accurately trace the visible boundary and the estimated full extent?).</p>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-num">Phase 04</div>
+      <div class="phase-body">
+        <h4>Three-tier QA with occlusion-specific checks</h4>
+        <p><strong>Tier 1 automated checks:</strong> Did the annotator mark any occluded objects in a scene that statistically should contain them? Is the estimated full-extent bounding box physically plausible? Are the occlusion boundaries consistent with the depth ordering of the scene? <strong>Tier 2 peer review:</strong> A second annotator reviewed all heavy and extreme occlusion labels. Disagreements were adjudicated by a third annotator. <strong>Tier 3 expert review:</strong> Our senior ML engineer reviewed all images where the auto-labeling tool detected zero objects but the human annotator found one or more — the highest-value annotations.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">Calibration kappa thresholds — this project</div>
+    <pre><span class="label-k">Detection kappa      </span>  <span class="val">≥ 0.85</span>  (binary — detected or missed)
+<span class="label-k">Classification kappa </span>  <span class="val">≥ 0.90</span>  (car / pedestrian / cyclist / truck)
+<span class="label-k">Boundary IoU         </span>  <span class="val">≥ 0.72</span>  (intersection over union on mask)
+
+Detection and classification kappa are high because these are less
+subjective — either you found the object or you did not. Boundary IoU
+is lower because boundary estimation on heavily occluded objects
+inherently involves judgment about the object's full extent.</pre>
+  </div>
+
+  <h2>The results</h2>
+
+  <h3>Detection rate improvement</h3>
+
+  <div class="dt-label">Human-in-the-loop vs best auto-label tool (SAM2) — detection rate</div>
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Occlusion level</div>
+      <div class="dt-cell">Auto-label (SAM2)</div>
+      <div class="dt-cell">Human-in-the-loop</div>
+      <div class="dt-cell">Improvement</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">50–60% — moderate</div>
+      <div class="dt-cell">78%</div>
+      <div class="dt-cell dt-ok">96%</div>
+      <div class="dt-cell dt-good">+18%</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">60–80% — heavy</div>
+      <div class="dt-cell dt-bad">54%</div>
+      <div class="dt-cell dt-ok">93%</div>
+      <div class="dt-cell dt-good">+39%</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">80%+ — extreme</div>
+      <div class="dt-cell dt-bad">31%</div>
+      <div class="dt-cell dt-ok">87%</div>
+      <div class="dt-cell dt-imp">+56%</div>
+    </div>
+    <div class="dt-row sep">
+      <div class="dt-cell wide label">Indian road scenes · 60%+</div>
+      <div class="dt-cell dt-bad">47%</div>
+      <div class="dt-cell dt-ok">91%</div>
+      <div class="dt-cell dt-imp">+44%</div>
+    </div>
+  </div>
+  </div>
+
+  <p>The improvement is most dramatic in the range that matters most for safety — 80%+ occlusion, where auto-labeling catches only 31% of objects but human annotators catch 87%. This is not a marginal improvement. It is the difference between a perception system that sees the pedestrian stepping out from behind a parked car and one that does not.</p>
+
+  <h3>Boundary accuracy improvement</h3>
+
+  <div class="dt-label">Segmentation mask quality — IoU against ground-truth reference</div>
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Occlusion level</div>
+      <div class="dt-cell">Auto-label IoU</div>
+      <div class="dt-cell">Human-in-the-loop IoU</div>
+      <div class="dt-cell">Improvement</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">50–60%</div>
+      <div class="dt-cell">0.71</div>
+      <div class="dt-cell dt-ok">0.89</div>
+      <div class="dt-cell dt-good">+0.18</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">60–80%</div>
+      <div class="dt-cell dt-bad">0.53</div>
+      <div class="dt-cell dt-ok">0.84</div>
+      <div class="dt-cell dt-good">+0.31</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">80%+</div>
+      <div class="dt-cell dt-bad">0.34</div>
+      <div class="dt-cell">0.78</div>
+      <div class="dt-cell dt-imp">+0.44</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="code-block">
+    <div class="code-label">Quality metrics — final delivery</div>
+    <pre><span class="label-k">Cohen's kappa (detection)          </span>  <span class="val">0.88</span>
+<span class="label-k">Cohen's kappa (classification)     </span>  <span class="val">0.93</span>
+<span class="label-k">Mean boundary IoU (all occlusion)  </span>  <span class="val">0.84</span>
+<span class="label-k">Gold standard accuracy             </span>  <span class="val">94%</span>
+<span class="label-k">Annotation throughput              </span>  <span class="val">42 images/hour</span>  (with SAM2 pre-annotation)
+<span class="label-k">Throughput without SAM2            </span>  <span class="val">~18 images/hour</span>
+<span class="label-k">SAM2 speed advantage               </span>  <span class="val">2.3×</span> faster than fully manual</pre>
+  </div>
+
+  <h3>Downstream model impact</h3>
+
+  <p>To validate that the improved annotation quality translates to model performance, we trained two identical Mask R-CNN models — one on auto-labeled data alone and one on the human-in-the-loop corrected data.</p>
+
+  <div class="dt-label">mAP comparison — Mask R-CNN trained on auto-label vs human-corrected data</div>
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Model trained on</div>
+      <div class="dt-cell">mAP (all objects)</div>
+      <div class="dt-cell">mAP (&gt;50% occ)</div>
+      <div class="dt-cell">mAP (&gt;80% occ)</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Auto-labels only</div>
+      <div class="dt-cell">0.71</div>
+      <div class="dt-cell dt-bad">0.38</div>
+      <div class="dt-cell dt-bad">0.14</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Human-in-the-loop labels</div>
+      <div class="dt-cell dt-ok">0.79</div>
+      <div class="dt-cell dt-ok">0.67</div>
+      <div class="dt-cell dt-ok">0.52</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Improvement</div>
+      <div class="dt-cell dt-good">+0.08</div>
+      <div class="dt-cell dt-good">+0.29</div>
+      <div class="dt-cell dt-imp">+0.38</div>
+    </div>
+  </div>
+  </div>
+
+  <p>An 8% improvement on overall mAP is solid but modest. The <strong>38-percentage-point improvement on 80%+ occluded objects</strong> — from 0.14 (essentially random) to 0.52 (usable in production) — is the metric that determines whether an ADAS system is safe for deployment. It is entirely attributable to annotation quality.</p>
+
+  <h2>Time and cost analysis</h2>
+
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Metric</div>
+      <div class="dt-cell">Auto-label only</div>
+      <div class="dt-cell">Human-in-the-loop</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Time per image (700 images)</div>
+      <div class="dt-cell">3 sec</div>
+      <div class="dt-cell">86 sec avg</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Cost per image</div>
+      <div class="dt-cell dt-ok">~₹2</div>
+      <div class="dt-cell">~₹35</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Total project cost (700 images)</div>
+      <div class="dt-cell dt-ok">₹1,400</div>
+      <div class="dt-cell">₹24,500</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Detection rate (&gt;60% occlusion)</div>
+      <div class="dt-cell dt-bad">47–54%</div>
+      <div class="dt-cell dt-ok">91–93%</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Model mAP (&gt;80% occlusion)</div>
+      <div class="dt-cell dt-bad">0.14</div>
+      <div class="dt-cell dt-ok">0.52</div>
+    </div>
+    <div class="dt-row sep">
+      <div class="dt-cell wide label">Cost of a missed pedestrian detection in production</div>
+      <div class="dt-cell">Incalculable</div>
+      <div class="dt-cell">—</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="pull-quote">The human-in-the-loop annotation costs 17× more per image than pure auto-labeling. But it produces a model that detects heavily occluded objects 3.7× more accurately. For safety-critical applications, the cost comparison is not ₹2 vs ₹35 per image. It is ₹35 per image vs the cost of a missed detection in production.</div>
+
+  <div class="key-takeaway">
+    <div class="key-takeaway-title">Key learnings</div>
+    <div class="key-takeaway-list">
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Auto-labeling is a starting point, not annotation.</strong> Using SAM2 as a pre-annotation layer and having humans correct the output is 2.3× faster than pure manual annotation and produces dramatically better results than auto-labeling alone.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Occlusion-specific guidelines are mandatory.</strong> Generic "draw a box around the object" instructions produce inconsistent annotations. Annotators need explicit instructions on whether to annotate the visible portion, the estimated full extent, or both — and how to mark the occlusion boundary separately.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Calibration on occluded objects specifically is essential.</strong> Annotators who perform well on clearly visible objects may perform poorly on heavily occluded ones. A dedicated occlusion calibration set catches this before it enters the training data.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Indian road conditions require India-specific annotation data.</strong> The 44% detection improvement on Indian road scenes demonstrates that Western occlusion datasets do not transfer to Indian driving conditions. Auto-rickshaw occlusion, two-wheeler filtering, and unstructured intersection patterns must be annotated from Indian road footage.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The downstream model impact is concentrated where it matters most.</strong> The 38-point improvement on 80%+ occluded objects is the metric that determines whether a perception system is safe for deployment — and it is entirely attributable to annotation quality.</span></div>
+    </div>
+  </div>
+
+  <div class="article-cta-banner">
+    <h3>Working on an ADAS or <em>computer vision annotation</em> project?</h3>
+    <p>We specialise in occlusion-heavy scenes, Indian road conditions, and multi-class perception data. Free audit available — 50 frames, quality findings in 5 working days.</p>
+    <a href="contact.html" class="article-cta-btn">Request Free Audit →</a>
+  </div>
+
+  <div class="author-card">
+    <div class="author-avatar">C</div>
+    <div>
+      <div class="author-name">The Concave AI Team</div>
+      <div class="author-role">ML-Engineer-Led Data Annotation & GenAI Evaluation · Bengaluru, India</div>
+    </div>
+  </div>
+
+</article>
+<aside class="article-sidebar">
+  <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=85')"></div>
+  <div class="sidebar-fact">
+    <div class="sidebar-fact-num">+56%</div>
+    <div class="sidebar-fact-label">Detection improvement at 80%+ occlusion — from 31% with best auto-label tool to 87% with the human-in-the-loop protocol</div>
+  </div>
+  <div class="sidebar-caption">From 700-image study: 500 Cityscapes frames + 200 Indian urban traffic frames. Three-tier QA, kappa-gated calibration.</div>
+</aside>
+</div>
+
+<section class="related">
+  <div class="related-title">Related reading</div>
+  <div class="related-grid">
+    <a class="related-card" href="casestudy-2-rlhf-agentic.html">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">RLHF · Agentic AI</div>
+        <div class="related-card-title">RLHF for Agentic Workflows: Multi-Step Logic Verification</div>
+      </div>
+    </a>
+    <a class="related-card" href="service-image.html">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">Service</div>
+        <div class="related-card-title">Image Annotation &amp; Computer Vision Data</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>ML-engineer-led data annotation and GenAI evaluation. Bengaluru, India.</p></div>
+    <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="service-rlhf.html">RLHF Preference Data</a><a href="service-nlp.html">NLP Annotation</a><a href="service-image.html">Image Annotation</a><a href="service-sycophancy.html">Sycophancy Audits</a><a href="service-hallucination.html">Hallucination Detection</a></div></div>
+    <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="industry-legal.html">Legal</a><a href="industry-finance.html">Finance</a><a href="industry-automative.html">Automotive &amp; AV</a><a href="industry-agriculture.html">Agriculture</a><a href="industry-genai.html">Enterprise GenAI</a></div></div>
+    <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="about.html">About</a><a href="quality.html">Quality</a><a href="resources.html">Blogs</a><a href="casestudies.html">Case Studies</a><a href="contact.html">Contact</a></div></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Concave AI. Bengaluru, India.</div></div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').style.boxShadow=window.scrollY>20?'0 1px 28px rgba(0,0,0,.08)':'none';});
+document.getElementById('menuToggle').addEventListener('click',()=>{document.querySelector('.nav-links').classList.toggle('active');});
+</script>
+</body>
+</html>
