@@ -166,6 +166,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <button class="filter-btn" onclick="filterTag(this,'computer-vision')">Computer Vision</button>
   <button class="filter-btn" onclick="filterTag(this,'industry')">Industry</button>
   <button class="filter-btn" onclick="filterTag(this,'training')">AI Training</button>
+  <button class="filter-btn" onclick="filterTag(this,'multimodal')">Multimodal</button>
+  <button class="filter-btn" onclick="filterTag(this,'synthetic')">Synthetic Data</button>
 </div>
 
 <div class="articles" id="articleGrid">
@@ -184,6 +186,40 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="article-title">Why 38% of RLHF preference data trains your model to lie — and how to detect it before training</div>
       <div class="article-excerpt">Sycophancy enters RLHF pipelines when annotators reward confident agreement over factual accuracy. Here is the mechanism, the measurement protocol, and the annotation-level fix.</div>
       <div class="article-cta">Read the full analysis →</div>
+    </div>
+  </a>
+
+  <a class="article-card" href="blog-synthetic-data-vs-real-data.html" data-tags="synthetic,quality,training">
+    <div class="article-img">
+      <div class="article-img-inner" style="background-image:url('https://images.unsplash.com/photo-1527430253228-e93688616381?w=800&q=80')"></div>
+      <div class="article-read">16 min read</div>
+    </div>
+    <div class="article-body">
+      <div class="article-tags">
+        <span class="article-tag primary">Synthetic Data</span>
+        <span class="article-tag">Training Data</span>
+        <span class="article-tag">Data Quality</span>
+      </div>
+      <div class="article-title">Synthetic data is not a shortcut: when it works, when it fails, and why real data still wins</div>
+      <div class="article-excerpt">Unlimited training data at low cost — the promise is partially true. The 5–20% domain gap, model collapse across generations, and bias amplification are the failure modes that most teams discover after training. Here is the decision framework that prevents that.</div>
+      <div class="article-cta">Read the full analysis →</div>
+    </div>
+  </a>
+
+  <a class="article-card" href="blog-multimodal-data-why-it-fails.html" data-tags="multimodal,computer-vision,quality">
+    <div class="article-img">
+      <div class="article-img-inner" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80')"></div>
+      <div class="article-read">16 min read</div>
+    </div>
+    <div class="article-body">
+      <div class="article-tags">
+        <span class="article-tag primary">Multimodal Annotation</span>
+        <span class="article-tag">Computer Vision</span>
+        <span class="article-tag">LiDAR</span>
+      </div>
+      <div class="article-title">Why multimodal AI fails when you label each data type separately — and how to fix it</div>
+      <div class="article-excerpt">A self-driving car doesn't learn "what a pedestrian looks like in camera" and separately "what one looks like in LiDAR" — it learns the relationship between them. Annotation pipelines that label each modality separately break that relationship. Here is the cross-modal workflow that preserves it.</div>
+      <div class="article-cta">Read the full guide →</div>
     </div>
   </a>
 

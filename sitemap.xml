@@ -37,8 +37,13 @@
 
   <url><loc>https://theconcaveai.com/resources</loc></url>
   <url><loc>https://theconcaveai.com/casestudies</loc></url>
-  <url><loc>https://theconcaveai.com/blog-cohens-kappa</loc></url>
-  <url><loc>https://theconcaveai.com/blog-sycophancy-rhlf</loc></url>
-  <url><loc>https://theconcaveai.com/casestudy-1-computer-vision-av</loc></url>
-  <url><loc>https://theconcaveai.com/casestudy-2-rhlf-agentic.html</loc></url>
+  <url><loc>https://theconcaveai.com/blog-cohens-kappa.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/blog-sycophancy-rlhf.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/blog-how-to-train-ai-model.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/blog-multimodal-data-why-it-fails.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/blog-synthetic-data-vs-real-data.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/casestudy-1-computer-vision-av.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/casestudy-2-rlhf-agentic.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/casestudy-3-fintech-document-intelligence.html</loc><lastmod>2026-05-13</lastmod></url>
+  <url><loc>https://theconcaveai.com/casestudy-4-agtech-crop-weed.html</loc><lastmod>2026-05-13</lastmod></url>
 </urlset>
