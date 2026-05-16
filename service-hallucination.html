@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hallucination Detection — Concave AI</title>
+<title>Hallucination Detection to train your model on real world data </title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -284,9 +284,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1709285671944-a27fcbd207eb?w=1920&q=85&auto=format&fit=crop')"></div>
 
   <div>
-    <div class="svc-hero-eyebrow">Service — Factual Accuracy</div>
+    <div class="svc-hero-eyebrow">Service - Factual Accuracy</div>
     <h1>Hallucination <em>Detection</em></h1>
-    <p class="svc-hero-sub">Claim-by-claim verification of AI outputs against source documents or domain knowledge. Our ML pipeline auto-extracts every factual claim; expert annotators verify each one. Delivered with a hallucination rate breakdown by category and severity — so you know exactly what your model gets wrong and how badly.</p>
+    <p class="svc-hero-sub">Claim-by-claim verification of AI outputs against source documents or domain knowledge. Our ML pipeline auto-extracts every factual claim; expert annotators verify each one. Delivered with a hallucination rate breakdown by category and severity  so you know exactly what your model gets wrong and how badly.</p>
     <div class="hero-ctas">
       <a href="contact.html" class="btn-primary">Get 50 Outputs Audited Free →</a>
       <a href="#pricing" class="btn-outline">View Pricing</a>
@@ -295,7 +295,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="svc-hero-stats">
     <div class="h-stat">
       <div class="h-stat-num">Claim-by-Claim</div>
-      <div class="h-stat-label">Every factual claim extracted and individually verified — not just document-level review</div>
+      <div class="h-stat-label">Every factual claim extracted and individually verified not just document-level review</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">4-Tier</div>
@@ -303,11 +303,11 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="h-stat">
       <div class="h-stat-num">5 Days</div>
-      <div class="h-stat-label">Turnaround on free 50-output audit — no commitment required</div>
+      <div class="h-stat-label">Turnaround on free 50-output audit no commitment required</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">Domain</div>
-      <div class="h-stat-label">Expert verifiers matched to your domain — medical, legal, financial, general</div>
+      <div class="h-stat-label">Expert verifiers matched to your domain legal, financial, automative, gen AI</div>
     </div>
   </div>
 
@@ -322,22 +322,22 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <section class="sec" id="overview">
   <span class="sec-eyebrow">What It Is</span>
-  <h2 class="sec-title">AI models confabulate — <em>claim-level verification</em> finds exactly where</h2>
-  <p class="sec-desc">Hallucination is not a vague quality problem — it is a specific, measurable failure: an AI model generates a factual claim that is false, unsupported, or fabricated. Claim-by-claim verification is the only way to measure hallucination rate with the precision needed to act on it.</p>
+  <h2 class="sec-title">AI models confabulate  <em>claim-level verification</em> finds exactly where</h2>
+  <p class="sec-desc">Hallucination is not a vague quality problem it is a specific, measurable failure: an AI model generates a factual claim that is false, unsupported, or fabricated. Claim-by-claim verification is the only way to measure hallucination rate with the precision needed to act on it.</p>
   <div class="two-col">
     <div class="body-text">
-      <p>When an AI model says "The Indian Companies Act 2013 requires all directors to hold a minimum of one share," that sentence contains a specific, verifiable factual claim. It is either correct or incorrect. Document-level quality review cannot reliably catch this — it requires someone with legal expertise to check that specific claim against the correct statute text.</p>
-      <p>Most AI evaluation approaches rate output quality holistically — coherence, fluency, helpfulness — without systematically extracting and verifying individual factual claims. This means a response rated 4/5 for "overall quality" can contain multiple significant factual errors that the quality rater simply missed or was not equipped to catch.</p>
-      <p>Our hallucination detection pipeline inverts this. We first use an LLM-based claim extractor to decompose every AI output into its individual factual claims — typically 3–15 claims per response. Each claim is then routed to a domain expert for verification against authoritative sources. Claims are classified into four severity tiers: Verified (correct), Minor Inaccuracy (partially correct), Significant Hallucination (meaningfully wrong), and Critical Fabrication (dangerous or completely invented). You receive a per-claim report, an overall hallucination rate, and a severity breakdown — actionable data, not an impressionistic quality score.</p>
+      <p>When an AI model says "The Indian Companies Act 2013 requires all directors to hold a minimum of one share," that sentence contains a specific, verifiable factual claim. It is either correct or incorrect. Document-level quality review cannot reliably catch this it requires someone with legal expertise to check that specific claim against the correct statute text.</p>
+      <p>Most AI evaluation approaches rate output quality holistically coherence, fluency, helpfulness without systematically extracting and verifying individual factual claims. This means a response rated 4/5 for "overall quality" can contain multiple significant factual errors that the quality rater simply missed or was not equipped to catch.</p>
+      <p>Our hallucination detection pipeline inverts this. We first use an LLM-based claim extractor to decompose every AI output into its individual factual claims typically 3–15 claims per response. Each claim is then routed to a domain expert for verification against authoritative sources. Claims are classified into four severity tiers: Verified (correct), Minor Inaccuracy (partially correct), Significant Hallucination (meaningfully wrong), and Critical Fabrication (dangerous or completely invented). You receive a per-claim report, an overall hallucination rate, and a severity breakdown actionable data, not an impressionistic quality score.</p>
     </div>
     <div>
       <div class="info-block">
         <div class="info-block-title">Why does hallucination happen?</div>
-        <div class="info-block-body">Language models generate text by predicting statistically likely continuations — they do not retrieve facts from a knowledge database and verify them before outputting. When a plausible-sounding but false claim is the statistically likely continuation of a prompt, the model produces it confidently. Fine-tuning and RLHF reduce hallucination rates but do not eliminate them — especially in long-tail knowledge domains where training data is sparse.</div>
+        <div class="info-block-body">Language models generate text by predicting statistically likely continuations they do not retrieve facts from a knowledge database and verify them before outputting. When a plausible-sounding but false claim is the statistically likely continuation of a prompt, the model produces it confidently. Fine-tuning and RLHF reduce hallucination rates but do not eliminate them especially in long-tail knowledge domains where training data is sparse.</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">What is the difference between a hallucination and a factual error?</div>
-        <div class="info-block-body">We use "hallucination" specifically for AI-generated claims that are false and not traceable to any supporting source — the model invented the fact. Factual errors include claims that are partially true (outdated information, misattributed statistics, wrong names for real entities). Our severity classification distinguishes between these: fabrications (invented) score higher severity than inaccuracies (partially wrong but traceable to real information).</div>
+        <div class="info-block-body">We use "hallucination" specifically for AI-generated claims that are false and not traceable to any supporting source the model invented the fact. Factual errors include claims that are partially true (outdated information, misattributed statistics, wrong names for real entities). Our severity classification distinguishes between these: fabrications (invented) score higher severity than inaccuracies (partially wrong but traceable to real information).</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">Who needs hallucination detection?</div>
@@ -373,38 +373,38 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" style="padding-top:0;padding-bottom:60px">
   <span class="sec-eyebrow">Live Annotation Interface</span>
   <h2 class="sec-title" style="margin-top:12px">Claim-Level <em>Hallucination</em> Verification Tool</h2>
-  <p class="sec-desc">Annotators decompose AI responses into atomic claims and verify each against source documents — building grounded training signal for factuality-focused fine-tuning.</p>
+  <p class="sec-desc">Annotators decompose AI responses into atomic claims and verify each against source documents building grounded training signal for factuality-focused fine-tuning.</p>
   <div class="hd-demo">
     <div class="hd-demo-bar">
-      <span>ConcaveLabel Studio — Hallucination Eval · Domain: Medical · Response #2,841</span>
+      <span>ConcaveLabel Studio Hallucination Eval · Domain: Medical · Response #2,841</span>
     </div>
     <div class="hd-body">
-      <div style="font-size:11px;color:#4a7fa5;margin-bottom:16px;font-family:'Space Mono',monospace">SOURCE: WHO Technical Report on Metformin — Chapter 4, Dosage Guidelines, 2023 Ed.</div>
+      <div style="font-size:11px;color:#4a7fa5;margin-bottom:16px;font-family:'Space Mono',monospace">SOURCE: WHO Technical Report on Metformin Chapter 4, Dosage Guidelines, 2023 Ed.</div>
       <div class="hd-claim verified">
         <div>
           <div class="hd-claim-text">"Metformin is the first-line pharmacological treatment for Type 2 diabetes in most clinical guidelines."</div>
-          <div class="hd-source">↳ Source: WHO Report §4.1 — confirmed verbatim</div>
+          <div class="hd-source">↳ Source: WHO Report §4.1confirmed verbatim</div>
         </div>
         <span class="hd-verdict verified">VERIFIED ✓</span>
       </div>
       <div class="hd-claim hallucinated">
         <div>
           <div class="hd-claim-text">"The standard adult dosage of Metformin is 500mg three times daily, with a maximum of 3,000mg per day."</div>
-          <div class="hd-source">↳ Source: WHO Report §4.3 states max is 2,550mg/day — figure hallucinated</div>
+          <div class="hd-source">↳ Source: WHO Report §4.3 states max is 2,550mg/day figure hallucinated</div>
         </div>
         <span class="hd-verdict hallucinated">HALLUCINATED ✗</span>
       </div>
       <div class="hd-claim verified">
         <div>
           <div class="hd-claim-text">"Metformin is contraindicated in patients with severe renal impairment (eGFR &lt; 30 mL/min/1.73m²)."</div>
-          <div class="hd-source">↳ Source: WHO Report §4.6 — confirmed with exact threshold</div>
+          <div class="hd-source">↳ Source: WHO Report §4. confirmed with exact threshold</div>
         </div>
         <span class="hd-verdict verified">VERIFIED ✓</span>
       </div>
       <div class="hd-claim unsupported">
         <div>
           <div class="hd-claim-text">"Recent studies show Metformin may reduce the risk of certain cancers by up to 30%."</div>
-          <div class="hd-source">↳ Not present in source document — extrapolation from unspecified studies</div>
+          <div class="hd-source">↳ Not present in source document extrapolation from unspecified studies</div>
         </div>
         <span class="hd-verdict unsupported">UNSUPPORTED ?</span>
       </div>
@@ -434,38 +434,38 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="hall-card">
       <span class="hall-icon">🔮</span>
       <div class="hall-title">Fabrication</div>
-      <div class="hall-body">Completely invented facts — entities, statistics, citations, or events that do not exist. The most dangerous hallucination type because the claim is entirely false with no basis in reality.</div>
-      <div class="hall-example">Example: "According to the WHO 2023 study by Dr. Patel et al. (n=12,000)..." — where the study does not exist</div>
+      <div class="hall-body">Completely invented facts entities, statistics, citations, or events that do not exist. The most dangerous hallucination type because the claim is entirely false with no basis in reality.</div>
+      <div class="hall-example">Example: "According to the WHO 2023 study by Dr. Patel et al. (n=12,000)..." where the study does not exist</div>
     </div>
     <div class="hall-card">
       <span class="hall-icon">🔀</span>
       <div class="hall-title">Substitution</div>
-      <div class="hall-body">Real entities or facts that are swapped or misattributed — real names, real studies, or real statistics applied to the wrong context, year, or conclusion.</div>
+      <div class="hall-body">Real entities or facts that are swapped or misattributed real names, real studies, or real statistics applied to the wrong context, year, or conclusion.</div>
       <div class="hall-example">Example: Correctly citing a real study but stating the wrong finding, or attributing one author's work to another</div>
     </div>
     <div class="hall-card">
       <span class="hall-icon">📅</span>
       <div class="hall-title">Temporal Drift</div>
-      <div class="hall-body">Presenting outdated information as current — regulatory requirements that have changed, drug dosages that have been revised, case law that has been overturned, or statistics from a prior year presented as the current figure.</div>
+      <div class="hall-body">Presenting outdated information as current regulatory requirements that have changed, drug dosages that have been revised, case law that has been overturned, or statistics from a prior year presented as the current figure.</div>
       <div class="hall-example">Example: "The current GST rate for X is 18%" when the rate was revised in 2024 to 12%</div>
     </div>
     <div class="hall-card">
       <span class="hall-icon">🔢</span>
       <div class="hall-title">Numerical Error</div>
-      <div class="hall-body">Incorrect figures, statistics, calculations, or quantities — even small errors in medical dosages, financial figures, or legal penalties can have significant consequences.</div>
+      <div class="hall-body">Incorrect figures, statistics, calculations, or quantities even small errors in medical dosages, financial figures, or legal penalties can have significant consequences.</div>
       <div class="hall-example">Example: Correct drug name, correct indication, but wrong recommended dosage or wrong contraindication threshold</div>
     </div>
     <div class="hall-card">
       <span class="hall-icon">🌀</span>
       <div class="hall-title">Over-generalisation</div>
-      <div class="hall-body">A claim that was true in a specific, limited context is stated as universally applicable — applying findings from one population to all populations, or applying a rule that has many exceptions without noting them.</div>
+      <div class="hall-body">A claim that was true in a specific, limited context is stated as universally applicable applying findings from one population to all populations, or applying a rule that has many exceptions without noting them.</div>
       <div class="hall-example">Example: "All Type 2 diabetes patients should avoid X" when the actual guidance is conditional on comorbidities</div>
     </div>
     <div class="hall-card">
       <span class="hall-icon">📚</span>
       <div class="hall-title">RAG Faithfulness Failure</div>
-      <div class="hall-body">In retrieval-augmented systems, the generation contradicts or diverges from the retrieved source documents — the model ignores or misrepresents its own retrieved context to produce a more "fluent" response.</div>
-      <div class="hall-example">Example: Retrieved document says "X is contraindicated in pregnancy" — model generates "X is safe during pregnancy" for a smoother response flow</div>
+      <div class="hall-body">In retrieval-augmented systems, the generation contradicts or diverges from the retrieved source documents the model ignores or misrepresents its own retrieved context to produce a more "fluent" response.</div>
+      <div class="hall-example">Example: Retrieved document says "X is contraindicated in pregnancy" model generates "X is safe during pregnancy" for a smoother response flow</div>
     </div>
   </div>
 </section>
@@ -502,7 +502,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">04</div>
       <div class="step-content">
         <div class="step-title">Report & Corrective Data Delivery</div>
-        <div class="step-body">Delivery includes: per-output claim verification table with each claim, its verification status, severity tier, correct version, and source citation. Aggregated metrics: hallucination rate by output, by claim type, by domain category, and by severity tier. Distribution analysis showing where in the output hallucinations cluster (introduction, body, conclusion). Corrective training pairs for significant and critical findings — showing the hallucinating output as rejected and a verified-correct response as chosen.</div>
+        <div class="step-body">Delivery includes: per-output claim verification table with each claim, its verification status, severity tier, correct version, and source citation. Aggregated metrics: hallucination rate by output, by claim type, by domain category, and by severity tier. Distribution analysis showing where in the output hallucinations cluster (introduction, body, conclusion). Corrective training pairs for significant and critical findings showing the hallucinating output as rejected and a verified-correct response as chosen.</div>
         <div class="step-tags"><span class="step-tag">Per-claim report</span><span class="step-tag">Rate by category</span><span class="step-tag">Corrective pairs</span><span class="step-tag">Source citations</span></div>
       </div>
     </div>
@@ -526,7 +526,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="deliv-card">
       <span class="deliv-icon">⚖</span>
       <div class="deliv-title">Corrective Training Pairs</div>
-      <div class="deliv-body">RLHF preference pairs for every Critical and Significant finding — rejected output is the hallucinating version, chosen response is a domain-expert verified correct alternative. Ready to integrate into your RLHF or DPO training pipeline to improve factual accuracy.</div>
+      <div class="deliv-body">RLHF preference pairs for every Critical and Significant finding rejected output is the hallucinating version, chosen response is a domain-expert verified correct alternative. Ready to integrate into your RLHF or DPO training pipeline to improve factual accuracy.</div>
     </div>
   </div>
 </section>
@@ -555,12 +555,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="service-rlhf.html" class="related-card">
       <span class="rc-icon">⚖</span>
       <div class="rc-title">RLHF Preference Data</div>
-      <div class="rc-body">After detecting which outputs hallucinate and why, RLHF preference data trains your model to prefer factually accurate responses — using corrective pairs where verified-correct outputs score higher than hallucinating ones.</div>
+      <div class="rc-body">After detecting which outputs hallucinate and why, RLHF preference data trains your model to prefer factually accurate responses using corrective pairs where verified-correct outputs score higher than hallucinating ones.</div>
     </a>
     <a href="service-rag.html" class="related-card">
       <span class="rc-icon">📡</span>
       <div class="rc-title">RAG System Evaluation</div>
-      <div class="rc-body">For RAG-based systems specifically, our RAG evaluation service goes beyond hallucination to also assess retrieval quality — did the system surface the right context? Did the generation faithfully use it?</div>
+      <div class="rc-body">For RAG-based systems specifically, our RAG evaluation service goes beyond hallucination to also assess retrieval quality did the system surface the right context? Did the generation faithfully use it?</div>
     </a>
     <a href="service-redteaming.html" class="related-card">
       <span class="rc-icon">🛡</span>
@@ -572,7 +572,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <section class="cta-section">
   <div class="cta-inner">
-    <h2>Find out your model's <em>hallucination rate</em> — free</h2>
+    <h2>Find out your model's <em>hallucination rate</em> free</h2>
     <p>Send us 50 of your AI model's outputs. We will return a complete claim-by-claim verification report with hallucination rate and severity breakdown in 5 working days. No cost, no commitment.</p>
     <div class="cta-actions">
       <a href="contact.html" class="cta-btn-white">Start Free Audit →</a>
@@ -588,7 +588,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>

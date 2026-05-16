@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RLHF for Agentic Workflows — Multi-Step Logic Verification in Autonomous Web Browsing Agents · Concave AI</title>
+<title>RLHF for Agentic Workflows - Multi-Step Logic Verification in Autonomous Web Browsing Agents · Concave AI</title>
 <meta name="description" content="Standard RLHF evaluates the final output. Agentic AI requires evaluating every step of the reasoning chain. 68% of action logs contained logical leaps invisible to outcome-based evaluation.">
-<meta property="og:title" content="RLHF for Agentic Workflows — Multi-Step Logic Verification in Autonomous Web Browsing Agents">
+<meta property="og:title" content="RLHF for Agentic Workflows Multi-Step Logic Verification in Autonomous Web Browsing Agents">
 <meta property="og:url" content="https://theconcaveai.com/casestudy-2-rlhf-agentic.html">
 <link rel="canonical" href="https://theconcaveai.com/casestudy-2-rlhf-agentic.html">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -287,9 +287,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <div class="article-layout">
 <article class="article-wrap">
 
-  <p>Standard RLHF evaluates the final output. Agentic AI requires evaluating every step of the reasoning chain — because a correct final answer reached through flawed logic will fail on the next task that requires the same reasoning pattern.</p>
+  <p>Standard RLHF evaluates the final output. Agentic AI requires evaluating every step of the reasoning chain because a correct final answer reached through flawed logic will fail on the next task that requires the same reasoning pattern.</p>
 
-  <p>Here is how we grade AI agent action logs step by step, and why this produces fundamentally better training data than thumbs-up/thumbs-down evaluation. Across 50 action logs, we found that <strong>62% were marked "successful" by outcome-based evaluation</strong> — but only 22% achieved that success through fully sound reasoning. The remaining 40% succeeded through logical leaps, unverified information, or brute-force retries that will fail on novel tasks requiring the same reasoning pattern.</p>
+  <p>Here is how we grade AI agent action logs step by step, and why this produces fundamentally better training data than thumbs-up/thumbs-down evaluation. Across 50 action logs, we found that <strong>62% were marked "successful" by outcome-based evaluation</strong> but only 22% achieved that success through fully sound reasoning. The remaining 40% succeeded through logical leaps, unverified information, or brute-force retries that will fail on novel tasks requiring the same reasoning pattern.</p>
 
   <div class="stat-pair">
     <div class="stat-card bad">
@@ -298,7 +298,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
     <div class="stat-card good">
       <div class="stat-num">22%</div>
-      <div class="stat-label">Action logs with fully sound reasoning throughout — the only ones that should be used as positive training signal</div>
+      <div class="stat-label">Action logs with fully sound reasoning throughout the only ones that should be used as positive training signal</div>
     </div>
   </div>
 
@@ -306,11 +306,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>RLHF was designed for a specific interaction pattern: a user asks a question, the model produces a response, a human evaluator judges whether the response is good. This works for conversational AI because the output is a single text response and the judgment is relatively contained.</p>
 
-  <p>Agentic AI operates differently. An AI agent receives a goal ("book the cheapest flight from Bengaluru to Mumbai on June 15"), decomposes it into sub-tasks, executes actions in sequence — navigate to a flight search site, enter departure and arrival, set the date, filter by price, compare options, select the cheapest, proceed to booking — and produces a final result.</p>
+  <p>Agentic AI operates differently. An AI agent receives a goal ("book the cheapest flight from Bengaluru to Mumbai on June 15"), decomposes it into sub-tasks, executes actions in sequence navigate to a flight search site, enter departure and arrival, set the date, filter by price, compare options, select the cheapest, proceed to booking and produces a final result.</p>
 
-  <p>The quality of an agentic AI system is not determined by whether the final result is correct. It is determined by whether every step of the reasoning chain is sound — because a flawed reasoning chain that happens to produce a correct result on one task will produce incorrect results on similar tasks where the flawed logic leads to a different outcome.</p>
+  <p>The quality of an agentic AI system is not determined by whether the final result is correct. It is determined by whether every step of the reasoning chain is sound because a flawed reasoning chain that happens to produce a correct result on one task will produce incorrect results on similar tasks where the flawed logic leads to a different outcome.</p>
 
-  <div class="pull-quote">Standard RLHF — "was the final output good?" — cannot evaluate this. An evaluator who gives a thumbs-up on a completed booking has provided zero signal about whether the intermediate steps were logical, or whether they would fail on a different scenario.</div>
+  <div class="pull-quote">Standard RLHF "was the final output good?" cannot evaluate this. An evaluator who gives a thumbs-up on a completed booking has provided zero signal about whether the intermediate steps were logical, or whether they would fail on a different scenario.</div>
 
   <h2>The three failure modes <em>unique to agentic AI</em></h2>
 
@@ -320,13 +320,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="failure-box">
       <div class="failure-box-tag">Failure Mode 01</div>
       <h4>The logical leap</h4>
-      <p>The agent skips a necessary verification step because the underlying LLM "knows" the answer from its training data rather than deriving it from the current context. A web browsing agent asked to find the current CEO of a company navigates to the About page, but instead of reading the page content, outputs the CEO name from its training data — which may be outdated. The action log shows: navigated to page → output answer. The missing step — reading the page content and extracting the name — is a logical leap.</p>
-      <div class="failure-danger">The danger: this failure mode is invisible in outcome-based evaluation. The answer is correct (for now), so the thumbs-up evaluator marks it as a success. The agent has learned that skipping the verification step is rewarded — because it was.</div>
+      <p>The agent skips a necessary verification step because the underlying LLM "knows" the answer from its training data rather than deriving it from the current context. A web browsing agent asked to find the current CEO of a company navigates to the About page, but instead of reading the page content, outputs the CEO name from its training data which may be outdated. The action log shows: navigated to page → output answer. The missing step reading the page content and extracting the name is a logical leap.</p>
+      <div class="failure-danger">The danger: this failure mode is invisible in outcome-based evaluation. The answer is correct (for now), so the thumbs-up evaluator marks it as a success. The agent has learned that skipping the verification step is rewarded because it was.</div>
     </div>
     <div class="failure-box">
       <div class="failure-box-tag">Failure Mode 02</div>
       <h4>The hallucinated action</h4>
-      <p>The agent claims to have performed an action it did not actually perform. In a web browsing context, this might mean claiming to have clicked a button, read a confirmation page, or verified a detail — without the action log showing the corresponding navigation event. The agent's reasoning chain includes a step that exists in the text output but not in the actual execution trace. This is distinct from conversational hallucination (stating a false fact). Agentic hallucination is fabricating an action — claiming to have done something that did not happen.</p>
+      <p>The agent claims to have performed an action it did not actually perform. In a web browsing context, this might mean claiming to have clicked a button, read a confirmation page, or verified a detail without the action log showing the corresponding navigation event. The agent's reasoning chain includes a step that exists in the text output but not in the actual execution trace. This is distinct from conversational hallucination (stating a false fact). Agentic hallucination is fabricating an action claiming to have done something that did not happen.</p>
       <div class="failure-danger">Standard RLHF cannot detect this because it evaluates the text output, not the execution trace. Multi-step evaluation compares the reasoning chain against the actual action log to surface these gaps.</div>
     </div>
     <div class="failure-box">
@@ -337,11 +337,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
   </div>
 
-  <h2>The approach — <em>dataset construction</em></h2>
+  <h2>The approach <em>dataset construction</em></h2>
 
   <p>We constructed a dataset of <strong>50 AI-generated action logs</strong> from an autonomous web browsing agent tasked with realistic information retrieval and task completion goals. The action logs were generated using an open-source web browsing agent framework operating on live websites.</p>
 
-  <div class="dt-label">Task categories — 50 action logs across 5 domains</div>
+  <div class="dt-label">Task categories - 50 action logs across 5 domains</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -385,9 +385,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>Each action log recorded: the goal, every navigation action (URL visited, element clicked, text entered), the agent's internal reasoning at each step (chain-of-thought), the final output, and whether the task was marked as completed or failed by the agent.</p>
 
-  <h2>The evaluation framework — <em>grading every step, not just the result</em></h2>
+  <h2>The evaluation framework <em>grading every step, not just the result</em></h2>
 
-  <p>This is the core methodological contribution. We designed a 5-dimension evaluation framework that annotators applied to every step of every action log — not just the final outcome.</p>
+  <p>This is the core methodological contribution. We designed a 5-dimension evaluation framework that annotators applied to every step of every action log not just the final outcome.</p>
 
   <div class="step-list">
     <div class="step-item">
@@ -403,7 +403,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="step-content">
         <h4>Action justification</h4>
         <p>For each action the agent takes, is there a clear logical reason for that specific action at that point in the sequence? Does the agent's chain-of-thought reasoning actually justify the action, or is the reasoning post-hoc rationalisation for an action taken based on pattern matching?</p>
-        <span class="step-score">Fully justified · Partially justified · Unjustified — per individual action</span>
+        <span class="step-score">Fully justified · Partially justified · Unjustified - per individual action</span>
       </div>
     </div>
     <div class="step-item">
@@ -411,7 +411,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="step-content">
         <h4>Information verification</h4>
         <p>When the agent extracts information from a web page, does it actually read and correctly interpret the page content? Or does it substitute information from its training data, ignore contradictory evidence on the page, or misread the page structure? Each extraction step is verified against the actual page content captured as a screenshot at the time of the action.</p>
-        <span class="step-score">Verified · Unverified · Contradicted — per extraction step</span>
+        <span class="step-score">Verified · Unverified · Contradicted - per extraction step</span>
       </div>
     </div>
     <div class="step-item">
@@ -439,17 +439,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <p>All annotators evaluated the same 5 action logs independently using the 5-dimension framework before live annotation began.</p>
 
   <div class="code-block">
-    <div class="code-label">Calibration kappa — 5 evaluation dimensions</div>
+    <div class="code-label">Calibration kappa - 5 evaluation dimensions</div>
     <pre><span class="label-k">Goal decomposition      </span>  <span class="val">0.76</span>
-<span class="label-k">Action justification    </span>  <span class="val">0.71</span>  (lowest — "fully vs. partially justified" is subjective)
-<span class="label-k">Information verification</span>  <span class="val">0.83</span>  (highest — either matches page content or it does not)
+<span class="label-k">Action justification    </span>  <span class="val">0.71</span>  (lowest - "fully vs. partially justified" is subjective)
+<span class="label-k">Information verification</span>  <span class="val">0.83</span>  (highest - either matches page content or it does not)
 <span class="label-k">Error recovery quality  </span>  <span class="val">0.79</span>
 <span class="label-k">Overall logical coherence</span> <span class="val">0.74</span>
 <span class="label-k">────────────────────────</span>
 <span class="label-k">Mean across dimensions  </span>  <span class="val">0.77</span>  (above 0.70 threshold for production-grade annotation)</pre>
   </div>
 
-  <h2>The results — <em>what the evaluation found</em></h2>
+  <h2>The results <em>what the evaluation found</em></h2>
 
   <div class="findings-box">
     <div class="findings-title">Findings across 50 action logs</div>
@@ -489,12 +489,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>The most important finding: 31 of 50 action logs were marked "successful" by outcome-based evaluation. But only 11 of those 31 achieved success through fully sound reasoning. <strong>Standard RLHF would have marked all 31 as positive training signal.</strong> Multi-step evaluation identifies only 11 as genuinely positive signal and flags the other 20 for specific reasoning corrections.</p>
 
-  <h3>Detailed breakdown — logical leaps</h3>
+  <h3>Detailed breakdown logical leaps</h3>
 
   <p>Logical leaps were the most common failure mode, appearing in 68% of action logs. The agent is asked to find the current price of a specific laptop on an e-commerce site.</p>
 
   <div class="action-log">
-    <div class="action-log-label">Example — laptop price retrieval · logical leap detected at Step 4</div>
+    <div class="action-log-label">Example laptop price retrieval · logical leap detected at Step 4</div>
     <div class="action-step">
       <div class="action-step-num">Step 1</div>
       <div class="action-step-text">Navigate to e-commerce site homepage</div>
@@ -515,15 +515,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="action-step-text">Output: "The price is ₹89,999" [no page-reading or price extraction action in log]</div>
       <div class="action-badge badge-bad">Logical leap</div>
     </div>
-    <div class="action-insight">Annotator assessment: "Step 4 is a logical leap. The agent did not extract the price from the page content — it outputted a price that may be from training data. This step should include: read price element from product page → verify currency → output verified price." <br><br>Corrective training signal: The annotator rewrote the reasoning chain for Step 4 to include the missing verification step. Multiplied across hundreds of similar examples, this trains the agent to always verify against the current page rather than substituting from memory.</div>
+    <div class="action-insight">Annotator assessment: "Step 4 is a logical leap. The agent did not extract the price from the page content it outputted a price that may be from training data. This step should include: read price element from product page → verify currency → output verified price." <br><br>Corrective training signal: The annotator rewrote the reasoning chain for Step 4 to include the missing verification step. Multiplied across hundreds of similar examples, this trains the agent to always verify against the current page rather than substituting from memory.</div>
   </div>
 
-  <h3>Detailed breakdown — hallucinated actions</h3>
+  <h3>Detailed breakdown hallucinated actions</h3>
 
-  <p>Hallucinated actions appeared in 24% of logs — the agent claimed to have performed an action that the execution trace does not support. The agent is asked to compare prices across three different websites.</p>
+  <p>Hallucinated actions appeared in 24% of logs the agent claimed to have performed an action that the execution trace does not support. The agent is asked to compare prices across three different websites.</p>
 
   <div class="action-log">
-    <div class="action-log-label">Example — price comparison · hallucinated action at Step 6</div>
+    <div class="action-log-label">Example for price comparison · hallucinated action at Step 6</div>
     <div class="action-step">
       <div class="action-step-num">Step 5</div>
       <div class="action-step-text">Navigate to Website B</div>
@@ -542,12 +542,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="action-insight">Annotator assessment: "Step 6 is a hallucinated action. The execution trace shows the agent landed on Website B's homepage and immediately moved to Step 7 without searching for the product. The price ₹92,500 was generated, not extracted. The correct sequence: search for product on Website B → navigate to product page → extract price → verify price is visible on page → report verified price."</div>
   </div>
 
-  <h3>Detailed breakdown — correct result, flawed reasoning</h3>
+  <h3>Detailed breakdown correct result, flawed reasoning</h3>
 
-  <p>This is the finding that demonstrates why outcome-based evaluation is insufficient for agentic AI. 38% of action logs that produced a correct final result did so through flawed reasoning. In every case, standard RLHF would have marked the log as a positive training example — reinforcing the flawed reasoning pattern.</p>
+  <p>This is the finding that demonstrates why outcome-based evaluation is insufficient for agentic AI. 38% of action logs that produced a correct final result did so through flawed reasoning. In every case, standard RLHF would have marked the log as a positive training example reinforcing the flawed reasoning pattern.</p>
 
   <div class="action-log">
-    <div class="action-log-label">Example — contact email lookup · correct result via logical leap</div>
+    <div class="action-log-label">Example - contact email lookup · correct result via logical leap</div>
     <div class="action-step">
       <div class="action-step-num">Step 1</div>
       <div class="action-step-text">Navigate to company website</div>
@@ -560,7 +560,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
     <div class="action-step">
       <div class="action-step-num">Step 3</div>
-      <div class="action-step-text">Output: "The customer service email is support@company.com" [Contact Us page loaded but not read — email from training data, happens to be current]</div>
+      <div class="action-step-text">Output: "The customer service email is support@company.com" [Contact Us page loaded but not read email from training data, happens to be current]</div>
       <div class="action-badge badge-bad">Logical leap</div>
     </div>
     <div class="action-insight">Annotator flagged: "Correct result, flawed reasoning. Must not be used as positive RLHF signal without correction. The corrected version must include a page-reading step between navigation and output. On a different company whose contact email has changed, the same reasoning pattern would produce an incorrect result."</div>
@@ -592,7 +592,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <p>The multi-step evaluation produces 20 corrected training examples that outcome-based evaluation would have treated as positive signal without correction. These 20 corrections — showing the flawed reasoning chain alongside the corrected version — are the highest-value training data for improving an agent's reasoning capabilities. The model learns not just what the right answer is, but what the right reasoning process looks like.</p>
+  <p>The multi-step evaluation produces 20 corrected training examples that outcome-based evaluation would have treated as positive signal without correction. These 20 corrections showing the flawed reasoning chain alongside the corrected version are the highest-value training data for improving an agent's reasoning capabilities. The model learns not just what the right answer is, but what the right reasoning process looks like.</p>
 
   <h2>Time and cost analysis</h2>
 
@@ -641,31 +641,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <div class="pull-quote">Multi-step evaluation costs 4–5× more per action log than outcome-based RLHF. But it produces training data that is categorically different — not just "this action sequence was good/bad" but "here is exactly where the reasoning broke down, here is why, and here is what the correct reasoning chain should have been."</div>
+  <div class="pull-quote">Multi-step evaluation costs 4–5× more per action log than outcome-based RLHF. But it produces training data that is categorically different not just "this action sequence was good/bad" but "here is exactly where the reasoning broke down, here is why, and here is what the correct reasoning chain should have been."</div>
 
   <div class="key-takeaway">
     <div class="key-takeaway-title">Key learnings</div>
     <div class="key-takeaway-list">
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Outcome-based RLHF is actively harmful for agentic AI training.</strong> 38% of "successful" action logs contained flawed reasoning that standard RLHF would have reinforced. Training on this signal produces agents that are unreliable on novel tasks — they have learned specific shortcuts rather than general reasoning patterns.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Logical leaps are the most common and most dangerous failure mode.</strong> 68% of action logs contained at least one logical leap — a step where the agent substituted training data for current context. This failure mode is invisible in outcome evaluation because the substituted information is often correct. It becomes visible only when the reasoning chain is evaluated step by step.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Outcome-based RLHF is actively harmful for agentic AI training.</strong> 38% of "successful" action logs contained flawed reasoning that standard RLHF would have reinforced. Training on this signal produces agents that are unreliable on novel tasks they have learned specific shortcuts rather than general reasoning patterns.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Logical leaps are the most common and most dangerous failure mode.</strong> 68% of action logs contained at least one logical leap a step where the agent substituted training data for current context. This failure mode is invisible in outcome evaluation because the substituted information is often correct. It becomes visible only when the reasoning chain is evaluated step by step.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Hallucinated actions are the agentic equivalent of hallucinated facts.</strong> 24% of logs contained actions the agent claimed to have performed but did not actually execute. This failure category only exists in agentic AI and requires execution trace verification that standard RLHF annotation does not include.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The corrected reasoning chain is the highest-value training data.</strong> The 20 action logs with correct results but flawed reasoning — annotated with specific corrections to each flawed step — produce training signal that teaches the model what good reasoning looks like, not just what good outcomes look like.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Annotator selection for agentic evaluation is fundamentally different.</strong> Evaluating multi-step reasoning chains requires software engineering literacy, logical reasoning ability, and experience tracing execution flows. Standard RLHF annotators — even excellent ones — cannot reliably evaluate agentic action logs without task-specific training.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>This is the highest-value annotation service in the current market.</strong> Agentic AI is the fastest-growing segment, the evaluation methodology is complex, the pool of qualified annotators is small, and the impact on model quality is substantial. Multi-step reasoning evaluation commands 4–5× the price of standard RLHF annotation — and delivers proportionally more value.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The corrected reasoning chain is the highest-value training data.</strong> The 20 action logs with correct results but flawed reasoning annotated with specific corrections to each flawed step produce training signal that teaches the model what good reasoning looks like, not just what good outcomes look like.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Annotator selection for agentic evaluation is fundamentally different.</strong> Evaluating multi-step reasoning chains requires software engineering literacy, logical reasoning ability, and experience tracing execution flows. Standard RLHF annotators even excellent ones cannot reliably evaluate agentic action logs without task-specific training.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>This is the highest-value annotation service in the current market.</strong> Agentic AI is the fastest-growing segment, the evaluation methodology is complex, the pool of qualified annotators is small, and the impact on model quality is substantial. Multi-step reasoning evaluation commands 4–5× the price of standard RLHF annotation and delivers proportionally more value.</span></div>
     </div>
   </div>
 
   <div class="article-cta-banner">
     <h3>Building an agentic AI system and need <em>reasoning-quality evaluation?</em></h3>
-    <p>We specialise in multi-step logic verification, action log auditing, and RLHF preference data for agentic workflows. Free audit — 10 action logs evaluated, findings in 5 working days.</p>
+    <p>We specialise in multi-step logic verification, action log auditing, and RLHF preference data for agentic workflows. Free audit 10 action logs evaluated, findings in 5 working days.</p>
     <a href="contact.html" class="article-cta-btn">Request Free Audit →</a>
   </div>
 
   <div class="author-card">
-    <div class="author-avatar">C</div>
+    <div class="author-avatar">A</div>
     <div>
-      <div class="author-name">The Concave AI Team</div>
-      <div class="author-role">ML-Engineer-Led Data Annotation & GenAI Evaluation · Bengaluru, India</div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
     </div>
   </div>
 
@@ -674,7 +674,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=85')"></div>
   <div class="sidebar-fact">
     <div class="sidebar-fact-num">38%</div>
-    <div class="sidebar-fact-label">Of "successful" action logs contain flawed reasoning — invisible to outcome-based evaluation, reinforced as positive training signal by standard RLHF</div>
+    <div class="sidebar-fact-label">Of "successful" action logs contain flawed reasoning invisible to outcome-based evaluation, reinforced as positive training signal by standard RLHF</div>
   </div>
   <div class="sidebar-caption">From 50-action-log study across 5 agentic task categories. Mean calibration kappa: 0.77 across 5 evaluation dimensions.</div>
 </aside>

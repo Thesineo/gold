@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Annotation — Concave AI</title>
+<title>Image Annotation </title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -287,9 +287,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1584116450724-188dc765968f?w=1920&q=85&auto=format&fit=crop')"></div>
 
   <div>
-    <div class="svc-hero-eyebrow">Service — Computer Vision</div>
+    <div class="svc-hero-eyebrow">Service - Computer Vision</div>
     <h1>Image <em>Annotation</em></h1>
-    <p class="svc-hero-sub">SAM2-powered pre-annotation reduces manual work by 40–60%. Bounding boxes, polygon segmentation, semantic and instance segmentation, keypoint detection, and medical DICOM labeling. Human experts validate every AI-suggested label — quality verified, not just completed.</p>
+    <p class="svc-hero-sub">SAM2-powered pre-annotation reduces manual work by 40–60%. Bounding boxes, polygon segmentation, semantic and instance segmentation, keypoint detection, and medical DICOM labeling. Human experts validate every AI-suggested labelquality verified, not just completed.</p>
     <div class="hero-ctas">
       <a href="contact.html" class="btn-primary">Get a Free Sample Annotated →</a>
       <a href="#pricing" class="btn-outline">View Pricing</a>
@@ -302,7 +302,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="h-stat">
       <div class="h-stat-num">≥88%</div>
-      <div class="h-stat-label">Gold standard accuracy on every batch — withheld and reannotated if below</div>
+      <div class="h-stat-label">Gold standard accuracy on every batch withheld and reannotated if below</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">6+</div>
@@ -326,21 +326,21 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" id="overview">
   <span class="sec-eyebrow">What It Is</span>
   <h2 class="sec-title">Computer vision training data at speed, <em>without sacrificing accuracy</em></h2>
-  <p class="sec-desc">Image annotation is the process of labeling images with structured information — object locations, boundaries, categories, or attributes — so that computer vision models can learn to perceive and understand visual content. Every object detection, segmentation, and recognition system depends on millions of carefully annotated images.</p>
+  <p class="sec-desc">Image annotation is the process of labeling images with structured information object locations, boundaries, categories, or attributes so that computer vision models can learn to perceive and understand visual content. Every object detection, segmentation, and recognition system depends on millions of carefully annotated images.</p>
   <div class="two-col">
     <div class="body-text">
-      <p>The fundamental challenge in image annotation is the speed-quality tradeoff. Manual annotation of complex segmentation masks is slow and expensive. Automated annotation is fast but introduces systematic errors — especially at object boundaries, occluded regions, and in domain-specific images (medical scans, satellite imagery, unusual lighting conditions) that differ from the model's training distribution.</p>
-      <p>Our approach combines SAM2 (Meta's Segment Anything Model 2) for AI-powered pre-annotation with expert human validation. SAM2 pre-draws segmentation masks or bounding box suggestions at 40–60% of the speed of manual annotation. Human annotators then validate, correct, and refine these suggestions — with particular attention to boundary accuracy, small objects, occluded targets, and edge cases that AI models consistently miss.</p>
-      <p>For medical imaging specifically (DICOM radiology, pathology slides, ultrasound), we maintain a separate annotator pool of MBBS-qualified clinicians and radiologists. Medical image annotation requires clinical knowledge — the difference between a tumour margin and a normal tissue boundary is not something that can be specified in annotation guidelines alone; it requires annotators who have studied anatomy and pathology.</p>
+      <p>The fundamental challenge in image annotation is the speed-quality tradeoff. Manual annotation of complex segmentation masks is slow and expensive. Automated annotation is fast but introduces systematic errors especially at object boundaries, occluded regions, and in domain-specific images (medical scans, satellite imagery, unusual lighting conditions) that differ from the model's training distribution.</p>
+      <p>Our approach combines SAM2 (Meta's Segment Anything Model 2) for AI-powered pre-annotation with expert human validation. SAM2 pre-draws segmentation masks or bounding box suggestions at 40–60% of the speed of manual annotation. Human annotators then validate, correct, and refine these suggestions with particular attention to boundary accuracy, small objects, occluded targets, and edge cases that AI models consistently miss.</p>
+      <p>For medical imaging specifically (DICOM radiology, pathology slides, ultrasound), we maintain a separate annotator pool of MBBS-qualified clinicians and radiologists. Medical image annotation requires clinical knowledge the difference between a tumour margin and a normal tissue boundary is not something that can be specified in annotation guidelines alone; it requires annotators who have studied anatomy and pathology.</p>
     </div>
     <div>
       <div class="info-block">
         <div class="info-block-title">What is SAM2 and why does it matter?</div>
-        <div class="info-block-body">SAM2 (Segment Anything Model 2) from Meta is the current state-of-the-art model for zero-shot image and video segmentation. Given a point or bounding box prompt, it generates a high-quality segmentation mask covering the target object. For annotation workflows, this means complex polygon segmentation that would take an annotator 5–10 minutes manually can be pre-generated in seconds and validated in 30–60 seconds. The speed gain is real — the risk is boundary inaccuracy, which human review addresses.</div>
+        <div class="info-block-body">SAM2 (Segment Anything Model 2) from Meta is the current state-of-the-art model for zero-shot image and video segmentation. Given a point or bounding box prompt, it generates a high-quality segmentation mask covering the target object. For annotation workflows, this means complex polygon segmentation that would take an annotator 5–10 minutes manually can be pre-generated in seconds and validated in 30–60 seconds. The speed gain is real the risk is boundary inaccuracy, which human review addresses.</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">What quality metrics apply to image annotation?</div>
-        <div class="info-block-body">Standard metrics: Intersection over Union (IoU) ≥ 0.85 for bounding boxes, mean IoU ≥ 0.80 for segmentation masks, per-class precision/recall for classification tasks. Gold standard images — with pre-verified correct annotations — are injected at 6% rate throughout production. Any batch where gold standard IoU falls below threshold is withheld and reannotated. We publish these metrics in every QA report.</div>
+        <div class="info-block-body">Standard metrics: Intersection over Union (IoU) ≥ 0.85 for bounding boxes, mean IoU ≥ 0.80 for segmentation masks, per-class precision/recall for classification tasks. Gold standard images with pre-verified correct annotations are injected at 6% rate throughout production. Any batch where gold standard IoU falls below threshold is withheld and reannotated. We publish these metrics in every QA report.</div>
       </div>
     </div>
   </div>
@@ -372,10 +372,10 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" style="padding-top:0;padding-bottom:60px">
   <span class="sec-eyebrow">Live Annotation Interface</span>
   <h2 class="sec-title" style="margin-top:12px">Object Detection <em>Bounding Box</em> Annotation Tool</h2>
-  <p class="sec-desc">Expert annotators draw precise bounding boxes, polygons, and semantic masks across millions of images — building training datasets for computer vision models.</p>
+  <p class="sec-desc">Expert annotators draw precise bounding boxes, polygons, and semantic masks across millions of images building training datasets for computer vision models.</p>
   <div class="ia-demo">
     <div class="ia-demo-bar">
-      <span>ConcaveLabel Studio — Image Annotation · Dataset: Urban Traffic CV · Frame #14,882</span>
+      <span>ConcaveLabel Studio - Image Annotation · Dataset: Urban Traffic CV · Frame #14,882</span>
     </div>
     <div class="ia-body">
       <div class="ia-canvas">
@@ -443,19 +443,19 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="ann-card">
       <span class="ann-icon">🎨</span>
       <div class="ann-title">Semantic Segmentation</div>
-      <div class="ann-body">Pixel-level class labeling covering every pixel in the image. Every pixel belongs to a category — sky, road, building, pedestrian, vegetation. Essential for scene understanding, autonomous driving, and satellite imagery analysis.</div>
+      <div class="ann-body">Pixel-level class labeling covering every pixel in the image. Every pixel belongs to a category sky, road, building, pedestrian, vegetation. Essential for scene understanding, autonomous driving, and satellite imagery analysis.</div>
       <div class="ann-tags"><span class="ann-tag">Every pixel labeled</span><span class="ann-tag">Custom class ontology</span><span class="ann-tag">ADE20K compatible</span></div>
     </div>
     <div class="ann-card">
       <span class="ann-icon">🔢</span>
       <div class="ann-title">Instance Segmentation</div>
-      <div class="ann-body">Semantic segmentation that also distinguishes between different instances of the same class — person #1 vs person #2, car #1 vs car #2. Each instance gets a unique ID. Essential for crowd analysis, multi-object tracking setup, and surgical scene understanding.</div>
+      <div class="ann-body">Semantic segmentation that also distinguishes between different instances of the same class person #1 vs person #2, car #1 vs car #2. Each instance gets a unique ID. Essential for crowd analysis, multi-object tracking setup, and surgical scene understanding.</div>
       <div class="ann-tags"><span class="ann-tag">Unique instance IDs</span><span class="ann-tag">COCO format</span><span class="ann-tag">Crowd handling</span></div>
     </div>
     <div class="ann-card">
       <span class="ann-icon">📍</span>
       <div class="ann-title">Keypoint Detection</div>
-      <div class="ann-body">Labeling anatomical or structural keypoints — human pose estimation (17 COCO keypoints), face landmarks (68 points), hand skeleton, vehicle structural points, animal anatomy. Supports custom keypoint schemas and visibility flagging for occluded points.</div>
+      <div class="ann-body">Labeling anatomical or structural keypoints human pose estimation (17 COCO keypoints), face landmarks (68 points), hand skeleton, vehicle structural points, animal anatomy. Supports custom keypoint schemas and visibility flagging for occluded points.</div>
       <div class="ann-tags"><span class="ann-tag">Human pose</span><span class="ann-tag">Face landmarks</span><span class="ann-tag">Custom schemas</span><span class="ann-tag">Visibility flags</span></div>
     </div>
     <div class="ann-card">
@@ -475,7 +475,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">01</div>
       <div class="step-content">
         <div class="step-title">Data Audit & Ontology Design</div>
-        <div class="step-body">We review a 100–200 image sample from your dataset to assess annotation complexity, object density, occlusion frequency, lighting variation, and edge case distribution. From this, we design your labeling ontology — class definitions with boundary rules, attribute schema, and worked examples for ambiguous cases. For medical projects, we additionally verify the clinical annotation standards required (WHO coding, radiological grading systems) with your clinical team.</div>
+        <div class="step-body">We review a 100–200 image sample from your dataset to assess annotation complexity, object density, occlusion frequency, lighting variation, and edge case distribution. From this, we design your labeling ontology class definitions with boundary rules, attribute schema, and worked examples for ambiguous cases. For medical projects, we additionally verify the clinical annotation standards required (WHO coding, radiological grading systems) with your clinical team.</div>
         <div class="step-tags"><span class="step-tag">Sample audit</span><span class="step-tag">Ontology design</span><span class="step-tag">Boundary rules</span><span class="step-tag">Clinical standards check</span></div>
       </div>
     </div>
@@ -483,7 +483,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">02</div>
       <div class="step-content">
         <div class="step-title">SAM2 Pre-Annotation</div>
-        <div class="step-body">SAM2 runs on every image to generate preliminary segmentation masks or bounding boxes depending on your task type. For object detection tasks, we run SAM2 in automatic mask generation mode and then classify masks using a fine-tuned classifier. For specific object types, we run SAM2 with category-specific prompts. All pre-annotations are confidence-scored — low-confidence regions are flagged for priority human attention. Gold standard images (with manually verified correct annotations) are injected at 6% rate to monitor annotator accuracy continuously.</div>
+        <div class="step-body">SAM2 runs on every image to generate preliminary segmentation masks or bounding boxes depending on your task type. For object detection tasks, we run SAM2 in automatic mask generation mode and then classify masks using a fine-tuned classifier. For specific object types, we run SAM2 with category-specific prompts. All pre-annotations are confidence-scored low-confidence regions are flagged for priority human attention. Gold standard images (with manually verified correct annotations) are injected at 6% rate to monitor annotator accuracy continuously.</div>
         <div class="step-tags"><span class="step-tag">SAM2 auto-mask</span><span class="step-tag">Confidence scoring</span><span class="step-tag">6% gold injection</span><span class="step-tag">40–60% time saving</span></div>
       </div>
     </div>
@@ -499,7 +499,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">04</div>
       <div class="step-content">
         <div class="step-title">Three-Tier QA & Delivery</div>
-        <div class="step-body">Tier 1: Automated schema validation (missing required labels, out-of-bounds coordinates, unusual size distributions). Tier 2: 15% random sample reviewed by a second annotator — IoU calculated against original. Tier 3: Expert spot check on 5% sample plus all flagged images. Batch withheld if gold standard accuracy falls below 88%. Delivery in COCO JSON, Pascal VOC XML, YOLO TXT, or custom format. Full QA report with per-class IoU, annotator agreement rates, and data card.</div>
+        <div class="step-body">Tier 1: Automated schema validation (missing required labels, out-of-bounds coordinates, unusual size distributions). Tier 2: 15% random sample reviewed by a second annotator IoU calculated against original. Tier 3: Expert spot check on 5% sample plus all flagged images. Batch withheld if gold standard accuracy falls below 88%. Delivery in COCO JSON, Pascal VOC XML, YOLO TXT, or custom format. Full QA report with per-class IoU, annotator agreement rates, and data card.</div>
         <div class="step-tags"><span class="step-tag">Auto schema validation</span><span class="step-tag">15% peer re-annotation</span><span class="step-tag">IoU ≥ 0.85 gate</span><span class="step-tag">COCO / VOC / YOLO format</span></div>
       </div>
     </div>
@@ -513,7 +513,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="usecase-card">
       <span class="uc-emoji">🏥</span>
       <div class="uc-title">Medical Imaging</div>
-      <div class="uc-body">Tumour segmentation on CT/MRI, fracture detection on X-rays, lesion delineation on pathology slides, organ segmentation for surgical planning AI, ultrasound structure annotation. All annotated by MBBS/MD-qualified clinicians with specialty matching — radiologist for radiology, pathologist for pathology.</div>
+      <div class="uc-body">Tumour segmentation on CT/MRI, fracture detection on X-rays, lesion delineation on pathology slides, organ segmentation for surgical planning AI, ultrasound structure annotation. All annotated by MBBS/MD-qualified clinicians with specialty matching radiologist for radiology, pathologist for pathology.</div>
     </div>
     <div class="usecase-card">
       <span class="uc-emoji">🚗</span>
@@ -523,12 +523,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="usecase-card">
       <span class="uc-emoji">🌾</span>
       <div class="uc-title">Agriculture & Satellite</div>
-      <div class="uc-body">Satellite and drone imagery annotation for crop type classification, disease detection, yield estimation, and PMFBY insurance claim assessment. Annotators understand Indian crop varieties, disease patterns, and regional soil types — essential for accurate labeling that cannot be done by non-specialist annotators.</div>
+      <div class="uc-body">Satellite and drone imagery annotation for crop type classification, disease detection, yield estimation, and PMFBY insurance claim assessment. Annotators understand Indian crop varieties, disease patterns, and regional soil types essential for accurate labeling that cannot be done by non-specialist annotators.</div>
     </div>
     <div class="usecase-card">
       <span class="uc-emoji">🏭</span>
       <div class="uc-title">Manufacturing & Quality Control</div>
-      <div class="uc-body">Defect detection and quality control image annotation for industrial AI — surface defects, dimensional measurement, assembly verification, and product classification. Supports training models for visual inspection systems on production lines with domain-specific defect taxonomies.</div>
+      <div class="uc-body">Defect detection and quality control image annotation for industrial AI surface defects, dimensional measurement, assembly verification, and product classification. Supports training models for visual inspection systems on production lines with domain-specific defect taxonomies.</div>
     </div>
   </div>
 </section>
@@ -537,7 +537,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div>
     <span class="sec-eyebrow">Pricing</span>
     <h2 class="sec-title">Per-image pricing,<br><em>complexity-based tiers</em></h2>
-    <p class="sec-desc">Priced per image based on annotation type, object density, and domain. SAM2 pre-annotation is included in all tiers — pricing reflects human QA time required.</p>
+    <p class="sec-desc">Priced per image based on annotation type, object density, and domain. SAM2 pre-annotation is included in all tiers pricing reflects human QA time required.</p>
     <a href="contact.html" class="btn-primary" style="margin-top:32px;display:inline-block;background:var(--accent2);color:var(--ink)">Get a Dataset Quote →</a>
   </div>
   <div class="price-rows">
@@ -575,7 +575,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="cta-section">
   <div class="cta-inner">
     <h2>Get 100 images <em>annotated free</em></h2>
-    <p>Send us a sample of 100 images from your dataset. We will annotate them using our SAM2+human pipeline and return the labeled dataset with IoU metrics — no cost, no commitment.</p>
+    <p>Send us a sample of 100 images from your dataset. We will annotate them using our SAM2+human pipeline and return the labeled dataset with IoU metrics no cost, no commitment.</p>
     <div class="cta-actions">
       <a href="contact.html" class="cta-btn-white">Request Free Sample →</a>
       <a href="contact.html" class="cta-btn-ghost">Talk to our vision team</a>
@@ -590,7 +590,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>

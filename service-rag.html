@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RAG System Evaluation — Concave AI</title>
+<title>RAG System Evaluation for AI Models</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -285,7 +285,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1920&q=85&auto=format&fit=crop')"></div>
 
   <div>
-    <div class="svc-hero-eyebrow">Service — Enterprise AI</div>
+    <div class="svc-hero-eyebrow">Service - Enterprise AI</div>
     <h1>RAG System <em>Evaluation</em></h1>
     <p class="svc-hero-sub">Human evaluation of retrieval + generation quality in RAG pipelines. Annotators assess: did the retrieval surface the right context? Did the generation faithfully use it? Detects faithfulness failures, citation errors, and hallucinations where the model ignores its own retrieved sources.</p>
     <div class="hero-ctas">
@@ -296,7 +296,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="svc-hero-stats">
     <div class="h-stat">
       <div class="h-stat-num">2-Stage</div>
-      <div class="h-stat-label">Separate evaluation of retrieval quality AND generation faithfulness — independently scored</div>
+      <div class="h-stat-label">Separate evaluation of retrieval quality AND generation faithfulness independently scored</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">5 Metrics</div>
@@ -323,13 +323,13 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <section class="sec" id="overview">
   <span class="sec-eyebrow">What It Is</span>
-  <h2 class="sec-title">Your RAG system has two places it can fail — <em>we measure both</em></h2>
-  <p class="sec-desc">Retrieval-Augmented Generation (RAG) connects a language model to an external knowledge base. When it works, it grounds the model's responses in verified, up-to-date information. When it fails — and it fails in two distinct ways — the result is confident wrong answers that users trust because they appear well-sourced.</p>
+  <h2 class="sec-title">Your RAG system has two places it can fail <em>we measure both</em></h2>
+  <p class="sec-desc">Retrieval-Augmented Generation (RAG) connects a language model to an external knowledge base. When it works, it grounds the model's responses in verified, up-to-date information. When it fails and it fails in two distinct ways the result is confident wrong answers that users trust because they appear well-sourced.</p>
   <div class="two-col">
     <div class="body-text">
-      <p>RAG systems fail in two distinct ways. Retrieval failures: the system retrieves the wrong context, or does not retrieve anything relevant. The model then either generates from its parametric knowledge (hallucinating) or accurately confesses ignorance — the latter is actually fine, the former is dangerous. Generation failures: the retrieval correctly surfaced the right context, but the model ignores it, contradicts it, or adds information from outside the retrieved context. This is called faithfulness failure — and it is one of the most trust-destroying failures in enterprise AI.</p>
-      <p>Automated RAG evaluation metrics (RAGAS, TruLens, LangChain Evaluators) use LLMs to evaluate LLM outputs — which creates a circular evaluation problem. An LLM evaluating whether another LLM faithfully used retrieved context will make the same kinds of errors both models make: it will often agree that a generation is faithful when it actually added external information, and it will sometimes flag faithful responses as unfaithful due to rewording.</p>
-      <p>Human expert evaluation is the ground truth. Our RAG evaluation service uses domain specialists who actually read the retrieved source documents and the generated answer, and independently judge whether: (1) the retrieval surfaced contextually relevant documents, (2) the generation faithfully used the retrieved content, and (3) the answer correctly cites and attributes its sources. This is expensive per-query — which is why automated metrics handle volume and human evaluation handles the representative sample you actually need to trust.</p>
+      <p>RAG systems fail in two distinct ways. Retrieval failures: the system retrieves the wrong context, or does not retrieve anything relevant. The model then either generates from its parametric knowledge (hallucinating) or accurately confesses ignorance the latter is actually fine, the former is dangerous. Generation failures: the retrieval correctly surfaced the right context, but the model ignores it, contradicts it, or adds information from outside the retrieved context. This is called faithfulness failure and it is one of the most trust-destroying failures in enterprise AI.</p>
+      <p>Automated RAG evaluation metrics (RAGAS, TruLens, LangChain Evaluators) use LLMs to evaluate LLM outputs which creates a circular evaluation problem. An LLM evaluating whether another LLM faithfully used retrieved context will make the same kinds of errors both models make: it will often agree that a generation is faithful when it actually added external information, and it will sometimes flag faithful responses as unfaithful due to rewording.</p>
+      <p>Human expert evaluation is the ground truth. Our RAG evaluation service uses domain specialists who actually read the retrieved source documents and the generated answer, and independently judge whether: (1) the retrieval surfaced contextually relevant documents, (2) the generation faithfully used the retrieved content, and (3) the answer correctly cites and attributes its sources. This is expensive per-query which is why automated metrics handle volume and human evaluation handles the representative sample you actually need to trust.</p>
     </div>
     <div>
       <div class="info-block">
@@ -338,7 +338,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       </div>
       <div class="info-block">
         <div class="info-block-title">What types of RAG systems do you evaluate?</div>
-        <div class="info-block-body">We evaluate any RAG architecture: naive RAG (simple vector retrieval + generation), advanced RAG (reranking, query decomposition, HyDE), modular RAG (multiple retrieval strategies), and agentic RAG (multi-step retrieval with tool use). Domain focus is enterprise: internal knowledge bases (HR policies, technical documentation, SOPs), legal research assistants, financial regulatory assistants, and customer-facing knowledge bots. We require access to your system via API — we do not need internal access to your infrastructure.</div>
+        <div class="info-block-body">We evaluate any RAG architecture: naive RAG (simple vector retrieval + generation), advanced RAG (reranking, query decomposition, HyDE), modular RAG (multiple retrieval strategies), and agentic RAG (multi-step retrieval with tool use). Domain focus is enterprise: internal knowledge bases (HR policies, technical documentation, SOPs), legal research assistants, financial regulatory assistants, and customer-facing knowledge bots. We require access to your system via API we do not need internal access to your infrastructure.</div>
       </div>
     </div>
   </div>
@@ -373,7 +373,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <p class="sec-desc">Annotators compare retrieved source passages against AI-generated claims, flagging unsupported or contradicted statements to improve RAG system grounding and citation accuracy.</p>
   <div class="rag-demo">
     <div class="rag-demo-bar">
-      <span>ConcaveLabel Studio — RAG Eval · System: LegalAssist RAG · 3,200 response-source pairs</span>
+      <span>ConcaveLabel Studio RAG Eval · System: LegalAssist RAG · 3,200 response-source pairs</span>
     </div>
     <div class="rag-body">
       <div class="rag-pair">
@@ -428,27 +428,27 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="eval-card">
       <span class="eval-icon">🎯</span>
       <div class="eval-title">Context Precision</div>
-      <div class="eval-body">Of all the documents your system retrieved for a given query, what fraction were actually relevant to answering it? Low precision means your retrieval is noisy — the model receives irrelevant information that it must either ignore or risks hallucinating from. Human annotators read each retrieved chunk and judge relevance to the query. Automated metrics score this poorly because relevance is often domain-dependent and context-sensitive.</div>
+      <div class="eval-body">Of all the documents your system retrieved for a given query, what fraction were actually relevant to answering it? Low precision means your retrieval is noisy the model receives irrelevant information that it must either ignore or risks hallucinating from. Human annotators read each retrieved chunk and judge relevance to the query. Automated metrics score this poorly because relevance is often domain-dependent and context-sensitive.</div>
     </div>
     <div class="eval-card">
       <span class="eval-icon">🔍</span>
       <div class="eval-title">Context Recall</div>
-      <div class="eval-body">Was all the information needed to correctly answer the query actually present in the retrieved context? Low recall means your retrieval missed critical information — the model then either hallucinated the missing information or gave an incomplete answer. Human annotators compare the ground-truth answer (if known) with the retrieved context to identify information gaps in retrieval.</div>
+      <div class="eval-body">Was all the information needed to correctly answer the query actually present in the retrieved context? Low recall means your retrieval missed critical information the model then either hallucinated the missing information or gave an incomplete answer. Human annotators compare the ground-truth answer (if known) with the retrieved context to identify information gaps in retrieval.</div>
     </div>
     <div class="eval-card">
       <span class="eval-icon">⚓</span>
       <div class="eval-title">Faithfulness</div>
-      <div class="eval-body">Does every factual claim in the generated answer actually appear in or follow from the retrieved context? Low faithfulness means the model is adding information from its parametric knowledge — bypassing the RAG grounding entirely and hallucinating with false confidence. Human annotators read both the retrieved context and the generated answer, and mark every claim as supported, unsupported, or contradicted by the context.</div>
+      <div class="eval-body">Does every factual claim in the generated answer actually appear in or follow from the retrieved context? Low faithfulness means the model is adding information from its parametric knowledge bypassing the RAG grounding entirely and hallucinating with false confidence. Human annotators read both the retrieved context and the generated answer, and mark every claim as supported, unsupported, or contradicted by the context.</div>
     </div>
     <div class="eval-card">
       <span class="eval-icon">💬</span>
       <div class="eval-title">Answer Relevance</div>
-      <div class="eval-body">Does the generated answer actually address what the user asked? Even with faithful, accurate retrieval, models sometimes answer a related but different question — particularly with ambiguous queries. Human annotators score whether the answer satisfies the information need expressed in the query, not just whether it is factually correct in the abstract.</div>
+      <div class="eval-body">Does the generated answer actually address what the user asked? Even with faithful, accurate retrieval, models sometimes answer a related but different question  particularly with ambiguous queries. Human annotators score whether the answer satisfies the information need expressed in the query, not just whether it is factually correct in the abstract.</div>
     </div>
     <div class="eval-card">
       <span class="eval-icon">📎</span>
       <div class="eval-title">Citation Accuracy</div>
-      <div class="eval-body">Where your RAG system outputs citations (document names, page numbers, section references), are those citations accurate? Does the cited document actually support the claim it is attached to? Citation hallucination — where a model correctly retrieves a document but then fabricates or misattributes the citation — is a common and particularly trust-damaging failure in enterprise knowledge assistants.</div>
+      <div class="eval-body">Where your RAG system outputs citations (document names, page numbers, section references), are those citations accurate? Does the cited document actually support the claim it is attached to? Citation hallucination where a model correctly retrieves a document but then fabricates or misattributes the citation is a common and particularly trust-damaging failure in enterprise knowledge assistants.</div>
     </div>
     <div class="eval-card">
       <span class="eval-icon">🚫</span>
@@ -474,7 +474,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">02</div>
       <div class="step-content">
         <div class="step-title">Automated Pre-Scoring</div>
-        <div class="step-body">Our automated pipeline computes initial scores on all 6 metrics using semantic similarity, embedding-based relevance scoring, and LLM-as-judge methods. This provides a fast first-pass estimate that surfaces the queries most likely to contain failures. Automated scoring also handles the retrieval-level metrics (context precision and recall) where embedding similarity is a reliable signal — freeing human review time for the generation-level metrics where automation fails most often.</div>
+        <div class="step-body">Our automated pipeline computes initial scores on all 6 metrics using semantic similarity, embedding-based relevance scoring, and LLM-as-judge methods. This provides a fast first-pass estimate that surfaces the queries most likely to contain failures. Automated scoring also handles the retrieval-level metrics (context precision and recall) where embedding similarity is a reliable signal freeing human review time for the generation-level metrics where automation fails most often.</div>
         <div class="step-tags"><span class="step-tag">Semantic similarity scoring</span><span class="step-tag">LLM-as-judge pre-scoring</span><span class="step-tag">Failure-likely flagging</span></div>
       </div>
     </div>
@@ -482,7 +482,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">03</div>
       <div class="step-content">
         <div class="step-title">Domain Expert Human Evaluation</div>
-        <div class="step-body">Domain experts read the retrieved chunks and generated answer for each query in the human review sample. They independently score faithfulness (claim by claim), answer relevance, and citation accuracy. For queries flagged as potentially failing by automation, two independent experts evaluate — with disagreements adjudicated by a senior reviewer. This is the most expensive but most reliable evaluation layer — and it is what automated metrics consistently fail to approximate.</div>
+        <div class="step-body">Domain experts read the retrieved chunks and generated answer for each query in the human review sample. They independently score faithfulness (claim by claim), answer relevance, and citation accuracy. For queries flagged as potentially failing by automation, two independent experts evaluate with disagreements adjudicated by a senior reviewer. This is the most expensive but most reliable evaluation layer and it is what automated metrics consistently fail to approximate.</div>
         <div class="step-tags"><span class="step-tag">Claim-by-claim faithfulness</span><span class="step-tag">Domain-matched experts</span><span class="step-tag">Double-evaluation on flagged queries</span></div>
       </div>
     </div>
@@ -543,7 +543,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="service-hallucination.html" class="related-card">
       <span class="rc-icon">🧠</span>
       <div class="rc-title">Hallucination Detection</div>
-      <div class="rc-body">RAG faithfulness evaluation focuses on whether the generation used the retrieved context. Hallucination detection provides deeper claim-by-claim verification against broader domain knowledge — complementary to RAG-specific faithfulness testing.</div>
+      <div class="rc-body">RAG faithfulness evaluation focuses on whether the generation used the retrieved context. Hallucination detection provides deeper claim-by-claim verification against broader domain knowledge complementary to RAG-specific faithfulness testing.</div>
     </a>
     <a href="service-redteaming.html" class="related-card">
       <span class="rc-icon">🛡</span>
@@ -561,7 +561,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="cta-section">
   <div class="cta-inner">
     <h2>Get 50 RAG queries <em>evaluated free</em></h2>
-    <p>Share 50 queries from your RAG system — or we can generate representative ones. We return faithfulness scores, retrieval quality assessment, and a 1-page findings report in 5 working days.</p>
+    <p>Share 50 queries from your RAG system or we can generate representative ones. We return faithfulness scores, retrieval quality assessment, and a 1-page findings report in 5 working days.</p>
     <div class="cta-actions">
       <a href="contact.html" class="cta-btn-white">Start Free RAG Audit →</a>
       <a href="contact.html" class="cta-btn-ghost">Talk to our ML team</a>
@@ -576,7 +576,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>

@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>From Chaos to Code — Transforming Low-Resolution Financial Documents into Structured JSON with 99.9% Field Accuracy · Concave AI</title>
+<title>From Chaos to Code Transforming Low-Resolution Financial Documents into Structured JSON with 99.9% Field Accuracy · Concave AI</title>
 <meta name="description" content="Standard OCR reads characters. Financial document intelligence requires understanding what those characters mean. On real-world Indian BFSI documents, OCR field accuracy drops to 41–62%. Here is how human-in-the-loop annotation bridges the gap.">
-<meta property="og:title" content="From Chaos to Code — Transforming Low-Resolution Financial Documents into Structured JSON with 99.9% Field Accuracy">
+<meta property="og:title" content="From Chaos to Code Transforming Low-Resolution Financial Documents into Structured JSON with 99.9% Field Accuracy">
 <meta property="og:url" content="https://theconcaveai.com/casestudy-3-fintech-document-intelligence.html">
 <link rel="canonical" href="https://theconcaveai.com/casestudy-3-fintech-document-intelligence.html">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -283,28 +283,27 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <div class="article-layout">
 <article class="article-wrap">
 
-  <p>Standard OCR reads text from a page. Financial document intelligence requires understanding what that text <em>means</em> — which number is the total, which is the tax, which is the invoice number, and which is noise. When the document is handwritten, smudged, slanted, or photographed in poor lighting, even the OCR step fails.</p>
+  <p>Standard OCR reads text from a page. Financial document intelligence requires understanding what that text <em>means</em> which number is the total, which is the tax, which is the invoice number, and which is noise. When the document is handwritten, smudged, slanted, or photographed in poor lighting, even the OCR step fails.</p>
 
-  <p>Here is how human-in-the-loop annotation solves both problems simultaneously. Across 1,000 real-world Indian financial documents, we found that <strong>OCR field accuracy on barely legible documents drops to 41–49%</strong> — while the same documents annotated by CA-qualified and banking professionals reach 96–99% field accuracy. The gap between those two numbers is where credit decisions go wrong, KYC pipelines fail, and regulatory filings contain errors.</p>
+  <p>Here is how human-in-the-loop annotation solves both problems simultaneously. Across 1,000 real-world Indian financial documents, we found that <strong>OCR field accuracy on barely legible documents drops to 41–49%</strong> while the same documents annotated by CA-qualified and banking professionals reach 96–99% field accuracy. The gap between those two numbers is where credit decisions go wrong, KYC pipelines fail, and regulatory filings contain errors.</p>
 
   <div class="stat-pair">
     <div class="stat-card bad">
       <div class="stat-num">78.6%</div>
-      <div class="stat-label">OCR-only weighted field accuracy across 1,000 real-world BFSI documents — reflecting actual quality distribution in Indian lending pipelines</div>
+      <div class="stat-label">OCR-only weighted field accuracy across 1,000 real-world BFSI documents reflecting actual quality distribution in Indian lending pipelines</div>
     </div>
     <div class="stat-card good">
       <div class="stat-num">99.1%</div>
-      <div class="stat-label">Human-in-the-loop field accuracy on the same document set — a +20.5% improvement on the metric that determines pipeline reliability</div>
+      <div class="stat-label">Human-in-the-loop field accuracy on the same document seta +20.5% improvement on the metric that determines pipeline reliability</div>
     </div>
   </div>
 
   <h2>Why OCR alone fails on <em>real-world</em> financial documents</h2>
 
-  <p>Enterprise OCR has improved dramatically. Modern engines — Google Document AI, AWS Textract, Azure Form Recognizer — achieve character-level accuracy above 98% on clean, printed, well-scanned documents. Sales decks show perfect extraction from crisp invoices with consistent layouts.</p>
+  <p>Enterprise OCR has improved dramatically. Modern engines Google Document AI, AWS Textract, Azure Form Recognizer achieve character-level accuracy above 98% on clean, printed, well-scanned documents. Sales decks show perfect extraction from crisp invoices with consistent layouts.</p>
+  <p>The documents that arrive in a real financial institution look nothing like those demos. A customer photographs a crumpled receipt on a dark restaurant table. A loan applicant scans a handwritten income certificate at a Xerox shop using a machine from 2008. A KYC document is a photograph of a photograph a PAN card photocopied, then photographed again, with a thumb partially covering the corner.</p>
 
-  <p>The documents that arrive in a real financial institution look nothing like those demos. A customer photographs a crumpled receipt on a dark restaurant table. A loan applicant scans a handwritten income certificate at a Xerox shop using a machine from 2008. A KYC document is a photograph of a photograph — a PAN card photocopied, then photographed again, with a thumb partially covering the corner.</p>
-
-  <p>On these documents — which constitute <strong>30–45% of volume</strong> in any Indian BFSI document processing pipeline — OCR character accuracy drops from 98% to 72–85%. But character accuracy is not even the right metric. The real problem is structural.</p>
+  <p>On these documents which constitute <strong>30–45% of volume</strong> in any Indian BFSI document processing pipeline OCR character accuracy drops from 98% to 72–85%. But character accuracy is not even the right metric. The real problem is structural.</p>
 
   <h3>The three failure modes OCR cannot self-correct</h3>
 
@@ -313,19 +312,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="failure-box-tag">Error type 01</div>
       <h4>Misaligned key-value pairs</h4>
       <p>OCR reads a label ("Total") and a number ("1,247.50") but assigns the number to the wrong label because the spatial proximity algorithm is confused by a multi-column layout. The total amount gets mapped to the tax field or vice versa.</p>
-      <div class="failure-danger">In a loan processing pipeline, this means the wrong income figure enters the credit model. 312 occurrences in 1,000 documents — 0% caught by automated validation because the value itself is correctly read; only its assignment is wrong.</div>
+      <div class="failure-danger">In a loan processing pipeline, this means the wrong income figure enters the credit model. 312 occurrences in 1,000 documents 0% caught by automated validation because the value itself is correctly read; only its assignment is wrong.</div>
     </div>
     <div class="failure-box">
       <div class="failure-box-tag">Error type 02</div>
       <h4>Merged or split fields</h4>
       <p>A handwritten amount "₹12,500" is read as two separate tokens: "₹12" and "500" because of spacing between the comma and digits. Or "IFSC: SBIN0001234" and "Account: 12345678" are merged into one field because they share a line. The resulting JSON is structurally broken.</p>
-      <div class="failure-danger">Merged fields produce invalid account references that fail downstream validation. Split fields produce two phantom keys and one missing key. Format-check automation catches only 23–41% of these — the rest require human structural reasoning.</div>
+      <div class="failure-danger">Merged fields produce invalid account references that fail downstream validation. Split fields produce two phantom keys and one missing key. Format-check automation catches only 23–41% of these the rest require human structural reasoning.</div>
     </div>
     <div class="failure-box">
       <div class="failure-box-tag">Error type 03</div>
       <h4>Missing confidence signals</h4>
       <p>The OCR engine reads a smudged character as "8" with 62% confidence. It outputs "8" without indicating the uncertainty. Downstream systems treat this as a definitive "8" and the wrong amount enters the financial pipeline.</p>
-      <div class="failure-danger">A human annotator looking at the same smudge considers context — surrounding digits, the expected range, the line item description — and either confirms "8" or flags it as uncertain. This contextual verification is impossible to replicate with automated confidence thresholds alone.</div>
+      <div class="failure-danger">A human annotator looking at the same smudge considers context surrounding digits, the expected range, the line item description and either confirms "8" or flags it as uncertain. This contextual verification is impossible to replicate with automated confidence thresholds alone.</div>
     </div>
   </div>
 
@@ -338,14 +337,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="step-num">1</div>
       <div class="step-content">
         <h4>Document diversity at scale</h4>
-        <p>Indian KYC alone involves PAN cards, Aadhaar cards, voter ID, passport, driving licence, utility bills, and bank statements — each with different layouts, languages, and quality levels. A single loan application file can contain 15–20 documents across 4–5 formats. No single OCR model is trained on this full distribution.</p>
+        <p>Indian KYC alone involves PAN cards, Aadhaar cards, voter ID, passport, driving licence, utility bills, and bank statements each with different layouts, languages, and quality levels. A single loan application file can contain 15–20 documents across 4–5 formats. No single OCR model is trained on this full distribution.</p>
       </div>
     </div>
     <div class="step-item">
       <div class="step-num">2</div>
       <div class="step-content">
         <h4>Language diversity within a single document</h4>
-        <p>Financial documents in India appear in English, Hindi, and regional languages — often on the same page. A bank statement might have column headers in English, transaction descriptions in Hindi, and merchant names in transliterated Hinglish. OCR engines trained primarily on English text degrade significantly on mixed-script documents: 86.5% char accuracy drops to 54.3% field accuracy.</p>
+        <p>Financial documents in India appear in English, Hindi, and regional languages often on the same page. A bank statement might have column headers in English, transaction descriptions in Hindi, and merchant names in transliterated Hinglish. OCR engines trained primarily on English text degrade significantly on mixed-script documents: 86.5% char accuracy drops to 54.3% field accuracy.</p>
       </div>
     </div>
     <div class="step-item">
@@ -361,7 +360,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>We assembled a dataset of 1,000 financial documents representing the realistic quality spectrum that an Indian BFSI document processing pipeline encounters. Each document was tagged with a quality score from 1 (pristine digital PDF) to 5 (barely legible fourth-generation photocopy).</p>
 
-  <div class="dt-label">Document type composition — 1,000 document dataset</div>
+  <div class="dt-label">Document type composition 1,000 document dataset</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -407,9 +406,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <h2>Step 1 — Baseline OCR extraction</h2>
+  <h2>Step 1 - Baseline OCR extraction</h2>
 
-  <p>We processed all 1,000 documents through three OCR engines to establish baseline performance: <strong>Google Document AI</strong> (enterprise extraction with pre-trained financial models), <strong>AWS Textract</strong> (structured form key-value extraction), and <strong>Tesseract 5.0</strong> with custom Indian financial document fine-tuning. We measured both character-level accuracy and field-level accuracy — the metric that actually determines pipeline reliability.</p>
+  <p>We processed all 1,000 documents through three OCR engines to establish baseline performance: <strong>Google Document AI</strong> (enterprise extraction with pre-trained financial models), <strong>AWS Textract</strong> (structured form key-value extraction), and <strong>Tesseract 5.0</strong> with custom Indian financial document fine-tuning. We measured both character-level accuracy and field-level accuracy the metric that actually determines pipeline reliability.</p>
 
   <div class="dt-label">Baseline OCR accuracy by document quality</div>
   <div class="table-scroll">
@@ -421,31 +420,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell">Field accuracy (best engine)</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">1 — Pristine PDF</div>
+      <div class="dt-cell wide label">1 - Pristine PDF</div>
       <div class="dt-cell dt-ok">99.2%</div>
       <div class="dt-cell">96.8%</div>
       <div class="dt-cell dt-ok">98.1%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">2 — Clean scan</div>
+      <div class="dt-cell wide label">2 - Clean scan</div>
       <div class="dt-cell">97.4%</div>
       <div class="dt-cell">91.3%</div>
       <div class="dt-cell">94.2%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">3 — Phone photo</div>
+      <div class="dt-cell wide label">3 - Phone photo</div>
       <div class="dt-cell">91.8%</div>
       <div class="dt-cell dt-warn">78.6%</div>
       <div class="dt-cell dt-warn">83.7%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">4 — Low quality</div>
+      <div class="dt-cell wide label">4 - Low quality</div>
       <div class="dt-cell">84.3%</div>
       <div class="dt-cell dt-bad">62.1%</div>
       <div class="dt-cell dt-bad">68.4%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">5 — Barely legible</div>
+      <div class="dt-cell wide label">5 - Barely legible</div>
       <div class="dt-cell dt-bad">72.1%</div>
       <div class="dt-cell dt-bad">41.7%</div>
       <div class="dt-cell dt-bad">49.2%</div>
@@ -465,20 +464,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <p>The pattern is clear: character accuracy degrades gradually with quality, but field accuracy degrades dramatically. A document where OCR reads 84% of characters correctly (quality level 4) achieves only 62% field accuracy — because the 16% of errors are disproportionately concentrated in the labels that determine which field a value belongs to. When OCR misreads "Total" as "Tctal," the number next to it has no label and the key-value pair breaks entirely.</p>
+  <p>The pattern is clear: character accuracy degrades gradually with quality, but field accuracy degrades dramatically. A document where OCR reads 84% of characters correctly (quality level 4) achieves only 62% field accuracy because the 16% of errors are disproportionately concentrated in the labels that determine which field a value belongs to. When OCR misreads "Total" as "Tctal," the number next to it has no label and the key-value pair breaks entirely.</p>
 
-  <div class="pull-quote">Handwritten fields reach 38% field accuracy — meaning more than half of handwritten values are either unextracted or assigned to the wrong field. These are the most common document type in Indian lending applications.</div>
+  <div class="pull-quote">Handwritten fields reach 38% field accuracy meaning more than half of handwritten values are either unextracted or assigned to the wrong field. These are the most common document type in Indian lending applications.</div>
 
-  <h2>Step 2 — Human-in-the-loop correction protocol</h2>
+  <h2>Step 2 - Human-in-the-loop correction protocol</h2>
 
-  <p>We designed a structured four-phase human correction protocol optimised for financial document extraction. The core design principle: annotators do not re-type documents from scratch. They correct the OCR output — fixing misread characters, reassigning values to correct fields, splitting merged fields, and joining split fields. This hybrid approach is <strong>3–4x faster</strong> than manual transcription while achieving production-grade accuracy.</p>
+  <p>We designed a structured four-phase human correction protocol optimised for financial document extraction. The core design principle: annotators do not re-type documents from scratch. They correct the OCR output fixing misread characters, reassigning values to correct fields, splitting merged fields, and joining split fields. This hybrid approach is <strong>3–4x faster</strong> than manual transcription while achieving production-grade accuracy.</p>
 
   <div class="phase-list">
     <div class="phase-item">
       <div class="phase-num">Phase 1</div>
       <div class="phase-content">
         <h4>OCR pre-extraction as starting point</h4>
-        <p>Every document was first processed through the best-performing OCR engine for its document type — Google Document AI for printed documents, Textract for structured forms, Tesseract for mixed-script. The OCR output (both raw text and extracted key-value pairs) served as the annotator's starting point, not a blank canvas.</p>
+        <p>Every document was first processed through the best-performing OCR engine for its document type Google Document AI for printed documents, Textract for structured forms, Tesseract for mixed-script. The OCR output (both raw text and extracted key-value pairs) served as the annotator's starting point, not a blank canvas.</p>
       </div>
     </div>
     <div class="phase-item">
@@ -505,7 +504,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
 
   <div class="code-block">
-    <div class="code-label">Quality metrics — Inter-annotator agreement (Tier 2 peer review)</div>
+    <div class="code-label">Quality metrics - Inter-annotator agreement (Tier 2 peer review)</div>
     <pre><span class="label-k">Cohen's kappa (field extraction):     </span><span class="val">0.94</span>
 <span class="label-k">Cohen's kappa (amount fields):        </span><span class="val">0.96</span>
 <span class="label-k">Cohen's kappa (date fields):          </span><span class="val">0.88</span>
@@ -515,9 +514,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <span class="label-k">Format validation pass rate:          </span><span class="val">99.9%</span></pre>
   </div>
 
-  <p>Kappa on amount fields (0.96) is highest because financial amounts have clear right/wrong answers once characters are correctly read. Date fields show lower kappa (0.88) due to DD/MM vs MM/DD ambiguity — resolved by contextual judgment rather than algorithmic rules, which is precisely why human annotators are necessary.</p>
+  <p>Kappa on amount fields (0.96) is highest because financial amounts have clear right/wrong answers once characters are correctly read. Date fields show lower kappa (0.88) due to DD/MM vs MM/DD ambiguity resolved by contextual judgment rather than algorithmic rules, which is precisely why human annotators are necessary.</p>
 
-  <h2>Results — field accuracy after <em>human-in-the-loop correction</em></h2>
+  <h2>Results field accuracy after <em>human-in-the-loop correction</em></h2>
 
   <div class="dt-label">Field accuracy improvement across all quality levels</div>
   <div class="table-scroll">
@@ -529,31 +528,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell">Improvement</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">1 — Pristine PDF</div>
+      <div class="dt-cell wide label">1 - Pristine PDF</div>
       <div class="dt-cell">98.1%</div>
       <div class="dt-cell dt-ok">99.9%</div>
       <div class="dt-cell dt-imp">+1.8%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">2 — Clean scan</div>
+      <div class="dt-cell wide label">2 - Clean scan</div>
       <div class="dt-cell">94.2%</div>
       <div class="dt-cell dt-ok">99.8%</div>
       <div class="dt-cell dt-imp">+5.6%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">3 — Phone photo</div>
+      <div class="dt-cell wide label">3 - Phone photo</div>
       <div class="dt-cell dt-warn">83.7%</div>
       <div class="dt-cell dt-ok">99.4%</div>
       <div class="dt-cell dt-imp">+15.7%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">4 — Low quality</div>
+      <div class="dt-cell wide label">4 - Low quality</div>
       <div class="dt-cell dt-bad">68.4%</div>
       <div class="dt-cell dt-ok">98.7%</div>
       <div class="dt-cell dt-imp">+30.3%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">5 — Barely legible</div>
+      <div class="dt-cell wide label">5 - Barely legible</div>
       <div class="dt-cell dt-bad">49.2%</div>
       <div class="dt-cell dt-ok">96.1%</div>
       <div class="dt-cell dt-imp">+46.9%</div>
@@ -575,9 +574,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>What humans catch that <em>automated rules cannot</em></h2>
 
-  <p>The most common error — misaligned key-value pairs (312 occurrences) — is undetectable by automated validation because the value itself is correctly read; it is just assigned to the wrong field. Only a human who understands the document layout can identify that "1,247.50" belongs to the total field, not the subtotal field. This single error type, uncorrected, would produce 312 incorrect records in a financial pipeline.</p>
+  <p>The most common error misaligned key-value pairs (312 occurrences) is undetectable by automated validation because the value itself is correctly read; it is just assigned to the wrong field. Only a human who understands the document layout can identify that "1,247.50" belongs to the total field, not the subtotal field. This single error type, uncorrected, would produce 312 incorrect records in a financial pipeline.</p>
 
-  <div class="dt-label">Error type breakdown — 1,000 document dataset</div>
+  <div class="dt-label">Error type breakdown - 1,000 document dataset</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -590,7 +589,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell wide label">Misaligned key-value pairs</div>
       <div class="dt-cell">312</div>
       <div class="dt-cell dt-bad">0%</div>
-      <div class="dt-cell dt-imp">Yes — all</div>
+      <div class="dt-cell dt-imp">Yes - all</div>
     </div>
     <div class="dt-row alt">
       <div class="dt-cell wide label">Misread digits in amounts</div>
@@ -614,7 +613,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell wide label">Missing fields (OCR did not extract)</div>
       <div class="dt-cell">134</div>
       <div class="dt-cell dt-bad">0%</div>
-      <div class="dt-cell dt-imp">Yes — all</div>
+      <div class="dt-cell dt-imp">Yes - all</div>
     </div>
     <div class="dt-row alt">
       <div class="dt-cell wide label">Format errors (PAN/Aadhaar/IFSC)</div>
@@ -632,19 +631,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell wide label">Script confusion (Hindi ↔ English)</div>
       <div class="dt-cell">143</div>
       <div class="dt-cell dt-bad">0%</div>
-      <div class="dt-cell dt-imp">Yes — all</div>
+      <div class="dt-cell dt-imp">Yes - all</div>
     </div>
   </div>
   </div>
 
   <h2>Downstream pipeline impact</h2>
 
-  <p>We measured the impact on a mock loan processing pipeline that uses extracted document data for credit decisioning. The most commercially significant metric: <strong>false rejection rate drops from 8.2% to 0.9%</strong>. Each false rejection is a lost customer — a qualified borrower rejected because OCR misread their income figure, employer name, or KYC document number.</p>
+  <p>We measured the impact on a mock loan processing pipeline that uses extracted document data for credit decisioning. The most commercially significant metric: <strong>false rejection rate drops from 8.2% to 0.9%</strong>. Each false rejection is a lost customer a qualified borrower rejected because OCR misread their income figure, employer name, or KYC document number.</p>
 
   <p>At a lending platform processing 10,000 applications per month, reducing false rejections by 7.3% recovers 730 additional approved loans per month. At an average ticket size of ₹2 lakhs and a 2% origination fee, that is <strong>₹29 lakhs per month in recovered revenue</strong> from annotation quality improvement alone.</p>
 
   <div class="findings-box">
-    <div class="findings-title">Downstream pipeline impact — loan processing</div>
+    <div class="findings-title">Downstream pipeline impact loan processing</div>
     <div class="finding-row">
       <div class="finding-label">Income field accuracy</div>
       <div class="finding-val high">76.4% → <span style="color:var(--green)">99.7%</span></div>
@@ -665,7 +664,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>Time and cost analysis</h2>
 
-  <div class="dt-label">Total pipeline cost — extraction plus re-verification</div>
+  <div class="dt-label">Total pipeline cost extraction plus re-verification</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -691,7 +690,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="dt-row alt">
       <div class="dt-cell wide label">Cost of re-check per application</div>
       <div class="dt-cell dt-bad">₹150–300</div>
-      <div class="dt-cell dt-ok">—</div>
+      <div class="dt-cell dt-ok">-</div>
     </div>
     <div class="dt-row">
       <div class="dt-cell wide label">Total cost incl. re-verification (1,000 apps)</div>
@@ -711,26 +710,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="key-takeaway">
     <div class="key-takeaway-title">Key learnings</div>
     <div class="key-takeaway-list">
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Character accuracy and field accuracy are different metrics — and field accuracy is what matters.</strong> OCR can read 84% of characters correctly and still extract only 62% of key-value pairs correctly, because errors concentrate in the labels that determine field assignment. Financial pipeline reliability depends on field accuracy, not character accuracy.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Human-in-the-loop is not "manual data entry" — it is OCR correction.</strong> By using the best available OCR engine as a pre-extraction step and having humans correct the output rather than transcribe from scratch, the hybrid approach is 3–4x faster than manual entry while achieving 99%+ field accuracy. Human effort concentrates on the 15–30% where OCR fails.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Character accuracy and field accuracy are different metrics and field accuracy is what matters.</strong> OCR can read 84% of characters correctly and still extract only 62% of key-value pairs correctly, because errors concentrate in the labels that determine field assignment. Financial pipeline reliability depends on field accuracy, not character accuracy.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Human-in-the-loop is not "manual data entry" it is OCR correction.</strong> By using the best available OCR engine as a pre-extraction step and having humans correct the output rather than transcribe from scratch, the hybrid approach is 3–4x faster than manual entry while achieving 99%+ field accuracy. Human effort concentrates on the 15–30% where OCR fails.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Financial domain knowledge in annotators catches errors that character-level correction misses.</strong> A CA who notices GST doesn't reconcile with the subtotal finds a misread digit that a generic data entry operator would pass through unchanged. Domain knowledge is a quality control mechanism, not a nice-to-have.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The cost math favours human-in-the-loop when you include downstream costs.</strong> The per-document cost of human correction is 5–8x higher than OCR alone. But the total pipeline cost is lower because the re-verification step — which consumes 34% of applications in an OCR-only pipeline — is almost entirely eliminated.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The cost math favours human-in-the-loop when you include downstream costs.</strong> The per-document cost of human correction is 5–8x higher than OCR alone. But the total pipeline cost is lower because the re-verification step which consumes 34% of applications in an OCR-only pipeline is almost entirely eliminated.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Indian financial documents require India-specific annotation expertise.</strong> Mixed-script documents, Indian numbering conventions (lakhs, crores), Indian KYC formats (PAN, Aadhaar), and Indian tax structures (CGST + SGST + IGST) require annotators who handle these formats routinely. Western document AI benchmarks and Western annotation teams do not cover this distribution.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Handwritten fields remain the hardest problem — and the most valuable to solve.</strong> At 44% OCR accuracy, handwritten financial fields require human annotation for any reliable downstream use. As Indian banking continues its push toward digital lending with physical document upload, handwritten document volume will remain high for years. This is a sustained annotation demand.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Handwritten fields remain the hardest problem and the most valuable to solve.</strong> At 44% OCR accuracy, handwritten financial fields require human annotation for any reliable downstream use. As Indian banking continues its push toward digital lending with physical document upload, handwritten document volume will remain high for years. This is a sustained annotation demand.</span></div>
     </div>
   </div>
 
   <div class="article-cta-banner">
     <h3>Processing financial documents with <em>OCR alone?</em></h3>
-    <p>We specialise in financial document annotation for Indian BFSI pipelines — KYC, invoices, loan documents, and bank statements. Free pilot: 50 documents annotated, accuracy report in 5 working days.</p>
+    <p>We specialise in financial document annotation for Indian BFSI pipelines KYC, invoices, loan documents, and bank statements. Free pilot: 50 documents annotated, accuracy report in 5 working days.</p>
     <a href="contact.html" class="article-cta-btn">Request Free Pilot →</a>
   </div>
 
   <div class="author-card">
-    <div class="author-avatar">C</div>
+    <div class="author-avatar">A</div>
     <div>
-      <div class="author-name">The Concave AI Team</div>
-      <div class="author-role">ML-Engineer-Led Data Annotation &amp; GenAI Evaluation · Bengaluru, India</div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
     </div>
   </div>
 
@@ -739,7 +738,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=85')"></div>
   <div class="sidebar-fact">
     <div class="sidebar-fact-num">99.1%</div>
-    <div class="sidebar-fact-label">Weighted field accuracy achieved by human-in-the-loop annotation across 1,000 real-world Indian BFSI documents — up from 78.6% OCR baseline</div>
+    <div class="sidebar-fact-label">Weighted field accuracy achieved by human-in-the-loop annotation across 1,000 real-world Indian BFSI documents up from 78.6% OCR baseline</div>
   </div>
   <div class="sidebar-caption">Dataset: 1,000 documents across 7 types, quality levels 1–5. CA-qualified and banking professional annotators. Cohen's kappa 0.94 on field extraction.</div>
 </aside>

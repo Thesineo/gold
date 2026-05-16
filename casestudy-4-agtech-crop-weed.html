@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>High-Granularity Labeling: Distinguishing Crop Phenotypes from Invasive Weed Species in Variable Lighting · Concave AI</title>
-<meta name="description" content="Standard annotators achieve 54% accuracy on the hardest crop-weed confusion pair — barely above random chance. Expert agronomist annotators reach 89% on the same pair. This is the difference between a precision spraying system that works and one that destroys crops.">
+<meta name="description" content="Standard annotators achieve 54% accuracy on the hardest crop-weed confusion pair  barely above random chance. Expert agronomist annotators reach 89% on the same pair. This is the difference between a precision spraying system that works and one that destroys crops.">
 <meta property="og:title" content="High-Granularity Labeling: Distinguishing Crop Phenotypes from Invasive Weed Species in Variable Lighting">
 <meta property="og:url" content="https://theconcaveai.com/casestudy-4-agtech-crop-weed.html">
 <link rel="canonical" href="https://theconcaveai.com/casestudy-4-agtech-crop-weed.html">
@@ -277,26 +277,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <div class="article-layout">
 <article class="article-wrap">
 
-  <p>Standard image classification can tell a plant from bare soil. Precision agriculture needs something far harder — distinguishing a specific crop variety from a weed species that looks nearly identical at the 3-leaf stage, under variable field lighting, across different soil backgrounds.</p>
+  <p>Standard image classification can tell a plant from bare soil. Precision agriculture needs something far harder distinguishing a specific crop variety from a weed species that looks nearly identical at the 3-leaf stage, under variable field lighting, across different soil backgrounds.</p>
 
-  <p>Here is where annotator expertise becomes the determining factor in model accuracy. Across 2,500 field images, we found that <strong>standard annotators achieve 54% accuracy on the hardest crop-weed confusion pair</strong> — barely above random chance for a binary classification. Expert agronomist annotators achieve 89% on the same pair. That 35% gap is the difference between a precision spraying system that works and one that destroys crops.</p>
+  <p>Here is where annotator expertise becomes the determining factor in model accuracy. Across 2,500 field images, we found that <strong>standard annotators achieve 54% accuracy on the hardest crop-weed confusion pair</strong> barely above random chance for a binary classification. Expert agronomist annotators achieve 89% on the same pair. That 35% gap is the difference between a precision spraying system that works and one that destroys crops.</p>
 
   <div class="stat-pair">
     <div class="stat-card bad">
       <div class="stat-num">62.3%</div>
-      <div class="stat-label">Species-level accuracy from standard annotators — experienced image labelers with no agricultural background, given visual identification guides</div>
+      <div class="stat-label">Species-level accuracy from standard annotators experienced image labelers with no agricultural background, given visual identification guides</div>
     </div>
     <div class="stat-card good">
       <div class="stat-num">91.8%</div>
-      <div class="stat-label">Species-level accuracy from expert agronomist annotators — M.Sc. Agronomy, plant pathology, and field extension professionals on the same images</div>
+      <div class="stat-label">Species-level accuracy from expert agronomist annotators M.Sc. Agronomy, plant pathology, and field extension professionals on the same images</div>
     </div>
   </div>
 
   <h2>Why standard image labeling fails in <em>precision agriculture</em></h2>
 
-  <p>Agricultural computer vision has a class similarity problem that is unlike anything in autonomous driving, retail, or medical imaging. In autonomous driving, a car looks fundamentally different from a pedestrian — distinct shape, size, texture, motion pattern. In medical imaging, a tumour looks different from healthy tissue in structure, density, and contrast.</p>
+  <p>Agricultural computer vision has a class similarity problem that is unlike anything in autonomous driving, retail, or medical imaging. In autonomous driving, a car looks fundamentally different from a pedestrian distinct shape, size, texture, motion pattern. In medical imaging, a tumour looks different from healthy tissue in structure, density, and contrast.</p>
 
-  <p>In agriculture, the visual difference between a crop seedling and a weed seedling at the 2–4 leaf stage can be as subtle as the <strong>angle of leaf venation, the shade of green at the leaf margin, or the growth pattern of the first true leaves</strong>. To a non-expert annotator — or to an AI model trained on annotations by non-experts — a pigweed seedling and a cotton seedling at the 3-leaf stage are visually indistinguishable.</p>
+  <p>In agriculture, the visual difference between a crop seedling and a weed seedling at the 2–4 leaf stage can be as subtle as the <strong>angle of leaf venation, the shade of green at the leaf margin, or the growth pattern of the first true leaves</strong>. To a non-expert annotator or to an AI model trained on annotations by non-experts a pigweed seedling and a cotton seedling at the 3-leaf stage are visually indistinguishable.</p>
 
   <p>The bounding boxes and segmentation masks are correct. The annotator accurately traces the plant boundary. But the class label is wrong because the annotator cannot tell the species apart. No amount of quality monitoring or guideline improvement fixes a fundamental species identification knowledge gap.</p>
 
@@ -311,12 +311,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="confusion-card">
       <div class="confusion-tag">Rice Paddies · All zones</div>
       <div class="confusion-pair">Rice vs Barnyard Grass (Echinochloa)</div>
-      <div class="confusion-note">The most common weed in Indian rice paddies. At tillering stage, barnyard grass is visually similar to rice tillers. Distinction requires examining the leaf auricle — rice has a prominent ligule and auricle at the leaf collar; barnyard grass does not.</div>
+      <div class="confusion-note">The most common weed in Indian rice paddies. At tillering stage, barnyard grass is visually similar to rice tillers. Distinction requires examining the leaf auricle rice has a prominent ligule and auricle at the leaf collar; barnyard grass does not.</div>
     </div>
     <div class="confusion-card">
       <div class="confusion-tag">Wheat Belt · Punjab, Haryana</div>
       <div class="confusion-pair">Wheat vs Wild Oat (Avena fatua)</div>
-      <div class="confusion-note">Wild oat mimics wheat during early growth stages. Distinction at the 3-leaf stage relies on subtle differences in leaf blade width and the twist of the leaf blade. Seed head structure — the definitive indicator — only becomes visible at later stages.</div>
+      <div class="confusion-note">Wild oat mimics wheat during early growth stages. Distinction at the 3-leaf stage relies on subtle differences in leaf blade width and the twist of the leaf blade. Seed head structure the definitive indicator only becomes visible at later stages.</div>
     </div>
     <div class="confusion-card">
       <div class="confusion-tag">Soybean Zones · Madhya Pradesh</div>
@@ -327,7 +327,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>The economic consequences of misclassification</h2>
 
-  <p>When a weed detection model misclassifies a crop plant as a weed, the downstream system — a spraying drone, a robotic weeder, a targeted herbicide applicator — destroys a crop plant. When it misclassifies a weed as a crop, the weed survives and competes with the crop for nutrients, water, and light.</p>
+  <p>When a weed detection model misclassifies a crop plant as a weed, the downstream system a spraying drone, a robotic weeder, a targeted herbicide applicator destroys a crop plant. When it misclassifies a weed as a crop, the weed survives and competes with the crop for nutrients, water, and light.</p>
 
   <p><strong>Crop-as-weed:</strong> In a cotton field at ₹65 per plant (mature yield value), a 5% misclassification rate across 50,000 plants per hectare destroys 2,500 plants × ₹65 = <strong>₹1.625 lakhs per hectare</strong> in lost crop value.</p>
 
@@ -335,19 +335,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>Both error types are caused by the same root problem: annotation data where class labels were assigned by people who could not reliably distinguish the species.</p>
 
-  <div class="pull-quote">The standard annotators were experienced, careful image labelers. They drew accurate bounding boxes and masks. The labels were wrong because they could not tell the species apart — not because they were careless.</div>
+  <div class="pull-quote">The standard annotators were experienced, careful image labelers. They drew accurate bounding boxes and masks. The labels were wrong because they could not tell the species apart  not because they were careless.</div>
 
   <h2>The variable lighting problem</h2>
 
-  <p>Agricultural images are captured in the field under natural lighting — which means every image has a different lighting condition. Morning images have warm, low-angle light that casts long shadows. Midday images have harsh overhead light that bleaches green tones. Overcast images have flat, diffuse light that reduces contrast between similar greens.</p>
+  <p>Agricultural images are captured in the field under natural lighting which means every image has a different lighting condition. Morning images have warm, low-angle light that casts long shadows. Midday images have harsh overhead light that bleaches green tones. Overcast images have flat, diffuse light that reduces contrast between similar greens.</p>
 
-  <p>A pigweed leaf and a cotton leaf that are distinguishable under diffuse light may become indistinguishable under harsh midday light when both appear as the same bleached green. Expert annotators compensate by relying on <strong>structural features</strong> (leaf shape, venation pattern, growth habit) rather than colour — a skill developed through field experience. Standard annotators rely primarily on colour and lose their discriminative signal when lighting removes colour differences. This is why the accuracy gap widens to 31% under harsh midday conditions, versus 20% under morning or overcast light.</p>
+  <p>A pigweed leaf and a cotton leaf that are distinguishable under diffuse light may become indistinguishable under harsh midday light when both appear as the same bleached green. Expert annotators compensate by relying on <strong>structural features</strong> (leaf shape, venation pattern, growth habit) rather than colour a skill developed through field experience. Standard annotators rely primarily on colour and lose their discriminative signal when lighting removes colour differences. This is why the accuracy gap widens to 31% under harsh midday conditions, versus 20% under morning or overcast light.</p>
 
-  <h2>Dataset construction — 2,500 field images across four agro-climatic zones</h2>
+  <h2>Dataset construction 2,500 field images across four agro-climatic zones</h2>
 
   <p>We assembled a dataset representing the full crop-weed identification challenge in Indian agriculture. Images were sourced from publicly available agricultural datasets (PlantDoc, Crop/Weed Field Image on Kaggle, ICAR image banks) augmented with field photographs from Indian farms across Maharashtra, Karnataka, Punjab, and Tamil Nadu.</p>
 
-  <div class="dt-label">Dataset composition — 2,500 images, 17 classes</div>
+  <div class="dt-label">Dataset composition 2,500 images, 17 classes</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -414,19 +414,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <h2>Expert annotator profiles — M.Sc. Agronomy to field extension</h2>
+  <h2>Expert annotator profiles M.Sc. Agronomy to field extension</h2>
 
   <p>The same 2,500 images were independently annotated by a team of standard annotators (experienced image labelers, no agricultural background, given visual guides) and a team of four domain experts. The expert profiles:</p>
 
   <div class="annotator-grid">
     <div class="annotator-card">
       <div class="annotator-id">Annotator E1</div>
-      <div class="annotator-qual">M.Sc. Agronomy — Weed Management</div>
+      <div class="annotator-qual">M.Sc. Agronomy Weed Management</div>
       <div class="annotator-bio">3 years of field research on weed management in cotton across Maharashtra and Karnataka. Has physically identified and classified weeds in field conditions. Knows cotton-pigweed distinction by sight.</div>
     </div>
     <div class="annotator-card">
       <div class="annotator-id">Annotator E2</div>
-      <div class="annotator-qual">B.Sc. Agriculture — Plant Pathology</div>
+      <div class="annotator-qual">B.Sc. Agriculture Plant Pathology</div>
       <div class="annotator-bio">2 years of crop survey experience including weed identification for ICAR district-level crop assessment reports. Trained in standard weed identification protocols used in government field surveys.</div>
     </div>
     <div class="annotator-card">
@@ -436,19 +436,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
     <div class="annotator-card">
       <div class="annotator-id">Annotator E4</div>
-      <div class="annotator-qual">M.Sc. Botany — Plant Taxonomy</div>
+      <div class="annotator-qual">M.Sc. Botany Plant Taxonomy</div>
       <div class="annotator-bio">Research experience on weed flora documentation in rice paddies of Tamil Nadu. Specialised in taxonomic identification from field photographs. Zone-matched for rice paddy images from southern zones.</div>
     </div>
   </div>
 
-  <p>The expert team took 12 working days to complete the full dataset — 50% longer than the standard team's 8 days — because they spent time examining diagnostic features at higher zoom levels and discussing borderline cases via a shared channel. This slower speed is a feature, not a bug.</p>
+  <p>The expert team took 12 working days to complete the full dataset 50% longer than the standard team's 8 days because they spent time examining diagnostic features at higher zoom levels and discussing borderline cases via a shared channel. This slower speed is a feature, not a bug.</p>
 
-  <h2>Calibration results — the kappa gap that explains everything</h2>
+  <h2>Calibration results the kappa gap that explains everything</h2>
 
   <p>Before live annotation, both teams completed a 50-image calibration set containing the most difficult crop-weed confusion pairs under all four lighting conditions. The kappa gap on the hardest pair tells the full story.</p>
 
   <div class="code-block">
-    <div class="code-label">Expert team calibration — Cohen's kappa</div>
+    <div class="code-label">Expert team calibration Cohen's kappa</div>
     <pre><span class="label-k">Overall class:                </span><span class="val">0.84</span>
 <span class="label-k">Crop vs weed (binary):        </span><span class="val">0.93</span>
 <span class="label-k">Species-level identification: </span><span class="val">0.79</span>
@@ -457,7 +457,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
 
   <div class="code-block">
-    <div class="code-label">Standard team calibration — Cohen's kappa</div>
+    <div class="code-label">Standard team calibration Cohen's kappa</div>
     <pre><span class="label-k">Overall class:                </span><span class="val-bad">0.61</span>
 <span class="label-k">Crop vs weed (binary):        </span><span class="val-bad">0.78</span>
 <span class="label-k">Species-level identification: </span><span class="val-bad">0.47</span>
@@ -467,9 +467,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>A standard team kappa of 0.31 on the cotton-pigweed pair means their labels are only slightly better than random chance for binary classification. Any model trained on this data for cotton-pigweed discrimination would be essentially guessing on the most commercially important weed pair in Indian cotton farming.</p>
 
-  <h2>Classification accuracy — standard vs expert annotation</h2>
+  <h2>Classification accurac standard vs expert annotation</h2>
 
-  <div class="dt-label">Accuracy comparison — 2,460 verified images (ground truth via senior taxonomist)</div>
+  <div class="dt-label">Accuracy comparison 2,460 verified images (ground truth via senior taxonomist)</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -511,7 +511,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <h2>Accuracy by lighting condition — where the gap widens</h2>
+  <h2>Accuracy by lighting condition  where the gap widens</h2>
 
   <div class="dt-label">Standard vs expert accuracy across four lighting conditions</div>
   <div class="table-scroll">
@@ -529,19 +529,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell dt-imp">20.6%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">Midday — harsh overhead</div>
+      <div class="dt-cell wide label">Midday - harsh overhead</div>
       <div class="dt-cell dt-bad">58.2%</div>
       <div class="dt-cell dt-ok">89.4%</div>
       <div class="dt-cell dt-imp">31.2%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">Overcast — flat, diffuse</div>
+      <div class="dt-cell wide label">Overcast - flat, diffuse</div>
       <div class="dt-cell">73.8%</div>
       <div class="dt-cell dt-ok">94.1%</div>
       <div class="dt-cell dt-imp">20.3%</div>
     </div>
     <div class="dt-row sep">
-      <div class="dt-cell wide label">Late afternoon — side-lit</div>
+      <div class="dt-cell wide label">Late afternoon - side-lit</div>
       <div class="dt-cell">69.3%</div>
       <div class="dt-cell dt-ok">92.6%</div>
       <div class="dt-cell dt-imp">23.3%</div>
@@ -549,11 +549,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <h2>Downstream model performance — <em>ResNet-50 trained on standard vs expert labels</em></h2>
+  <h2>Downstream model performance <em>ResNet-50 trained on standard vs expert labels</em></h2>
 
-  <p>We trained two identical ResNet-50 models — one on the standard annotations and one on the expert annotations — and evaluated both on a held-out test set of 400 images with verified ground-truth labels. The model metrics translate directly to operational performance of a precision spraying system.</p>
+  <p>We trained two identical ResNet-50 models  one on the standard annotations and one on the expert annotations and evaluated both on a held-out test set of 400 images with verified ground-truth labels. The model metrics translate directly to operational performance of a precision spraying system.</p>
 
-  <div class="dt-label">Model comparison — trained on standard labels vs expert labels</div>
+  <div class="dt-label">Model comparison - trained on standard labels vs expert labels</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -601,9 +601,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
   </div>
 
-  <h2>Economic impact — ₹5.13 lakhs per hectare from annotation quality</h2>
+  <h2>Economic impact - ₹5.13 lakhs per hectare from annotation quality</h2>
 
-  <div class="dt-label">Economic impact modelling — precision spraying on Indian cotton farm</div>
+  <div class="dt-label">Economic impact modelling precision spraying on Indian cotton farm</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -660,7 +660,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
     <div>
       <div class="roi-item-num">1,140:1</div>
-      <div class="roi-item-label">ROI on the incremental annotation investment — per hectare deployed</div>
+      <div class="roi-item-label">ROI on the incremental annotation investment per hectare deployed</div>
     </div>
   </div>
 
@@ -668,7 +668,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>Time and cost analysis</h2>
 
-  <div class="dt-label">Annotation team comparison — 2,500 images</div>
+  <div class="dt-label">Annotation team comparison 2,500 images</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -708,23 +708,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
     <div class="dt-row sep">
       <div class="dt-cell wide label">ROI on incremental cost</div>
-      <div class="dt-cell">—</div>
+      <div class="dt-cell">-</div>
       <div class="dt-cell dt-imp">1,140:1 per hectare</div>
     </div>
   </div>
   </div>
 
-  <div class="pull-quote">Expert annotators are slower — and that is a feature, not a bug. The 4 extra days produced a 29.5% improvement in species-level accuracy. Any annotation provider who promises fast agricultural labeling is delivering the 62.3% accuracy product.</div>
+  <div class="pull-quote">Expert annotators are slower and that is a feature, not a bug. The 4 extra days produced a 29.5% improvement in species-level accuracy. Any annotation provider who promises fast agricultural labeling is delivering the 62.3% accuracy product.</div>
 
   <div class="key-takeaway">
     <div class="key-takeaway-title">Key learnings</div>
     <div class="key-takeaway-list">
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Annotation accuracy in agricultural AI is determined by annotator expertise, not annotator diligence.</strong> The standard annotators were experienced, careful image labelers who drew accurate bounding boxes and masks. The labels were wrong because they could not tell the species apart. No calibration, QA, or guideline improvement fixes a fundamental species identification knowledge gap.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The hardest classification pairs are the most important ones.</strong> Cotton vs pigweed at the 3-leaf stage is the most commercially important weed identification task in Indian cotton farming — and the one where standard annotators perform at near-chance accuracy (54%). Any agricultural AI company that does not evaluate annotation quality on its hardest crop-weed pairs is building a model that fails exactly where accuracy matters most.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Lighting variation is a force multiplier on the expertise gap.</strong> Under controlled or overcast lighting, the accuracy difference is 20%. Under harsh midday lighting, it widens to 31%. Real agricultural deployments operate under variable lighting — and the underperformance is worst during the brightest part of the day when most spraying operations occur.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The hardest classification pairs are the most important ones.</strong> Cotton vs pigweed at the 3-leaf stage is the most commercially important weed identification task in Indian cotton farming and the one where standard annotators perform at near-chance accuracy (54%). Any agricultural AI company that does not evaluate annotation quality on its hardest crop-weed pairs is building a model that fails exactly where accuracy matters most.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Lighting variation is a force multiplier on the expertise gap.</strong> Under controlled or overcast lighting, the accuracy difference is 20%. Under harsh midday lighting, it widens to 31%. Real agricultural deployments operate under variable lighting and the underperformance is worst during the brightest part of the day when most spraying operations occur.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Zone-matched annotators are not a luxury.</strong> A plant pathologist from Tamil Nadu rice paddies should annotate Tamil Nadu rice images, not Punjab cotton images. Weed species composition, soil background colour, growth stage timing, and lighting patterns all differ by region. Zone matching is what produces the 91.8% species-level accuracy.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The ROI on expert annotation is extraordinary for agricultural AI.</strong> The incremental cost of expert over standard annotation was ₹45,000 for 2,500 images. The economic value delivered is ₹5.13 lakhs per hectare. For any agritech company deploying at scale, the annotation cost is a rounding error. The question is not "can we afford expert annotation?" but "can we afford not to use it?"</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Expert annotators are slower — and that is correct.</strong> The expert team took 50% longer (12 vs 8 days) because they examined diagnostic features more carefully on borderline specimens. The 4 extra days produced a 29.5% improvement in species-level accuracy. Accurate species identification from field photographs requires the same careful examination that a botanist gives to a physical specimen.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Expert annotators are slower and that is correct.</strong> The expert team took 50% longer (12 vs 8 days) because they examined diagnostic features more carefully on borderline specimens. The 4 extra days produced a 29.5% improvement in species-level accuracy. Accurate species identification from field photographs requires the same careful examination that a botanist gives to a physical specimen.</span></div>
     </div>
   </div>
 
@@ -735,10 +735,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   </div>
 
   <div class="author-card">
-    <div class="author-avatar">C</div>
+    <div class="author-avatar">A</div>
     <div>
-      <div class="author-name">The Concave AI Team</div>
-      <div class="author-role">ML-Engineer-Led Data Annotation &amp; GenAI Evaluation · Bengaluru, India</div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
     </div>
   </div>
 
@@ -747,7 +747,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&q=85')"></div>
   <div class="sidebar-fact">
     <div class="sidebar-fact-num">1,140:1</div>
-    <div class="sidebar-fact-label">ROI on expert annotation investment — ₹45,000 incremental annotation cost delivers ₹5.13 lakhs per hectare in reduced crop destruction and weed competition losses</div>
+    <div class="sidebar-fact-label">ROI on expert annotation investment ₹45,000 incremental annotation cost delivers ₹5.13 lakhs per hectare in reduced crop destruction and weed competition losses</div>
   </div>
   <div class="sidebar-caption">Based on cotton farm economic modelling. ResNet-50 trained on expert labels: 90.7% overall accuracy, 2.8% false alarm rate. Standard labels: 68.3% accuracy, 12.3% false alarm rate.</div>
 </aside>

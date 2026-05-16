@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Video Annotation — Concave AI</title>
+<title>Video Annotation </title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -282,7 +282,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1589935447067-5531094415d1?w=1920&q=85&auto=format&fit=crop')"></div>
 
   <div>
-    <div class="svc-hero-eyebrow">Service — Computer Vision</div>
+    <div class="svc-hero-eyebrow">Service - Computer Vision</div>
     <h1>Video <em>Annotation</em></h1>
     <p class="svc-hero-sub">Object tracking with consistent IDs across frames, action recognition, temporal segmentation, and AV scenario annotation. Temporal interpolation reduces frame-by-frame work by 70%. ByteTrack multi-object tracking for high-density scenes. Supporting autonomous vehicles, surveillance, healthcare, and action recognition applications.</p>
     <div class="hero-ctas">
@@ -301,7 +301,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="h-stat">
       <div class="h-stat-num">30fps</div>
-      <div class="h-stat-label">Support for high-framerate video — automotive, sports, and security footage</div>
+      <div class="h-stat-label">Support for high-framerate video for automotive, sports, and security footage</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">ID-consistent</div>
@@ -320,18 +320,18 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <section class="sec" id="overview">
   <span class="sec-eyebrow">What It Is</span>
-  <h2 class="sec-title">Image annotation across time — <em>consistency is everything</em></h2>
-  <p class="sec-desc">Video annotation extends image annotation into the temporal dimension. The core challenge is not just labeling what is in each frame — it is maintaining label consistency across frames as objects move, overlap, partially leave frame, and re-enter. Getting this right requires a combination of smart automated tracking and careful human review of edge cases that break automated tracking.</p>
+  <h2 class="sec-title">Image annotation across time  <em>consistency is everything</em></h2>
+  <p class="sec-desc">Video annotation extends image annotation into the temporal dimension. The core challenge is not just labeling what is in each frame it is maintaining label consistency across frames as objects move, overlap, partially leave frame, and re-enter. Getting this right requires a combination of smart automated tracking and careful human review of edge cases that break automated tracking.</p>
   <div class="two-col">
     <div class="body-text">
-      <p>Consider annotating a pedestrian in a busy street scene. In frame 1, the pedestrian is fully visible and easy to box. By frame 47, they are partially occluded by a parked car. By frame 68, they briefly leave frame and re-enter from behind the car. By frame 94, they overlap with another pedestrian for 12 frames. A naive tracking system will either lose the ID during these events or swap IDs with the other pedestrian — both errors that corrupt your training data.</p>
-      <p>Our video annotation pipeline uses ByteTrack for initial multi-object tracking (SOTA for maintaining IDs through occlusions), combined with temporal interpolation between human-annotated keyframes (typically 1 keyframe every 10–30 frames depending on scene complexity). Human annotators focus their effort on keyframes and occlusion events — where tracking is hardest and most consequential — rather than manually annotating every frame.</p>
+      <p>Consider annotating a pedestrian in a busy street scene. In frame 1, the pedestrian is fully visible and easy to box. By frame 47, they are partially occluded by a parked car. By frame 68, they briefly leave frame and re-enter from behind the car. By frame 94, they overlap with another pedestrian for 12 frames. A naive tracking system will either lose the ID during these events or swap IDs with the other pedestrian both errors that corrupt your training data.</p>
+      <p>Our video annotation pipeline uses ByteTrack for initial multi-object tracking (SOTA for maintaining IDs through occlusions), combined with temporal interpolation between human-annotated keyframes (typically 1 keyframe every 10–30 frames depending on scene complexity). Human annotators focus their effort on keyframes and occlusion events where tracking is hardest and most consequential rather than manually annotating every frame.</p>
       <p>For Indian-specific autonomous vehicle data, we have annotators who are familiar with the specific challenges of Indian traffic: two-wheelers weaving between lanes, auto-rickshaws making unexpected turns, pedestrians crossing at unstructured intersections, cattle on roads, and the distinctive right-of-way patterns that Western-trained models do not understand. This domain familiarity is the difference between annotation that actually represents the scene and annotation that imposes Western traffic patterns onto Indian footage.</p>
     </div>
     <div>
       <div class="info-block">
         <div class="info-block-title">What is ByteTrack and why do we use it?</div>
-        <div class="info-block-body">ByteTrack is a state-of-the-art multi-object tracking algorithm that associates detections to tracks using both high-confidence and low-confidence detections — most trackers discard low-confidence detections, which leads to ID switches during occlusions. ByteTrack is superior for crowded scenes (pedestrian crowds, dense traffic) and handles re-identification after objects re-enter frame after brief disappearance. We pair it with human QA at all ID-switch events.</div>
+        <div class="info-block-body">ByteTrack is a state-of-the-art multi-object tracking algorithm that associates detections to tracks using both high-confidence and low-confidence detections most trackers discard low-confidence detections, which leads to ID switches during occlusions. ByteTrack is superior for crowded scenes (pedestrian crowds, dense traffic) and handles re-identification after objects re-enter frame after brief disappearance. We pair it with human QA at all ID-switch events.</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">What is temporal interpolation?</div>
@@ -367,10 +367,10 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" style="padding-top:0;padding-bottom:60px">
   <span class="sec-eyebrow">Live Annotation Interface</span>
   <h2 class="sec-title" style="margin-top:12px">Video Timeline <em>Segment</em> Annotation Tool</h2>
-  <p class="sec-desc">Annotators label temporal segments across video, audio, and action streams — building datasets for video understanding, action recognition, and multimodal AI training.</p>
+  <p class="sec-desc">Annotators label temporal segments across video, audio, and action streams building datasets for video understanding, action recognition, and multimodal AI training.</p>
   <div class="va-demo">
     <div class="va-demo-bar">
-      <span>ConcaveLabel Studio — Video Annotation · Clip: #8,204 · Duration: 4m 32s · Annotator: Meena R.</span>
+      <span>ConcaveLabel Studio - Video Annotation · Clip: #8,204 · Duration: 4m 32s · Annotator: Meena R.</span>
     </div>
     <div class="va-body">
       <div class="va-timeline">
@@ -442,7 +442,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="task-card">
       <span class="task-icon">🏃</span>
       <div class="task-title">Action Recognition</div>
-      <div class="task-body">Temporal labeling of actions performed by tracked entities — walking, running, falling, fighting, cooking, assembling. Supports both clip-level classification and frame-level action boundaries (temporal action proposal annotation). Includes intensity and confidence scoring.</div>
+      <div class="task-body">Temporal labeling of actions performed by tracked entities walking, running, falling, fighting, cooking, assembling. Supports both clip-level classification and frame-level action boundaries (temporal action proposal annotation). Includes intensity and confidence scoring.</div>
     </div>
     <div class="task-card">
       <span class="task-icon">⏱</span>
@@ -457,7 +457,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="task-card">
       <span class="task-icon">🏥</span>
       <div class="task-title">Medical & Surgical Video</div>
-      <div class="task-body">Surgical scene annotation — instrument tracking, phase recognition (incision, dissection, haemostasis), anatomy segmentation across video frames. Endoscopy and laparoscopy annotation by clinical annotators. Supports training surgical AI assistants and robotic surgery systems.</div>
+      <div class="task-body">Surgical scene annotation instrument tracking, phase recognition (incision, dissection, haemostasis), anatomy segmentation across video frames. Endoscopy and laparoscopy annotation by clinical annotators. Supports training surgical AI assistants and robotic surgery systems.</div>
     </div>
     <div class="task-card">
       <span class="task-icon">📹</span>
@@ -483,7 +483,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">02</div>
       <div class="step-content">
         <div class="step-title">Automated Tracking + Keyframe Selection</div>
-        <div class="step-body">ByteTrack runs on the full video to generate initial track proposals for all detected objects. Our keyframe selection algorithm identifies the frames with the highest tracking uncertainty — occlusion events, new object entries, track merges, and re-identification events — and marks them as priority human annotation targets. Regular keyframes are selected at the configured interval. Interpolation connects human-annotated keyframes for all intermediate frames.</div>
+        <div class="step-body">ByteTrack runs on the full video to generate initial track proposals for all detected objects. Our keyframe selection algorithm identifies the frames with the highest tracking uncertainty occlusion events, new object entries, track merges, and re-identification events and marks them as priority human annotation targets. Regular keyframes are selected at the configured interval. Interpolation connects human-annotated keyframes for all intermediate frames.</div>
         <div class="step-tags"><span class="step-tag">ByteTrack</span><span class="step-tag">Uncertainty-based keyframe selection</span><span class="step-tag">Temporal interpolation</span><span class="step-tag">70% frame reduction</span></div>
       </div>
     </div>
@@ -512,13 +512,13 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="usecase-grid">
     <div class="usecase-card">
       <span class="uc-emoji">🚗</span>
-      <div class="uc-title">Autonomous Vehicles — Indian Roads</div>
-      <div class="uc-body">AV perception models trained on Western data fail on Indian roads. Our annotators understand the specific behaviours, objects, and scenarios unique to Indian traffic — auto-rickshaws, cattle, motorbike swarms, unstructured intersections, monsoon visibility — and annotate them with the accuracy needed to train reliable perception systems for Indian deployment.</div>
+      <div class="uc-title">Autonomous Vehicles - Indian Roads</div>
+      <div class="uc-body">AV perception models trained on Western data fail on Indian roads. Our annotators understand the specific behaviours, objects, and scenarios unique to Indian traffic auto-rickshaws, cattle, motorbike swarms, unstructured intersections, monsoon visibility and annotate them with the accuracy needed to train reliable perception systems for Indian deployment.</div>
     </div>
     <div class="usecase-card">
       <span class="uc-emoji">🏥</span>
       <div class="uc-title">Surgical AI & Medical Video</div>
-      <div class="uc-body">Laparoscopic, endoscopic, and robotic surgery video annotation for training surgical AI assistants. Clinical annotators (surgeons and surgical nurses) label instrument types, anatomical structures, surgical phase boundaries, and critical event markers — data that requires genuine clinical expertise to label correctly.</div>
+      <div class="uc-body">Laparoscopic, endoscopic, and robotic surgery video annotation for training surgical AI assistants. Clinical annotators (surgeons and surgical nurses) label instrument types, anatomical structures, surgical phase boundaries, and critical event markers data that requires genuine clinical expertise to label correctly.</div>
     </div>
     <div class="usecase-card">
       <span class="uc-emoji">🏋</span>
@@ -537,7 +537,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div>
     <span class="sec-eyebrow">Pricing</span>
     <h2 class="sec-title">Per-minute video<br><em>pricing by complexity</em></h2>
-    <p class="sec-desc">Video annotation is priced per minute of footage based on scene complexity, object density, and task type. Temporal interpolation savings are passed directly to you — you pay for human annotation time, not automated tracking.</p>
+    <p class="sec-desc">Video annotation is priced per minute of footage based on scene complexity, object density, and task type. Temporal interpolation savings are passed directly to you you pay for human annotation time, not automated tracking.</p>
     <a href="contact.html" class="btn-primary" style="margin-top:32px;display:inline-block;background:var(--accent2);color:var(--ink)">Get a Project Quote →</a>
   </div>
   <div class="price-rows">
@@ -557,7 +557,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="service-image.html" class="related-card">
       <span class="rc-icon">🖼</span>
       <div class="rc-title">Image Annotation</div>
-      <div class="rc-body">Video annotation builds on our image annotation capabilities. For projects that need both still image and video data — common in AV and medical imaging — we run both pipelines with consistent labeling ontologies and annotator teams.</div>
+      <div class="rc-body">Video annotation builds on our image annotation capabilities. For projects that need both still image and video data common in AV and medical imaging we run both pipelines with consistent labeling ontologies and annotator teams.</div>
     </a>
     <a href="service-synthetic-data.html" class="related-card">
       <span class="rc-icon">📊</span>
@@ -567,7 +567,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="service-retainer.html" class="related-card">
       <span class="rc-icon">🔄</span>
       <div class="rc-title">Continuous Quality Retainer</div>
-      <div class="rc-body">As your deployed vision model encounters new real-world conditions — new geographies, new weather conditions, new object types — continuous annotation and model monitoring ensures your model stays accurate as distribution shifts.</div>
+      <div class="rc-body">As your deployed vision model encounters new real-world conditions new geographies, new weather conditions, new object types continuous annotation and model monitoring ensures your model stays accurate as distribution shifts.</div>
     </a>
   </div>
 </section>
@@ -575,7 +575,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="cta-section">
   <div class="cta-inner">
     <h2>Get 5 minutes of video <em>annotated free</em></h2>
-    <p>Send us a 5-minute clip from your dataset. We will return fully tracked and labeled video with IoU metrics and ID consistency report — no cost, no commitment.</p>
+    <p>Send us a 5-minute clip from your dataset. We will return fully tracked and labeled video with IoU metrics and ID consistency report at no cost, no commitment.</p>
     <div class="cta-actions">
       <a href="contact.html" class="cta-btn-white">Request Free Sample →</a>
       <a href="contact.html" class="cta-btn-ghost">Talk to our vision team</a>
@@ -590,7 +590,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>

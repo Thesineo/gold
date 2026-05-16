@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beyond the Box — Precision Annotation for 80% Occluded Objects in Urban Traffic Scenes · Concave AI</title>
+<title>Beyond the Box - Precision Annotation for 80% Occluded Objects in Urban Traffic Scenes · Concave AI</title>
 <meta name="description" content="Auto-labeling tools achieve 92% accuracy on clearly visible objects. On objects that are 60–80% occluded, that accuracy drops to 38%. A methodology demonstration of human-in-the-loop annotation for ADAS and autonomous vehicle perception.">
-<meta property="og:title" content="Beyond the Box — Precision Annotation for Heavily Occluded Objects in Urban Traffic Scenes">
+<meta property="og:title" content="Beyond the Box Precision Annotation for Heavily Occluded Objects in Urban Traffic Scenes">
 <meta property="og:url" content="https://theconcaveai.com/casestudy-1-computer-vision-av.html">
 <link rel="canonical" href="https://theconcaveai.com/casestudy-1-computer-vision-av.html">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -63,7 +63,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .stat-card.good .stat-num{color:var(--green)}
 .stat-label{font-size:13px;color:var(--muted);line-height:1.45}
 
-/* STAT ROW — 3 cards */
+/* STAT ROW 3 cards */
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:40px 0}
 .stat-box{border:1px solid var(--border);border-radius:4px;padding:22px;text-align:center}
 .stat-box-num{font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-1.5px;line-height:1;margin-bottom:8px}
@@ -271,14 +271,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <div class="article-layout">
 <article class="article-wrap">
 
-  <p>Auto-labeling tools achieve 92% accuracy on fully visible objects. On objects that are 60–80% occluded — hidden behind other vehicles, poles, or barriers — that accuracy drops to 38%. This is the gap where human-in-the-loop annotation is not optional. It is the only thing that works.</p>
+  <p>Auto-labeling tools achieve 92% accuracy on fully visible objects. On objects that are 60–80% occluded hidden behind other vehicles, poles, or barriers that accuracy drops to 38%. This is the gap where human-in-the-loop annotation is not optional. It is the only thing that works.</p>
 
   <p>In real urban traffic, partial occlusion is not an edge case. It is the norm. A pedestrian stepping out from between parked cars is 70–80% occluded until they are in the lane. A motorcycle filtering between two trucks is visible only as a handlebar and a helmet. A child behind a bus is a pair of shoes below the bumper line. These are precisely the scenarios where an ADAS system must perform correctly.</p>
 
   <div class="stat-pair">
     <div class="stat-card bad">
       <div class="stat-num">38%</div>
-      <div class="stat-label">Best auto-labeling accuracy (SAM2) on 60–80% occluded objects — the category most critical for pedestrian safety</div>
+      <div class="stat-label">Best auto-labeling accuracy (SAM2) on 60–80% occluded objects the category most critical for pedestrian safety</div>
     </div>
     <div class="stat-card good">
       <div class="stat-num">93%</div>
@@ -288,7 +288,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>Why occlusion <em>breaks automated annotation</em></h2>
 
-  <p>Object detection in urban driving is a solved problem — for visible objects. Modern auto-labeling pipelines using YOLO, Detectron2, or proprietary models from annotation platforms can draw tight bounding boxes around cars, pedestrians, cyclists, and trucks when those objects are clearly visible in the frame. The problem begins the moment an object is partially hidden.</p>
+  <p>Object detection in urban driving is a solved problem for visible objects. Modern auto-labeling pipelines using YOLO, Detectron2, or proprietary models from annotation platforms can draw tight bounding boxes around cars, pedestrians, cyclists, and trucks when those objects are clearly visible in the frame. The problem begins the moment an object is partially hidden.</p>
 
   <p>A missed detection at 80% occlusion becomes a safety-critical failure 500 milliseconds later when the object is 40% occluded and the vehicle has not begun braking because the perception system never registered the object's presence. Auto-labeling tools fail on occluded objects for three specific, measurable reasons.</p>
 
@@ -297,7 +297,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="step-num">1</div>
       <div class="step-content">
         <h4>Visible footprint mismatch</h4>
-        <p>The object's visible portion does not match any template in the detection model's training data. A car that is 80% hidden behind a truck presents as a thin vertical slice of door panel and a wheel — the model has learned to recognise "car" as a horizontal rectangle with a roof line, windshield, and four wheels. The visible slice does not trigger a detection.</p>
+        <p>The object's visible portion does not match any template in the detection model's training data. A car that is 80% hidden behind a truck presents as a thin vertical slice of door panel and a wheel the model has learned to recognise "car" as a horizontal rectangle with a roof line, windshield, and four wheels. The visible slice does not trigger a detection.</p>
       </div>
     </div>
     <div class="step-item">
@@ -311,24 +311,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="step-num">3</div>
       <div class="step-content">
         <h4>Broken temporal continuity</h4>
-        <p>If a tracking algorithm (ByteTrack, DeepSORT) loses track of an object when it becomes occluded, it assigns a new ID when the object re-emerges. The training data now contains two objects — one that disappeared and one that appeared — rather than one continuous object that was temporarily hidden. A model trained on this data learns that objects cease to exist when occluded and new objects appear spontaneously.</p>
+        <p>If a tracking algorithm (ByteTrack, DeepSORT) loses track of an object when it becomes occluded, it assigns a new ID when the object re-emerges. The training data now contains two objects one that disappeared and one that appeared rather than one continuous object that was temporarily hidden. A model trained on this data learns that objects cease to exist when occluded and new objects appear spontaneously.</p>
       </div>
     </div>
   </div>
 
   <h2>The Indian road context <em>multiplies the problem</em></h2>
 
-  <p>Standard occlusion datasets — Cityscapes (Germany), nuScenes (Boston/Singapore), KITTI (Karlsruhe) — contain European and American traffic patterns. Occlusion in these datasets is dominated by car-behind-car scenarios at traffic lights and intersections with clear lane structure. Indian urban traffic introduces occlusion patterns that these datasets do not contain.</p>
+  <p>Standard occlusion datasets Cityscapes (Germany), nuScenes (Boston/Singapore), KITTI (Karlsruhe) contain European and American traffic patterns. Occlusion in these datasets is dominated by car-behind-car scenarios at traffic lights and intersections with clear lane structure. Indian urban traffic introduces occlusion patterns that these datasets do not contain.</p>
 
   <p>Auto-rickshaws weaving between cars create three-layer occlusion stacks (rickshaw behind car behind truck) that Western datasets never show. Two-wheelers filtering through traffic at sub-lane widths are 60–90% occluded at any given frame. Pedestrians crossing multi-lane roads without crosswalks create occlusion from unexpected angles. Cattle standing between vehicles create non-rigid occlusion boundaries that differ from vehicle-to-vehicle occlusion.</p>
 
-  <div class="pull-quote">An ADAS system trained only on Western occlusion patterns deployed on Indian roads will fail on exactly these scenarios — the scenarios that are most frequent and most safety-critical in Indian driving conditions.</div>
+  <div class="pull-quote">An ADAS system trained only on Western occlusion patterns deployed on Indian roads will fail on exactly these scenarios as the baseline. We selected <strong>500 images</strong> containing at least one object with 50% or greater occlusion, categorised by level: 50–60% (moderate), 60–80% (heavy), and 80%+ (extreme). We then added <strong>200 images</strong> from Indian urban traffic sourced from publicly available Indian driving datasets containing occlusion patterns specific to Indian roads.</p>
 
-  <h2>The approach — <em>dataset and scope</em></h2>
-
-  <p>For this methodology demonstration, we used the Cityscapes dataset — 5,000 finely annotated urban driving images from 50 European cities — as the baseline. We selected <strong>500 images</strong> containing at least one object with 50% or greater occlusion, categorised by level: 50–60% (moderate), 60–80% (heavy), and 80%+ (extreme). We then added <strong>200 images</strong> from Indian urban traffic — sourced from publicly available Indian driving datasets — containing occlusion patterns specific to Indian roads.</p>
-
-  <h3>Step 1 — Baseline auto-labeling performance</h3>
+  <h3>Step 1 - Baseline auto-labeling performance</h3>
 
   <p>We ran the full 700-image set through three auto-labeling pipelines to establish baseline performance on occluded objects specifically.</p>
 
@@ -342,31 +338,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell">Tool C · SAM2</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">0–30% — clear</div>
+      <div class="dt-cell wide label">0–30% - clear</div>
       <div class="dt-cell dt-ok">94%</div>
       <div class="dt-cell dt-ok">96%</div>
       <div class="dt-cell dt-ok">97%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">30–50% — partial</div>
+      <div class="dt-cell wide label">30–50% - partial</div>
       <div class="dt-cell dt-ok">82%</div>
       <div class="dt-cell dt-ok">87%</div>
       <div class="dt-cell dt-ok">91%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">50–60% — moderate</div>
+      <div class="dt-cell wide label">50–60% - moderate</div>
       <div class="dt-cell">63%</div>
       <div class="dt-cell">71%</div>
       <div class="dt-cell">78%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">60–80% — heavy</div>
+      <div class="dt-cell wide label">60–80% - heavy</div>
       <div class="dt-cell dt-bad">34%</div>
       <div class="dt-cell dt-bad">42%</div>
       <div class="dt-cell">54%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">80%+ — extreme</div>
+      <div class="dt-cell wide label">80%+ - extreme</div>
       <div class="dt-cell dt-bad">11%</div>
       <div class="dt-cell dt-bad">18%</div>
       <div class="dt-cell dt-bad">31%</div>
@@ -382,7 +378,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>The pattern is consistent across all three tools: performance degrades sharply beyond 50% occlusion. SAM2 performs best due to its foundation model architecture, but still fails on nearly half of heavily occluded objects. On Indian road scenes with heavy occlusion, even the best automated tool misses more than half of the objects that a human annotator correctly identifies.</p>
 
-  <h3>Step 2 — Human-in-the-loop correction protocol</h3>
+  <h3>Step 2 - Human-in-the-loop correction protocol</h3>
 
   <p>We did not ask annotators to simply "fix the auto-labels." We designed a structured human-in-the-loop protocol with four specific phases.</p>
 
@@ -391,14 +387,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="phase-num">Phase 01</div>
       <div class="phase-body">
         <h4>SAM2 pre-annotation as starting point</h4>
-        <p>Every image was first processed through SAM2 to generate initial segmentation masks. For clearly visible objects, SAM2's masks were used as-is with minor boundary corrections. For occluded objects, SAM2's masks served as a starting point — annotators knew an object was there but needed to determine the correct boundary. This hybrid approach meant annotators spent zero time on the 97% of clearly visible objects that SAM2 handles well. 100% of their time was focused on the occluded objects where human judgment is required.</p>
+        <p>Every image was first processed through SAM2 to generate initial segmentation masks. For clearly visible objects, SAM2's masks were used as-is with minor boundary corrections. For occluded objects, SAM2's masks served as a starting point annotators knew an object was there but needed to determine the correct boundary. This hybrid approach meant annotators spent zero time on the 97% of clearly visible objects that SAM2 handles well. 100% of their time was focused on the occluded objects where human judgment is required.</p>
       </div>
     </div>
     <div class="phase-item">
       <div class="phase-num">Phase 02</div>
       <div class="phase-body">
         <h4>Occlusion-specific annotation guidelines</h4>
-        <p>Standard annotation guidelines say "draw a bounding box around the object." For occluded objects, this instruction is ambiguous. Our guidelines specified precisely: annotate the <strong>estimated full extent</strong> of the object, including the occluded portion. Use the visible portion as an anchor and extend the boundary based on contextual cues — the angle of the visible roofline, the position of visible wheels, the expected size of the vehicle class. Mark the occlusion boundary separately so the training data distinguishes between the visible portion and the inferred portion.</p>
+        <p>Standard annotation guidelines say "draw a bounding box around the object." For occluded objects, this instruction is ambiguous. Our guidelines specified precisely: annotate the <strong>estimated full extent</strong> of the object, including the occluded portion. Use the visible portion as an anchor and extend the boundary based on contextual cues the angle of the visible roofline, the position of visible wheels, the expected size of the vehicle class. Mark the occlusion boundary separately so the training data distinguishes between the visible portion and the inferred portion.</p>
       </div>
     </div>
     <div class="phase-item">
@@ -412,19 +408,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="phase-num">Phase 04</div>
       <div class="phase-body">
         <h4>Three-tier QA with occlusion-specific checks</h4>
-        <p><strong>Tier 1 automated checks:</strong> Did the annotator mark any occluded objects in a scene that statistically should contain them? Is the estimated full-extent bounding box physically plausible? Are the occlusion boundaries consistent with the depth ordering of the scene? <strong>Tier 2 peer review:</strong> A second annotator reviewed all heavy and extreme occlusion labels. Disagreements were adjudicated by a third annotator. <strong>Tier 3 expert review:</strong> Our senior ML engineer reviewed all images where the auto-labeling tool detected zero objects but the human annotator found one or more — the highest-value annotations.</p>
+        <p><strong>Tier 1 automated checks:</strong> Did the annotator mark any occluded objects in a scene that statistically should contain them? Is the estimated full-extent bounding box physically plausible? Are the occlusion boundaries consistent with the depth ordering of the scene? <strong>Tier 2 peer review:</strong> A second annotator reviewed all heavy and extreme occlusion labels. Disagreements were adjudicated by a third annotator. <strong>Tier 3 expert review:</strong> Our senior ML engineer reviewed all images where the auto-labeling tool detected zero objects but the human annotator found one or more the highest-value annotations.</p>
       </div>
     </div>
   </div>
 
   <div class="code-block">
-    <div class="code-label">Calibration kappa thresholds — this project</div>
-    <pre><span class="label-k">Detection kappa      </span>  <span class="val">≥ 0.85</span>  (binary — detected or missed)
+    <div class="code-label">Calibration kappa thresholds this project</div>
+    <pre><span class="label-k">Detection kappa      </span>  <span class="val">≥ 0.85</span>  (binary detected or missed)
 <span class="label-k">Classification kappa </span>  <span class="val">≥ 0.90</span>  (car / pedestrian / cyclist / truck)
 <span class="label-k">Boundary IoU         </span>  <span class="val">≥ 0.72</span>  (intersection over union on mask)
 
 Detection and classification kappa are high because these are less
-subjective — either you found the object or you did not. Boundary IoU
+subjective either you found the object or you did not. Boundary IoU
 is lower because boundary estimation on heavily occluded objects
 inherently involves judgment about the object's full extent.</pre>
   </div>
@@ -433,7 +429,7 @@ inherently involves judgment about the object's full extent.</pre>
 
   <h3>Detection rate improvement</h3>
 
-  <div class="dt-label">Human-in-the-loop vs best auto-label tool (SAM2) — detection rate</div>
+  <div class="dt-label">Human-in-the-loop vs best auto-label tool (SAM2) detection rate</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -443,19 +439,19 @@ inherently involves judgment about the object's full extent.</pre>
       <div class="dt-cell">Improvement</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">50–60% — moderate</div>
+      <div class="dt-cell wide label">50–60% - moderate</div>
       <div class="dt-cell">78%</div>
       <div class="dt-cell dt-ok">96%</div>
       <div class="dt-cell dt-good">+18%</div>
     </div>
     <div class="dt-row">
-      <div class="dt-cell wide label">60–80% — heavy</div>
+      <div class="dt-cell wide label">60–80% - heavy</div>
       <div class="dt-cell dt-bad">54%</div>
       <div class="dt-cell dt-ok">93%</div>
       <div class="dt-cell dt-good">+39%</div>
     </div>
     <div class="dt-row alt">
-      <div class="dt-cell wide label">80%+ — extreme</div>
+      <div class="dt-cell wide label">80%+ - extreme</div>
       <div class="dt-cell dt-bad">31%</div>
       <div class="dt-cell dt-ok">87%</div>
       <div class="dt-cell dt-imp">+56%</div>
@@ -469,11 +465,11 @@ inherently involves judgment about the object's full extent.</pre>
   </div>
   </div>
 
-  <p>The improvement is most dramatic in the range that matters most for safety — 80%+ occlusion, where auto-labeling catches only 31% of objects but human annotators catch 87%. This is not a marginal improvement. It is the difference between a perception system that sees the pedestrian stepping out from behind a parked car and one that does not.</p>
+  <p>The improvement is most dramatic in the range that matters most for safety 80%+ occlusion, where auto-labeling catches only 31% of objects but human annotators catch 87%. This is not a marginal improvement. It is the difference between a perception system that sees the pedestrian stepping out from behind a parked car and one that does not.</p>
 
   <h3>Boundary accuracy improvement</h3>
 
-  <div class="dt-label">Segmentation mask quality — IoU against ground-truth reference</div>
+  <div class="dt-label">Segmentation mask quality IoU against ground-truth reference</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -504,7 +500,7 @@ inherently involves judgment about the object's full extent.</pre>
   </div>
 
   <div class="code-block">
-    <div class="code-label">Quality metrics — final delivery</div>
+    <div class="code-label">Quality metrics final delivery</div>
     <pre><span class="label-k">Cohen's kappa (detection)          </span>  <span class="val">0.88</span>
 <span class="label-k">Cohen's kappa (classification)     </span>  <span class="val">0.93</span>
 <span class="label-k">Mean boundary IoU (all occlusion)  </span>  <span class="val">0.84</span>
@@ -516,9 +512,9 @@ inherently involves judgment about the object's full extent.</pre>
 
   <h3>Downstream model impact</h3>
 
-  <p>To validate that the improved annotation quality translates to model performance, we trained two identical Mask R-CNN models — one on auto-labeled data alone and one on the human-in-the-loop corrected data.</p>
+  <p>To validate that the improved annotation quality translates to model performance, we trained two identical Mask R-CNN models one on auto-labeled data alone and one on the human-in-the-loop corrected data.</p>
 
-  <div class="dt-label">mAP comparison — Mask R-CNN trained on auto-label vs human-corrected data</div>
+  <div class="dt-label">mAP comparison Mask R-CNN trained on auto-label vs human-corrected data</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -548,7 +544,7 @@ inherently involves judgment about the object's full extent.</pre>
   </div>
   </div>
 
-  <p>An 8% improvement on overall mAP is solid but modest. The <strong>38-percentage-point improvement on 80%+ occluded objects</strong> — from 0.14 (essentially random) to 0.52 (usable in production) — is the metric that determines whether an ADAS system is safe for deployment. It is entirely attributable to annotation quality.</p>
+  <p>An 8% improvement on overall mAP is solid but modest. The <strong>38-percentage-point improvement on 80%+ occluded objects</strong> from 0.14 (essentially random) to 0.52 (usable in production) is the metric that determines whether an ADAS system is safe for deployment. It is entirely attributable to annotation quality.</p>
 
   <h2>Time and cost analysis</h2>
 
@@ -587,7 +583,7 @@ inherently involves judgment about the object's full extent.</pre>
     <div class="dt-row sep">
       <div class="dt-cell wide label">Cost of a missed pedestrian detection in production</div>
       <div class="dt-cell">Incalculable</div>
-      <div class="dt-cell">—</div>
+      <div class="dt-cell">-</div>
     </div>
   </div>
   </div>
@@ -598,24 +594,24 @@ inherently involves judgment about the object's full extent.</pre>
     <div class="key-takeaway-title">Key learnings</div>
     <div class="key-takeaway-list">
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Auto-labeling is a starting point, not annotation.</strong> Using SAM2 as a pre-annotation layer and having humans correct the output is 2.3× faster than pure manual annotation and produces dramatically better results than auto-labeling alone.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Occlusion-specific guidelines are mandatory.</strong> Generic "draw a box around the object" instructions produce inconsistent annotations. Annotators need explicit instructions on whether to annotate the visible portion, the estimated full extent, or both — and how to mark the occlusion boundary separately.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Occlusion-specific guidelines are mandatory.</strong> Generic "draw a box around the object" instructions produce inconsistent annotations. Annotators need explicit instructions on whether to annotate the visible portion, the estimated full extent, or both and how to mark the occlusion boundary separately.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Calibration on occluded objects specifically is essential.</strong> Annotators who perform well on clearly visible objects may perform poorly on heavily occluded ones. A dedicated occlusion calibration set catches this before it enters the training data.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Indian road conditions require India-specific annotation data.</strong> The 44% detection improvement on Indian road scenes demonstrates that Western occlusion datasets do not transfer to Indian driving conditions. Auto-rickshaw occlusion, two-wheeler filtering, and unstructured intersection patterns must be annotated from Indian road footage.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The downstream model impact is concentrated where it matters most.</strong> The 38-point improvement on 80%+ occluded objects is the metric that determines whether a perception system is safe for deployment — and it is entirely attributable to annotation quality.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The downstream model impact is concentrated where it matters most.</strong> The 38-point improvement on 80%+ occluded objects is the metric that determines whether a perception system is safe for deployment and it is entirely attributable to annotation quality.</span></div>
     </div>
   </div>
 
   <div class="article-cta-banner">
     <h3>Working on an ADAS or <em>computer vision annotation</em> project?</h3>
-    <p>We specialise in occlusion-heavy scenes, Indian road conditions, and multi-class perception data. Free audit available — 50 frames, quality findings in 5 working days.</p>
+    <p>We specialise in occlusion-heavy scenes, Indian road conditions, and multi-class perception data. Free audit available 50 frames, quality findings in 5 working days.</p>
     <a href="contact.html" class="article-cta-btn">Request Free Audit →</a>
   </div>
 
   <div class="author-card">
     <div class="author-avatar">C</div>
     <div>
-      <div class="author-name">The Concave AI Team</div>
-      <div class="author-role">ML-Engineer-Led Data Annotation & GenAI Evaluation · Bengaluru, India</div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
     </div>
   </div>
 
@@ -624,7 +620,7 @@ inherently involves judgment about the object's full extent.</pre>
   <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=85')"></div>
   <div class="sidebar-fact">
     <div class="sidebar-fact-num">+56%</div>
-    <div class="sidebar-fact-label">Detection improvement at 80%+ occlusion — from 31% with best auto-label tool to 87% with the human-in-the-loop protocol</div>
+    <div class="sidebar-fact-label">Detection improvement at 80%+ occlusion from 31% with best auto-label tool to 87% with the human-in-the-loop protocol</div>
   </div>
   <div class="sidebar-caption">From 700-image study: 500 Cityscapes frames + 200 Indian urban traffic frames. Three-tier QA, kappa-gated calibration.</div>
 </aside>

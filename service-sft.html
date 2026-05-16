@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SFT Instruction Data — Concave AI</title>
+<title>SFT Instruction Data for Annotation and Labelling</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -300,9 +300,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1624378515195-6bbdb73dff1a?w=1920&q=85&auto=format&fit=crop')"></div>
 
   <div>
-    <div class="svc-hero-eyebrow">Service — Fine-Tuning</div>
+    <div class="svc-hero-eyebrow">Service - Fine-Tuning</div>
     <h1>SFT <em>Instruction</em> Data</h1>
-    <p class="svc-hero-sub">Expert-written prompt and ideal-response pairs for supervised fine-tuning. Domain specialists — doctors, lawyers, engineers, educators — write the responses your model should emulate. The quality ceiling of your SFT model starts here.</p>
+    <p class="svc-hero-sub">Expert-written prompt and ideal-response pairs for supervised fine-tuning. Domain specialists doctors, lawyers, engineers, educators write the responses your model should emulate. The quality ceiling of your SFT model starts here.</p>
     <div class="hero-ctas">
       <a href="contact.html" class="btn-primary">Request a Sample Batch →</a>
       <a href="index.html#pricing" class="btn-outline">View Pricing</a>
@@ -311,7 +311,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="svc-hero-stats">
     <div class="h-stat">
       <div class="h-stat-num">10+</div>
-      <div class="h-stat-label">Expert domains covered — medical, legal, finance, engineering & more</div>
+      <div class="h-stat-label">Expert domains covered legal, finance, engineering & more</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">3-Pass</div>
@@ -319,7 +319,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="h-stat">
       <div class="h-stat-num">100%</div>
-      <div class="h-stat-label">Human-expert written — no LLM-generated responses in our SFT data</div>
+      <div class="h-stat-label">Human-expert written no LLM-generated responses in our SFT data</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">8 wk</div>
@@ -339,12 +339,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" id="overview">
   <span class="sec-eyebrow">What It Is</span>
   <h2 class="sec-title">The training examples that define what <em>good</em> looks like</h2>
-  <p class="sec-desc">Supervised Fine-Tuning (SFT) is how you transform a pretrained language model into a domain specialist that follows instructions correctly. The quality of your SFT data defines the absolute ceiling your model can reach — no amount of RLHF or further training can compensate for low-quality instruction data.</p>
+  <p class="sec-desc">Supervised Fine-Tuning (SFT) is how you transform a pretrained language model into a domain specialist that follows instructions correctly. The quality of your SFT data defines the absolute ceiling your model can reach with  no amount of RLHF or further training can compensate for low-quality instruction data.</p>
   <div class="two-col">
     <div class="body-text">
       <p>When you fine-tune a model with SFT, you are showing it thousands of examples of the form: "Here is a question or instruction. Here is the ideal response." The model learns the style, depth, format, and reasoning pattern that characterises a good answer in your domain. This is why who writes the responses matters as much as what they write.</p>
-      <p>A doctor writing the ideal response to "What are the differential diagnoses for bilateral lower limb oedema with raised JVP?" will produce a fundamentally different — and far more clinically accurate — answer than a general-purpose writer who researches the same question. That difference is not stylistic. It is the difference between your model producing textbook-quality clinical reasoning and your model producing confident-sounding but clinically dangerous hallucinations.</p>
-      <p>Concave AI's SFT data service works exclusively with verified domain experts as response writers. We do not use LLMs to generate responses and then human-verify them — a practice that introduces subtle AI hallucinations and style patterns into your training data. Every response in our SFT datasets is written from scratch by a human expert, then reviewed by a second expert for accuracy and completeness, and then reviewed by our ML team for format adherence, length appropriateness, and instruction coverage.</p>
+      <p>A doctor writing the ideal response to "What are the differential diagnoses for bilateral lower limb oedema with raised JVP?" will produce a fundamentally different and far more clinically accurate answer than a general-purpose writer who researches the same question. That difference is not stylistic. It is the difference between your model producing textbook-quality clinical reasoning and your model producing confident-sounding but clinically dangerous hallucinations.</p>
+      <p>Concave AI's SFT data service works exclusively with verified domain experts as response writers. We do not use LLMs to generate responses and then human-verify them a practice that introduces subtle AI hallucinations and style patterns into your training data. Every response in our SFT datasets is written from scratch by a human expert, then reviewed by a second expert for accuracy and completeness, and then reviewed by our ML team for format adherence, length appropriateness, and instruction coverage.</p>
     </div>
     <div>
       <div class="info-block">
@@ -353,11 +353,11 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       </div>
       <div class="info-block">
         <div class="info-block-title">Why not use GPT-4 or Claude to write responses?</div>
-        <div class="info-block-body">Training on LLM-generated outputs introduces the source model's error patterns, knowledge cutoff, stylistic biases, and hallucinations into your training data. More fundamentally: if your goal is to build a model that is better than existing LLMs in your domain, training on their outputs caps your model's ceiling at their performance. Human expert writers — particularly in specialised domains — produce responses that current LLMs cannot reliably match for accuracy, nuance, and domain-specific judgment.</div>
+        <div class="info-block-body">Training on LLM-generated outputs introduces the source model's error patterns, knowledge cutoff, stylistic biases, and hallucinations into your training data. More fundamentally: if your goal is to build a model that is better than existing LLMs in your domain, training on their outputs caps your model's ceiling at their performance. Human expert writers particularly in specialised domain which  produce responses that current LLMs cannot reliably match for accuracy, nuance, and domain-specific judgment.</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">What makes a good SFT instruction-response pair?</div>
-        <div class="info-block-body">A high-quality pair has: (1) a clear, unambiguous instruction that represents a realistic user need; (2) a response of appropriate length — not padded, not truncated; (3) correct factual content verified by a second domain expert; (4) appropriate formatting (headers, lists, citations) matching your target output style; and (5) no sycophancy — the response should correct factual errors in the prompt rather than agreeing with them.</div>
+        <div class="info-block-body">A high-quality pair has: (1) a clear, unambiguous instruction that represents a realistic user need; (2) a response of appropriate length not padded, not truncated; (3) correct factual content verified by a second domain expert; (4) appropriate formatting (headers, lists, citations) matching your target output style; and (5) no sycophancy in the response should correct factual errors in the prompt rather than agreeing with them.</div>
       </div>
     </div>
   </div>
@@ -392,7 +392,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <p class="sec-desc">Expert annotators review instruction-following pairs, tagging quality dimensions and filtering pairs that would cause model degradation if included in fine-tuning.</p>
   <div class="sft-demo">
     <div class="sft-demo-bar">
-      <span>ConcaveLabel Studio — SFT Review · Dataset: Customer Support · 8,200 pairs</span>
+      <span>ConcaveLabel Studio - SFT Review · Dataset: Customer Support · 8,200 pairs</span>
     </div>
     <div class="sft-pair">
       <div class="sft-instruction">
@@ -423,7 +423,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
           <span class="sft-tag verbose">NO CAVEATS</span>
           <span class="sft-tag incomplete">MISSING RISK DISCLOSURE</span>
         </div>
-        <div class="sft-score" style="color:#ff7675">✗ EXCLUDE — TRAINING HAZARD</div>
+        <div class="sft-score" style="color:#ff7675">✗ EXCLUDE - TRAINING HAZARD</div>
       </div>
     </div>
     <div class="sft-pair">
@@ -455,7 +455,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" id="experts">
   <span class="sec-eyebrow">Expert Writers</span>
   <h2 class="sec-title">Your model learns from <em>actual practitioners</em>, not researchers</h2>
-  <p class="sec-desc">We match your domain requirements to verified professional experts — not generalist writers who have read about your field. Domain credibility is verified, not assumed.</p>
+  <p class="sec-desc">We match your domain requirements to verified professional experts not generalist writers who have read about your field. Domain credibility is verified, not assumed.</p>
   <div class="expert-grid">
     <div class="expert-card">
       <span class="expert-emoji">🏥</span>
@@ -504,7 +504,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">01</div>
       <div class="step-content">
         <div class="step-title">Prompt Strategy Design</div>
-        <div class="step-body">We design your instruction (prompt) dataset before any responses are written. Good SFT requires diversity across instruction types: factual questions, procedural instructions, creative tasks, analysis requests, multi-step reasoning, format-specification instructions, and domain-specific templates. We analyse your use case to determine the ideal prompt distribution — covering breadth of capability while over-representing the user needs most critical to your application. Prompt strategy is submitted for client approval before writer sourcing begins.</div>
+        <div class="step-body">We design your instruction (prompt) dataset before any responses are written. Good SFT requires diversity across instruction types: factual questions, procedural instructions, creative tasks, analysis requests, multi-step reasoning, format-specification instructions, and domain-specific templates. We analyse your use case to determine the ideal prompt distributio covering breadth of capability while over-representing the user needs most critical to your application. Prompt strategy is submitted for client approval before writer sourcing begins.</div>
         <div class="step-tags"><span class="step-tag">Instruction diversity analysis</span><span class="step-tag">Use-case mapping</span><span class="step-tag">Prompt taxonomy</span><span class="step-tag">Client approval</span></div>
       </div>
     </div>
@@ -520,7 +520,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">03</div>
       <div class="step-content">
         <div class="step-title">Expert Response Writing</div>
-        <div class="step-body">Domain experts write responses to each prompt from scratch. They follow a style guide specifying output format, preferred citation style, length guidelines, and how to handle ambiguous or unanswerable prompts. Writers note their confidence level for each response and flag prompts that require information outside their expertise — these are reassigned to more appropriate specialists rather than filled with lower-confidence answers. Chain-of-thought responses, multi-turn conversation pairs, and tool-use examples are all supported.</div>
+        <div class="step-body">Domain experts write responses to each prompt from scratch. They follow a style guide specifying output format, preferred citation style, length guidelines, and how to handle ambiguous or unanswerable prompts. Writers note their confidence level for each response and flag prompts that require information outside their expertise these are reassigned to more appropriate specialists rather than filled with lower-confidence answers. Chain-of-thought responses, multi-turn conversation pairs, and tool-use examples are all supported.</div>
         <div class="step-tags"><span class="step-tag">Written from scratch</span><span class="step-tag">Confidence flagging</span><span class="step-tag">Chain-of-thought</span><span class="step-tag">Multi-turn support</span></div>
       </div>
     </div>
@@ -528,7 +528,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">04</div>
       <div class="step-content">
         <div class="step-title">Dual Expert Review</div>
-        <div class="step-body">Every response is reviewed by a second domain expert independent of the original writer. The reviewer checks: (1) factual accuracy against domain references, (2) completeness — does the response actually address the full instruction?, (3) absence of harmful advice, sycophancy, or hallucinations, (4) format adherence, (5) appropriate scope — not over-answering simple questions or under-answering complex ones. Failed reviews trigger a rewrite, not a cosmetic edit. Our ML team spot-checks 10% of all pairs for instruction-following completeness.</div>
+        <div class="step-body">Every response is reviewed by a second domain expert independent of the original writer. The reviewer checks: (1) factual accuracy against domain references, (2) completeness does the response actually address the full instruction?, (3) absence of harmful advice, sycophancy, or hallucinations, (4) format adherence, (5) appropriate scope not over-answering simple questions or under-answering complex ones. Failed reviews trigger a rewrite, not a cosmetic edit. Our ML team spot-checks 10% of all pairs for instruction-following completeness.</div>
         <div class="step-tags"><span class="step-tag">Second expert review</span><span class="step-tag">Factual accuracy check</span><span class="step-tag">Sycophancy screening</span><span class="step-tag">ML spot-check 10%</span></div>
       </div>
     </div>
@@ -548,7 +548,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <h2 class="sec-title">The <em>three failure modes</em> we eliminate by design</h2>
   <p class="sec-desc">Most SFT data has three systematic problems. Our process addresses each structurally, not through post-hoc filtering.</p>
   <div class="quality-visual">
-    <div class="qv-title">SFT Data Quality Audit — What We Check</div>
+    <div class="qv-title">SFT Data Quality Audit - What We Check</div>
     <div class="qv-row">
       <span class="qv-badge red">FAILURE MODE 1</span>
       <div class="qv-text"><strong style>Factual errors written with confidence.</strong> When non-expert writers research and write domain responses, they produce factually incorrect content at a rate that domain experts immediately identify but that QA processes based on fluency cannot catch. Solution: expert writers + expert reviewers only.</div>
@@ -563,7 +563,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="qv-row">
       <span class="qv-badge green">OUR STANDARD</span>
-      <div class="qv-text"><strong style>Accuracy verified by a second domain expert on 100% of pairs.</strong> Instruction compliance scored by ML-engineer review on 10% sample. Zero-tolerance policy on sycophantic responses — rewrites, not edits.</div>
+      <div class="qv-text"><strong style>Accuracy verified by a second domain expert on 100% of pairs.</strong> Instruction compliance scored by ML-engineer review on 10% sample. Zero-tolerance policy on sycophantic responses that rewrites, not edits.</div>
     </div>
   </div>
 </section>
@@ -574,15 +574,15 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="faq-list">
     <div class="faq-item">
       <div class="faq-q">How many instruction-response pairs do I need for SFT?</div>
-      <div class="faq-a">For fine-tuning a 7B–13B parameter model on a specific domain, 2,000–10,000 high-quality pairs typically produce measurable improvement over the base model. Quality matters more than quantity — 2,000 expert-written, peer-reviewed pairs will outperform 20,000 LLM-generated pairs in domain accuracy. We recommend starting with a 500-pair pilot batch, evaluating on your benchmark, then scaling.</div>
+      <div class="faq-a">For fine-tuning a 7B–13B parameter model on a specific domain, 2,000–10,000 high-quality pairs typically produce measurable improvement over the base model. Quality matters more than quantity 2,000 expert-written, peer-reviewed pairs will outperform 20,000 LLM-generated pairs in domain accuracy. We recommend starting with a 500-pair pilot batch, evaluating on your benchmark, then scaling.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Can you write the prompts as well, or do we need to provide them?</div>
-      <div class="faq-a">We handle both. We can write prompts from scratch based on a domain brief and use-case description — this is our preferred approach because we can engineer prompt diversity and complexity distribution more effectively than a client who hasn't thought specifically about instruction coverage. Alternatively, we can write responses to prompts you supply. Hybrid approaches are common: you provide core use-case prompts, we fill in coverage gaps.</div>
+      <div class="faq-a">We handle both. We can write prompts from scratch based on a domain brief and use-case description, this is our preferred approach because we can engineer prompt diversity and complexity distribution more effectively than a client who hasn't thought specifically about instruction coverage. Alternatively, we can write responses to prompts you supply. Hybrid approaches are common: you provide core use-case prompts, we fill in coverage gaps.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What does a "chain-of-thought" SFT pair look like?</div>
-      <div class="faq-a">A chain-of-thought (CoT) pair structures the response to show explicit reasoning steps before the final answer: the model learns to think out loud. For example, a medical differential diagnosis pair would not just list diagnoses — it would show the clinical reasoning process: "Given bilateral oedema + raised JVP + breathlessness, the right-heart hypothesis is most likely because... Let us evaluate congestive cardiac failure first by checking..." This format significantly improves model reasoning on complex tasks.</div>
+      <div class="faq-a">A chain-of-thought (CoT) pair structures the response to show explicit reasoning steps before the final answer: the model learns to think out loud. For example, a medical differential diagnosis pair would not just list diagnoses it would show the clinical reasoning process: "Given bilateral oedema + raised JVP + breathlessness, the right-heart hypothesis is most likely because... Let us evaluate congestive cardiac failure first by checking..." This format significantly improves model reasoning on complex tasks.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">How is SFT instruction data priced?</div>
@@ -595,7 +595,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div>
     <span class="sec-eyebrow">Pricing</span>
     <h2 class="sec-title">Expert-quality<br><em>SFT pairs</em></h2>
-    <p class="sec-desc">Priced per instruction-response pair based on domain and expert level required. Every pair includes dual expert review — no exceptions.</p>
+    <p class="sec-desc">Priced per instruction-response pair based on domain and expert level required. Every pair includes dual expert review  no exceptions.</p>
     <a href="contact.html" class="btn-primary" style="margin-top:32px;display:inline-block;background:var(--accent2);color:var(--ink)">Request a Project Scope →</a>
   </div>
   <div class="price-rows">
@@ -615,12 +615,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="service-rlhf.html" class="related-card">
       <span class="rc-icon">⚖</span>
       <div class="rc-title">RLHF Preference Data</div>
-      <div class="rc-body">After SFT establishes the quality baseline, RLHF preference data fine-tunes alignment — teaching your model to prefer helpful, accurate responses over plausible-sounding but incorrect ones.</div>
+      <div class="rc-body">After SFT establishes the quality baseline, RLHF preference data fine-tunes alignment while teaching your model to prefer helpful, accurate responses over plausible-sounding but incorrect ones.</div>
     </a>
     <a href="service-sycophancy.html" class="related-card">
       <span class="rc-icon">🔬</span>
       <div class="rc-title">Sycophancy Detection Audit</div>
-      <div class="rc-body">Run a sycophancy audit after your SFT fine-tune to verify your model is correcting user errors rather than agreeing with them — a critical check for any domain-specialist model.</div>
+      <div class="rc-body">Run a sycophancy audit after your SFT fine-tune to verify your model is correcting user errors rather than agreeing with them a critical check for any domain-specialist model.</div>
     </a>
     <a href="service-hallucination.html" class="related-card">
       <span class="rc-icon">🧠</span>
@@ -633,7 +633,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="cta-section">
   <div class="cta-inner">
     <h2>Request a <em>free</em> SFT sample batch</h2>
-    <p>Tell us your domain and use case. We will write 10 sample instruction-response pairs with our expert team and deliver them for your review — no cost, no commitment.</p>
+    <p>Tell us your domain and use case. We will write 10 sample instruction-response pairs with our expert team and deliver them for your review no cost, no commitment.</p>
     <div class="cta-actions">
       <a href="contact.html" class="cta-btn-white">Request Sample Pairs →</a>
       <a href="contact.html" class="cta-btn-ghost">Talk to our ML team</a>
@@ -648,7 +648,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>

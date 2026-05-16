@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resources — Concave AI</title>
+<title>Blogs - Technical Insights </title>
 <meta name="description" content="Technical insights on RLHF annotation quality, data labeling best practices, sycophancy detection, and AI model evaluation from Concave AI.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -46,10 +46,10 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .cs-card-title{font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:-.3px;line-height:1.2;margin-bottom:8px}
 .cs-card-body{font-size:13px;color:var(--muted);line-height:1.55}
 
-.cta-sec{padding:100px 60px;background:var(--ink);text-align:center}
+.cta-sec{padding:100px 60px;background:var(--accent);text-align:center}
 .cta-sec h2{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,56px);letter-spacing:-2px;color:var(--white);margin-bottom:16px;line-height:1.05}
-.cta-sec h2 em{font-style:italic;color:var(--accent2)}
-.cta-sec p{font-size:17px;color:rgba(255,255,255,0.5);max-width:480px;margin:0 auto 32px;font-weight:300}
+.cta-sec h2 em{font-style:italic;color:rgba(255,255,255,0.65)}
+.cta-sec p{font-size:17px;color:var(--paper);max-width:480px;margin:0 auto 32px;font-weight:300}
 .cta-btn{display:inline-block;background:var(--accent);color:var(--white);padding:14px 30px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
 .cta-btn:hover{background:var(--accent2)}
 
@@ -60,7 +60,7 @@ footer{background:var(--accent);color:var(--paper);padding:60px 60px 32px}
 .footer-brand p{font-size:13px;color:rgba(245,242,236,0.6);line-height:1.6;margin-top:10px;max-width:260px}
 .footer-col-title{font-family:'DM Serif Display',serif;font-size:11px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:16px}
 .footer-links{display:flex;flex-direction:column;gap:10px}
-.footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none;transition:color .2s}
+.footer-links a{font-size:13px;color:var(--paper);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--paper)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .footer-copy{font-size:12px;color:rgba(245,242,236,0.3)}
@@ -183,7 +183,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
         <span class="article-tag">Data Quality</span>
         <span class="article-tag">Alignment</span>
       </div>
-      <div class="article-title">Why 38% of RLHF preference data trains your model to lie — and how to detect it before training</div>
+      <div class="article-title">Why 38% of RLHF preference data trains your model to lie and how to detect it before training</div>
       <div class="article-excerpt">Sycophancy enters RLHF pipelines when annotators reward confident agreement over factual accuracy. Here is the mechanism, the measurement protocol, and the annotation-level fix.</div>
       <div class="article-cta">Read the full analysis →</div>
     </div>
@@ -201,7 +201,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
         <span class="article-tag">Data Quality</span>
       </div>
       <div class="article-title">Synthetic data is not a shortcut: when it works, when it fails, and why real data still wins</div>
-      <div class="article-excerpt">Unlimited training data at low cost — the promise is partially true. The 5–20% domain gap, model collapse across generations, and bias amplification are the failure modes that most teams discover after training. Here is the decision framework that prevents that.</div>
+      <div class="article-excerpt">Unlimited training data at low cost the promise is partially true. The 5–20% domain gap, model collapse across generations, and bias amplification are the failure modes that most teams discover after training. Here is the decision framework that prevents that.</div>
       <div class="article-cta">Read the full analysis →</div>
     </div>
   </a>
@@ -217,8 +217,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
         <span class="article-tag">Computer Vision</span>
         <span class="article-tag">LiDAR</span>
       </div>
-      <div class="article-title">Why multimodal AI fails when you label each data type separately — and how to fix it</div>
-      <div class="article-excerpt">A self-driving car doesn't learn "what a pedestrian looks like in camera" and separately "what one looks like in LiDAR" — it learns the relationship between them. Annotation pipelines that label each modality separately break that relationship. Here is the cross-modal workflow that preserves it.</div>
+      <div class="article-title">Why multimodal AI fails when you label each data type separately and how to fix it</div>
+      <div class="article-excerpt">A self-driving car doesn't learn "what a pedestrian looks like in camera" and separately "what one looks like in LiDAR" it learns the relationship between them. Annotation pipelines that label each modality separately break that relationship. Here is the cross-modal workflow that preserves it.</div>
       <div class="article-cta">Read the full guide →</div>
     </div>
   </a>
@@ -235,7 +235,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
         <span class="article-tag">Data Quality</span>
       </div>
       <div class="article-title">How to Train an AI Model: The Complete 2026 Guide to Workflow, Data, and Getting It Right</div>
-      <div class="article-excerpt">Pre-training, fine-tuning, or RLHF — choosing the wrong approach costs six weeks and hundreds of thousands of rupees. This guide covers the full training workflow, modality-specific data requirements, real cost breakdowns, and the six annotation mistakes that silently cap your model's ceiling.</div>
+      <div class="article-excerpt">Pre-training, fine-tuning, or RLHF choosing the wrong approach costs six weeks and hundreds of thousands of rupees. This guide covers the full training workflow, modality-specific data requirements, real cost breakdowns, and the six annotation mistakes that silently cap your model's ceiling.</div>
       <div class="article-cta">Read the full guide →</div>
     </div>
   </a>
@@ -251,7 +251,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
         <span class="article-tag">Annotation</span>
         <span class="article-tag">Best Practices</span>
       </div>
-      <div class="article-title">Cohen's kappa explained for ML engineers — the annotation quality metric your pipeline probably is not measuring</div>
+      <div class="article-title">Cohen's kappa explained for ML engineers the annotation quality metric your pipeline probably is not measuring</div>
       <div class="article-excerpt">Inter-annotator agreement is the single most important quality metric in data annotation. Here is what it measures, how to interpret it, and why "98% accuracy" without kappa is meaningless.</div>
       <div class="article-cta">Read the full guide →</div>
     </div>
@@ -265,7 +265,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="cs-card">
       <div class="cs-card-tag">Agriculture AI</div>
       <div class="cs-card-title">Why crop disease models trained on Western data fail on Indian farms</div>
-      <div class="cs-card-body">PlantVillage contains zero Indian crop varietals. The accuracy gap on Pusa Ruby, IR-64, and MCU-5 is measurable — and fixable at the annotation level.</div>
+      <div class="cs-card-body">PlantVillage contains zero Indian crop varietals. The accuracy gap on Pusa Ruby, IR-64, and MCU-5 is measurable and fixable at the annotation level.</div>
     </div>
     <div class="cs-card">
       <div class="cs-card-tag">Finance & BFSI</div>
@@ -274,7 +274,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
     <div class="cs-card">
       <div class="cs-card-tag">Legal AI</div>
-      <div class="cs-card-title">How legal AI hallucinates Supreme Court judgments — and why the fix is in the data</div>
+      <div class="cs-card-title">How legal AI hallucinates Supreme Court judgments and why the fix is in the data</div>
       <div class="cs-card-body">SFT data with unverified citations teaches models that citation format is rewarded regardless of whether the case exists. The fix is claim-level verification.</div>
     </div>
   </div>
@@ -282,7 +282,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
 <section class="cta-sec">
   <h2>Want to see these principles <em>applied to your data?</em></h2>
-  <p>Free model audit — 50 outputs evaluated, sycophancy and hallucination findings in 5 working days. No cost, no commitment.</p>
+  <p>Free model audit 50 outputs evaluated, sycophancy and hallucination findings in 5 working days. No cost, no commitment.</p>
   <a href="contact.html" class="cta-btn">Request Free Audit →</a>
 </section>
 

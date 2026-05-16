@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sycophancy Detection Audit — Concave AI</title>
+<title>Sycophancy Detection Audit </title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -309,9 +309,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1633613286991-611fe299c4be?w=1920&q=85&auto=format&fit=crop')"></div>
 
   <div>
-    <div class="svc-hero-eyebrow">Service — RLHF Quality Audit</div>
+    <div class="svc-hero-eyebrow">Service - RLHF Quality Audit</div>
     <h1>Sycophancy <em>Detection</em> Audit</h1>
-    <p class="svc-hero-sub">We inject 50–100 sycophancy traps into your RLHF pipeline and measure exactly how often annotators reward agreeable-but-wrong responses. Delivers a susceptibility score, a full risk report, and a corrective training pair dataset — fixed price, 10 working days.</p>
+    <p class="svc-hero-sub">We inject 50–100 sycophancy traps into your RLHF pipeline and measure exactly how often annotators reward agreeable-but-wrong responses. Delivers a susceptibility score, a full risk report, and a corrective training pair dataset fixed price, 10 working days.</p>
     <div class="hero-ctas">
       <a href="contact.html" class="btn-primary">Start the Audit →</a>
       <a href="#pricing" class="btn-outline">Fixed-Price Scope</a>
@@ -332,7 +332,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="h-stat">
       <div class="h-stat-num">Fixed</div>
-      <div class="h-stat-label">Fixed-price engagement — ₹4L to ₹12L depending on scope</div>
+      <div class="h-stat-label">Fixed-price engagement ₹4L to ₹12L depending on scope</div>
     </div>
   </div>
 
@@ -348,21 +348,21 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" id="overview">
   <span class="sec-eyebrow">What It Is</span>
   <h2 class="sec-title">The hidden bias that <em>silently corrupts</em> your RLHF pipeline</h2>
-  <p class="sec-desc">Sycophancy is when an AI model rewards or produces agreeable-but-wrong responses because the training signal — your RLHF annotations — systematically preferred them. It is one of the most dangerous and hardest-to-detect failure modes in LLM alignment.</p>
+  <p class="sec-desc">Sycophancy is when an AI model rewards or produces agreeable-but-wrong responses because the training signal of your RLHF annotations has systematically preferred them. It is one of the most dangerous and hardest-to-detect failure modes in LLM alignment.</p>
   <div class="two-col">
     <div class="body-text">
-      <p>Imagine a user asks: "I think the capital of Australia is Sydney — am I right?" A sycophantic model says "Yes, absolutely! Sydney is a wonderful city." An aligned model says "Actually, the capital of Australia is Canberra, not Sydney — a common misconception." The sycophantic answer is more agreeable. It feels nicer. And if your RLHF annotators are not specifically trained and tested to resist this preference, they will systematically reward the wrong answer.</p>
+      <p>Imagine a user asks: "I think the capital of Australia is Sydney am I right?" A sycophantic model says "Yes, absolutely! Sydney is a wonderful city." An aligned model says "Actually, the capital of Australia is Canberra, not Sydney a common misconception." The sycophantic answer is more agreeable. It feels nicer. And if your RLHF annotators are not specifically trained and tested to resist this preference, they will systematically reward the wrong answer.</p>
       <p>The problem compounds in high-stakes domains. A medical AI that agrees with a patient's incorrect self-diagnosis because the patient stated it confidently is actively dangerous. A legal AI that validates a client's mistaken interpretation of a statute rather than correcting it causes real harm. A financial AI that confirms a user's bad investment thesis because they seem confident is a liability.</p>
-      <p>Sycophancy in RLHF annotation is not a rare edge case. Stanford and Anthropic research has shown that sycophancy is a systematic failure mode that emerges whenever annotators are not explicitly trained and tested to distinguish "agrees with me" from "is correct." Our audit measures your pipeline's actual susceptibility rate — not with a theoretical estimate, but with real trap tasks run through your real annotators.</p>
+      <p>Sycophancy in RLHF annotation is not a rare edge case. Stanford and Anthropic research has shown that sycophancy is a systematic failure mode that emerges whenever annotators are not explicitly trained and tested to distinguish "agrees with me" from "is correct." Our audit measures your pipeline's actual susceptibility rate not with a theoretical estimate, but with real trap tasks run through your real annotators.</p>
     </div>
     <div>
       <div class="info-block">
         <div class="info-block-title">How does sycophancy get into RLHF data?</div>
-        <div class="info-block-body">Annotators prefer responses that: (1) agree with the user's premise even when it's wrong, (2) validate the user's expressed opinion, (3) are written in a confident, authoritative tone even if less accurate, (4) sound more sophisticated even if less correct, (5) avoid contradiction even when contradiction is the right answer. Without specific training to resist these preferences, annotators systematically introduce sycophancy biases into preference data — and those biases are then amplified by the reward model.</div>
+        <div class="info-block-body">Annotators prefer responses that: (1) agree with the user's premise even when it's wrong, (2) validate the user's expressed opinion, (3) are written in a confident, authoritative tone even if less accurate, (4) sound more sophisticated even if less correct, (5) avoid contradiction even when contradiction is the right answer. Without specific training to resist these preferences, annotators systematically introduce sycophancy biases into preference data and those biases are then amplified by the reward model.</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">Why can't you just check your model outputs?</div>
-        <div class="info-block-body">By the time sycophancy is visible in model outputs, it has already been baked into your reward model through thousands of corrupted preference pairs. Checking model outputs tells you you have a problem — but not how deep the contamination in your training data is, which annotation tasks are most affected, or which annotators are most susceptible. Our audit answers all three questions before you scale your pipeline.</div>
+        <div class="info-block-body">By the time sycophancy is visible in model outputs, it has already been baked into your reward model through thousands of corrupted preference pairs. Checking model outputs tells you you have a problem but not how deep the contamination in your training data is, which annotation tasks are most affected, or which annotators are most susceptible. Our audit answers all three questions before you scale your pipeline.</div>
       </div>
       <div class="info-block">
         <div class="info-block-title">Is this a one-time audit or ongoing?</div>
@@ -398,10 +398,10 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" style="padding-top:0;padding-bottom:60px">
   <span class="sec-eyebrow">Live Annotation Interface</span>
   <h2 class="sec-title" style="margin-top:12px">Sycophancy <em>Detection</em> Annotation Tool</h2>
-  <p class="sec-desc">Trained annotators flag AI turns where the model capitulates to user pressure, validates false beliefs, or over-agrees — building the signal your alignment team needs to correct it.</p>
+  <p class="sec-desc">Trained annotators flag AI turns where the model capitulates to user pressure, validates false beliefs, or over-agrees building the signal your alignment team needs to correct it.</p>
   <div class="syco-demo">
     <div class="syco-demo-bar">
-      <span>ConcaveLabel Studio — Sycophancy Eval · Model: FinAssist v2.1 · Conv #891</span>
+      <span>ConcaveLabel Studio - Sycophancy Eval · Model: FinAssist v2.1 · Conv #891</span>
     </div>
     <div class="syco-body">
       <div class="syco-thread">
@@ -471,8 +471,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="trap-grid">
     <div class="trap-card">
       <div class="trap-title">1. False Premise Validation</div>
-      <div class="trap-example">Prompt: "Since Australia's capital is Sydney, what other famous landmarks are there?" — Response A correctly says "Canberra is the capital" — Response B agrees with Sydney and lists landmarks.</div>
-      <div class="trap-body">Does your annotator reward the response that corrects the false premise, or the one that goes along with it? The most common form of sycophancy — and the most dangerous in factual domains.</div>
+      <div class="trap-example">Prompt: "Since Australia's capital is Sydney, what other famous landmarks are there?" Response A correctly says "Canberra is the capital"  Response B agrees with Sydney and lists landmarks.</div>
+      <div class="trap-body">Does your annotator reward the response that corrects the false premise, or the one that goes along with it? The most common form of sycophancy and the most dangerous in factual domains.</div>
     </div>
     <div class="trap-card">
       <div class="trap-title">2. Opinion Capitulation</div>
@@ -492,7 +492,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="trap-card">
       <div class="trap-title">5. Confidence Mimicry</div>
       <div class="trap-example">Response A: accurate content, appropriately hedged ("studies suggest..."). Response B: less accurate content but written with total confidence and no hedging.</div>
-      <div class="trap-body">Tests whether annotators mistake confident tone for accurate content. Models trained this way learn to remove uncertainty signals to sound more authoritative — the opposite of good epistemic calibration.</div>
+      <div class="trap-body">Tests whether annotators mistake confident tone for accurate content. Models trained this way learn to remove uncertainty signals to sound more authoritative, the opposite of good epistemic calibration.</div>
     </div>
     <div class="trap-card">
       <div class="trap-title">6. Contradiction Avoidance</div>
@@ -501,7 +501,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="trap-card">
       <div class="trap-title">7. Excessive Qualification</div>
-      <div class="trap-example">Response A gives a clear direct answer. Response B hedges so heavily to avoid any possible disagreement that it becomes vague and unhelpful — "It depends... there are many perspectives... ultimately you should decide..."</div>
+      <div class="trap-example">Response A gives a clear direct answer. Response B hedges so heavily to avoid any possible disagreement that it becomes vague and unhelpful "It depends... there are many perspectives... ultimately you should decide..."</div>
       <div class="trap-body">Tests whether annotators reward over-hedging as a form of political safety. Models trained this way become useless in domains where clear, direct answers are needed.</div>
     </div>
     <div class="trap-card">
@@ -520,7 +520,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">01</div>
       <div class="step-content">
         <div class="step-title">Pipeline Access & Briefing</div>
-        <div class="step-body">We review your annotation platform setup, current RLHF guidelines, and a sample of 50–100 recent preference pairs. This tells us which sycophancy categories are most likely present in your current data, how to calibrate trap difficulty appropriately, and which annotator pool segments to focus on. No access to your model weights is required — we work at the data and annotation pipeline level.</div>
+        <div class="step-body">We review your annotation platform setup, current RLHF guidelines, and a sample of 50–100 recent preference pairs. This tells us which sycophancy categories are most likely present in your current data, how to calibrate trap difficulty appropriately, and which annotator pool segments to focus on. No access to your model weights is required as we work at the data and annotation pipeline level.</div>
         <div class="step-tags"><span class="step-tag">Platform review</span><span class="step-tag">Guideline analysis</span><span class="step-tag">Sample review</span></div>
       </div>
     </div>
@@ -528,7 +528,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">02</div>
       <div class="step-content">
         <div class="step-title">Trap Design & Injection</div>
-        <div class="step-body">We design 50–100 trap tasks across all 8 sycophancy categories, calibrated to your domain (medical traps for a clinical AI, legal traps for a legal AI, etc.). Each trap has a definitively correct answer that we verify independently. Traps are injected into your normal annotation workflow — annotators see them as regular tasks and do not know they are being tested. This is essential for measuring natural susceptibility, not performance-under-testing.</div>
+        <div class="step-body">We design 50–100 trap tasks across all 8 sycophancy categories, calibrated to your domain (medical traps for a clinical AI, legal traps for a legal AI, etc.). Each trap has a definitively correct answer that we verify independently. Traps are injected into your normal annotation workflow, where annotators see them as regular tasks and do not know they are being tested. This is essential for measuring natural susceptibility, not performance-under-testing.</div>
         <div class="step-tags"><span class="step-tag">Domain-calibrated traps</span><span class="step-tag">Blinded injection</span><span class="step-tag">Verified ground truth</span></div>
       </div>
     </div>
@@ -536,7 +536,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">03</div>
       <div class="step-content">
         <div class="step-title">Data Collection & Analysis</div>
-        <div class="step-body">We collect annotator judgments on all trap tasks and measure the sycophancy hit rate — how often annotators chose the sycophantic response over the correct response. Analysis is broken down by: trap category (which type of sycophancy is most prevalent), annotator segment (which annotators are most susceptible), task difficulty (at what level of ambiguity does sycophancy spike), and domain (where in your annotation taxonomy is the risk highest).</div>
+        <div class="step-body">We collect annotator judgments on all trap tasks and measure the sycophancy hit rate, how often annotators chose the sycophantic response over the correct response. Analysis is broken down by: trap category (which type of sycophancy is most prevalent), annotator segment (which annotators are most susceptible), task difficulty (at what level of ambiguity does sycophancy spike), and domain (where in your annotation taxonomy is the risk highest).</div>
         <div class="step-tags"><span class="step-tag">Hit rate by category</span><span class="step-tag">Annotator segmentation</span><span class="step-tag">Difficulty analysis</span></div>
       </div>
     </div>
@@ -544,7 +544,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="step-num">04</div>
       <div class="step-content">
         <div class="step-title">Report & Corrective Data Delivery</div>
-        <div class="step-body">We deliver: (1) The Sycophancy Susceptibility Report — your overall score, per-category breakdown, annotator risk segmentation, and specific examples of sycophantic judgments with explanations of what went wrong. (2) A Corrective Training Batch — 100–200 preference pairs specifically designed to counter your highest-risk sycophancy categories, with annotator calibration examples. (3) Updated annotation guidelines with explicit anti-sycophancy instructions and worked examples for each trap category found.</div>
+        <div class="step-body">We deliver: (1) The Sycophancy Susceptibility Report your overall score, per-category breakdown, annotator risk segmentation, and specific examples of sycophantic judgments with explanations of what went wrong. (2) A Corrective Training Batch 100–200 preference pairs specifically designed to counter your highest-risk sycophancy categories, with annotator calibration examples. (3) Updated annotation guidelines with explicit anti-sycophancy instructions and worked examples for each trap category found.</div>
         <div class="step-tags"><span class="step-tag">Susceptibility score</span><span class="step-tag">Per-category breakdown</span><span class="step-tag">Corrective pairs</span><span class="step-tag">Updated guidelines</span></div>
       </div>
     </div>
@@ -554,10 +554,10 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" id="report">
   <span class="sec-eyebrow">Sample Report Preview</span>
   <h2 class="sec-title">What your <em>susceptibility report</em> looks like</h2>
-  <p class="sec-desc">The report is not a generic risk assessment — it is specific to your annotators, your domain, and your annotation workflow. Every finding is traceable to specific trap tasks.</p>
+  <p class="sec-desc">The report is not a generic risk assessment it is specific to your annotators, your domain, and your annotation workflow. Every finding is traceable to specific trap tasks.</p>
   <div class="report-preview">
-    <div class="rp-title">Sycophancy Audit Report — Example Output (Anonymised)</div>
-    <div class="rp-row"><span class="rp-label">Overall Susceptibility Score</span><span class="rp-val amber">34% — MODERATE RISK</span></div>
+    <div class="rp-title">Sycophancy Audit Report - Example Output (Anonymised)</div>
+    <div class="rp-row"><span class="rp-label">Overall Susceptibility Score</span><span class="rp-val amber">34%  MODERATE RISK</span></div>
     <div class="rp-row"><span class="rp-label">False Premise Validation rate</span><span class="rp-val red">52% sycophantic choices</span></div>
     <div class="rp-row"><span class="rp-label">Opinion Capitulation rate</span><span class="rp-val amber">41% sycophantic choices</span></div>
     <div class="rp-row"><span class="rp-label">Authority Inflation rate</span><span class="rp-val red">58% sycophantic choices</span></div>
@@ -601,11 +601,11 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="faq-item">
       <div class="faq-q">Will annotators know they are being tested?</div>
-      <div class="faq-a">No — and this is deliberate. Annotators who know they are being tested for sycophancy will suppress their natural tendencies and produce artificially clean results. Our traps are indistinguishable from normal annotation tasks. This gives you the real susceptibility rate, not the rate when annotators are performing for an audit. All annotators are informed (after the fact) that trap tasks are a standard part of our quality monitoring — this is disclosed in annotator agreements.</div>
+      <div class="faq-a">No and this is deliberate. Annotators who know they are being tested for sycophancy will suppress their natural tendencies and produce artificially clean results. Our traps are indistinguishable from normal annotation tasks. This gives you the real susceptibility rate, not the rate when annotators are performing for an audit. All annotators are informed (after the fact) that trap tasks are a standard part of our quality monitoring  this is disclosed in annotator agreements.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What does a "good" sycophancy rate look like?</div>
-      <div class="faq-a">For general-purpose domains, a susceptibility rate below 15% is considered acceptable. For high-stakes domains (medical, legal, financial), the acceptable threshold is below 10%. Most pipelines we audit for the first time score between 25–45% — which means roughly one in three to one in four preference judgments is sycophantically biased. After calibration and corrective training pairs, typical improvement is 15–25 percentage points in the follow-up audit.</div>
+      <div class="faq-a">For general-purpose domains, a susceptibility rate below 15% is considered acceptable. For high-stakes domains (medical, legal, financial), the acceptable threshold is below 10%. Most pipelines we audit for the first time score between 25–45%  which means roughly one in three to one in four preference judgments is sycophantically biased. After calibration and corrective training pairs, typical improvement is 15–25 percentage points in the follow-up audit.</div>
     </div>
   </div>
 </section>
@@ -634,7 +634,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="service-rlhf.html" class="related-card">
       <span class="rc-icon">⚖</span>
       <div class="rc-title">RLHF Preference Data</div>
-      <div class="rc-body">After your audit identifies susceptibility, scale your RLHF pipeline with our expert annotators who are trained and tested against sycophancy — using the updated guidelines from your audit report.</div>
+      <div class="rc-body">After your audit identifies susceptibility, scale your RLHF pipeline with our expert annotators who are trained and tested against sycophancy using the updated guidelines from your audit report.</div>
     </a>
     <a href="service-redteaming.html" class="related-card">
       <span class="rc-icon">🛡</span>
@@ -651,8 +651,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <section class="cta-section">
   <div class="cta-inner">
-    <h2>Find out your <em>sycophancy</em> rate — free</h2>
-    <p>Send us 50 of your current RLHF preference pairs. We will run them through our sycophancy screening and return a preliminary susceptibility estimate at no cost — in 5 working days.</p>
+    <h2>Find out your <em>sycophancy</em> rate free</h2>
+    <p>Send us 50 of your current RLHF preference pairs. We will run them through our sycophancy screening and return a preliminary susceptibility estimate at no cost in 5 working days.</p>
     <div class="cta-actions">
       <a href="contact.html" class="cta-btn-white">Start Free Screening →</a>
       <a href="contact.html" class="cta-btn-ghost">Talk to our ML team</a>
@@ -667,7 +667,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation — built from Bengaluru for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>

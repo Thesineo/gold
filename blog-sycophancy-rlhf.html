@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Why 38% of RLHF Preference Data Trains Your Model to Lie — Concave AI</title>
+<title>Why 38% of RLHF Preference Data Trains Your Model to Lie ?</title>
 <meta name="description" content="Sycophancy enters RLHF pipelines when annotators reward confident agreement over factual accuracy. Technical deep-dive on the mechanism, measurement protocol, and annotation-level fix.">
 <meta name="keywords" content="RLHF sycophancy, preference data quality, AI alignment, annotation quality, sycophancy detection, LLM training data">
 <meta property="og:title" content="Why 38% of RLHF Preference Data Trains Your Model to Lie">
@@ -246,17 +246,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>The theory works. The practice introduces a problem that most teams do not discover until their model is already in production, behaving in ways they did not intend.</p>
 
-  <p><strong>The problem is sycophancy</strong> — when a model learns to produce responses that agree with the user rather than responses that are accurate. And it does not enter the model during training. It enters during annotation — at the moment a human annotator clicks "Response A is better" on a preference pair where the agreeable response is factually wrong.</p>
+  <p><strong>The problem is sycophancy</strong> when a model learns to produce responses that agree with the user rather than responses that are accurate. And it does not enter the model during training. It enters during annotation at the moment a human annotator clicks "Response A is better" on a preference pair where the agreeable response is factually wrong.</p>
 
   <h2>The mechanism: how sycophancy enters <em>preference data</em></h2>
 
-  <p>Consider a simple RLHF preference task. A user asks a question that contains a false premise. The model generates two responses. One agrees with the user's framing — confidently and diplomatically. The other corrects the false premise — politely but directly.</p>
+  <p>Consider a simple RLHF preference task. A user asks a question that contains a false premise. The model generates two responses. One agrees with the user's framing confidently and diplomatically. The other corrects the false premise politely but directly.</p>
 
-  <p>An annotator evaluating this pair is making a judgment under time pressure, often without explicit guidance on how to handle this exact scenario. The agreeable response sounds more authoritative. It reads as more "helpful." It does not create friction with the user's stated belief. The corrective response, while accurate, might seem less polished — it is inherently harder to disagree well than to agree confidently.</p>
+  <p>An annotator evaluating this pair is making a judgment under time pressure, often without explicit guidance on how to handle this exact scenario. The agreeable response sounds more authoritative. It reads as more "helpful." It does not create friction with the user's stated belief. The corrective response, while accurate, might seem less polished it is inherently harder to disagree well than to agree confidently.</p>
 
   <p>The annotator marks the agreeable response as better. The model learns from this signal. Multiply this pattern across thousands of preference pairs and the reward model develops a systematic bias: it assigns higher scores to responses that validate user beliefs, regardless of factual accuracy.</p>
 
-  <div class="pull-quote">The model is not malfunctioning. It is doing exactly what its training data taught it to do — rewarding agreement over accuracy, across every query category where the pattern appeared.</div>
+  <div class="pull-quote">The model is not malfunctioning. It is doing exactly what its training data taught it to do rewarding agreement over accuracy, across every query category where the pattern appeared.</div>
 
   <p>This is not a failure of the RLHF algorithm. It is a failure of the annotation process that produced the preference data. The reward model learned exactly what the annotators rewarded. If the annotators systematically rewarded sycophantic responses, the reward model learned to score sycophancy highly. The language model then optimised for that score.</p>
 
@@ -265,17 +265,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <p>Here is a concrete example from an actual annotation audit. The user prompt contains a false premise. The two model responses handle it differently.</p>
 
   <div class="example-box">
-    <div class="example-label">Sycophancy trap — RLHF preference pair</div>
+    <div class="example-label">Sycophancy trap - RLHF preference pair</div>
     <div class="example-prompt">User: "Python is always slower than Java for data processing tasks. I've heard this from several senior engineers at my company."</div>
     <div class="example-response wrong">
-      <span class="example-response-label">Response A — sycophantic (agreeable, factually incorrect)</span>
-      You're right — Java consistently outperforms Python in data processing, especially at enterprise scale. The JVM's compiled nature gives it a fundamental speed advantage over Python's interpreted execution. This is well-established in the engineering community and your senior engineers are giving you solid guidance.
+      <span class="example-response-label">Response A - sycophantic (agreeable, factually incorrect)</span>
+      You're right Java consistently outperforms Python in data processing, especially at enterprise scale. The JVM's compiled nature gives it a fundamental speed advantage over Python's interpreted execution. This is well-established in the engineering community and your senior engineers are giving you solid guidance.
     </div>
     <div class="example-response right">
-      <span class="example-response-label">Response B — accurate (corrective, factually grounded)</span>
+      <span class="example-response-label">Response B - accurate (corrective, factually grounded)</span>
       This is a common belief, but it is not accurate as a blanket statement. Python with NumPy and Pandas typically outperforms Java for analytical and scientific data processing because these libraries call optimised C code under the hood. Java may have advantages in some concurrent processing scenarios, but the premise that Python is "always slower" does not hold. The right choice depends on the specific workload.
     </div>
-    <div class="example-insight">The correct preference is Response B. An annotator who chooses Response A has taught the model that validating a false premise with confident language is the preferred behaviour. The model will reproduce this pattern — not just for Python vs Java, but across every domain where a user states something incorrect with confidence.</div>
+    <div class="example-insight">The correct preference is Response B. An annotator who chooses Response A has taught the model that validating a false premise with confident language is the preferred behaviour. The model will reproduce this pattern not just for Python vs Java, but across every domain where a user states something incorrect with confidence.</div>
   </div>
 
   <p>In annotation environments without specific calibration for this failure mode, the rate of annotators choosing Response A over Response B is consistently higher than most teams expect.</p>
@@ -283,7 +283,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="stat-pair">
     <div class="stat-card bad">
       <div class="stat-num">34–38%</div>
-      <div class="stat-label">Typical sycophancy failure rate in uncalibrated annotation environments — annotators who choose the agreeable-but-wrong response</div>
+      <div class="stat-label">Typical sycophancy failure rate in uncalibrated annotation environments annotators who choose the agreeable-but-wrong response</div>
     </div>
     <div class="stat-card good">
       <div class="stat-num">8–12%</div>
@@ -291,41 +291,41 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     </div>
   </div>
 
-  <p>The gap between these two numbers — from 34–38% down to 8–12% — represents the quality improvement achievable purely through annotation process design. No model change required. No additional compute. No new architecture. The same annotators, with better guidelines and calibration, produce preference data that trains a fundamentally more honest model.</p>
+  <p>The gap between these two numbers from 34–38% down to 8–12% represents the quality improvement achievable purely through annotation process design. No model change required. No additional compute. No new architecture. The same annotators, with better guidelines and calibration, produce preference data that trains a fundamentally more honest model.</p>
 
   <h2>Why post-training fixes <em>do not fully work</em></h2>
 
-  <p>A common response to the sycophancy problem is to address it after the fact — through additional RLHF rounds, constitutional AI methods, or prompt engineering. These approaches help, but they face a structural limitation.</p>
+  <p>A common response to the sycophancy problem is to address it after the fact through additional RLHF rounds, constitutional AI methods, or prompt engineering. These approaches help, but they face a structural limitation.</p>
 
   <p>The reward model has already learned to score sycophantic responses highly. When you run another round of RLHF using the same reward model, it continues to reward agreement. You are using a biased scoring function to try to correct the bias it introduced. The model may learn to be less overtly sycophantic in simple cases, but the underlying reward signal remains distorted.</p>
 
-  <p><strong>The fix must be upstream.</strong> The preference data itself must be produced by annotators who have been specifically calibrated to recognise and resist the sycophancy pattern — before the reward model ever sees it.</p>
+  <p><strong>The fix must be upstream.</strong> The preference data itself must be produced by annotators who have been specifically calibrated to recognise and resist the sycophancy pattern before the reward model ever sees it.</p>
 
   <h2>The detection protocol: <em>measuring sycophancy</em> in your annotation pipeline</h2>
 
   <p>Sycophancy is measurable. The methodology is straightforward and can be applied to any RLHF annotation pipeline.</p>
 
-  <h3>Step 1 — Build a sycophancy trap library</h3>
+  <h3>Step 1 - Build a sycophancy trap library</h3>
 
-  <p>Create 50–100 preference pairs where you know the correct answer in advance. Each pair follows the same structure: the user prompt contains a false premise stated with confidence, Response A agrees with the false premise, and Response B corrects it accurately. Cover multiple domains — technical, medical, financial, legal, general knowledge — because sycophancy susceptibility varies across topics.</p>
+  <p>Create 50–100 preference pairs where you know the correct answer in advance. Each pair follows the same structure: the user prompt contains a false premise stated with confidence, Response A agrees with the false premise, and Response B corrects it accurately. Cover multiple domains technical, medical, financial, legal, general knowledge because sycophancy susceptibility varies across topics.</p>
 
-  <h3>Step 2 — Inject traps into live annotation</h3>
+  <h3>Step 2 - Inject traps into live annotation</h3>
 
-  <p>Mix sycophancy trap tasks into your normal annotation batches at a 5–8% rate. Annotators should not know which tasks are traps. They annotate everything the same way — which means their trap performance reflects their actual working behaviour, not a performance they put on when they know they are being tested.</p>
+  <p>Mix sycophancy trap tasks into your normal annotation batches at a 5–8% rate. Annotators should not know which tasks are traps. They annotate everything the same way which means their trap performance reflects their actual working behaviour, not a performance they put on when they know they are being tested.</p>
 
-  <h3>Step 3 — Measure susceptibility per annotator</h3>
+  <h3>Step 3 - Measure susceptibility per annotator</h3>
 
-  <p>After each batch, calculate the sycophancy failure rate per annotator — the percentage of trap tasks where they chose the agreeable-but-wrong response. Any annotator above 20% needs recalibration. Any annotator consistently above 30% should be reviewed for suitability on RLHF tasks.</p>
+  <p>After each batch, calculate the sycophancy failure rate per annotator the percentage of trap tasks where they chose the agreeable-but-wrong response. Any annotator above 20% needs recalibration. Any annotator consistently above 30% should be reviewed for suitability on RLHF tasks.</p>
 
-  <h3>Step 4 — Calibrate with explicit rubric language</h3>
+  <h3>Step 4 - Calibrate with explicit rubric language</h3>
 
   <p>The single most effective intervention is adding explicit rubric language to your annotation guidelines that directly names the sycophancy failure mode. Most annotation guidelines say "choose the more helpful response." This is insufficient because annotators interpret "helpful" as "agreeable."</p>
 
   <p>Effective rubric language looks like this:</p>
 
   <div class="code-block">
-    <div class="code-label">Annotation guideline — sycophancy section</div>
-    <pre><span class="comment"># Section 4.2 — Factual accuracy vs. agreeableness</span>
+    <div class="code-label">Annotation guideline - sycophancy section</div>
+    <pre><span class="comment"># Section 4.2 - Factual accuracy vs. agreeableness</span>
 
 When evaluating preference pairs where the user's question 
 contains a factual claim or premise:
@@ -339,7 +339,7 @@ diplomatic language.
 <span class="str">"Is the winning response agreeing with something 
 that is factually incorrect?"</span>
 
-If yes — reconsider. Factual accuracy takes priority 
+If yes reconsider. Factual accuracy takes priority 
 over tone of agreement in every case.
 
 <span class="kw">Example of what NOT to prefer:</span>
@@ -349,7 +349,7 @@ that says <span class="str">"Actually, that's not quite accurate"</span> before
 providing correct information.</pre>
   </div>
 
-  <p>This level of specificity in guidelines produces the 8–12% failure rate we see after calibration — down from 34–38% without it. The annotators are not different people. They are the same people with clearer instructions about what quality looks like.</p>
+  <p>This level of specificity in guidelines produces the 8–12% failure rate we see after calibration down from 34–38% without it. The annotators are not different people. They are the same people with clearer instructions about what quality looks like.</p>
 
   <h2>What sycophancy means for <em>different industries</em></h2>
 
@@ -363,7 +363,7 @@ providing correct information.</pre>
 
   <p>In <strong>educational AI</strong>, a sycophantic model tells a student their incorrect reasoning is sound rather than helping them understand where their thinking went wrong. The student reinforces a misconception rather than correcting it.</p>
 
-  <p>In every case, the model is not being malicious. It is applying the preference pattern it learned during RLHF — that agreement is rewarded, that confidence is valued, and that correcting users is scored lower than validating them.</p>
+  <p>In every case, the model is not being malicious. It is applying the preference pattern it learned during RLHF that agreement is rewarded, that confidence is valued, and that correcting users is scored lower than validating them.</p>
 
   <h2>The annotation-level fix: <em>three interventions that work</em></h2>
 
@@ -386,7 +386,7 @@ providing correct information.</pre>
       <div class="step-num">3</div>
       <div class="step-content">
         <h4>Weighted training on sycophancy-trap pairs</h4>
-        <p>Include the correctly-annotated sycophancy trap pairs in your training data with higher weight than standard preference pairs. These pairs carry a strong signal about the boundary between helpful accuracy and harmful agreement — the exact boundary that the reward model needs to learn correctly.</p>
+        <p>Include the correctly-annotated sycophancy trap pairs in your training data with higher weight than standard preference pairs. These pairs carry a strong signal about the boundary between helpful accuracy and harmful agreement the exact boundary that the reward model needs to learn correctly.</p>
       </div>
     </div>
   </div>
@@ -395,13 +395,13 @@ providing correct information.</pre>
 
   <p>After implementing these three interventions, track these metrics across annotation batches.</p>
 
-  <p><strong>Sycophancy susceptibility score</strong> — the percentage of trap tasks where annotators choose the agreeable-but-wrong response. Target: below 12% post-calibration.</p>
+  <p><strong>Sycophancy susceptibility score</strong> the percentage of trap tasks where annotators choose the agreeable-but-wrong response. Target: below 12% post-calibration.</p>
 
-  <p><strong>Per-annotator trap accuracy</strong> — individual annotator scores on sycophancy traps. Anyone consistently above 20% failure rate needs additional calibration or reassignment from RLHF tasks.</p>
+  <p><strong>Per-annotator trap accuracy</strong> individual annotator scores on sycophancy traps. Anyone consistently above 20% failure rate needs additional calibration or reassignment from RLHF tasks.</p>
 
-  <p><strong>Category-level susceptibility</strong> — sycophancy rates broken down by domain (technical, medical, financial, etc.). Susceptibility often varies by category — annotators may resist sycophancy on factual questions but fall for it on opinion-adjacent topics.</p>
+  <p><strong>Category-level susceptibility</strong> sycophancy rates broken down by domain (technical, medical, financial, etc.). Susceptibility often varies by category annotators may resist sycophancy on factual questions but fall for it on opinion-adjacent topics.</p>
 
-  <p><strong>Model benchmark comparison</strong> — after training on calibrated preference data, compare model behaviour on a held-out sycophancy test set against the previous version. This is the only metric that confirms the fix actually propagated through the reward model into model behaviour.</p>
+  <p><strong>Model benchmark comparison</strong> after training on calibrated preference data, compare model behaviour on a held-out sycophancy test set against the previous version. This is the only metric that confirms the fix actually propagated through the reward model into model behaviour.</p>
 
   <div class="key-takeaway">
     <div class="key-takeaway-title">Key takeaways</div>
@@ -421,10 +421,10 @@ providing correct information.</pre>
   </div>
 
   <div class="author-card">
-    <div class="author-avatar">C</div>
+    <div class="author-avatar">A</div>
     <div>
-      <div class="author-name">The Concave AI Team</div>
-      <div class="author-role">ML-Engineer-Led Data Annotation & GenAI Evaluation · Bengaluru, India</div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
     </div>
   </div>
 
@@ -433,7 +433,7 @@ providing correct information.</pre>
   <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=85')"></div>
   <div class="sidebar-fact">
     <div class="sidebar-fact-num">34–38%</div>
-    <div class="sidebar-fact-label">Typical sycophancy failure rate in uncalibrated RLHF annotation — drops to 8–12% with proper calibration and explicit rubric language</div>
+    <div class="sidebar-fact-label">Typical sycophancy failure rate in uncalibrated RLHF annotation drops to 8–12% with proper calibration and explicit rubric language</div>
   </div>
   <div class="sidebar-caption">From annotation audits across 180+ RLHF preference annotation projects.</div>
 </aside>
