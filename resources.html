@@ -168,9 +168,45 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <button class="filter-btn" onclick="filterTag(this,'training')">AI Training</button>
   <button class="filter-btn" onclick="filterTag(this,'multimodal')">Multimodal</button>
   <button class="filter-btn" onclick="filterTag(this,'synthetic')">Synthetic Data</button>
+  <button class="filter-btn" onclick="filterTag(this,'automotive')">Automotive</button>
+  <button class="filter-btn" onclick="filterTag(this,'geospatial')">Geospatial</button>
 </div>
 
 <div class="articles" id="articleGrid">
+
+  <a class="article-card" href="blog-adas-data-annotation.html" data-tags="computer-vision,quality,industry,automotive">
+    <div class="article-img">
+      <div class="article-img-inner" style="background-image:url('https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=800&q=85')"></div>
+      <div class="article-read">15 min read</div>
+    </div>
+    <div class="article-body">
+      <div class="article-tags">
+        <span class="article-tag primary">ADAS</span>
+        <span class="article-tag">Sensor Fusion</span>
+        <span class="article-tag">Automotive AI</span>
+      </div>
+      <div class="article-title">ADAS Data Annotation in 2026: The 5 Challenges Automotive AI Teams Get Wrong and the Sensor Fusion Workflow That Fixes Them</div>
+      <div class="article-excerpt">ADAS annotation requires 98%+ accuracy across camera, LiDAR, radar, and ultrasonic sensors simultaneously not the 90–95% threshold that works in standard computer vision. Here are the five mistakes that derail automotive AI projects, and the sensor fusion workflow that prevents them.</div>
+      <div class="article-cta">Read the full guide →</div>
+    </div>
+  </a>
+
+  <a class="article-card" href="blog-satellite-image-annotation.html" data-tags="computer-vision,quality,geospatial">
+    <div class="article-img">
+      <div class="article-img-inner" style="background-image:url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&q=85')"></div>
+      <div class="article-read">14 min read</div>
+    </div>
+    <div class="article-body">
+      <div class="article-tags">
+        <span class="article-tag primary">Satellite Annotation</span>
+        <span class="article-tag">Geospatial AI</span>
+        <span class="article-tag">Remote Sensing</span>
+      </div>
+      <div class="article-title">Satellite Image Annotation for Geospatial AI: Coordinate Systems, Spectral Bands, and Why 0.9 IoU Is the Production Standard</div>
+      <div class="article-excerpt">Satellite imagery is not just "overhead photography" it has coordinate reference systems, 12+ spectral bands, and off-nadir distortion that breaks every assumption in standard computer vision annotation. Here is why 0.9 IoU is the production floor for geospatial AI and how to meet it.</div>
+      <div class="article-cta">Read the full guide →</div>
+    </div>
+  </a>
 
   <a class="article-card" href="blog-sycophancy-rlhf.html" data-tags="rlhf,quality">
     <div class="article-img">
@@ -288,7 +324,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>ML-engineer-led data annotation and GenAI evaluation with published quality metrics. Bengaluru, India.</p></div>
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p></div>
     <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="index.html#services">RLHF Preference Data</a><a href="index.html#services">NLP Annotation</a><a href="index.html#services">SFT Instruction Data</a><a href="index.html#services">Sycophancy Audits</a><a href="index.html#services">Hallucination Detection</a></div></div>
     <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="industry-legal.html">Legal</a><a href="industry-finance.html">Finance & BFSI</a><a href="industry-automative.html">Automotive</a><a href="industry-agriculture.html">Agriculture</a><a href="industry-genai.html">Enterprise GenAI</a></div></div>
     <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="about.html">About</a><a href="quality.html">Quality Standards</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a><a href="resources.html">Resources</a></div></div>

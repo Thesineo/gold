@@ -4,7 +4,8 @@
       "Bash(python3 wire_contact.py)",
       "WebSearch",
       "WebFetch(domain:unsplash.com)",
-      "Bash(python3 add_images.py)"
+      "Bash(python3 add_images.py)",
+      "WebFetch(domain:labelyourdata.com)"
     ]
   }
 }

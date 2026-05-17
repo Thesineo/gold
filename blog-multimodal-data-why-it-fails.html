@@ -51,7 +51,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .article-wrap h3{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px;margin:40px 0 12px;color:var(--ink)}
 .article-wrap p{font-size:17px;color:var(--muted);line-height:1.82;margin-bottom:24px;font-weight:300}
 .article-wrap strong{color:var(--ink);font-weight:500}
-.article-wrap a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.article-wrap a:not(.article-cta-btn){color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
 /* PULL QUOTE */
 .pull-quote{border-left:3px solid var(--accent);padding:20px 24px;background:rgba(188,81,19,0.05);border-radius:0 6px 6px 0;font-size:19px;color:var(--accent);font-style:italic;line-height:1.55;margin:40px 0;font-family:'DM Serif Display',serif;letter-spacing:-.3px}
@@ -143,7 +143,6 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .article-cta-banner h3 em{color:var(--accent2)}
 .article-cta-banner p{font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 24px;font-weight:300}
 .article-cta-btn{background:var(--accent);color:var(--white);padding:13px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
-.article-cta-btn:hover{background:var(--accent2)}
 .author-card{display:flex;gap:20px;align-items:center;padding:28px 0;border-top:1px solid var(--border);margin-top:40px}
 .author-avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:24px;color:var(--white);flex-shrink:0}
 .author-name{font-size:16px;font-weight:600;margin-bottom:2px}
@@ -390,7 +389,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <p>Indian road conditions add specific multimodal challenges: auto-rickshaws that appear very differently in camera (distinctive shape and colour) versus LiDAR (small point cloud signature easily confused with motorcycles), two-wheelers that occlude differently in camera versus LiDAR due to their thin profile, and unstructured intersections where object motion patterns do not follow lane-based predictions that Western-trained models assume.</p>
 
   <h3>Multimodal LLMs and generative AI</h3>
-  <p>GPT-4o, Claude, and Gemini all process images alongside text. Their training data includes image-text pairs where the model learns to describe, analyse, and reason about visual content. The annotation challenge: every image-text pair must be cross-modally accurate. The text must describe what is actually in the image not what a similar image might show, not what the annotator assumes. Cross-modal hallucination in training data — text descriptions that mention objects not visible in the image directly causes the model to hallucinate in production.</p>
+  <p>GPT-4o, Claude, and Gemini all process images alongside text. Their training data includes image-text pairs where the model learns to describe, analyse, and reason about visual content. The annotation challenge: every image-text pair must be cross-modally accurate. The text must describe what is actually in the image not what a similar image might show, not what the annotator assumes. Cross-modal hallucination in training data text descriptions that mention objects not visible in the image directly causes the model to hallucinate in production.</p>
   <p>For RLHF alignment of multimodal models, preference annotators must evaluate responses that include references to visual content. A well-written but factually incorrect image description should not be preferred over a less polished but accurate one the same sycophancy resistance principle that applies to text-only RLHF, extended to the cross-modal dimension.</p>
 
   <h3>Retail and e-commerce AI</h3>
@@ -469,7 +468,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="article-cta-banner">
     <h3>Need cross-modal annotation that <em>actually aligns?</em></h3>
     <p>We run 3-tier QA that checks between modalities, not just within. Free pilot 200 multimodal scenes annotated and verified across camera, LiDAR, and text.</p>
-    <a href="contact.html" class="article-cta-btn">Request Free Pilot →</a>
+    <a href="contact.html" class="article-cta-btn">Request a Free Audit →</a>
   </div>
 
   <div class="author-card">
@@ -515,7 +514,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>ML-engineer-led data annotation and GenAI evaluation with published quality metrics. Bengaluru, India.</p></div>
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p></div>
     <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="index.html#services">RLHF Preference Data</a><a href="index.html#services">NLP Annotation</a><a href="index.html#services">SFT Instruction Data</a><a href="index.html#services">Sycophancy Audits</a><a href="index.html#services">Hallucination Detection</a></div></div>
     <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="industry-legal.html">Legal</a><a href="industry-finance.html">Finance &amp; BFSI</a><a href="industry-automative.html">Automotive</a><a href="industry-agriculture.html">Agriculture</a><a href="industry-genai.html">Enterprise GenAI</a></div></div>
     <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="about.html">About</a><a href="quality.html">Quality Standards</a><a href="how-it-works.html">How It Works</a><a href="contact.html">Contact</a><a href="resources.html">Resources</a></div></div>

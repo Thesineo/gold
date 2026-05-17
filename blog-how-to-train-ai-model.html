@@ -51,7 +51,7 @@ body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;f
 .article-wrap h3{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px;margin:40px 0 12px;color:var(--ink)}
 .article-wrap p{font-size:17px;color:var(--muted);line-height:1.82;margin-bottom:24px;font-weight:300}
 .article-wrap strong{color:var(--ink);font-weight:500}
-.article-wrap a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.article-wrap a:not(.article-cta-btn){color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
 /* PULL QUOTE */
 .pull-quote{border-left:3px solid var(--accent);padding:20px 24px;background:rgba(188,81,19,0.05);border-radius:0 6px 6px 0;font-size:19px;color:var(--accent);font-style:italic;line-height:1.55;margin:40px 0;font-family:'DM Serif Display',serif;letter-spacing:-.3px}
@@ -593,7 +593,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <div class="article-cta-banner">
     <h3>Need high-quality training data for your <em>next AI project?</em></h3>
     <p>We specialise in production-grade annotation across RLHF, SFT, image, and domain-expert workstreams. Free pilot 50 examples annotated with full quality report in 5 working days.</p>
-    <a href="contact.html" class="article-cta-btn">Request Free Pilot →</a>
+    <a href="contact.html" class="article-cta-btn">Request a Free Audit →</a>
   </div>
 
   <div class="author-card">
@@ -637,7 +637,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>ML-engineer-led data annotation and GenAI evaluation. Bengaluru, India.</p></div>
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p></div>
     <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="service-rlhf.html">RLHF Preference Data</a><a href="service-nlp.html">NLP Annotation</a><a href="service-sft.html">SFT Instruction Data</a><a href="service-sycophancy.html">Sycophancy Audits</a><a href="service-hallucination.html">Hallucination Detection</a></div></div>
     <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="industry-legal.html">Legal</a><a href="industry-finance.html">Finance &amp; BFSI</a><a href="industry-automative.html">Automotive &amp; AV</a><a href="industry-agriculture.html">Agriculture</a><a href="industry-genai.html">Enterprise GenAI</a></div></div>
     <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="about.html">About</a><a href="quality.html">Quality</a><a href="resources.html">Blogs</a><a href="casestudies.html">Case Studies</a><a href="contact.html">Contact</a></div></div>
