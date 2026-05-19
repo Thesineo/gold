@@ -356,14 +356,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       Free tier: 50 submissions/month
       ══════════════════════════════════════════════════════
       -->
-      <form action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="55a91cc8-339a-426e-a557-8b2ae0ad8d3d">
-        <input type="hidden" name="subject" value="New enquiry from Concave AI website">
-        <input type="hidden" name="webhook" value="https://hook.eu2.make.com/acsgifyuq7e8nlwih51eol3vd7wcmg77">
-        <input type="hidden" name="from_name" value="Concave AI Website">
-        <input type="hidden" name="redirect" value="https://theconcaveai.com/thank-you.html">
+      <form id="leadForm" novalidate>
 
-      
+
         <div class="form-grid">
 
           <div class="form-section-label">About you</div>
@@ -492,6 +487,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
               <option>Other</option>
             </select>
           </div>
+
+          <div class="sub-err" id="subErr">Something went wrong. Please email us directly at <strong>aniket.nerali@theconcaveai.com</strong></div>
 
           <div class="submit-row">
             <button type="submit" class="btn-submit" id="submitBtn">
@@ -786,15 +783,8 @@ function validate(){
   return ok;
 }
 
-// Show success state if redirected back after submission
-if(window.location.search.includes('submitted=1')){
-  document.getElementById('formContainer').classList.add('sent');
-  document.getElementById('formSuccess').classList.add('on');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// Form submit — validate then let the form POST naturally
-document.getElementById('leadForm').addEventListener('submit',function(e){
+// Form submit — send directly to Make.com webhook
+document.getElementById('leadForm').addEventListener('submit',async function(e){
   e.preventDefault();
   if(!validate()){
     const first=document.querySelector('.err,.field-err.on');
@@ -802,8 +792,33 @@ document.getElementById('leadForm').addEventListener('submit',function(e){
     return;
   }
   const btn=document.getElementById('submitBtn');
-  btn.disabled=true; btn.classList.add('loading');
-  this.submit();
+  const subErr=document.getElementById('subErr');
+  btn.disabled=true; btn.classList.add('loading'); subErr.classList.remove('on');
+
+  // Collect all form fields into a plain object
+  const formData=new FormData(this);
+  const data={};
+  formData.forEach((value,key)=>{data[key]=value;});
+
+  // Collect checked services into a readable string
+  const checked=[...document.querySelectorAll('#svcGrid input[type="checkbox"]:checked')].map(c=>c.value);
+  data.services=checked.join(', ')||'None selected';
+
+  try{
+    const res=await fetch('https://hook.eu2.make.com/acsgifyuq7e8nlwih51eol3vd7wcmg77',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    });
+    if(res.ok){
+      document.getElementById('formContainer').classList.add('sent');
+      document.getElementById('formSuccess').classList.add('on');
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else throw new Error('failed');
+  }catch{
+    btn.disabled=false; btn.classList.remove('loading'); subErr.classList.add('on');
+    subErr.scrollIntoView({behavior:'smooth',block:'center'});
+  }
 });
 
 // Animate on scroll
