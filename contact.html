@@ -356,8 +356,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       Free tier: 50 submissions/month
       ══════════════════════════════════════════════════════
       -->
-      <form id="leadForm" action="https://formsubmit.co//ajax/team@theconcaveai.com" method="POST" novalidate>
-        <input type="hidden" name="_subject" value="New lead - Concave AI">
+      <form id="leadForm" action="https://formsubmit.co/aniket.nerali@theconcaveai.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New lead — Concave AI">
+        <input type="hidden" name="_next" value="https://theconcaveai.com/contact.html?submitted=1">
         <input type="hidden" name="_webhook" value="https://hook.eu2.make.com/acsgifyuq7e8nlwih51eol3vd7wcmg77">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
@@ -491,8 +492,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
               <option>Other</option>
             </select>
           </div>
-
-          <div class="sub-err" id="subErr">Something went wrong. Please try again or email us directly at <strong>aniket.nerali@theconcaveai.com</strong></div>
 
           <div class="submit-row">
             <button type="submit" class="btn-submit" id="submitBtn">
@@ -787,8 +786,15 @@ function validate(){
   return ok;
 }
 
-// Form submit
-document.getElementById('leadForm').addEventListener('submit',async function(e){
+// Show success state if redirected back after submission
+if(window.location.search.includes('submitted=1')){
+  document.getElementById('formContainer').classList.add('sent');
+  document.getElementById('formSuccess').classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Form submit — validate then let the form POST naturally
+document.getElementById('leadForm').addEventListener('submit',function(e){
   e.preventDefault();
   if(!validate()){
     const first=document.querySelector('.err,.field-err.on');
@@ -796,20 +802,8 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
     return;
   }
   const btn=document.getElementById('submitBtn');
-  const subErr=document.getElementById('subErr');
-  btn.disabled=true; btn.classList.add('loading'); subErr.classList.remove('on');
-  try{
-    const res=await fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}});
-    const data=await res.json().catch(()=>({}));
-    if(res.ok && (data.success==='true'||data.success===true)){
-      document.getElementById('formContainer').classList.add('sent');
-      document.getElementById('formSuccess').classList.add('on');
-      window.scrollTo({top:0,behavior:'smooth'});
-    } else throw new Error(data.message||'failed');
-  }catch{
-    btn.disabled=false; btn.classList.remove('loading'); subErr.classList.add('on');
-    subErr.scrollIntoView({behavior:'smooth',block:'center'});
-  }
+  btn.disabled=true; btn.classList.add('loading');
+  this.submit();
 });
 
 // Animate on scroll
