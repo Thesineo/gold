@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quality Standards : For Data Labelling and Annotation</title>
+<title>Quality Standards - Data Infrastructure for AI Training | Concave AI</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <!-- Favicon for Google Search and Browser Tabs -->
 <link rel="icon" href="logo.png" type="image/png">
@@ -393,7 +393,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="two-col">
     <div class="body-text">
       <p>When two annotators independently agree that Response A is better than Response B, that agreement has a statistical weight. Cohen's kappa measures genuine agreement beyond what random chance alone would predict. A kappa of 0.0 means two annotators agree exactly as often as random clicking would. A kappa of 1.0 means perfect agreement on every task.</p>
-      <p>This is the gold standard for annotation quality measurement in academic NLP research and production AI systems worldwide. <strong>Most of the annotation company don't publishes it</strong> because publishing requires actually measuring it consistently, which requires automated QA systems most vendors simply do not have.</p>
+      <p>This is the gold standard for annotation quality measurement in academic NLP research and production AI systems worldwide. <strong>Most training data providers don't publish it</strong> because publishing requires actually measuring it consistently, which requires automated QA systems most vendors simply do not have.</p>
       <div class="pull-quote">"When a vendor says '98% accuracy' without specifying their inter-annotator agreement methodology, they are telling you the number they want you to believe, not the number they measured."</div>
       <p>On every Concave AI project, you receive a kappa breakdown by annotator pair, by task category, and as an overall project average. These numbers are computed from Label Studio export data by an automated Python script not estimated or reported by the annotators themselves. If our kappa drops below 0.70 on any batch, work pauses and we recalibrate before continuing. We have never delivered below our threshold.</p>
       <p><strong>What kappa below 0.60 means for your model:</strong> inconsistent preference data teaches your reward model to fit noise rather than signal. The model learns a pattern that reflects annotator disagreement, not human preference. This is how sycophancy, reward hacking, and unstable model behaviour emerge from training pipelines not from the training algorithm, but from the annotation data fed into it.</p>
@@ -460,7 +460,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec" id="qa">
   <span class="sec-eyebrow">QA Architecture</span>
   <h2 class="sec-title">Three tiers, run on <em>every single batch</em></h2>
-  <p class="sec-desc">Most annotation companies run one quality pass at the end. We run three independently throughout the project. Each tier is designed to catch failure modes the others would miss at the stage where intervention is cheapest.</p>
+  <p class="sec-desc">Most training data providers run one quality pass at the end. We run three independently throughout the project. Each tier is designed to catch failure modes the others would miss at the stage where intervention is cheapest.</p>
   <div class="qa-grid">
     <div class="qa-card t1">
       <div class="qa-tier-label">Tier 1 - Automated · Runs nightly</div>
@@ -542,7 +542,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="body-text">
       <p>Quality is not a final check before delivery. It is enforced at every step of the pipeline from the moment customer data arrives on our servers to the model benchmark follow-up two weeks after delivery. Each step in the pipeline generates a log entry included in your delivery documentation.</p>
       <p>The RLAIF pre-scorer (Claude API) reduces human error by flagging uncertain cases for extra human scrutiny the cases that would most likely produce annotator disagreement are the ones that get the most careful human attention. Gold standard injection catches quality drift in real time. Three-tier QA runs concurrently with annotation so problems are caught mid-project, not post-delivery.</p>
-      <p>The model benchmark follow-up on Day 14 is the most important quality step and the one most annotation companies skip entirely. It is the only quality signal that actually measures what matters: <strong>did the data improve the model?</strong> Everything else kappa scores, gold accuracy, batch error rates are leading indicators. Model improvement is the actual outcome you paid for.</p>
+      <p>The model benchmark follow-up on Day 14 is the most important quality step and the one most training data providers skip entirely. It is the only quality signal that actually measures what matters: <strong>did the data improve the model?</strong> Everything else kappa scores, gold accuracy, batch error rates are leading indicators. Model improvement is the actual outcome you paid for.</p>
     </div>
     <div>
       <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);text-transform:uppercase;margin-bottom:14px">Project quality pipelin every step logged</div>
@@ -693,7 +693,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Expert AI data annotation and GenAI evaluation built from India for the world. Published quality metrics. RLAIF+human pipeline. Completely independent.</p>
+      <p>Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>
