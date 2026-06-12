@@ -1,0 +1,1219 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works - Concave AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:     #0a0a0a;
+  --paper:   #f5f2ec;
+  --accent:  #bc5113;
+  --accent2: #c8a96e;
+  --muted:   #5a4a3a;
+  --border:  rgba(10,10,10,0.1);
+  --white:   #ffffff;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box }
+html { scroll-behavior:smooth }
+body { background:var(--paper); color:var(--ink); font-family:'DM Sans',sans-serif; overflow-x:hidden }
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+
+/* ── HERO ── */
+.hero {
+  position:relative;
+  min-height:100vh;
+  display:flex; align-items:center;
+  padding:140px 60px 100px;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background-image:
+    linear-gradient(to bottom, rgba(245,242,236,0.15) 0%, rgba(10,10,10,0.55) 100%),
+    url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1920&q=85');
+  background-size:cover;
+  background-position:center 30%;
+  transform:scale(1.05);
+  transition:transform 8s ease;
+}
+.hero-bg.loaded { transform:scale(1) }
+.hero-tint {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(135deg,
+    rgba(188,81,19,0.08) 0%,
+    transparent 50%,
+    rgba(10,10,10,0.3) 100%);
+}
+.hero-grain {
+  position:absolute; inset:0; z-index:2;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.4; pointer-events:none;
+}
+.hero-inner {
+  position:relative; z-index:3;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+  width:100%;
+}
+.hero-left { padding-bottom:0 }
+.hero-eyebrow {
+  font-family:'Space Mono',monospace; font-size:11px;
+  letter-spacing:.18em; color:var(--accent2);
+  text-transform:uppercase; display:block; margin-bottom:22px;
+  opacity:0; transform:translateY(16px);
+  animation:fadeUp .7s .2s forwards;
+}
+.hero h1 {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(52px,6vw,84px);
+  line-height:1.0; letter-spacing:-3px;
+  color:var(--white); margin-bottom:28px;
+  opacity:0; transform:translateY(20px);
+  animation:fadeUp .8s .35s forwards;
+}
+.hero h1 em { font-style:italic; color:var(--accent2) }
+.hero-sub {
+  font-size:18px; color:rgba(255,255,255,.65);
+  line-height:1.65; font-weight:300; max-width:460px;
+  opacity:0; transform:translateY(16px);
+  animation:fadeUp .7s .5s forwards;
+}
+.hero-actions {
+  display:flex; gap:14px; align-items:center; margin-top:36px;
+  opacity:0; transform:translateY(14px);
+  animation:fadeUp .7s .65s forwards;
+}
+.btn-ink {
+  background:var(--ink); color:var(--paper);
+  padding:14px 28px; border-radius:2px;
+  font-size:14px; font-weight:600; letter-spacing:.02em;
+  text-decoration:none; transition:background .2s;
+}
+.btn-ink:hover { background:var(--accent) }
+.btn-ghost-light {
+  color:rgba(255,255,255,.75); font-size:14px; font-weight:500;
+  text-decoration:none; display:flex; align-items:center; gap:6px;
+  transition:color .2s;
+}
+.btn-ghost-light:hover { color:white }
+.hero-stats {
+  display:grid; grid-template-columns:1fr 1fr; gap:0;
+  opacity:0; transform:translateY(16px);
+  animation:fadeUp .8s .55s forwards;
+}
+.hero-stat { padding:28px 32px 28px 0 }
+.hero-stat:nth-child(even) { padding-left:32px; padding-right:0; border-left:1px solid rgba(255,255,255,.12) }
+.hs-num {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(42px,5vw,64px);
+  color:var(--white); letter-spacing:-2px; line-height:1;
+  margin-bottom:6px;
+}
+.hs-label { font-size:13px; color:rgba(255,255,255,.55); line-height:1.45 }
+
+@keyframes fadeUp { to { opacity:1; transform:translateY(0) } }
+
+/* ── SCROLL LINE INDICATOR ── */
+.scroll-hint {
+  position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+  z-index:4; display:flex; flex-direction:column; align-items:center; gap:6px;
+  opacity:0; animation:fadeUp .6s 1.2s forwards;
+}
+.scroll-hint span { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.15em; color:rgba(255,255,255,.4); text-transform:uppercase }
+.scroll-line { width:1px; height:40px; background:rgba(255,255,255,.2); position:relative; overflow:hidden }
+.scroll-line::after {
+  content:''; position:absolute; top:-100%; left:0; width:100%; height:100%;
+  background:var(--accent2);
+  animation:scrollDrop 1.8s 1.5s ease-in-out infinite;
+}
+@keyframes scrollDrop { 0%{top:-100%} 100%{top:200%} }
+
+/* ── OVERVIEW STRIP ── */
+.overview {
+  background:var(--paper); padding:60px;
+  display:grid; grid-template-columns:repeat(6,1fr); gap:0;
+}
+.ov-item {
+  padding:24px 20px; border-right:1px solid rgba(255,255,255,.06);
+  text-align:center;
+}
+.ov-item:last-child { border-right:none }
+.ov-num {
+  font-family:'DM Serif Display',serif; font-size:36px; letter-spacing:-1px;
+  color:var(--ink); line-height:1; margin-bottom:6px;
+}
+.ov-label { font-size:11px; color:var(--muted); line-height:1.4 }
+
+/* ── SHARED SECTION ── */
+.sec { padding:100px 60px }
+.sec-inner { width:100% }
+.sec-eyebrow {
+  font-family:'Space Mono',monospace; font-size:11px;
+  letter-spacing:.15em; color:var(--accent); text-transform:uppercase;
+  display:block; margin-bottom:14px;
+}
+.sec-eyebrow.light { color:var(--accent2) }
+.sec-title {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(36px,4.5vw,58px);
+  letter-spacing:-2px; line-height:1.05;
+  margin-bottom:20px;
+}
+.sec-title em { font-style:italic; color:var(--accent) }
+.sec-title.onlight em { color:var(--accent2) }
+.sec-desc { font-size:17px; color:var(--muted); max-width:600px; font-weight:300; line-height:1.65; margin-bottom:64px }
+.sec-desc.light { color:rgba(255,255,255,.5) }
+
+/* ── PROCESS INTRO ── */
+.process-intro { background:var(--paper) }
+.process-layout {
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;
+}
+.process-text p {
+  font-size:16px; color:var(--muted); line-height:1.78; margin-bottom:22px; font-weight:300;
+}
+.process-text strong { color:var(--ink); font-weight:500 }
+.process-text .pull {
+  border-left:3px solid var(--accent); padding:16px 20px;
+  background:rgba(188,81,19,.06); border-radius:0 4px 4px 0;
+  font-size:16px; color:var(--accent); font-style:italic;
+  line-height:1.6; margin:24px 0;
+}
+.timeline-mini {
+  background:var(--ink); border-radius:6px; padding:32px;
+}
+.tm-label {
+  font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:.12em; color:rgba(255,255,255,.3);
+  text-transform:uppercase; margin-bottom:20px;
+}
+.tm-row {
+  display:flex; align-items:center; gap:12px;
+  padding:11px 14px; border-radius:3px; margin-bottom:4px;
+  font-size:13px;
+}
+.tm-row.active { background:rgba(188,81,19,.12); border:1px solid rgba(188,81,19,.25); color:var(--accent) }
+.tm-row.normal { background:rgba(255,255,255,.04); color:rgba(255,255,255,.6) }
+.tm-row.done { background:rgba(26,107,74,.1); border:1px solid rgba(26,107,74,.2); color:#5ecba1 }
+.tm-day { font-family:'Space Mono',monospace; font-size:10px; width:60px; flex-shrink:0; opacity:.6 }
+
+/* ── STEPS ── */
+.steps-section { background:var(--paper) }
+.steps-container { position:relative }
+.steps-line {
+  position:absolute; left:39px; top:0; bottom:0; width:2px;
+  background:linear-gradient(to bottom, var(--accent), rgba(188,81,19,.1));
+}
+.step-item {
+  display:grid; grid-template-columns:80px 1fr; gap:0;
+  margin-bottom:0; position:relative;
+  opacity:0; transform:translateX(-24px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.step-item.reveal { opacity:1; transform:translateX(0) }
+.step-left {
+  display:flex; flex-direction:column; align-items:center; padding-top:4px;
+}
+.step-circle {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--paper); border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Space Mono',monospace; font-size:12px; font-weight:700;
+  color:var(--muted); flex-shrink:0; position:relative; z-index:2;
+  transition:background .3s, border-color .3s, color .3s;
+}
+.step-item.reveal .step-circle {
+  background:var(--accent); border-color:var(--accent); color:var(--white);
+}
+.step-body { padding:0 0 64px 32px }
+.step-day {
+  font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:.12em; color:var(--accent); text-transform:uppercase;
+  margin-bottom:10px; display:block;
+}
+.step-title {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(26px,3vw,38px); letter-spacing:-1px;
+  margin-bottom:14px; line-height:1.1;
+}
+.step-title em { font-style:italic; color:var(--accent) }
+.step-desc { font-size:15px; color:var(--muted); line-height:1.75; max-width:640px; margin-bottom:20px; font-weight:300 }
+.step-card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:20px }
+.step-card {
+  background:var(--paper); padding:18px;
+}
+.step-card-icon { font-size:22px; margin-bottom:10px }
+.step-card-title { font-size:13px; font-weight:600; margin-bottom:4px }
+.step-card-body { font-size:12px; color:var(--muted); line-height:1.55 }
+.step-highlight {
+  background:var(--ink); border-radius:4px; padding:18px 20px;
+  font-size:13px; color:rgba(255,255,255,.6); line-height:1.55;
+  display:flex; gap:12px; align-items:flex-start; margin-top:16px;
+}
+.step-highlight-icon { font-size:18px; flex-shrink:0; margin-top:1px }
+.step-highlight strong { color:var(--accent2); font-weight:500 }
+.step-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px }
+.step-tag {
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.05em;
+  padding:4px 10px; border:1px solid var(--border); border-radius:2px;
+  color:var(--muted);
+}
+
+/* ── RLAIF SECTION ── */
+.rlaif-section { background:var(--paper) }
+.rlaif-layout { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-top:60px }
+.rlaif-body p { font-size:16px; color:var(--muted); line-height:1.78; margin-bottom:20px; font-weight:300 }
+.rlaif-body strong { color:var(--muted); font-weight:500 }
+.rlaif-bars { display:flex; flex-direction:column; gap:8px }
+.rlaif-bar-item { display:flex; flex-direction:column; gap:6px }
+.rlaif-bar-header { display:flex; justify-content:space-between; align-items:center; font-size:12px }
+.rlaif-bar-name { color:var(--muted); font-weight:500 }
+.rlaif-bar-pct { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted) }
+.rlaif-bar-track { height:6px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden }
+.rlaif-bar-fill {
+  height:100%; border-radius:3px;
+  width:0; transition:width 1.4s cubic-bezier(.4,0,.2,1);
+}
+.rlaif-bar-fill.bar-ai { background:var(--accent) }
+.rlaif-bar-fill.bar-human { background:#5ecba1 }
+.rlaif-bar-fill.bar-qa { background:var(--accent2) }
+.rlaif-result {
+  margin-top:28px; padding:18px 20px;
+  background:rgba(188,81,19,.1); border:1px solid rgba(188,81,19,.25);
+  border-radius:4px; font-size:14px; color:var(--accent); line-height:1.55;
+}
+
+/* ── QA TIERS ── */
+.qa-section { background:var(--paper) }
+.qa-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid var(--border); margin-top:60px }
+.qa-card {
+  padding:40px 32px; 
+  position:relative; overflow:hidden;
+  opacity:0; transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.qa-card:last-child { border-right:none }
+.qa-card.reveal { opacity:1; transform:translateY(0) }
+.qa-card:nth-child(2).reveal { transition-delay:.15s }
+.qa-card:nth-child(3).reveal { transition-delay:.3s }
+.qa-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px }
+.qa-card.t1::before { background:var(--accent) }
+.qa-card.t2::before { background:var(--accent) }
+.qa-card.t3::before { background:var(--accent) }
+.qa-card:hover{background: var(--ink);}
+.qa-card:hover .qa-title{color: var(--paper);}
+.qa-card:hover .qa-body{color: var(--accent2);}
+.qa-card:hover .qa-bg-num{color: var(--paper);}
+.qa-card:hover .qa-check{color: var(--accent2);}
+.qa-card:hover .qa-dot{color: var(--accent2);}
+.qa-tier { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.12em; color:var(--muted); text-transform:uppercase; margin-bottom:14px }
+.qa-title { font-family:'DM Serif Display',serif; font-size:24px; margin-bottom:10px; letter-spacing:-.3px; line-height:1.2 }
+.qa-body { font-size:14px; color:var(--muted); line-height:1.65; margin-bottom:18px }
+.qa-bg-num {
+  position:absolute; bottom:-10px; right:10px;
+  font-family:'DM Serif Display',serif; font-size:120px;
+  color:var(--ink); letter-spacing:-5px; line-height:1;
+  pointer-events:none; user-select:none;
+}
+.qa-checks { display:flex; flex-direction:column; gap:8px }
+.qa-check { font-size:13px; color:var(--muted); display:flex; gap:8px; align-items:flex-start; line-height:1.4 }
+.qa-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:5px }
+
+/* ── DELIVERY ── */
+.delivery-section { background:var(--paper) }
+.delivery-layout { display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:start; margin-top:60px }
+.delivery-body p { font-size:16px; color:var(--muted); line-height:1.78; margin-bottom:22px; font-weight:300 }
+.delivery-body strong { color:var(--muted); font-weight:500 }
+.dc-mockup {
+  background:var(--ink); border:1px solid var(--border);
+  border-radius:6px; overflow:hidden;
+  box-shadow:0 20px 60px rgba(10,10,10,.08);
+}
+.dc-top { padding:22px 26px; border-bottom:1px solid var(--border) }
+.dc-title { font-family:'DM Serif Display',serif; font-size:18px;color:var(--paper); margin-bottom:3px }
+.dc-sub { font-size:12px; color:var(--accent2) }
+.dc-section {
+  font-family:'Space Mono',monospace; font-size:10px;
+  letter-spacing:.1em; color:var(--accent2); text-transform:uppercase;
+  padding:12px 26px 6px;
+  background:rgba(10,10,10,.03); border-bottom:1px solid rgba(10,10,10,.04);
+}
+.dc-row {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding:10px 26px;color:var(--paper); border-bottom:0.5px solid rgba(10,10,10,.06);
+  font-size:13px; gap:20px;
+}
+.dc-row:last-child { border:none }
+.dc-key { color:var(--paper) }
+.dc-val { font-weight:500; text-align:right }
+.dc-val.g { color:#1a784a }
+.dc-val.a { color:#b58a10 }
+
+/* ── FEEDBACK LOOP ── */
+.loop-section { background:var(--accent) }
+.loop-layout { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center }
+.loop-left h2 {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(36px,4vw,52px); letter-spacing:-1.5px;
+  color:var(--white); line-height:1.05; margin-bottom:18px;
+}
+.loop-left h2 em { font-style:italic; color:rgba(255,255,255,.55) }
+.loop-left p { font-size:17px; color:rgba(255,255,255,.7); line-height:1.7; margin-bottom:20px; font-weight:300 }
+.loop-steps { display:flex; flex-direction:column; gap:3px }
+.loop-step {
+  background:rgba(255,255,255,.1); border-radius:3px;
+  padding:14px 18px; font-size:14px;
+  color:rgba(255,255,255,.85);
+  display:flex; align-items:center; gap:12px;
+  transform:translateX(-20px); opacity:0;
+  transition:transform .5s ease, opacity .5s ease;
+}
+.loop-step.reveal { transform:translateX(0); opacity:1 }
+.loop-step:nth-child(2) { transition-delay:.1s }
+.loop-step:nth-child(3) { transition-delay:.2s }
+.loop-step:nth-child(4) { transition-delay:.3s }
+.loop-step:nth-child(5) { transition-delay:.4s }
+.loop-step:nth-child(6) { transition-delay:.5s }
+.loop-step.highlight { background:rgba(255,255,255,.2) }
+.loop-step-icon { font-size:18px; flex-shrink:0 }
+.loop-arrow { text-align:center; color:rgba(255,255,255,.25); font-size:12px; padding:2px 0 }
+.btn-white-solid {
+  display:inline-block; background:var(--white); color:var(--accent);
+  padding:14px 28px; border-radius:2px;
+  font-size:14px; font-weight:700; text-decoration:none;
+  transition:opacity .2s; margin-top:10px;
+}
+.btn-white-solid:hover { opacity:.92 }
+
+/* ── STAT BAR ── */
+.stat-bar {
+  background:var(--accent); padding:60px;
+  display:grid; grid-template-columns:repeat(5,1fr); gap:0;
+}
+.sb-item {
+  padding:20px 24px; text-align:center;
+}
+.sb-item:last-child { border-right:none }
+.sb-num {
+  font-family:'DM Serif Display',serif; font-size:44px;
+  letter-spacing:-2px; color:var(--paper); line-height:1;
+  margin-bottom:6px;
+}
+.sb-label { font-size:12px; color:var(--paper); line-height:1.4 }
+
+/* ── CTA ── */
+.cta-sec {
+  background:var(--accent); padding:120px 60px; text-align:center;
+  position:relative; overflow:hidden;
+}
+.cta-sec::before {
+  content:''; position:absolute;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  width:700px; height:700px; border-radius:50%;
+  border:1px solid rgba(188,81,19,.1);
+}
+.cta-sec::after {
+  content:''; position:absolute;
+  left:50%; top:50%; transform:translate(-50%,-50%);
+  width:400px; height:400px; border-radius:50%;
+  border:1px solid rgba(188,81,19,.15);
+}
+.cta-inner { position:relative; z-index:1 }
+.cta-sec h2 {
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(40px,5vw,66px); letter-spacing:-2px;
+  color:var(--paper); margin-bottom:18px; line-height:1.05;
+}
+.cta-sec h2 em { font-style:italic; color:rgba(255,255,255,.55) }
+.cta-sec p { font-size:17px; color:var(--paper); max-width:500px; margin:0 auto 36px; font-weight:300 }
+.cta-actions { display:flex; gap:14px; justify-content:center }
+.btn-primary {
+  background:var(--paper); color:var(--accent);
+  padding:15px 32px; border-radius:2px;
+  font-size:14px; font-weight:600; letter-spacing:.02em;
+  text-decoration:none; transition:background .2s;
+}
+.btn-primary:hover { background:var(--accent);color: var(--paper);border-color: var(--paper); }
+.btn-secondary {
+  border:1.5px solid ; color:var(--paper);
+  padding:14px 32px; border-radius:2px;
+  font-size:14px; font-weight:500; text-decoration:none;
+  transition:border-color .2s;
+}
+.btn-secondary:hover { border-color:var(--paper) }
+
+/* ── FOOTER ── */
+footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:60px }
+.footer-brand p { font-size:14px; color:rgba(245,242,236,.65); line-height:1.65; max-width:280px; margin-top:12px }
+.footer-wm { font-family:'DM Serif Display',serif; font-size:22px; color:var(--white) }
+.footer-wm em { font-style:italic; color:var(--accent2) }
+.footer-col-title { font-family:'DM Serif Display',serif; font-size:12px; letter-spacing:.15em; color:var(--white); text-transform:uppercase; margin-bottom:18px }
+.footer-links { display:flex; flex-direction:column; gap:11px }
+.footer-links a { font-size:14px; color:rgba(245,242,236,.7); text-decoration:none; transition:color .2s }
+.footer-links a:hover { color:var(--paper) }
+.footer-bottom { border-top:1px solid rgba(255,255,255,.1); padding-top:30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px }
+.footer-copy { font-size:13px; color:rgba(245,242,236,.35) }
+.footer-badges { display:flex; gap:10px }
+.footer-badge { font-family:'Space Mono',monospace; font-size:9px; padding:5px 10px; border:1px solid rgba(255,255,255,.15); border-radius:2px; color:rgba(245,242,236,.45) }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .hero-inner,.rlaif-layout,.delivery-layout,.loop-layout,.process-layout{ grid-template-columns:1fr }
+  .overview,.stat-bar{ grid-template-columns:repeat(3,1fr) }
+  .ov-item:nth-child(3),.sb-item:nth-child(3){ border-right:none }
+  .qa-grid{ grid-template-columns:1fr }
+  .qa-card{ border-right:none;border-bottom:1px solid var(--border) }
+  .step-card-grid{ grid-template-columns:1fr 1fr }
+  .footer-grid{ grid-template-columns:1fr 1fr }
+}
+@media(max-width:768px){
+  nav{padding:14px 24px}.nav-links{display:none}
+  .hero{padding:100px 24px 60px}
+  .sec,.cta-sec,.overview,.stat-bar{padding-left:24px;padding-right:24px}
+  .overview,.stat-bar{grid-template-columns:1fr 1fr}
+  .ov-item:nth-child(2n),.sb-item:nth-child(2n){border-right:none}
+  .steps-line{display:none}
+  .step-item{grid-template-columns:1fr}
+  .step-left{display:none}
+  .step-body{padding-left:0}
+  .step-card-grid{grid-template-columns:1fr}
+  footer{padding:60px 24px 32px}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+/* ── HAMBURGER MENU ── */
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
+@media(max-width:768px){
+  .menu-toggle{display:flex}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}
+  .nav-links.active{display:flex}
+  .nav-cta{margin-top:8px;text-align:center;display:block}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <!-- Hamburger -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance &amp; BFSI</a>
+        <a href="/industries/automotive">Automotive &amp; AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="/company/about">About Us</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="/contact">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/resources">Resources</a>
+      <div class="nav-dropdown">
+        <a href="/resources">Blogs</a>
+        <a href="/resources/case-studies">Case Studies</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="/contact" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-tint"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <span class="hero-eyebrow">Our Process · From Brief to Better Model</span>
+      <h1>Precision, not<br><em>promises.</em><br>At every step.</h1>
+      <p class="hero-sub">A six-step pipeline built around one question: does the data we produce actually improve your model? Every step is logged, measured, and reported. Nothing is left to chance.</p>
+      <div class="hero-actions">
+        <a href="/contact" class="btn-ink">Start a Project →</a>
+        <a href="#steps" class="btn-ghost-light">See the steps ↓</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hs-num">0.72+</div>
+        <div class="hs-label">Cohen's kappa guaranteed on every delivered batch</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-num">60%</div>
+        <div class="hs-label">Faster than pure-manual via RLAIF pre-annotation</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-num">3</div>
+        <div class="hs-label">Independent QA tiers on every annotation batch</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hs-num">14 d</div>
+        <div class="hs-label">Post-delivery benchmark follow-up on every project</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll to explore</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══ OVERVIEW STRIP ═══ -->
+<div class="overview">
+  <div class="ov-item reveal-fade">
+    <div class="ov-num">Day 1</div>
+    <div class="ov-label">First response to your enquiry</div>
+  </div>
+  <div class="ov-item reveal-fade">
+    <div class="ov-num">Day 3</div>
+    <div class="ov-label">Scope of Work & NDA signed</div>
+  </div>
+  <div class="ov-item reveal-fade">
+    <div class="ov-num">Day 7</div>
+    <div class="ov-label">Guidelines written & annotators calibrated</div>
+  </div>
+  <div class="ov-item reveal-fade">
+    <div class="ov-num">Day 8+</div>
+    <div class="ov-label">RLAIF + human annotation runs</div>
+  </div>
+  <div class="ov-item reveal-fade">
+    <div class="ov-num">Day N</div>
+    <div class="ov-label">Dataset + QA report + data card delivered</div>
+  </div>
+  <div class="ov-item reveal-fade">
+    <div class="ov-num">+14d</div>
+    <div class="ov-label">Model benchmark follow-up call</div>
+  </div>
+</div>
+
+<!-- ═══ PROCESS INTRO ═══ -->
+<section class="sec process-intro">
+  <div class="sec-inner">
+    <div class="process-layout">
+      <div class="process-text reveal-fade">
+        <span class="sec-eyebrow">Why our process is different</span>
+        <h2 class="sec-title">Not a black box.<br>A <em>documented pipeline.</em></h2>
+        <p>Most training data providers take your data, return a file, and leave. You have no visibility into how annotators were selected, whether they were calibrated, how disputes were resolved, or whether the resulting data is going to improve your model or just add noise to it.</p>
+        <p>Every step of our pipeline generates a log entry. Every batch is tracked through three tiers of quality assurance. The final delivery includes not just the annotated dataset but a QA report with inter-annotator agreement scores, gold standard pass rates, and a data card documenting exactly how the data was produced.</p>
+        <div class="pull">"The only quality metric that actually matters is whether your model improved after training on our data. Everything else kappa scores, gold accuracy, error rates are leading indicators. We measure all of them, and we follow up on the one that counts."</div>
+        <p><strong>Two weeks after every delivery,</strong> we follow up and ask for your benchmark result. If the data produced the expected improvement, we document it as your case study. If it did not, we investigate and re-deliver at no cost.</p>
+      </div>
+      <div class="reveal-fade" style="transition-delay:.15s">
+        <div class="timeline-mini">
+          <div class="tm-label">Typical project - 2,000 RLHF pairs</div>
+          <div class="tm-row normal"><span class="tm-day">Days 1–3</span>Scoping call · SOW signed · NDA executed</div>
+          <div class="tm-row normal"><span class="tm-day">Days 3–7</span>Guidelines written · Annotators calibrated to κ ≥ 0.70</div>
+          <div class="tm-row normal"><span class="tm-day">Days 7–10</span>Data ingested · S3 encrypted · Gold tasks injected</div>
+          <div class="tm-row active"><span class="tm-day">Days 10+</span>RLAIF pre-scores → human annotation running</div>
+          <div class="tm-row normal"><span class="tm-day">Day N–3</span>3-tier QA · Export validation · Report generation</div>
+          <div class="tm-row done"><span class="tm-day">Day N</span>Dataset + QA report + data card delivered ✓</div>
+          <div class="tm-row normal"><span class="tm-day">+14 days</span>Model benchmark follow-up call scheduled</div>
+        </div>
+        <div style="margin-top:16px;background:rgba(188,81,19,.06);border:1px solid rgba(188,81,19,.15);border-radius:4px;padding:16px 18px;font-size:13px;color:var(--accent);line-height:1.55">
+          For 2,000 RLHF pairs: typically 10–16 working days from signed SOW to delivery. Timeline is included in every Scope of Work document before work begins.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6 STEPS ═══ -->
+<section class="sec steps-section" id="steps">
+  <div class="sec-inner">
+    <span class="sec-eyebrow">Step by Step</span>
+    <h2 class="sec-title">Six steps. <em>Zero shortcuts.</em></h2>
+    <p class="sec-desc">Every project runs through the same pipeline regardless of size. The steps are non-negotiable, skipping any one of them produces the data quality failures we exist to prevent.</p>
+
+    <div class="steps-container">
+      <div class="steps-line"></div>
+
+      <!-- STEP 1 -->
+      <div class="step-item">
+        <div class="step-left"><div class="step-circle">1</div></div>
+        <div class="step-body">
+          <span class="step-day">Days 1–3</span>
+          <h3 class="step-title">Discovery &amp; <em>Scoping</em></h3>
+          <p class="step-desc">You share your data samples. We ask the questions that actually determine quality: What does your ML training pipeline need as output format? What quality threshold constitutes success? What compliance requirements apply? What is the specific failure mode your current data is producing? The Scope of Work we produce is precise not a generic template because every project has different requirements and different quality risks.</p>
+          <div class="step-card-grid">
+            <div class="step-card">
+              <div class="step-card-icon">📋</div>
+              <div class="step-card-title">Scope of Work</div>
+              <div class="step-card-body">Exact deliverables, output format, volume, timeline, quality thresholds, and pricing. Signed before any data moves.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🔏</div>
+              <div class="step-card-title">Mutual NDA</div>
+              <div class="step-card-body">Signed before any data exchange. Covers annotators individually as well. Attorney-reviewed template.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🎯</div>
+              <div class="step-card-title">Quality target set</div>
+              <div class="step-card-body">We define the specific kappa threshold, gold standard accuracy, and model benchmark improvement target for your project.</div>
+            </div>
+          </div>
+          <div class="step-highlight">
+            <div class="step-highlight-icon">💡</div>
+            <div><strong>The most important question we ask:</strong> "How will you measure quality after you train on our data?" Your answer defines our QA targets and the benchmark we follow up on two weeks after delivery.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-item">
+        <div class="step-left"><div class="step-circle">2</div></div>
+        <div class="step-body">
+          <span class="step-day">Days 3–7</span>
+          <h3 class="step-title">Annotation <em>Guidelines</em></h3>
+          <p class="step-desc">The annotation guidelines document is the single most important quality control mechanism in our operation. Vague guidelines produce inconsistent data regardless of how experienced your annotators are. We write 8–15 page project-specific guidelines covering: evaluation criteria with precise definitions, 20–30 worked examples including the hard cases, edge case rules with documented decisions, and explicit escalation procedures for tasks that need review.</p>
+          <div class="step-card-grid">
+            <div class="step-card">
+              <div class="step-card-icon">✏️</div>
+              <div class="step-card-title">Project-specific writing</div>
+              <div class="step-card-body">Never a generic template reused across clients. Written for your domain, your model, your cultural context.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🧪</div>
+              <div class="step-card-title">Tested on non-experts</div>
+              <div class="step-card-body">We validate every guidelines document by giving it to someone with no annotation background and checking if they can produce correct annotations.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🌐</div>
+              <div class="step-card-title">Indic cultural context</div>
+              <div class="step-card-body">For Indian language projects: cultural nuance notes per language. How directness, politeness, and agreement norms differ across Hindi, Tamil, Telugu, Kannada.</div>
+            </div>
+          </div>
+          <div class="step-tags">
+            <span class="step-tag">20–30 worked examples</span>
+            <span class="step-tag">Edge case taxonomy</span>
+            <span class="step-tag">Escalation protocol</span>
+            <span class="step-tag">Calibration task set (25 tasks)</span>
+            <span class="step-tag">Sycophancy trap section (RLHF)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-item">
+        <div class="step-left"><div class="step-circle">3</div></div>
+        <div class="step-body">
+          <span class="step-day">Days 5–10</span>
+          <h3 class="step-title">Annotator Selection <em>&amp; Calibration</em></h3>
+          <p class="step-desc">From our vetted pool, we select annotators matching three criteria: native fluency in the target language, appropriate education and experience level, and relevant domain expertise for the specific task. Then we run a calibration session all selected annotators complete 20–30 tasks independently, then discuss every disagreement together. We do not begin live annotation until Cohen's kappa among the team is above 0.70. Anyone consistently below 0.65 on calibration is replaced.</p>
+          <div class="step-card-grid">
+            <div class="step-card">
+              <div class="step-card-icon">👨‍⚕️</div>
+              <div class="step-card-title">Domain experts, not crowds</div>
+              <div class="step-card-body">Clinicians for healthcare. Lawyers for legal. CAs for finance. Software engineers for code RLHF. Expert judgment from day one.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">📊</div>
+              <div class="step-card-title">Calibration kappa baseline</div>
+              <div class="step-card-body">Each annotator's kappa score on the calibration task set is documented and included in your data card. You know the baseline before annotation starts.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🔒</div>
+              <div class="step-card-title">Individual NDAs signed</div>
+              <div class="step-card-body">Every annotator signs a confidentiality agreement specific to your project before accessing any task. Named-access only no anonymous crowd.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-item">
+        <div class="step-left"><div class="step-circle">4</div></div>
+        <div class="step-body">
+          <span class="step-day">Days 8+ (Bulk of project)</span>
+          <h3 class="step-title">RLAIF Pre-Annotation <em>+ Expert Review</em></h3>
+          <p class="step-desc">This is where our pipeline outperforms pure-human competitors. The RLAIF pre-scorer (Claude API) evaluates each task and pre-populates a suggested answer with reasoning before any annotator sees it. For image tasks, SAM2 pre-draws segmentation boundaries. Annotators then validate, correct, or override the AI suggestion they never start from scratch. AI handles the 70–90% of tasks with clear correct answers. Expert humans handle the 10–30% requiring genuine judgment.</p>
+          <div class="step-card-grid">
+            <div class="step-card">
+              <div class="step-card-icon">🤖</div>
+              <div class="step-card-title">RLAIF pre-scorer (text)</div>
+              <div class="step-card-body">Claude API evaluates RLHF pairs and NLP tasks. Pre-scores 70–90% of tasks. Humans validate and override. 60% speed advantage over pure-manual.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🖼️</div>
+              <div class="step-card-title">SAM2 pre-annotation (image)</div>
+              <div class="step-card-body">Meta's Segment Anything Model pre-draws segmentation boundaries. Annotators correct boundaries and assign labels. 50% image annotation time reduction.</div>
+            </div>
+            <div class="step-card">
+              <div class="step-card-icon">🎬</div>
+              <div class="step-card-title">ByteTrack (video)</div>
+              <div class="step-card-body">Multi-object tracking maintains consistent IDs across frames. Temporal interpolation between keyframes. 70% video annotation labor reduction.</div>
+            </div>
+          </div>
+          <div class="step-highlight">
+            <div class="step-highlight-icon">⚡</div>
+            <div><strong>Gold standard injection runs throughout:</strong> We inject pre-annotated test tasks at a 6% rate randomly distributed, invisible to annotators. Their accuracy on these tasks is the real-time quality signal. Below 80% gold accuracy triggers review. Below 70% triggers reassignment.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-item">
+        <div class="step-left"><div class="step-circle">5</div></div>
+        <div class="step-body">
+          <span class="step-day">Concurrent throughout project</span>
+          <h3 class="step-title">Three-Tier <em>Quality Assurance</em></h3>
+          <p class="step-desc">Quality assurance runs concurrently with annotation not as a final check before delivery. Every evening, automated scripts analyse the day's annotation. Every week, a 10–15% double-annotation sample runs through peer review. The senior ML engineer audits all flagged tasks plus a 5% random sample. If kappa drops below 0.65 on any batch, annotation pauses and recalibration runs. The pipeline cannot proceed with degraded quality.</p>
+          <div class="step-card-grid">
+            <div class="step-card" style="border-top:3px solid var(--accent)">
+              <div class="step-card-icon">📊</div>
+              <div class="step-card-title">Tier 1 - Automated</div>
+              <div class="step-card-body">Nightly Python scripts: response bias detection, speed anomalies, gold standard failures, reasoning quality checks. Catches 60% of quality problems at zero human cost.</div>
+            </div>
+            <div class="step-card" style="border-top:3px solid var(--ink)">
+              <div class="step-card-icon">🔄</div>
+              <div class="step-card-title">Tier 2 - Peer Review</div>
+              <div class="step-card-body">10–15% double-annotation sample. Second annotator re-does tasks blind. Kappa recomputed. Below 0.65 triggers recalibration. Catches systematic biases.</div>
+            </div>
+            <div class="step-card" style="border-top:3px solid var(--accent2)">
+              <div class="step-card-icon">🔬</div>
+              <div class="step-card-title">Tier 3 - Expert Audit</div>
+              <div class="step-card-body">ML engineer reviews all flags + 5% random sample. Catches sycophancy in RLHF data, cultural context errors, training signal quality issues.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6 -->
+      <div class="step-item">
+        <div class="step-left"><div class="step-circle">6</div></div>
+        <div class="step-body">
+          <span class="step-day">Final delivery + Day 14 follow-up</span>
+          <h3 class="step-title">Delivery &amp; <em>Feedback Loop</em></h3>
+          <p class="step-desc">Data is exported and converted to your required format (JSONL, CoNLL, COCO, or custom). Validation scripts check every field for completeness and encoding. Delivery includes three documents: the annotated dataset, a QA report with kappa scores and gold accuracy, and a data card documenting how the data was produced. Two weeks later the step every training data provider skips we follow up and ask for your benchmark result.</p>
+          <div class="step-tags">
+            <span class="step-tag">JSONL (RLHF)</span>
+            <span class="step-tag">CoNLL-2003 (NLP)</span>
+            <span class="step-tag">COCO format (image)</span>
+            <span class="step-tag">Custom format on request</span>
+            <span class="step-tag">QA report PDF</span>
+            <span class="step-tag">Data card included</span>
+            <span class="step-tag">Day 14 benchmark call</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RLAIF VISUAL ═══ -->
+<section class="sec rlaif-section">
+  <div class="sec-inner">
+    <span class="sec-eyebrow">The RLAIF + Human Model</span>
+    <h2 class="sec-title">How work is split on a <em>typical RLHF project</em></h2>
+    <div class="rlaif-layout">
+      <div class="rlaif-body reveal-fade">
+        <p>Traditional training data providers use humans for 100% of work. AI labeling tools use AI for 100% of work. We use each for what it is genuinely better at.</p>
+        <p>AI is better at: consistent application of clear rules at speed across large volumes. Humans are better at: nuanced judgment, cultural context, domain expertise, and catching the subtle failures that AI systems produce sycophancy, hallucination, cultural misrepresentation.</p>
+        <p>The RLAIF pre-scorer handles <strong>the 70–90% of tasks with clear correct answers.</strong> Expert human annotators handle <strong>the 10–30% requiring genuine judgment.</strong> The QA layer runs on everything. The result: AI speed at human quality, at 35–45% lower cost than pure-human competitors.</p>
+        <div class="rlaif-result">
+          Result: 60% faster than pure-human annotation at the same Cohen's kappa score because humans still review every annotation before delivery. AI handles volume. Humans handle judgment. You pay only for what requires human expertise.
+        </div>
+      </div>
+      <div class="reveal-fade" style="transition-delay:.2s">
+        <div style="margin-bottom:14px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase">Work distribution RLHF project</div>
+        <div class="rlaif-bars" id="rlaifBars">
+          <div class="rlaif-bar-item">
+            <div class="rlaif-bar-header">
+              <span class="rlaif-bar-name">RLAIF pre-scorer clear preference tasks</span>
+              <span class="rlaif-bar-pct">72%</span>
+            </div>
+            <div class="rlaif-bar-track"><div class="rlaif-bar-fill bar-ai" data-width="72"></div></div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="rlaif-bar-item">
+            <div class="rlaif-bar-header">
+              <span class="rlaif-bar-name">Human experts uncertain + edge cases</span>
+              <span class="rlaif-bar-pct">22%</span>
+            </div>
+            <div class="rlaif-bar-track"><div class="rlaif-bar-fill bar-human" data-width="22"></div></div>
+          </div>
+          <div style="height:12px"></div>
+          <div class="rlaif-bar-item">
+            <div class="rlaif-bar-header">
+              <span class="rlaif-bar-name">3-tier QA review (concurrent)</span>
+              <span class="rlaif-bar-pct">6%</span>
+            </div>
+            <div class="rlaif-bar-track"><div class="rlaif-bar-fill bar-qa" data-width="6"></div></div>
+          </div>
+        </div>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:3px">
+          <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-bottom:12px">Live pipeline</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;background:rgba(188,81,19,.1);border:1px solid rgba(188,81,19,.2);border-radius:3px;font-size:13px;color:var(--accent)">
+            <span style="font-size:16px">📥</span><span>Customer data → encrypted S3 bucket</span>
+          </div>
+          <div style="text-align:center;color:rgba(255,255,255,.15);font-size:12px;padding:2px 0">↓</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;background:rgba(195, 170, 124, 0.33);border:1px solid rgba(200,169,110,.15);border-radius:3px;font-size:13px;color:var(--accent2)">
+            <span style="font-size:16px">🤖</span><span>RLAIF evaluates all tasks · SAM2 pre-labels images</span>
+          </div>
+          <div style="text-align:center;color:rgba(255,255,255,.15);font-size:12px;padding:2px 0">↓</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;background:rgba(7, 5, 5, 0.921);border-radius:3px;font-size:13px;color:var(--accent2)">
+            <span style="font-size:16px">👤</span><span>Experts validate · correct · annotate edge cases</span>
+          </div>
+          <div style="text-align:center;color:rgba(255,255,255,.15);font-size:12px;padding:2px 0">↓</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;background:rgba(177, 99, 99, 0.452);border-radius:3px;font-size:13px;color:#c60b0b">
+            <span style="font-size:16px">📊</span><span>3-tier QA runs concurrently throughout</span>
+          </div>
+          <div style="text-align:center;color:rgba(255,255,255,.15);font-size:12px;padding:2px 0">↓</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;background:rgba(26,107,74,.12);border:1px solid rgba(26,107,74,.25);border-radius:3px;font-size:13px;color:#5ecba1">
+            <span style="font-size:16px">📦</span><span>Dataset + QA report + data card delivered</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QA TIERS ═══ -->
+<section class="sec qa-section">
+  <div class="sec-inner">
+    <span class="sec-eyebrow">Quality Architecture</span>
+    <h2 class="sec-title">Three tiers on <em>every batch</em></h2>
+    <p class="sec-desc">Most training data providers run one quality pass. We run three independently throughout the project. Each tier catches failure modes the others miss.</p>
+    <div class="qa-grid">
+      <div class="qa-card t1">
+        <div class="qa-bg-num">1</div>
+        <div class="qa-tier">Tier 1 · Automated · Nightly</div>
+        <div class="qa-title">Statistical anomaly detection</div>
+        <div class="qa-body">Python scripts run every evening on all completed annotation. Flags suspicious patterns before any human reviewer looks at the data. Catches approximately 60% of quality problems at zero human cost.</div>
+        <div class="qa-checks">
+          <div class="qa-check"><span class="qa-dot"></span><span>Response bias - always choosing option A</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Speed anomaly - 3× faster than median, not reading</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Selection uniformity - variance too low across choices</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Gold standard accuracy below 80% threshold</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Reasoning field under 15 characters - placeholder responses</span></div>
+        </div>
+      </div>
+      <div class="qa-card t2">
+        <div class="qa-bg-num">2</div>
+        <div class="qa-tier">Tier 2 · Peer Review · 10–15% sample</div>
+        <div class="qa-title">Double-annotation + kappa recompute</div>
+        <div class="qa-body">A second annotator re-does 10–15% of each annotator's tasks independently, blind to the first annotator's choices. All disagreements are adjudicated. Kappa recomputed. Below 0.65 triggers recalibration.</div>
+        <div class="qa-checks">
+          <div class="qa-check"><span class="qa-dot"></span><span>Category-level bias disagreement in specific task types</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Guideline misinterpretation patterns across a batch</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Cultural context errors on Indic language tasks</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Label boundary drift on NLP entity annotation</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Domain knowledge gaps in specialist annotation</span></div>
+        </div>
+      </div>
+      <div class="qa-card t3">
+        <div class="qa-bg-num">3</div>
+        <div class="qa-tier">Tier 3 · Expert Audit · 5% + all flags</div>
+        <div class="qa-title">ML-engineer personal review</div>
+        <div class="qa-body">Senior ML engineer reviews every flag from Tiers 1 and 2, every gold standard failure, and a 5% random sample from across the full batch. Every decision is documented improves guidelines for next project.</div>
+        <div class="qa-checks">
+          <div class="qa-check"><span class="qa-dot"></span><span>Sycophancy in RLHF preference data most damaging single error</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Training signal quality will this data improve the model?</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Hallucination detection edge cases</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Cultural nuance errors in Indic language tasks</span></div>
+          <div class="qa-check"><span class="qa-dot"></span><span>Guideline gaps that need updating before next batch</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DELIVERY ═══ -->
+<section class="sec delivery-section">
+  <div class="sec-inner">
+    <span class="sec-eyebrow">What You Receive</span>
+    <h2 class="sec-title">Data, report, <em>and data card</em></h2>
+    <p class="sec-desc">Most training data providers deliver a data file and an invoice. We deliver three things on every project because the QA report and data card are what turn labelled data into auditable training infrastructure.</p>
+    <div class="delivery-layout">
+      <div class="delivery-body reveal-fade">
+        <p>The <strong>annotated dataset</strong> is delivered in your exact required format JSONL for RLHF, CoNLL-2003 for NLP, COCO for images. Validation scripts check every field for completeness and encoding. If anything is malformed, it is caught before delivery, not after you try to load it into your training pipeline.</p>
+        <p>The <strong>QA report</strong> contains the actual numbers: Cohen's kappa by annotator pair and by task category, gold standard accuracy per annotator, batch error rates, number of tasks flagged and resolved, and a summary of any recalibration events that occurred during the project. These numbers are computed from Label Studio export data by automated scripts not estimated, not reported by annotators themselves.</p>
+        <p>The <strong>data card</strong> is the nutritional label for your training data. It documents the composition of the dataset, the annotator demographics, the known limitations (if one category had lower agreement than others, we tell you which one and why), and the guidelines version used. It is what you show investors during due diligence, auditors during compliance review, and your own ML team when they ask how the training data was produced.</p>
+        <p>Two weeks after delivery, we schedule a 30-minute <strong>model benchmark follow-up call.</strong> If the data produced the expected improvement, we document it as your case study evidence that no number we report on delivery can match.</p>
+      </div>
+      <div class="reveal-fade" style="transition-delay:.2s">
+        <div class="dc-mockup">
+          <div class="dc-top">
+            <div class="dc-title">Data Card - Project #CA-2026-047</div>
+            <div class="dc-sub">Hindi RLHF Preference Data · Concave AI · 14 April 2026</div>
+          </div>
+          <div class="dc-section">Dataset Statistics</div>
+          <div class="dc-row"><span class="dc-key">Preference pairs delivered</span><span class="dc-val">2,000</span></div>
+          <div class="dc-row"><span class="dc-key">Language</span><span class="dc-val">Hindi - Devanagari</span></div>
+          <div class="dc-row"><span class="dc-key">Domain split</span><span class="dc-val">Technical 40% · General 35% · Safety 25%</span></div>
+          <div class="dc-row"><span class="dc-key">Output format</span><span class="dc-val">JSONL · 8 fields per record</span></div>
+          <div class="dc-section">Quality Metrics</div>
+          <div class="dc-row"><span class="dc-key">Cohen's kappa overall</span><span class="dc-val g">0.74</span></div>
+          <div class="dc-row"><span class="dc-key">Technical tasks kappa</span><span class="dc-val g">0.77</span></div>
+          <div class="dc-row"><span class="dc-key">Gold standard accuracy</span><span class="dc-val g">91%</span></div>
+          <div class="dc-row"><span class="dc-key">Flagged + resolved pairs</span><span class="dc-val g">47 of 2,000 (2.35%)</span></div>
+          <div class="dc-row"><span class="dc-key">3-tier QA applied</span><span class="dc-val g">Yes - all tiers</span></div>
+          <div class="dc-section">Annotator Profile</div>
+          <div class="dc-row"><span class="dc-key">Annotator count</span><span class="dc-val">8</span></div>
+          <div class="dc-row"><span class="dc-key">Native Hindi speakers</span><span class="dc-val">8 / 8</span></div>
+          <div class="dc-row"><span class="dc-key">Pre-project kappa baseline</span><span class="dc-val g">0.72 - all annotators</span></div>
+          <div class="dc-section">Known Limitations</div>
+          <div class="dc-row"><span class="dc-key">Lower-agreement category</span><span class="dc-val a">Abstract reasoning κ = 0.67</span></div>
+          <div class="dc-row"><span class="dc-key">Guidelines version</span><span class="dc-val">Hindi RLHF v2.3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEEDBACK LOOP ═══ -->
+<section class="sec loop-section">
+  <div class="sec-inner">
+    <div class="loop-layout">
+      <div class="loop-left reveal-fade">
+        <h2>The loop that keeps <em>improving</em> your model</h2>
+        <p>Most annotation is treated as a one-time event. You pay for data, train your model, and whatever happens next is your problem. We build a continuous improvement loop into every engagement.</p>
+        <p>After three or four projects with us, our guidelines are tuned to exactly what your model needs, the annotator team knows your product context, and the data we produce is measurably better than what any new vendor could deliver on their first project.</p>
+        <a href="/contact" class="btn-white-solid">Start the loop →</a>
+      </div>
+      <div>
+        <div class="loop-steps" id="loopSteps">
+          <div class="loop-step"><span class="loop-step-icon">📦</span>Data delivered + QA report sent to your team</div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step"><span class="loop-step-icon">🧠</span>You train your model on our annotated data</div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step"><span class="loop-step-icon">📈</span>You measure your benchmark improvement</div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step"><span class="loop-step-icon">📞</span>Day 14 call - you share the result with us</div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step"><span class="loop-step-icon">⚙️</span>We update guidelines based on what we find</div>
+          <div class="loop-arrow">↓</div>
+          <div class="loop-step highlight"><span class="loop-step-icon">✓</span>Next batch is better than the last, every time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STAT BAR ═══ -->
+<div class="stat-bar">
+  <div class="sb-item reveal-fade"><div class="sb-num">≥0.72</div><div class="sb-label">Cohen's kappa guaranteed on every batch delivered</div></div>
+  <div class="sb-item reveal-fade"><div class="sb-num">6%</div><div class="sb-label">Gold standard injection rate throughout every project</div></div>
+  <div class="sb-item reveal-fade"><div class="sb-num">60%</div><div class="sb-label">Speed advantage via RLAIF + SAM2 pre-annotation</div></div>
+  <div class="sb-item reveal-fade"><div class="sb-num">8+</div><div class="sb-label">Indic languages with native-speaker expert annotators</div></div>
+  <div class="sb-item reveal-fade"><div class="sb-num">14d</div><div class="sb-label">Post-delivery model benchmark follow-up every project</div></div>
+</div>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-sec">
+  <div class="cta-inner reveal-fade">
+    <h2>Ready to run your <em>first project?</em></h2>
+    <p>Begin with a free 50-output audit. We return a sycophancy susceptibility score and hallucination rate in 5 working days. No cost, no commitment, no sales call required to start.</p>
+    <div class="cta-actions">
+      <a href="/contact" class="btn-primary">Request Free Audit →</a>
+      <a href="/company/quality" class="btn-secondary">Our Quality Standards</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-wm">Concave <em>AI</em></div>
+      <p>ML-engineered Data infrastructure for AI model training. Production-grade RLHF, NLP, SFT, and evaluation data for model training pipelines. Built in Bengaluru.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-links">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/image">Image & Video Annotation</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Industries</div>
+      <div class="footer-links">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance & BFSI</a>
+        <a href="/industries/automotive">Automotive & AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="/company/about">About</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-badges">
+      <span class="footer-badge">DPDP 2023</span>
+      <span class="footer-badge">GDPR Ready</span>
+      <span class="footer-badge">AWS Secured</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Hero background Ken Burns ── */
+window.addEventListener('load', () => {
+  document.getElementById('heroBg').classList.add('loaded');
+});
+
+/* ── Nav shadow ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').style.boxShadow =
+    window.scrollY > 20 ? '0 1px 28px rgba(0,0,0,.08)' : 'none';
+});
+
+/* ── Intersection Observer ── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+
+    if (el.classList.contains('step-item') || el.classList.contains('reveal-fade')) {
+      el.classList.add('reveal');
+    }
+    if (el.classList.contains('qa-card')) {
+      el.classList.add('reveal');
+    }
+    if (el.id === 'loopSteps') {
+      el.querySelectorAll('.loop-step').forEach(s => s.classList.add('reveal'));
+    }
+    if (el.id === 'rlaifBars') {
+      el.querySelectorAll('.rlaif-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }
+    io.unobserve(el);
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.step-item, .reveal-fade, .qa-card').forEach(el => io.observe(el));
+document.querySelectorAll('#loopSteps, #rlaifBars').forEach(el => io.observe(el));
+
+/* ── Stagger step items ── */
+document.querySelectorAll('.step-item').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.08) + 's';
+});
+
+/* ── Overview items fade ── */
+document.querySelectorAll('.ov-item').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(14px)';
+  el.style.transition = `opacity .5s ${i * .08}s ease, transform .5s ${i * .08}s ease`;
+  const ovio = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        ovio.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  ovio.observe(el);
+});
+
+/* ── Stat bar counters ── */
+const sbio = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+      sbio.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.sb-item').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(18px)';
+  el.style.transition = `opacity .6s ${i * .1}s ease, transform .6s ${i * .1}s ease`;
+  sbio.observe(el);
+});
+
+// Hamburger menu toggle
+(function(){
+  var btn=document.getElementById('menuToggle');
+  var nav=document.querySelector('.nav-links');
+  if(btn&&nav){
+    btn.addEventListener('click',function(){
+      nav.classList.toggle('active');
+      btn.setAttribute('aria-label', nav.classList.contains('active') ? 'Close Menu' : 'Open Menu');
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!nav.contains(e.target)){nav.classList.remove('active')}
+    });
+  }
+})();
+</script>
+</body>
+</html>

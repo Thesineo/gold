@@ -1,0 +1,516 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satellite Image Annotation for Geospatial AI: Coordinate Systems, Spectral Bands, and Why 0.9 IoU Is the Production Standard </title>
+<meta name="description" content="Standard CV annotation tools strip geospatial metadata. Standard IoU thresholds fail production geospatial systems. Here is what satellite image annotation actually requires coordinate systems, spectral bands, oriented bounding boxes, and 0.9+ IoU.">
+<meta name="keywords" content="satellite image annotation, geospatial AI annotation, remote sensing data labeling, satellite data labeling, oriented bounding boxes annotation, land cover classification annotation, SAR annotation, geospatial machine learning training data">
+<meta property="og:title" content="Satellite Image Annotation for Geospatial AI: Coordinate Systems, Spectral Bands, and Why 0.9 IoU Is the Production Standard">
+<meta property="og:url" content="https://theconcaveai.com/resources/satellite-image-annotation">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://theconcaveai.com/resources/satellite-image-annotation">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Satellite Image Annotation for Geospatial AI: Coordinate Systems, Spectral Bands, and Why 0.9 IoU Is the Production Standard ",
+  "author": {
+    "@type": "Person",
+    "name": "Aniket Nerali",
+    "url": "https://theconcaveai.com/company/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Concave AI",
+    "url": "https://theconcaveai.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://theconcaveai.com/logo.png"
+    }
+  },
+  "datePublished": "2026-05-20",
+  "dateModified": "2026-05-20",
+  "description": "Standard CV annotation tools strip geospatial metadata. Standard IoU thresholds fail production geospatial systems. Here is what satellite image annotation actually requires coordinate systems, spectral bands, oriented bounding boxes, and 0.9+ IoU."
+  "mainEntityOfPage": "https://theconcaveai.com/resources/satellite-image-annotation"
+}
+</script>
+
+<!-- Favicon for Google Search and Browser Tabs -->
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="shortcut icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#5a4a3a;--border:rgba(10,10,10,0.1);--white:#ffffff;--green:#1a784a;--red:#a32d2d;--amber:#b58a10}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+.article-hero{position:relative;min-height:70vh;display:flex;align-items:flex-end;padding:0 60px 80px;overflow:hidden}
+.article-hero-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(10,10,10,0.1) 0%,rgba(10,10,10,0.72) 100%),url('images/satellite.png');background-size:cover;background-position:center}
+.article-hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none}
+.article-hero-inner{position:relative;z-index:2;max-width:720px}
+.article-hero-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;transition:color .2s}
+.article-hero-back:hover{color:white}
+.article-hero-tags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.article-hero-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:2px;color:rgba(255,255,255,0.7);text-transform:uppercase}
+.article-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,4.5vw,56px);line-height:1.06;letter-spacing:-2px;color:var(--white);margin-bottom:20px}
+.article-hero h1 em{font-style:italic;color:var(--accent2)}
+.article-meta{font-size:14px;color:rgba(255,255,255,0.5);display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.article-meta-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.3)}
+
+.article-layout{display:grid;grid-template-columns:1fr 400px;gap:80px;padding:80px 60px 60px;align-items:start}
+.article-wrap{padding:0}
+.article-sidebar{position:sticky;top:100px;display:flex;flex-direction:column;gap:28px}
+.sidebar-img{border-radius:6px;overflow:hidden;height:480px;background-size:cover;background-position:center}
+.sidebar-fact{background:var(--ink);border-radius:6px;padding:28px}
+.sidebar-fact-num{font-family:'DM Serif Display',serif;font-size:52px;letter-spacing:-2px;color:var(--accent);line-height:1;margin-bottom:8px}
+.sidebar-fact-label{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55}
+.sidebar-caption{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.5;border-top:1px solid var(--border);padding-top:12px}
+
+.article-wrap h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,36px);letter-spacing:-1px;line-height:1.1;margin:56px 0 20px;color:var(--ink)}
+.article-wrap h2 em{font-style:italic;color:var(--accent)}
+.article-wrap h3{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px;margin:40px 0 12px;color:var(--ink)}
+.article-wrap p{font-size:17px;color:var(--muted);line-height:1.82;margin-bottom:24px;font-weight:300}
+.article-wrap strong{color:var(--ink);font-weight:500}
+.article-wrap a:not(.article-cta-btn){color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+.pull-quote{border-left:3px solid var(--accent);padding:20px 24px;background:rgba(188,81,19,0.05);border-radius:0 6px 6px 0;font-size:19px;color:var(--accent);font-style:italic;line-height:1.55;margin:40px 0;font-family:'DM Serif Display',serif;letter-spacing:-.3px}
+
+.approach-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:40px 0}
+.approach-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:24px}
+.approach-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+.approach-card h4{font-family:'DM Serif Display',serif;font-size:20px;letter-spacing:-.3px;margin-bottom:10px;color:var(--ink)}
+.approach-card p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+.approach-insight{margin-top:12px;padding:10px 14px;background:rgba(188,81,19,0.06);border:1px solid rgba(188,81,19,0.15);border-radius:4px;font-size:13px;color:var(--accent);line-height:1.55}
+
+.mistake-group{display:flex;flex-direction:column;gap:14px;margin:40px 0}
+.mistake-box{border:1px solid rgba(163,45,45,0.2);background:rgba(163,45,45,0.03);border-radius:6px;padding:22px}
+.mistake-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.mistake-box h4{font-family:'DM Serif Display',serif;font-size:19px;letter-spacing:-.3px;margin-bottom:8px;color:var(--ink)}
+.mistake-box p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+
+.dt-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.table-scroll{overflow-x:auto;margin:32px 0}
+.data-table{border:1px solid var(--border);border-radius:6px;overflow:hidden;min-width:480px}
+.dt-head,.dt-row{display:flex;border-bottom:1px solid var(--border)}
+.dt-row:last-child{border-bottom:none}
+.dt-head{background:var(--ink)}
+.dt-head .dt-cell{color:rgba(255,255,255,0.75);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.04em;border-right-color:rgba(255,255,255,0.08)}
+.dt-cell{flex:1;padding:11px 14px;font-size:13px;color:var(--muted);border-right:1px solid var(--border)}
+.dt-cell:last-child{border-right:none}
+.dt-cell.wide{flex:2}
+.dt-cell.label{font-weight:500;color:var(--ink)}
+.dt-row.alt{background:rgba(245,242,236,0.4)}
+.dt-ok{color:var(--green)!important}
+.dt-imp{color:var(--accent)!important;font-weight:700!important}
+.dt-warn{color:var(--amber)!important}
+
+.step-list{display:flex;flex-direction:column;gap:0;margin:40px 0}
+.step-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
+.step-item:last-child{border:none}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-content h4{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.step-content p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+
+.checklist{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.checklist-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+.checklist-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.checklist-item:last-child{border:none}
+.checklist-box{width:18px;height:18px;border:2px solid var(--accent);border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.checklist-box-fill{width:10px;height:10px;background:var(--accent);border-radius:1px}
+.checklist-text{font-size:15px;color:var(--muted);line-height:1.6}
+.checklist-text strong{color:var(--ink)}
+
+.key-takeaway{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.key-takeaway-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+.key-takeaway-list{display:flex;flex-direction:column;gap:10px}
+.key-takeaway-item{display:flex;gap:10px;font-size:15px;color:var(--muted);line-height:1.6;align-items:flex-start}
+.key-takeaway-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+
+.article-cta-banner{background:var(--ink);border-radius:6px;padding:48px 40px;margin:60px 0 40px;text-align:center}
+.article-cta-banner h3{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:-1px;color:var(--white);margin-bottom:12px}
+.article-cta-banner h3 em{color:var(--accent2)}
+.article-cta-banner p{font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 24px;font-weight:300}
+.article-cta-btn{background:var(--accent);color:var(--white);padding:13px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.article-cta-btn:hover{background:var(--accent2)}
+.author-card{display:flex;gap:20px;align-items:center;padding:28px 0;border-top:1px solid var(--border);margin-top:40px}
+.author-avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:24px;color:var(--white);flex-shrink:0}
+.author-name{font-size:16px;font-weight:600;margin-bottom:2px}
+.author-role{font-size:13px;color:var(--muted)}
+
+.related{padding:0 60px 80px}
+.related-title{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-.5px;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .2s}
+.related-card:hover{transform:translateY(-3px)}
+.related-card-img{height:140px;background-size:cover;background-position:center}
+.related-card-body{padding:16px}
+.related-card-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.related-card-title{font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:-.3px;line-height:1.2}
+
+footer{background:var(--accent);color:var(--paper);padding:60px 60px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-wm{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white)}
+.footer-wm em{color:var(--accent2)}
+.footer-brand p{font-size:13px;color:rgba(245,242,236,0.6);line-height:1.6;margin-top:10px;max-width:260px}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:11px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(245,242,236,0.3)}
+.footer-badges{display:flex;gap:8px}
+.footer-badge{font-family:'Space Mono',monospace;font-size:8px;padding:4px 8px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:rgba(245,242,236,0.4)}
+
+@media(max-width:768px){nav{padding:14px 24px}.article-hero{padding:0 24px 60px;min-height:55vh}.article-layout{grid-template-columns:1fr;padding:48px 20px 40px;gap:40px}.article-sidebar{position:relative;top:0}.sidebar-img{height:280px}.related-grid{grid-template-columns:1fr}.related{padding:0 20px 60px}footer{padding:40px 24px 24px}.footer-grid{grid-template-columns:1fr}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
+@media(max-width:768px){.menu-toggle{display:flex}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}.nav-links.active{display:flex}.nav-cta{margin-top:8px;text-align:center;display:block}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance &amp; BFSI</a>
+        <a href="/industries/automotive">Automotive &amp; AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="/company/about">About Us</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="/contact">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/resources">Resources</a>
+      <div class="nav-dropdown">
+        <a href="/resources">Blogs</a>
+        <a href="/resources/case-studies">Case Studies</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="/contact" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-grain"></div>
+  <div class="article-hero-inner">
+    <a href="/resources" class="article-hero-back">← All articles</a>
+    <div class="article-hero-tags">
+      <span class="article-hero-tag">Satellite Annotation</span>
+      <span class="article-hero-tag">Geospatial AI</span>
+      <span class="article-hero-tag">Remote Sensing</span>
+      <span class="article-hero-tag">Computer Vision</span>
+      <span class="article-hero-tag">Land Cover</span>
+    </div>
+    <h1>Satellite image annotation for geospatial AI: coordinate systems, spectral bands, and <em>why 0.9 IoU is the standard</em></h1>
+    <div class="article-meta">
+      <span>Concave AI Team</span>
+      <span class="article-meta-dot"></span>
+      <span>14 min read</span>
+      <span class="article-meta-dot"></span>
+      <span>Technical Guide · Geospatial AI</span>
+    </div>
+  </div>
+</section>
+
+<div class="article-layout">
+<article class="article-wrap">
+
+  <p>Standard annotation tools strip geospatial metadata. Standard IoU thresholds fail production geospatial systems. Standard crowdsourcing platforms lack annotators who can interpret spectral signatures beyond visible light. Satellite image annotation is not computer vision annotation applied to overhead imagery it is a fundamentally different discipline that requires different tools, different annotator expertise, and different quality standards.</p>
+
+  <p>The evidence is blunt: ResNet trained on natural images hits only 55% accuracy on aerial crops versus 82% when trained on aerial data from the start. The distribution mismatch between ground-level imagery and satellite imagery is not trivial it is catastrophic. And that gap is before accounting for the coordinate system loss, spectral band errors, and oriented bounding box failures that standard annotation workflows introduce into geospatial training data.</p>
+
+  <p>This guide covers what makes satellite image annotation structurally different, the four annotation types that geospatial AI pipelines require, the accuracy standard that separates production-grade from benchmark-grade labels, and the quality validation process that catches systematic errors before they enter training.</p>
+
+  <h2>Three ways satellite annotation <em>differs from standard CV</em></h2>
+
+  <h3>Coordinate reference systems the metadata that standard tools destroy</h3>
+  <p>Every satellite image carries geospatial metadata linking pixels to locations on Earth's surface. Annotations must embed this coordinate information to map back to Earth the difference between a bounding box that means "object at these pixel coordinates" and one that means "object at 12.97°N, 77.59°E." Standard annotation tools strip this metadata during export, forcing teams to manually reconstruct the spatial reference afterward a process that introduces errors and breaks downstream GIS integration.</p>
+  <p>Common coordinate systems in production workflows include WGS84 (EPSG:4326) for global latitude/longitude reference and UTM for zone-based metric projections suited to local analysis. The solution is using workflows that support Cloud-Optimized GeoTIFF (COG) input with embedded CRS information in all annotation exports not retrofitting geospatial metadata after annotation is complete.</p>
+
+  <h3>Multi-spectral complexity - annotating beyond visible light</h3>
+  <p>Sentinel-2 provides 13 spectral bands. RGB is only 3 of them. The remaining 10 bands encode information invisible to human eyes but critical to what geospatial AI needs to learn: near-infrared (NIR) for vegetation health, short-wave infrared (SWIR) for moisture content and burn detection, and thermal bands for heat signatures. Annotators labeling only on visible light composites systematically misclassify features that are distinguishable in non-visible bands healthy crops versus stressed crops, wet soil versus dry soil, active fires versus recent burn scars.</p>
+  <p>Generic crowdsourcing platforms lack annotator training in spectral signatures and false-color composites. The result is labels that are visually plausible but spectrally incorrect invisible in QA reviews but catastrophic during model training on multi-spectral inputs.</p>
+
+  <h3>Oriented bounding boxes - what standard detectors cannot handle</h3>
+  <p>Standard object detection frameworks expect axis-aligned bounding boxes: fixed horizontal and vertical boundaries. Objects in satellite imagery appear at arbitrary orientations a ship at 37 degrees, an aircraft at 215 degrees, a storage tank at any angle. Standard bounding boxes around rotated objects include enormous amounts of background, confusing the model with irrelevant context. Oriented bounding boxes (OBB) add a rotation angle alongside position and size parameters, requiring annotation frameworks that support mmrotate, R3Det, and S2ANet not standard COCO or VOC format tools. A 5-degree rotation error in annotations on small objects (covering ~15 pixels) compounds across thousands of training examples and produces systematic heading errors in production predictions.</p>
+
+  <h2>The four annotation types geospatial AI pipelines require</h2>
+
+  <div class="approach-grid">
+    <div class="approach-card">
+      <div class="approach-tag">Type 1</div>
+      <h4>Semantic segmentation for land cover classification</h4>
+      <p>Pixel-level classification across large areas assigning every pixel in a scene to a land cover class (forest, agriculture, urban, water, bare soil). Single satellite images can reach 10,000 × 10,000 pixels covering 100+ square kilometres, making tiling essential. The annotation challenge is tile boundary management: clean semantic segmentation masks must handle overlap between tiles consistently, smooth polygon boundaries at tile edges, and maintain classification consistency across the full scene. Staircase artifacts on polygon edges caused by rushed annotation create prediction artifacts that appear systematically along tile boundaries during inference.</p>
+      <div class="approach-insight">The BigEarthNet dataset provides 590,000+ labeled patches as a public benchmark. Production workflows should verify annotation quality against BigEarthNet-style inter-annotator agreement benchmarks before scaling.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Type 2</div>
+      <h4>Object detection with oriented bounding boxes</h4>
+      <p>Identifying specific targets in satellite imagery vehicles, ships, aircraft, storage tanks, buildings using bounding boxes that capture rotation angle alongside position and size. Small objects in high-resolution imagery (sub-meter WorldView-3 data) may cover as few as 15 pixels, making annotation precision critical. A 5-degree rotation error on a 15-pixel object adds significant background noise to the training example. This annotation type requires familiarity with OBB annotation interfaces and the frameworks that consume them (mmrotate, R3Det, S2ANet) not standard detection annotation tools designed for axis-aligned boxes.</p>
+      <div class="approach-insight">Few-shot learning combined with transfer learning works well for rare object detection in satellite imagery the model leverages general visual features while adapting to specific edge cases with minimal labeled data.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Type 3</div>
+      <h4>Change detection annotation</h4>
+      <p>Temporal annotation workflows that pair images of the same location at different timestamps with masks tracking what changed between them new construction, deforestation, flood extent, agricultural harvest cycles. The annotation challenge is three-fold: maintaining precise spatial alignment between image pairs (a sub-pixel shift makes change masks meaningless), enforcing temporal consistency (the same location at two timestamps must share a coherent semantic context), and distinguishing change types semantically rather than just flagging difference (a label of "change" is less valuable than "newly built" or "demolished" or "flooded").</p>
+      <div class="approach-insight">Seasonal variation is a major source of false positives in change detection annotation winter and summer imagery of the same agricultural field differ dramatically in spectral signatures. Annotators must distinguish genuine change from seasonal phenological variation.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Type 4</div>
+      <h4>SAR annotation - through clouds and darkness</h4>
+      <p>Synthetic Aperture Radar (SAR) imagery is collected by active sensors that emit microwave pulses and record backscatter, enabling imaging through clouds, rain, and darkness. SAR annotation requires annotators who understand radar signatures: metallic structures produce characteristic bright returns independent of visual appearance, water appears dark in SAR but bright in optical imagery, and vegetation produces distinctive texture patterns that differ from their optical counterparts. Generic annotators applying visual pattern recognition to SAR data produce systematically incorrect labels. This represents a genuine market gap defense programs have SAR expertise; most commercial annotation teams do not.</p>
+      <div class="approach-insight">For multi-modal datasets that pair SAR with optical imagery, cross-modal consistency checks are essential the same object should have consistent class labels across both sensor types despite their very different visual appearance.</div>
+    </div>
+  </div>
+
+  <h2>Resolution requirements by application <em>matching training to deployment</em></h2>
+
+  <p>Training on 10-meter data and deploying on sub-meter imagery produces significant accuracy drops. The reverse is also true sub-meter training data used on lower-resolution deployment imagery wastes annotation cost on precision that the deployment sensor cannot resolve. Resolution matching between training data and deployment conditions is a prerequisite for production accuracy.</p>
+
+  <div class="dt-label">Resolution requirements and data sources by application</div>
+  <div class="table-scroll">
+    <div class="data-table">
+      <div class="dt-head">
+        <div class="dt-cell wide">Application</div>
+        <div class="dt-cell">Resolution needed</div>
+        <div class="dt-cell">Common sources</div>
+        <div class="dt-cell">IoU target</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell wide label">Vehicle / ship detection</div>
+        <div class="dt-cell">Sub-meter (&lt;0.5m)</div>
+        <div class="dt-cell">WorldView-3, Maxar</div>
+        <div class="dt-cell dt-imp">0.9+</div>
+      </div>
+      <div class="dt-row alt">
+        <div class="dt-cell wide label">Building footprints</div>
+        <div class="dt-cell">0.5–2m</div>
+        <div class="dt-cell">Planet SkySat</div>
+        <div class="dt-cell dt-imp">0.85+</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell wide label">Land cover classification</div>
+        <div class="dt-cell">10m</div>
+        <div class="dt-cell">Sentinel-2</div>
+        <div class="dt-cell">0.80+</div>
+      </div>
+      <div class="dt-row alt">
+        <div class="dt-cell wide label">Change detection</div>
+        <div class="dt-cell">3–10m</div>
+        <div class="dt-cell">PlanetScope, Sentinel-2</div>
+        <div class="dt-cell">0.80+</div>
+      </div>
+      <div class="dt-row">
+        <div class="dt-cell wide label">Regional / agricultural analysis</div>
+        <div class="dt-cell">30m</div>
+        <div class="dt-cell">Landsat-8/9</div>
+        <div class="dt-cell">0.75+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote">"General computer vision accepts 0.5 IoU as satisfactory. Production geospatial systems require 0.9+. The difference is not pedantry it is the gap between a model that works on your test set and one that works when deployed to a new geographic region your annotators have never seen."</div>
+
+  <h2>Edge cases that break geospatial models <em>and how to annotate them</em></h2>
+
+  <div class="mistake-group">
+    <div class="mistake-box">
+      <div class="mistake-tag">Edge Case 1</div>
+      <h4>Cloud cover and cloud shadows</h4>
+      <p>Cloud cover is the most common data quality issue in optical satellite imagery and the most commonly mishandled in annotation workflows. The four classes clear sky, thin cloud, thick cloud, and cloud shadow require different treatment in training data. Thin cloud detection is the hardest annotation task in satellite imagery: the difference between "clear with atmospheric haze" and "thin cirrus cloud" is subtle in RGB and only reliably distinguishable in specific spectral bands. Cloud shadows are even more problematic they appear as dark regions that naive models confuse with water or dark soil. Systematic cloud misclassification in training data teaches models incorrect spectral relationships that persist across geographic regions.</p>
+    </div>
+    <div class="mistake-box">
+      <div class="mistake-tag">Edge Case 2</div>
+      <h4>Off-nadir angle distortion</h4>
+      <p>Satellites collect imagery at varying look angles nadir (straight down) and off-nadir (at an angle). Off-nadir imagery shows building lean, tree lean, and geometric distortion that changes the apparent shape and size of annotated objects. A building footprint annotated from nadir imagery will not match the same building's appearance in off-nadir imagery. Models trained on nadir-only data and deployed on off-nadir imagery experience systematic spatial misalignment. Annotation guidelines must specify how to handle building shadows, lean, and distortion consistently across viewing angles.</p>
+    </div>
+    <div class="mistake-box">
+      <div class="mistake-tag">Edge Case 3</div>
+      <h4>Geographic domain shift</h4>
+      <p>Models trained on European annotated data deployed in Africa show accuracy drops from 90% to below 50% for identical land cover features because the spectral signatures, vegetation species, building materials, and agricultural patterns differ between regions. This geographic domain shift is one of the most common causes of production failures in geospatial AI. It cannot be fixed by augmentation or fine-tuning alone it requires annotation data from the actual deployment region. Indian agricultural AI trained on USDA or European farming datasets fails on Indian varietals, cropping patterns, and field sizes.</p>
+    </div>
+    <div class="mistake-box">
+      <div class="mistake-tag">Edge Case 4</div>
+      <h4>Seasonal spectral variation</h4>
+      <p>Winter and summer imagery of the same agricultural field differ dramatically in every spectral band. A model trained on monsoon-season imagery of Indian paddy fields will misclassify the same fields during the rabi (winter) season when they are fallow or planted with a different crop. Temporal annotation programs must explicitly capture seasonal variation labeling the same geographic areas across multiple seasons or accept that the model's accuracy will degrade significantly in seasons not represented in the training data.</p>
+    </div>
+  </div>
+
+  <h2>Foundation models and AI-assisted annotation <em>where the time savings actually are</em></h2>
+
+  <p>SAM2 (Segment Anything Model 2) accepts point prompts or rough boxes to generate initial masks, reducing polygon annotation time by roughly 3×. NASA-IBM's Prithvi model, fine-tuned on massive Landsat-Sentinel datasets, enables training with 90% fewer labels than training from scratch on some geospatial tasks.</p>
+
+  <p>The practical workflow: the foundation model generates pre-annotations, a human expert refines boundaries and corrects errors, and QC validates the output before delivery. For datasets above 500 images with standard feature types, the time economics are compelling: 10 hours of manual annotation versus 2 hours of SAM2 refinement plus 1 hour of QC.</p>
+
+  <p>The limitations are important. Foundation models struggle with the hardest annotation tasks: thin cloud versus cirrus distinction, building versus greenhouse confusion in low-resolution imagery, and seasonal variation in agricultural signatures. They also amplify bad annotations errors in small initial labeled sets propagate systematically during fine-tuning, making quality of the seed annotation set critical.</p>
+
+  <p><strong>Skip AI pre-annotation</strong> for datasets under 500 images or highly specialized features (SAR annotation, specific crop varietals, rare infrastructure types) where the model's pre-training distribution provides little useful signal. The time savings evaporate when the model's initial predictions are so poor that correction time approaches manual annotation time.</p>
+
+  <h2>Quality validation before model deployment <em>the five checks that prevent training on bad labels</em></h2>
+
+  <div class="checklist">
+    <div class="checklist-title">Pre-deployment quality validation checklist</div>
+    <div class="checklist-item">
+      <div class="checklist-box"><div class="checklist-box-fill"></div></div>
+      <div class="checklist-text"><strong>Sample 100 random annotations and measure IoU against independent re-annotation.</strong> This establishes your baseline quality number. If inter-annotator IoU is below 0.8 on a task requiring 0.9+, the annotation program has a systematic quality problem not a fixable outlier rate.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"><div class="checklist-box-fill"></div></div>
+      <div class="checklist-text"><strong>Check class distribution for annotation bias.</strong> A dataset that is 90% "building" and 10% "road" when the imagery shows roughly equal coverage of both is a signal of annotator bias not data distribution. Class-balanced annotation requires explicit sampling strategies, not random selection.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"><div class="checklist-box-fill"></div></div>
+      <div class="checklist-text"><strong>Zoom into polygon boundaries at 1:1 resolution.</strong> Staircase artifacts stepped polygon edges caused by rushed work or low-resolution annotation interfaces create prediction artifacts at object boundaries. They are invisible at overview zoom levels but catastrophic at native resolution.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"><div class="checklist-box-fill"></div></div>
+      <div class="checklist-text"><strong>Verify temporal consistency in change detection datasets.</strong> The same location at two timestamps must show coherent semantic state a field annotated as "forest" in time T1 and "urban" in T2 with no intervening construction period is an annotation error, not a genuine change.</div>
+    </div>
+    <div class="checklist-item">
+      <div class="checklist-box"><div class="checklist-box-fill"></div></div>
+      <div class="checklist-text"><strong>Test format integrity by importing annotations into QGIS or ArcGIS.</strong> If the CRS is not preserved if the annotations do not overlay correctly on the source imagery in a GIS application the annotation workflow has silently stripped geospatial metadata and the labels are unusable for production training without manual reconstruction.</div>
+    </div>
+  </div>
+
+  <h3>Re-annotation vs augmentation - how to decide</h3>
+  <p>When model accuracy is insufficient after training, teams face a choice: re-annotate the existing dataset or augment it with new data. The decision depends on error source. <strong>Re-annotate when:</strong> model accuracy falls below 70%, geographic variance is high (domain shift), edge cases fail completely, or training data contains fundamental labeling errors. <strong>Augment when:</strong> labels are correct but volume is insufficient, class balance requires improvement, or active learning identifies high-uncertainty predictions that need coverage. The false economy is augmenting a dataset with systematic labeling errors generating more examples of incorrect labels at lower cost produces a larger, more confidently wrong model.</p>
+
+  <div class="key-takeaway">
+    <div class="key-takeaway-title">Key takeaways</div>
+    <div class="key-takeaway-list">
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Satellite annotation differs from standard computer vision in three fundamental ways: coordinate system preservation, multi-spectral band interpretation, and 360-degree oriented bounding box support. Standard annotation tools fail on all three without geospatial-specific workflow design.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Production geospatial systems require 0.9+ IoU versus the 0.5 accepted in general computer vision. This gap reflects the real-world consequence of low-precision annotations deployment failures in new geographic regions and edge cases that standard test sets do not capture.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Geographic domain shift is one of the most common causes of production failure. Models trained on European annotated data deployed in South Asian or African contexts show 40%+ accuracy drops for identical features. Real deployment-region data is irreplaceable.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Foundation models like SAM2 and Prithvi reduce annotation time by up to 3× for standard feature types above 500-image thresholds. They fail on the hardest annotation tasks thin clouds, SAR signatures, seasonal variation and amplify errors in seed annotation sets.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Quality validation must include IoU sampling against independent re-annotation, class distribution checks, polygon boundary review at native resolution, and CRS preservation verification in a GIS application. A vendor that cannot provide inter-annotator agreement metrics has no quality baseline.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Augmenting a dataset with systematic labeling errors produces a larger, more confidently wrong model. Diagnose error source before deciding between re-annotation and augmentation the wrong choice at this decision point compounds downstream.</span></div>
+    </div>
+  </div>
+
+  <div class="article-cta-banner">
+    <h3>Building a geospatial AI pipeline? <em>Let us validate your annotation quality.</em></h3>
+    <p>We run IoU sampling, CRS verification, and inter-annotator agreement checks. Free pilot 100 annotations reviewed against independent re-annotation with quality report.</p>
+    <a href="/contact" class="article-cta-btn">Request a Free Audit →</a>
+  </div>
+
+  <div class="author-card">
+    <div class="author-avatar">C</div>
+    <div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
+    </div>
+  </div>
+
+</article>
+
+<aside class="article-sidebar">
+  <div class="sidebar-img" style="background-image:url('images/satellite-image.png')"></div>
+  <div class="sidebar-fact">
+    <div class="sidebar-fact-num">0.9+</div>
+    <div class="sidebar-fact-label">IoU required for production geospatial AI systems versus the 0.5 IoU considered acceptable in general computer vision applications</div>
+  </div>
+  <div class="sidebar-caption">The accuracy gap between satellite annotation and standard CV reflects the deployment reality: geospatial models are evaluated in geographic regions, spectral conditions, and seasonal contexts that annotators have never labeled. Low IoU in training propagates into deployment failures that benchmarks do not catch.</div>
+</aside>
+
+</div>
+
+<section class="related">
+  <div class="related-title">Related reading</div>
+  <div class="related-grid">
+    <a class="related-card" href="/resources/blog/adas-data-annotation">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=600&q=85')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">Automotive AI</div>
+        <div class="related-card-title">ADAS data annotation in 2026: the 5 challenges automotive AI teams consistently get wrong</div>
+      </div>
+    </a>
+    <a class="related-card" href="/resources/blog/cohens-kappa">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=85')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">Quality Metrics</div>
+        <div class="related-card-title">Cohen's kappa explained for ML engineers the annotation quality metric your pipeline probably is not measuring</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p>Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p></div>
+    <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="index.html#services">RLHF Preference Data</a><a href="index.html#services">NLP Annotation</a><a href="index.html#services">SFT Instruction Data</a><a href="index.html#services">Sycophancy Audits</a><a href="index.html#services">Hallucination Detection</a></div></div>
+    <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="/industries/legal">Legal</a><a href="/industries/finance">Finance &amp; BFSI</a><a href="/industries/automotive">Automotive</a><a href="/industries/agriculture">Agriculture</a><a href="/industries/genai">Enterprise GenAI</a></div></div>
+    <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/company/about">About</a><a href="/company/quality">Quality Standards</a><a href="/company/how-it-works">How It Works</a><a href="/contact">Contact</a><a href="/resources">Resources</a></div></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-badges"><span class="footer-badge">DPDP 2023</span><span class="footer-badge">GDPR Ready</span><span class="footer-badge">AWS Secured</span></div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').style.boxShadow=window.scrollY>20?'0 1px 28px rgba(0,0,0,.08)':'none';});
+document.getElementById('menuToggle').addEventListener('click',()=>{document.querySelector('.nav-links').classList.toggle('active');});
+</script>
+</body>
+</html>

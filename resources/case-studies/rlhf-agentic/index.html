@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RLHF for Agentic Workflows - Multi-Step Logic Verification in Autonomous Web Browsing Agents </title>
+<meta name="description" content="Standard RLHF evaluates the final output. Agentic AI requires evaluating every step of the reasoning chain. 68% of action logs contained logical leaps invisible to outcome-based evaluation.">
+<meta property="og:title" content="RLHF for Agentic Workflows Multi-Step Logic Verification in Autonomous Web Browsing Agents">
+<meta property="og:url" content="https://theconcaveai.com/resources/case-studies/rlhf-agentic">
+<link rel="canonical" href="https://theconcaveai.com/resources/case-studies/rlhf-agentic">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Favicon for Google Search and Browser Tabs -->
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="shortcut icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#5a4a3a;--border:rgba(10,10,10,0.1);--white:#ffffff;--green:#1a784a;--red:#a32d2d;--amber:#b58a10}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* HERO */
+.article-hero{position:relative;min-height:72vh;display:flex;align-items:flex-end;padding:0 60px 80px;overflow:hidden}
+.article-hero-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(10,10,10,0.2) 0%,rgba(10,10,10,0.82) 100%),url('https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1920&q=85');background-size:cover;background-position:center}
+.article-hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none}
+.article-hero-inner{position:relative;z-index:2;max-width:780px}
+.article-hero-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;transition:color .2s}
+.article-hero-back:hover{color:white}
+.article-hero-tags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.article-hero-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:2px;color:rgba(255,255,255,0.7);text-transform:uppercase}
+.article-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,4.5vw,56px);line-height:1.06;letter-spacing:-2px;color:var(--white);margin-bottom:20px}
+.article-hero h1 em{font-style:italic;color:var(--accent2)}
+.article-meta{font-size:14px;color:rgba(255,255,255,0.5);display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.article-meta-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.3)}
+
+/* LAYOUT */
+.article-layout{display:grid;grid-template-columns:1fr 400px;gap:80px;padding:80px 60px 60px;align-items:start}
+.article-wrap{padding:0}
+.article-sidebar{position:sticky;top:100px;display:flex;flex-direction:column;gap:28px}
+.sidebar-img{border-radius:6px;overflow:hidden;height:480px;background-size:cover;background-position:center}
+.sidebar-fact{background:var(--ink);border-radius:6px;padding:28px}
+.sidebar-fact-num{font-family:'DM Serif Display',serif;font-size:52px;letter-spacing:-2px;color:var(--accent);line-height:1;margin-bottom:8px}
+.sidebar-fact-label{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55}
+.sidebar-caption{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.5;border-top:1px solid var(--border);padding-top:12px}
+
+/* ARTICLE TYPOGRAPHY */
+.article-wrap h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,36px);letter-spacing:-1px;line-height:1.1;margin:56px 0 20px;color:var(--ink)}
+.article-wrap h2 em{font-style:italic;color:var(--accent)}
+.article-wrap h3{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px;margin:40px 0 12px;color:var(--ink)}
+.article-wrap p{font-size:17px;color:var(--muted);line-height:1.82;margin-bottom:24px;font-weight:300}
+.article-wrap strong{color:var(--ink);font-weight:500}
+
+/* PULL QUOTE */
+.pull-quote{border-left:3px solid var(--accent);padding:20px 24px;background:rgba(188,81,19,0.05);border-radius:0 6px 6px 0;font-size:19px;color:var(--accent);font-style:italic;line-height:1.55;margin:40px 0;font-family:'DM Serif Display',serif;letter-spacing:-.3px}
+
+/* STAT PAIR */
+.stat-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:40px 0}
+.stat-card{border:1px solid var(--border);border-radius:4px;padding:24px;text-align:center}
+.stat-card.bad{border-color:rgba(163,45,45,0.2);background:rgba(163,45,45,0.04)}
+.stat-card.good{border-color:rgba(26,120,74,0.2);background:rgba(26,120,74,0.04)}
+.stat-num{font-family:'DM Serif Display',serif;font-size:44px;letter-spacing:-2px;line-height:1;margin-bottom:8px}
+.stat-card.bad .stat-num{color:var(--red)}
+.stat-card.good .stat-num{color:var(--green)}
+.stat-label{font-size:13px;color:var(--muted);line-height:1.45}
+
+/* FAILURE BOXES */
+.failure-group{display:flex;flex-direction:column;gap:16px;margin:40px 0}
+.failure-box{border:1px solid rgba(163,45,45,0.2);background:rgba(163,45,45,0.03);border-radius:6px;padding:24px}
+.failure-box-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.failure-box h4{font-family:'DM Serif Display',serif;font-size:20px;letter-spacing:-.3px;margin-bottom:10px;color:var(--ink)}
+.failure-box p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+.failure-danger{margin-top:12px;padding:12px 16px;background:rgba(163,45,45,0.06);border-radius:4px;font-size:13px;color:var(--red);line-height:1.55}
+
+/* DATA TABLES */
+.dt-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.table-scroll{overflow-x:auto;margin:32px 0}
+.data-table{border:1px solid var(--border);border-radius:6px;overflow:hidden;min-width:480px}
+.dt-head,.dt-row{display:flex;border-bottom:1px solid var(--border)}
+.dt-row:last-child{border-bottom:none}
+.dt-head{background:var(--ink)}
+.dt-head .dt-cell{color:rgba(255,255,255,0.75);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.04em;border-right-color:rgba(255,255,255,0.08)}
+.dt-cell{flex:1;padding:11px 14px;font-size:13px;color:var(--muted);border-right:1px solid var(--border)}
+.dt-cell:last-child{border-right:none}
+.dt-cell.wide{flex:2}
+.dt-cell.label{font-weight:500;color:var(--ink)}
+.dt-row.alt{background:rgba(245,242,236,0.4)}
+.dt-row.sep{border-top:2px solid rgba(188,81,19,0.15);background:rgba(188,81,19,0.02)}
+.dt-ok{color:var(--green)!important}
+.dt-bad{color:var(--red)!important}
+.dt-imp{color:var(--accent)!important;font-weight:700!important}
+.dt-good{color:var(--green)!important;font-weight:600!important}
+.dt-warn{color:var(--amber)!important}
+
+/* DIMENSION STEP LIST */
+.step-list{display:flex;flex-direction:column;gap:0;margin:40px 0}
+.step-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
+.step-item:last-child{border:none}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-content h4{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.step-content p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+.step-score{display:inline-block;margin-top:8px;font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);padding:3px 8px;border:1px solid rgba(188,81,19,0.25);border-radius:2px;background:rgba(188,81,19,0.04)}
+
+/* ACTION LOG */
+.action-log{background:var(--ink);border-radius:6px;padding:24px;margin:32px 0}
+.action-log-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent2);text-transform:uppercase;margin-bottom:16px}
+.action-step{display:flex;align-items:flex-start;gap:12px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.action-step:last-child{border:none}
+.action-step-num{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.25);flex-shrink:0;min-width:52px;padding-top:1px}
+.action-step-text{font-family:'Space Mono',monospace;font-size:12px;color:rgba(255,255,255,0.7);flex:1;line-height:1.5}
+.action-badge{font-size:9px;letter-spacing:.06em;padding:2px 7px;border-radius:2px;flex-shrink:0;font-weight:700;text-transform:uppercase;white-space:nowrap;font-family:'Space Mono',monospace}
+.badge-ok{background:rgba(26,120,74,0.2);color:#4ade80;border:1px solid rgba(26,120,74,0.3)}
+.badge-bad{background:rgba(163,45,45,0.25);color:#f87171;border:1px solid rgba(163,45,45,0.4)}
+.action-insight{margin-top:14px;padding:12px 14px;background:rgba(188,81,19,0.12);border:1px solid rgba(188,81,19,0.25);border-radius:4px;font-size:13px;color:var(--accent2);line-height:1.6;font-family:'DM Sans',sans-serif}
+
+/* FINDINGS BOX */
+.findings-box{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.findings-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:18px}
+.finding-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.finding-row:last-child{border:none}
+.finding-row.sep{border-top:2px solid rgba(188,81,19,0.15);margin-top:6px;padding-top:14px}
+.finding-label{font-size:15px;color:var(--muted);font-weight:300}
+.finding-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;text-align:right}
+.finding-val.high{color:var(--red)}
+.finding-val.low{color:var(--green)}
+.finding-val.accent{color:var(--accent)}
+.finding-val.neutral{color:var(--muted)}
+
+/* CODE BLOCK */
+.code-block{background:var(--ink);border-radius:6px;padding:24px;margin:32px 0;overflow-x:auto}
+.code-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;margin-bottom:12px}
+.code-block pre{font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.8;white-space:pre}
+.code-block .val{color:var(--accent2)}
+.code-block .label-k{color:rgba(255,255,255,0.4)}
+
+/* KEY TAKEAWAY */
+.key-takeaway{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.key-takeaway-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+.key-takeaway-list{display:flex;flex-direction:column;gap:10px}
+.key-takeaway-item{display:flex;gap:10px;font-size:15px;color:var(--muted);line-height:1.6;align-items:flex-start}
+.key-takeaway-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+
+/* CTA + AUTHOR */
+.article-cta-banner{background:var(--ink);border-radius:6px;padding:48px 40px;margin:60px 0 40px;text-align:center}
+.article-cta-banner h3{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:-1px;color:var(--white);margin-bottom:12px}
+.article-cta-banner h3 em{color:var(--accent2)}
+.article-cta-banner p{font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 24px;font-weight:300}
+.article-cta-btn{background:var(--accent);color:var(--white);padding:13px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.article-cta-btn:hover{background:var(--accent2)}
+.author-card{display:flex;gap:20px;align-items:center;padding:28px 0;border-top:1px solid var(--border);margin-top:40px}
+.author-avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:24px;color:var(--white);flex-shrink:0}
+.author-name{font-size:16px;font-weight:600;margin-bottom:2px}
+.author-role{font-size:13px;color:var(--muted)}
+
+/* RELATED */
+.related{padding:0 60px 80px}
+.related-title{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-.5px;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .2s}
+.related-card:hover{transform:translateY(-3px)}
+.related-card-img{height:140px;background-size:cover;background-position:center}
+.related-card-body{padding:16px}
+.related-card-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.related-card-title{font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:-.3px;line-height:1.2}
+
+/* FOOTER */
+footer{background:var(--accent);color:var(--paper);padding:60px 60px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-wm{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white)}
+.footer-wm em{color:var(--accent2)}
+.footer-brand p{font-size:13px;color:rgba(245,242,236,0.6);line-height:1.6;margin-top:10px;max-width:260px}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:11px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(245,242,236,0.3)}
+
+/* MOBILE */
+@media(max-width:768px){nav{padding:14px 24px}.article-hero{padding:0 24px 60px;min-height:55vh}.article-layout{grid-template-columns:1fr;padding:48px 20px 40px;gap:40px}.article-sidebar{position:relative;top:0}.sidebar-img{height:280px}.stat-pair,.related-grid{grid-template-columns:1fr}.related{padding:0 20px 60px}footer{padding:40px 24px 24px}.footer-grid{grid-template-columns:1fr}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
+@media(max-width:768px){.menu-toggle{display:flex}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}.nav-links.active{display:flex}.nav-cta{margin-top:8px;text-align:center;display:block}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance &amp; BFSI</a>
+        <a href="/industries/automotive">Automotive &amp; AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="/company/about">About Us</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="/contact">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/resources">Resources</a>
+      <div class="nav-dropdown">
+        <a href="/resources">Blogs</a>
+        <a href="/resources/case-studies">Case Studies</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="/contact" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-grain"></div>
+  <div class="article-hero-inner">
+    <a href="/resources/case-studies" class="article-hero-back">← All case studies</a>
+    <div class="article-hero-tags">
+      <span class="article-hero-tag">RLHF</span>
+      <span class="article-hero-tag">Agentic AI</span>
+      <span class="article-hero-tag">Reasoning Verification</span>
+      <span class="article-hero-tag">LLM Evaluation</span>
+      <span class="article-hero-tag">AI Agents</span>
+    </div>
+    <h1>RLHF for agentic workflows: multi-step logic verification in <em>autonomous web browsing agents</em></h1>
+    <div class="article-meta">
+      <span>Concave AI Team</span>
+      <span class="article-meta-dot"></span>
+      <span>15 min read</span>
+      <span class="article-meta-dot"></span>
+      <span>Methodology Demonstration · Agentic AI</span>
+    </div>
+  </div>
+</section>
+
+<div class="article-layout">
+<article class="article-wrap">
+
+  <p>Standard RLHF evaluates the final output. Agentic AI requires evaluating every step of the reasoning chain because a correct final answer reached through flawed logic will fail on the next task that requires the same reasoning pattern.</p>
+
+  <p>Here is how we grade AI agent action logs step by step, and why this produces fundamentally better training data than thumbs-up/thumbs-down evaluation. Across 50 action logs, we found that <strong>62% were marked "successful" by outcome-based evaluation</strong> but only 22% achieved that success through fully sound reasoning. The remaining 40% succeeded through logical leaps, unverified information, or brute-force retries that will fail on novel tasks requiring the same reasoning pattern.</p>
+
+  <div class="stat-pair">
+    <div class="stat-card bad">
+      <div class="stat-num">62%</div>
+      <div class="stat-label">Action logs marked "successful" by outcome-based evaluation (standard RLHF thumbs-up/thumbs-down)</div>
+    </div>
+    <div class="stat-card good">
+      <div class="stat-num">22%</div>
+      <div class="stat-label">Action logs with fully sound reasoning throughout the only ones that should be used as positive training signal</div>
+    </div>
+  </div>
+
+  <h2>Why standard RLHF <em>breaks for agentic AI</em></h2>
+
+  <p>RLHF was designed for a specific interaction pattern: a user asks a question, the model produces a response, a human evaluator judges whether the response is good. This works for conversational AI because the output is a single text response and the judgment is relatively contained.</p>
+
+  <p>Agentic AI operates differently. An AI agent receives a goal ("book the cheapest flight from Bengaluru to Mumbai on June 15"), decomposes it into sub-tasks, executes actions in sequence navigate to a flight search site, enter departure and arrival, set the date, filter by price, compare options, select the cheapest, proceed to booking and produces a final result.</p>
+
+  <p>The quality of an agentic AI system is not determined by whether the final result is correct. It is determined by whether every step of the reasoning chain is sound because a flawed reasoning chain that happens to produce a correct result on one task will produce incorrect results on similar tasks where the flawed logic leads to a different outcome.</p>
+
+  <div class="pull-quote">Standard RLHF "was the final output good?" cannot evaluate this. An evaluator who gives a thumbs-up on a completed booking has provided zero signal about whether the intermediate steps were logical, or whether they would fail on a different scenario.</div>
+
+  <h2>The three failure modes <em>unique to agentic AI</em></h2>
+
+  <p>Agentic AI introduces three failure modes that do not exist in conversational AI, each requiring a different evaluation methodology.</p>
+
+  <div class="failure-group">
+    <div class="failure-box">
+      <div class="failure-box-tag">Failure Mode 01</div>
+      <h4>The logical leap</h4>
+      <p>The agent skips a necessary verification step because the underlying LLM "knows" the answer from its training data rather than deriving it from the current context. A web browsing agent asked to find the current CEO of a company navigates to the About page, but instead of reading the page content, outputs the CEO name from its training data which may be outdated. The action log shows: navigated to page → output answer. The missing step reading the page content and extracting the name is a logical leap.</p>
+      <div class="failure-danger">The danger: this failure mode is invisible in outcome-based evaluation. The answer is correct (for now), so the thumbs-up evaluator marks it as a success. The agent has learned that skipping the verification step is rewarded because it was.</div>
+    </div>
+    <div class="failure-box">
+      <div class="failure-box-tag">Failure Mode 02</div>
+      <h4>The hallucinated action</h4>
+      <p>The agent claims to have performed an action it did not actually perform. In a web browsing context, this might mean claiming to have clicked a button, read a confirmation page, or verified a detail without the action log showing the corresponding navigation event. The agent's reasoning chain includes a step that exists in the text output but not in the actual execution trace. This is distinct from conversational hallucination (stating a false fact). Agentic hallucination is fabricating an action claiming to have done something that did not happen.</p>
+      <div class="failure-danger">Standard RLHF cannot detect this because it evaluates the text output, not the execution trace. Multi-step evaluation compares the reasoning chain against the actual action log to surface these gaps.</div>
+    </div>
+    <div class="failure-box">
+      <div class="failure-box-tag">Failure Mode 03</div>
+      <h4>The circular reasoning loop</h4>
+      <p>The agent encounters an error, attempts to recover, fails, and repeats the same failing approach multiple times before either succeeding by chance or giving up. The action log shows: try approach A → fail → try approach A again → fail → try approach A again → succeed (or timeout). A competent agent would try approach A → fail → diagnose the failure → try approach B.</p>
+      <div class="failure-danger">Outcome-based evaluation marks the final result (success or timeout) without examining the recovery strategy. An agent that succeeds after five identical retries is rewarded the same as an agent that succeeds after one intelligent pivot.</div>
+    </div>
+  </div>
+
+  <h2>The approach <em>dataset construction</em></h2>
+
+  <p>We constructed a dataset of <strong>50 AI-generated action logs</strong> from an autonomous web browsing agent tasked with realistic information retrieval and task completion goals. The action logs were generated using an open-source web browsing agent framework operating on live websites.</p>
+
+  <div class="dt-label">Task categories - 50 action logs across 5 domains</div>
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Category</div>
+      <div class="dt-cell">Tasks</div>
+      <div class="dt-cell">Avg steps</div>
+      <div class="dt-cell">Complexity</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Information retrieval</div>
+      <div class="dt-cell">15</div>
+      <div class="dt-cell">8</div>
+      <div class="dt-cell">Medium</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Price comparison</div>
+      <div class="dt-cell">10</div>
+      <div class="dt-cell">14</div>
+      <div class="dt-cell dt-warn">High</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Form completion</div>
+      <div class="dt-cell">8</div>
+      <div class="dt-cell">11</div>
+      <div class="dt-cell">Medium</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Multi-site research</div>
+      <div class="dt-cell">10</div>
+      <div class="dt-cell">18</div>
+      <div class="dt-cell dt-bad">Very high</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Booking / transaction</div>
+      <div class="dt-cell">7</div>
+      <div class="dt-cell">16</div>
+      <div class="dt-cell dt-bad">Very high</div>
+    </div>
+  </div>
+  </div>
+
+  <p>Each action log recorded: the goal, every navigation action (URL visited, element clicked, text entered), the agent's internal reasoning at each step (chain-of-thought), the final output, and whether the task was marked as completed or failed by the agent.</p>
+
+  <h2>The evaluation framework <em>grading every step, not just the result</em></h2>
+
+  <p>This is the core methodological contribution. We designed a 5-dimension evaluation framework that annotators applied to every step of every action log not just the final outcome.</p>
+
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Goal decomposition quality</h4>
+        <p>Does the agent correctly break the high-level goal into appropriate sub-tasks? Are the sub-tasks in a logical order? Are any necessary sub-tasks missing? Are there unnecessary sub-tasks that waste actions?</p>
+        <span class="step-score">Score 1–5 per action log · 1 = incoherent · 5 = optimal</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Action justification</h4>
+        <p>For each action the agent takes, is there a clear logical reason for that specific action at that point in the sequence? Does the agent's chain-of-thought reasoning actually justify the action, or is the reasoning post-hoc rationalisation for an action taken based on pattern matching?</p>
+        <span class="step-score">Fully justified · Partially justified · Unjustified - per individual action</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Information verification</h4>
+        <p>When the agent extracts information from a web page, does it actually read and correctly interpret the page content? Or does it substitute information from its training data, ignore contradictory evidence on the page, or misread the page structure? Each extraction step is verified against the actual page content captured as a screenshot at the time of the action.</p>
+        <span class="step-score">Verified · Unverified · Contradicted - per extraction step</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Error recovery quality</h4>
+        <p>When the agent encounters an error (page not found, element not clickable, unexpected content), does it diagnose the error and adjust its approach, or retry the same failing action?</p>
+        <span class="step-score">Intelligent recovery · Brute force · No recovery · N/A</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Logical coherence across the full chain</h4>
+        <p>Does the entire sequence of actions tell a coherent story from goal to completion? Are there logical inconsistencies where the agent's behaviour in step 8 contradicts its reasoning in step 3? Does the agent maintain context across a long action sequence, or does it lose track of what it has already done?</p>
+        <span class="step-score">Score 1–5 per action log · 1 = internally contradictory · 5 = fully coherent</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Annotator selection and calibration</h3>
+
+  <p>Multi-step reasoning evaluation requires a fundamentally different annotator profile than standard RLHF preference annotation. We selected annotators with software engineering background (ability to read action logs and trace execution flows), experience with web technologies, and logical reasoning ability tested via a logic assessment during screening.</p>
+
+  <p>All annotators evaluated the same 5 action logs independently using the 5-dimension framework before live annotation began.</p>
+
+  <div class="code-block">
+    <div class="code-label">Calibration kappa - 5 evaluation dimensions</div>
+    <pre><span class="label-k">Goal decomposition      </span>  <span class="val">0.76</span>
+<span class="label-k">Action justification    </span>  <span class="val">0.71</span>  (lowest - "fully vs. partially justified" is subjective)
+<span class="label-k">Information verification</span>  <span class="val">0.83</span>  (highest - either matches page content or it does not)
+<span class="label-k">Error recovery quality  </span>  <span class="val">0.79</span>
+<span class="label-k">Overall logical coherence</span> <span class="val">0.74</span>
+<span class="label-k">────────────────────────</span>
+<span class="label-k">Mean across dimensions  </span>  <span class="val">0.77</span>  (above 0.70 threshold for production-grade annotation)</pre>
+  </div>
+
+  <h2>The results <em>what the evaluation found</em></h2>
+
+  <div class="findings-box">
+    <div class="findings-title">Findings across 50 action logs</div>
+    <div class="finding-row">
+      <div class="finding-label">Logical leaps detected</div>
+      <div class="finding-val high">34 logs · 68%</div>
+    </div>
+    <div class="finding-row">
+      <div class="finding-label">Information verification failures</div>
+      <div class="finding-val high">27 logs · 54%</div>
+    </div>
+    <div class="finding-row">
+      <div class="finding-label">Hallucinated actions detected</div>
+      <div class="finding-val high">12 logs · 24%</div>
+    </div>
+    <div class="finding-row">
+      <div class="finding-label">Circular reasoning loops</div>
+      <div class="finding-val accent">8 logs · 16%</div>
+    </div>
+    <div class="finding-row">
+      <div class="finding-label">Correct result via flawed reasoning</div>
+      <div class="finding-val high">19 logs · 38%</div>
+    </div>
+    <div class="finding-row">
+      <div class="finding-label">Fully coherent reasoning chain</div>
+      <div class="finding-val low">11 logs · 22%</div>
+    </div>
+    <div class="finding-row sep">
+      <div class="finding-label">Tasks that outcome-eval marked "success"</div>
+      <div class="finding-val neutral">31 logs · 62%</div>
+    </div>
+    <div class="finding-row">
+      <div class="finding-label">Tasks with sound reasoning throughout</div>
+      <div class="finding-val low">11 logs · 22%</div>
+    </div>
+  </div>
+
+  <p>The most important finding: 31 of 50 action logs were marked "successful" by outcome-based evaluation. But only 11 of those 31 achieved success through fully sound reasoning. <strong>Standard RLHF would have marked all 31 as positive training signal.</strong> Multi-step evaluation identifies only 11 as genuinely positive signal and flags the other 20 for specific reasoning corrections.</p>
+
+  <h3>Detailed breakdown logical leaps</h3>
+
+  <p>Logical leaps were the most common failure mode, appearing in 68% of action logs. The agent is asked to find the current price of a specific laptop on an e-commerce site.</p>
+
+  <div class="action-log">
+    <div class="action-log-label">Example laptop price retrieval · logical leap detected at Step 4</div>
+    <div class="action-step">
+      <div class="action-step-num">Step 1</div>
+      <div class="action-step-text">Navigate to e-commerce site homepage</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 2</div>
+      <div class="action-step-text">Search for laptop model name</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 3</div>
+      <div class="action-step-text">Click on first search result</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 4</div>
+      <div class="action-step-text">Output: "The price is ₹89,999" [no page-reading or price extraction action in log]</div>
+      <div class="action-badge badge-bad">Logical leap</div>
+    </div>
+    <div class="action-insight">Annotator assessment: "Step 4 is a logical leap. The agent did not extract the price from the page content it outputted a price that may be from training data. This step should include: read price element from product page → verify currency → output verified price." <br><br>Corrective training signal: The annotator rewrote the reasoning chain for Step 4 to include the missing verification step. Multiplied across hundreds of similar examples, this trains the agent to always verify against the current page rather than substituting from memory.</div>
+  </div>
+
+  <h3>Detailed breakdown hallucinated actions</h3>
+
+  <p>Hallucinated actions appeared in 24% of logs the agent claimed to have performed an action that the execution trace does not support. The agent is asked to compare prices across three different websites.</p>
+
+  <div class="action-log">
+    <div class="action-log-label">Example for price comparison · hallucinated action at Step 6</div>
+    <div class="action-step">
+      <div class="action-step-num">Step 5</div>
+      <div class="action-step-text">Navigate to Website B</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 6</div>
+      <div class="action-step-text">"I can see the price is ₹92,500 on Website B" [execution trace: landed on homepage, no product search, no product page visited]</div>
+      <div class="action-badge badge-bad">Hallucinated</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 7</div>
+      <div class="action-step-text">Navigate to Website C</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-insight">Annotator assessment: "Step 6 is a hallucinated action. The execution trace shows the agent landed on Website B's homepage and immediately moved to Step 7 without searching for the product. The price ₹92,500 was generated, not extracted. The correct sequence: search for product on Website B → navigate to product page → extract price → verify price is visible on page → report verified price."</div>
+  </div>
+
+  <h3>Detailed breakdown correct result, flawed reasoning</h3>
+
+  <p>This is the finding that demonstrates why outcome-based evaluation is insufficient for agentic AI. 38% of action logs that produced a correct final result did so through flawed reasoning. In every case, standard RLHF would have marked the log as a positive training example reinforcing the flawed reasoning pattern.</p>
+
+  <div class="action-log">
+    <div class="action-log-label">Example - contact email lookup · correct result via logical leap</div>
+    <div class="action-step">
+      <div class="action-step-num">Step 1</div>
+      <div class="action-step-text">Navigate to company website</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 2</div>
+      <div class="action-step-text">Click "Contact Us" link</div>
+      <div class="action-badge badge-ok">Justified</div>
+    </div>
+    <div class="action-step">
+      <div class="action-step-num">Step 3</div>
+      <div class="action-step-text">Output: "The customer service email is support@company.com" [Contact Us page loaded but not read email from training data, happens to be current]</div>
+      <div class="action-badge badge-bad">Logical leap</div>
+    </div>
+    <div class="action-insight">Annotator flagged: "Correct result, flawed reasoning. Must not be used as positive RLHF signal without correction. The corrected version must include a page-reading step between navigation and output. On a different company whose contact email has changed, the same reasoning pattern would produce an incorrect result."</div>
+  </div>
+
+  <h2>The training signal comparison</h2>
+
+  <div class="dt-label">What each evaluation method produces from 50 action logs</div>
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Evaluation method</div>
+      <div class="dt-cell">Positive signal</div>
+      <div class="dt-cell">Negative signal</div>
+      <div class="dt-cell">Corrected chains</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Outcome-based RLHF (thumbs up/down)</div>
+      <div class="dt-cell dt-bad">31</div>
+      <div class="dt-cell">19</div>
+      <div class="dt-cell dt-bad">0</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Multi-step evaluation (our method)</div>
+      <div class="dt-cell dt-ok">11 (truly sound)</div>
+      <div class="dt-cell">19 (failed)</div>
+      <div class="dt-cell dt-imp">20 (fixed logic)</div>
+    </div>
+  </div>
+  </div>
+
+  <p>The multi-step evaluation produces 20 corrected training examples that outcome-based evaluation would have treated as positive signal without correction. These 20 corrections showing the flawed reasoning chain alongside the corrected version are the highest-value training data for improving an agent's reasoning capabilities. The model learns not just what the right answer is, but what the right reasoning process looks like.</p>
+
+  <h2>Time and cost analysis</h2>
+
+  <div class="table-scroll">
+  <div class="data-table">
+    <div class="dt-head">
+      <div class="dt-cell wide">Metric</div>
+      <div class="dt-cell">Outcome-based RLHF</div>
+      <div class="dt-cell">Multi-step evaluation</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Time per action log</div>
+      <div class="dt-cell dt-ok">3–5 minutes</div>
+      <div class="dt-cell">25–40 minutes</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Evaluator skill required</div>
+      <div class="dt-cell">General</div>
+      <div class="dt-cell">Software engineering</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Cost per evaluation</div>
+      <div class="dt-cell dt-ok">₹80–150</div>
+      <div class="dt-cell">₹400–800</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Quality of training signal</div>
+      <div class="dt-cell dt-bad">Binary (good/bad)</div>
+      <div class="dt-cell dt-ok">5-dimensional + corrected chains</div>
+    </div>
+    <div class="dt-row alt">
+      <div class="dt-cell wide label">Logical leaps detected</div>
+      <div class="dt-cell dt-bad">0</div>
+      <div class="dt-cell dt-ok">34 of 50</div>
+    </div>
+    <div class="dt-row">
+      <div class="dt-cell wide label">Hallucinated actions detected</div>
+      <div class="dt-cell dt-bad">0</div>
+      <div class="dt-cell dt-ok">12 of 50</div>
+    </div>
+    <div class="dt-row sep">
+      <div class="dt-cell wide label">Model reasoning improvement after retraining</div>
+      <div class="dt-cell dt-bad">Marginal</div>
+      <div class="dt-cell dt-ok">Substantial</div>
+    </div>
+  </div>
+  </div>
+
+  <div class="pull-quote">Multi-step evaluation costs 4–5× more per action log than outcome-based RLHF. But it produces training data that is categorically different not just "this action sequence was good/bad" but "here is exactly where the reasoning broke down, here is why, and here is what the correct reasoning chain should have been."</div>
+
+  <div class="key-takeaway">
+    <div class="key-takeaway-title">Key learnings</div>
+    <div class="key-takeaway-list">
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Outcome-based RLHF is actively harmful for agentic AI training.</strong> 38% of "successful" action logs contained flawed reasoning that standard RLHF would have reinforced. Training on this signal produces agents that are unreliable on novel tasks they have learned specific shortcuts rather than general reasoning patterns.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Logical leaps are the most common and most dangerous failure mode.</strong> 68% of action logs contained at least one logical leap a step where the agent substituted training data for current context. This failure mode is invisible in outcome evaluation because the substituted information is often correct. It becomes visible only when the reasoning chain is evaluated step by step.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Hallucinated actions are the agentic equivalent of hallucinated facts.</strong> 24% of logs contained actions the agent claimed to have performed but did not actually execute. This failure category only exists in agentic AI and requires execution trace verification that standard RLHF annotation does not include.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The corrected reasoning chain is the highest-value training data.</strong> The 20 action logs with correct results but flawed reasoning annotated with specific corrections to each flawed step produce training signal that teaches the model what good reasoning looks like, not just what good outcomes look like.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Annotator selection for agentic evaluation is fundamentally different.</strong> Evaluating multi-step reasoning chains requires software engineering literacy, logical reasoning ability, and experience tracing execution flows. Standard RLHF annotators even excellent ones cannot reliably evaluate agentic action logs without task-specific training.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>This is the highest-value annotation service in the current market.</strong> Agentic AI is the fastest-growing segment, the evaluation methodology is complex, the pool of qualified annotators is small, and the impact on model quality is substantial. Multi-step reasoning evaluation commands 4–5× the price of standard RLHF annotation and delivers proportionally more value.</span></div>
+    </div>
+  </div>
+
+  <div class="article-cta-banner">
+    <h3>Building an agentic AI system and need <em>reasoning-quality evaluation?</em></h3>
+    <p>We specialise in multi-step logic verification, action log auditing, and RLHF preference data for agentic workflows. Free audit 10 action logs evaluated, findings in 5 working days.</p>
+    <a href="/contact" class="article-cta-btn">Request Free Audit →</a>
+  </div>
+
+  <div class="author-card">
+    <div class="author-avatar">A</div>
+    <div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
+    </div>
+  </div>
+
+</article>
+<aside class="article-sidebar">
+  <div class="sidebar-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=85')"></div>
+  <div class="sidebar-fact">
+    <div class="sidebar-fact-num">38%</div>
+    <div class="sidebar-fact-label">Of "successful" action logs contain flawed reasoning invisible to outcome-based evaluation, reinforced as positive training signal by standard RLHF</div>
+  </div>
+  <div class="sidebar-caption">From 50-action-log study across 5 agentic task categories. Mean calibration kappa: 0.77 across 5 evaluation dimensions.</div>
+</aside>
+</div>
+
+<section class="related">
+  <div class="related-title">Related reading</div>
+  <div class="related-grid">
+    <a class="related-card" href="/resources/case-studies/computer-vision-av">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">Computer Vision · Automotive</div>
+        <div class="related-card-title">Beyond the Box: Precision Annotation for 80% Occluded Objects</div>
+      </div>
+    </a>
+    <a class="related-card" href="/resources/sycophancy-rlhf">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">RLHF · Data Quality</div>
+        <div class="related-card-title">Why 38% of RLHF preference data trains your model to lie</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p> Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p></div>
+    <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="/services/rlhf">RLHF Preference Data</a><a href="/services/nlp">NLP Annotation</a><a href="/services/image">Image Annotation</a><a href="/services/sycophancy">Sycophancy Audits</a><a href="/services/hallucination">Hallucination Detection</a></div></div>
+    <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="/industries/legal">Legal</a><a href="/industries/finance">Finance</a><a href="/industries/automotive">Automotive &amp; AV</a><a href="/industries/agriculture">Agriculture</a><a href="/industries/genai">Enterprise GenAI</a></div></div>
+    <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/company/about">About</a><a href="/company/quality">Quality</a><a href="/resources">Blogs</a><a href="/resources/case-studies">Case Studies</a><a href="/contact">Contact</a></div></div>
+  </div>
+  <div class="footer-bottom"><div class="footer-copy">© 2026 Concave AI. Bengaluru, India.</div></div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').style.boxShadow=window.scrollY>20?'0 1px 28px rgba(0,0,0,.08)':'none';});
+document.getElementById('menuToggle').addEventListener('click',()=>{document.querySelector('.nav-links').classList.toggle('active');});
+</script>
+</body>
+</html>

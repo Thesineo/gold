@@ -1,0 +1,916 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continuous Model Quality Retainer | Concave AI</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<!-- Favicon for Google Search and Browser Tabs -->
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="shortcut icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#763e1b;--border:rgba(10,10,10,0.12);--white:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+
+.breadcrumb{padding:100px 60px 0;display:flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--accent)}
+.breadcrumb span{opacity:0.4}
+
+.hero{padding:40px 60px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;overflow:hidden;}
+/* Retainer monitoring demo */
+.ret-demo{background:#0d0f0e;border-radius:6px;overflow:hidden;margin:60px 60px 0;font-family:'Space Mono',monospace}
+.ret-demo-bar{background:#161a18;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.ret-demo-bar span{font-size:11px;color:#55efc4;letter-spacing:0.1em}
+.ret-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06)}
+.ret-metric-card{background:#0d0f0e;padding:24px;display:flex;flex-direction:column;gap:8px}
+.ret-metric-label{font-size:10px;color:#4a7a5a;letter-spacing:0.1em;text-transform:uppercase}
+.ret-metric-val{font-family:'DM Serif Display',serif;font-size:32px;letter-spacing:-1px;line-height:1}
+.ret-metric-val.good{color:#55efc4} .ret-metric-val.warn{color:#fdcb6e} .ret-metric-val.bad{color:#ff6b6b} .ret-metric-val.neutral{color:#a8d0b8}
+.ret-metric-delta{font-size:10px;color:#4a7a5a}
+.ret-metric-delta.up{color:#55efc4} .ret-metric-delta.down{color:#ff6b6b}
+.ret-chart-area{padding:24px;display:grid;grid-template-columns:1fr 280px;gap:24px}
+.ret-chart{display:flex;flex-direction:column;gap:12px}
+.ret-chart-title{font-size:10px;color:#55efc4;letter-spacing:0.1em;margin-bottom:4px}
+.ret-week-row{display:flex;align-items:center;gap:10px}
+.ret-week-label{font-size:10px;color:#4a7a5a;width:48px;flex-shrink:0}
+.ret-bar-bg{flex:1;height:8px;background:#ffffff0a;border-radius:2px;overflow:hidden}
+.ret-bar-fill{height:100%;border-radius:2px;transition:width 0.3s}
+.ret-bar-fill.good{background:#55efc4}
+.ret-bar-fill.med{background:#fdcb6e}
+.ret-bar-fill.low{background:#ff6b6b}
+.ret-bar-val{font-size:10px;color:#a8d0b8;width:36px;text-align:right;flex-shrink:0}
+.ret-alerts{background:#161a18;border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ret-alerts-title{font-size:10px;color:#55efc4;letter-spacing:0.1em;margin-bottom:6px}
+.ret-alert-item{display:flex;align-items:flex-start;gap:8px;font-size:11px}
+.ret-alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.ret-alert-dot.critical{background:#ff6b6b} .ret-alert-dot.warn{background:#fdcb6e} .ret-alert-dot.ok{background:#55efc4}
+.ret-alert-text{color:#a8d0b8;line-height:1.5}
+.ret-demo-footer{background:#161a18;padding:12px 24px;display:flex;gap:32px;border-top:1px solid rgba(255,255,255,0.06)}
+.ret-demo-footer .retdf-stat{font-size:11px;color:#55efc4} .retdf-val{color:#a8d0b8;margin-left:4px}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(40px,4.5vw,62px);line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-size:17px;color:var(--muted);line-height:1.65;max-width:500px;margin-bottom:40px;font-weight:300}
+.hero-actions{display:flex;gap:16px;align-items:center}
+.btn-primary{background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:background 0.2s}
+.btn-primary:hover{background:var(--accent)}
+.btn-secondary{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.2s}
+.btn-secondary:hover{color:var(--ink)}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-card{background:transparent;padding:28px;border-bottom:1px solid var(--border)}
+.stat-num{font-family:'DM Serif Display',serif;font-size:38px;letter-spacing:-2px;color:var(--ink);line-height:1}
+.stat-label{font-family:'DM Serif Display',serif;font-size:12px;color:var(--muted);margin-top:6px;font-weight:400;line-height:1.4}
+
+.section{padding:100px 60px}
+.section.dark{background:var(--ink);color:var(--paper)}
+.section.alt{background:var(--paper)}
+.sec-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;display:block}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,3.5vw,46px);letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
+.sec-title em{font-style:italic;color:var(--accent)}
+.sec-desc{font-size:16px;color:var(--muted);max-width:600px;font-weight:300;line-height:1.65}
+.section.dark .sec-desc{color:rgba(245,242,236,0.65)}
+
+/* WHAT IS SECTION */
+.overview-grid{background:var(--paper); display:grid;grid-template-columns:1fr 1fr;gap:80px;margin-top:60px;align-items:start}
+.overview-text p{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:20px;font-weight:300}
+.overview-text p strong{color:var(--ink);font-weight:600}
+
+/* PROBLEM-x{background:var(--ink);color:var(--accent);padding:36px;border-radius:4px;margin-bottom:24px}
+.problem-boSOLUTION */
+.problem-box h4{font-family:'DM Serif Display',serif;font-size:18px;color:var(--paper);margin-bottom:12px}
+.problem-box p{font-size:14px;color:var(--accent2);line-height:1.6}
+.solution-box{background:var(--ink);color:var(--white);padding:36px;border-radius:4px}
+.solution-box h4{font-family:'DM Serif Display',serif;font-size:18px;color:var(--paper);margin-bottom:12px}
+.solution-box p{font-size:14px;color:var(--accent2);line-height:1.6}
+
+/* DELIVERABLES */
+.deliverables-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.deliv-card{background:var(--paper)}
+.deliv-card:hover{background:var(--ink)}
+.deliv-card:hover .deliv-title{color:var(--paper)}
+.deliv-card:hover .deliv-body{color:rgba(245,242,236,0.6)}
+.deliv-icon{font-size:28px;margin-bottom:16px;display:block}
+.deliv-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:10px;color:var(--ink)}
+.deliv-body{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* SLA TABLE */
+.sla-table{width:100%;border-collapse:collapse;margin-top:60px;color: var(--ink);}
+.sla-table th{font-family:'Space Mono',monospace;font: size 14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);padding:12px 20px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sla-table td{padding:16px 20px;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.06);vertical-align:top; color:var(--ink) }
+.sla-table tr:last-child td{border-bottom:none}
+.sla-table tr:hover td{background:rgba(255,255,255,0.03)}
+.sla-tier{font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink)}
+.sla-badge{display:inline-block;font-family:'Space Mono',monospace;font-size:11px;padding:3px 8px;border-radius:2px;letter-spacing:0.08em}
+.sla-badge.starter{background:#cbb706dc;color:#111111}
+.sla-badge.growth{background:#df5606d2;color:#0b0b0b}
+.sla-badge.enterprise{background:#24e103f4;color:#080808}
+.sla-detail{font-size:13px;color:var(--ink);line-height:1.5;margin-top:4px}
+
+/* TIMELINE */
+.timeline{margin-top:60px;display:flex;flex-direction:column;gap:0}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:32px;padding:32px 0;border-bottom:1px solid var(--border);align-items:start}
+.timeline-item:last-child{border-bottom:none}
+.timeline-period{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:0.08em;text-transform:uppercase;padding-top:4px}
+.timeline-content h4{font-family:'DM Serif Display',serif;font-size:18px;color:var(--accent2);margin-bottom:8px}
+.timeline-content p{font-size:14px;color:var(--accent2);line-height:1.6}
+.timeline-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.timeline-tag{font-family:'Space Mono',monospace;font-size:10px;padding:3px 8px;border:1px solid var(--border);border-radius:2px;color:var(--accent2)}
+
+/* DASHBOARD VISUAL */
+.dashboard{background:var(--ink);border-radius:6px;padding:32px;margin-top:60px}
+.dashboard-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.dashboard-title{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.1em;color:rgba(245,242,236,0.4);text-transform:uppercase}
+.dashboard-live{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;color:#5ecba1}
+.dashboard-live::before{content:'';width:6px;height:6px;border-radius:50%;background:#5ecba1;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.dashboard-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.dash-metric{background:rgba(255,255,255,0.04);padding:20px;border-radius:4px}
+.dash-metric-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--accent2);letter-spacing:-1px;line-height:1}
+.dash-metric-label{font-size:11px;color:rgba(245,242,236,0.4);margin-top:4px;font-family:'Space Mono',monospace;letter-spacing:0.05em}
+.dash-metric-delta{font-size:11px;margin-top:6px}
+.dash-metric-delta.up{color:#5ecba1}
+.dash-metric-delta.down{color:#e8a070}
+.drift-row{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,0.03);border-radius:3px;margin-bottom:6px}
+.drift-category{font-size:12px;color:rgba(245,242,236,0.7);flex:1}
+.drift-bar-wrap{width:120px;background:rgba(255,255,255,0.08);height:4px;border-radius:2px;overflow:hidden}
+.drift-fill{height:100%;border-radius:2px}
+.drift-fill.safe{background:#5ecba1}
+.drift-fill.warn{background:var(--accent2)}
+.drift-fill.alert{background:#e8a070}
+.drift-pct{font-family:'Space Mono',monospace;font-size:10px;color:rgba(245,242,236,0.5);width:36px;text-align:right}
+
+/* FAQ */
+.faq-list{margin-top:60px;display:flex;flex-direction:column;gap:0}
+.faq-item{padding:28px 0;border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:12px;color:var(--ink)}
+.faq-a{font-size:14px;color:var(--muted);line-height:1.65}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.price-card{border:1px solid var(--border);padding:40px;border-radius:4px;position:relative;transition:background 0.2s}
+.price-card:hover{background:var(--ink)}
+.price-card:hover .price-name,.price-card:hover .price-amount{color:var(--paper)}
+.price-card:hover .price-desc,.price-card:hover .price-feature{color:rgba(245,242,236,0.6)}
+.price-card.featured{border-color:var(--accent);background:var(--ink)}
+.price-card.featured .price-name,.price-card.featured .price-amount{color:var(--paper)}
+.price-card.featured .price-desc,.price-card.featured .price-feature{color:rgba(245,242,236,0.6)}
+.price-badge{position:absolute;top:-12px;left:24px;background:var(--accent);color:var(--white);font-family:'Space Mono',monospace;font-size:10px;padding:4px 12px;border-radius:2px;font-weight:700;letter-spacing:0.05em}
+.price-name{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px;color:var(--ink)}
+.price-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5}
+.price-amount{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.price-unit{font-size:12px;color:rgba(10,10,10,0.4);margin-bottom:24px}
+.price-card.featured .price-unit{color:rgba(245,242,236,0.4)}
+.price-features{display:flex;flex-direction:column;gap:10px}
+.price-feature{font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:flex-start;line-height:1.4}
+.price-feature::before{content:'✓';color:var(--accent2);flex-shrink:0;font-size:12px;margin-top:1px}
+
+/* RELATED */
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.related-card{padding:28px;text-decoration:none;display:block;transition:background 0.2s}
+.related-card:hover {background:var(--ink)}
+.related-card:hover .related-desc{color:var(--accent2)}
+.related-card:hover .related-name{color:var(--paper)}
+.related-icon{font-size:24px;margin-bottom:12px;display:block}
+.related-name{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:6px;color:var(--ink);transition:color 0.2s}
+.related-desc{font-size:13px;color:var(--muted);line-height:1.5;transition:color 0.2s}
+
+/* FOOTER */
+.footer-brand .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:16px}
+.footer-brand .nav-logo svg{width:30px;height:30px;flex-shrink:0}
+.footer-brand .logo-text{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white);font-weight:normal}
+.footer-brand .orange-ai{color:var(--accent2)}
+footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:14px;letter-spacing:0.15em;color:var(--white);text-transform:uppercase;margin-bottom:20px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(245,242,236,0.7);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:32px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:13px;color:rgba(245,242,236,0.35)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:5px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:var(--paper)}
+
+@media(max-width:1100px){
+  .hero{grid-template-columns:1fr;padding:40px 40px 80px}
+  .overview-grid{grid-template-columns:1fr}
+  .deliverables-grid{grid-template-columns:1fr 1fr}
+  .dashboard-metrics{grid-template-columns:1fr 1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .related-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .sla-table{font-size:13px}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .breadcrumb,.hero,.section{padding-left:24px;padding-right:24px}
+  .deliverables-grid,.related-grid,.pricing-grid{grid-template-columns:1fr}
+  .dashboard-metrics{grid-template-columns:1fr 1fr}
+  .timeline-item{grid-template-columns:1fr;gap:8px}
+}
+
+/* ── SHARED VISUAL SECTIONS ─────────────────────────────────────────────── */
+.vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;overflow:hidden}
+.vis-split-img{position:relative;overflow:hidden}
+.vis-split-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(1.08) contrast(1.02) saturate(1.05)}
+.vis-split-body{background:var(--paper);color:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:72px 56px;border-left:1px solid var(--border)}
+.vis-split-body .sec-eyebrow{color:var(--accent)}
+.vis-split-body .sec-title{color:var(--ink)}
+.vis-split-body .sec-title em{color:var(--accent);font-style:italic}
+.vis-split-body .sec-desc{color:var(--muted);margin-top:16px}
+.vis-split-body .btn-cta{display:inline-block;background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;margin-top:28px;transition:background 0.2s}
+.vis-split-body .btn-cta:hover{background:var(--accent)}
+@media(max-width:768px){
+  .vis-split{grid-template-columns:1fr}
+  .vis-split-img{height:260px}
+  .vis-split-body{padding:44px 24px;border-left:none;border-top:1px solid var(--border)}
+}
+
+
+/* ── DARK CINEMATIC HERO ────────────────────────────── */
+@keyframes kenBurns{from{transform:scale(1.06)}to{transform:scale(1)}}
+@keyframes scrollDrop2{0%{top:-100%}100%{top:200%}}
+
+.hero h1{color:#fff}
+.hero h1 em{font-style:italic;color:var(--accent2)}
+.hero-sub{color:rgba(255,255,255,0.70)}
+.hero-eyebrow{color:var(--accent2)}
+.hero > *:not(.hero-zoom-bg){position:relative;z-index:1}
+
+.hero-zoom-bg{position:absolute;inset:0;background-size:cover;background-position:center;animation:kenBurns 8s ease forwards;z-index:0}
+.scroll-hint-bar{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.4);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;pointer-events:none}
+.scroll-hint-line{width:1px;height:36px;background:rgba(255,255,255,0.18);position:relative;overflow:hidden}
+.scroll-hint-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:40%;background:rgba(255,255,255,0.65);animation:scrollDrop2 1.8s 1.2s ease-in-out infinite}
+
+.svc-hero h1{color:#fff}
+.svc-hero h1 em{font-style:italic;color:var(--accent2)}
+.svc-hero-sub{color:rgba(255,255,255,0.70)}
+.svc-hero-eyebrow{color:var(--accent2)}
+.svc-hero-eyebrow::before{background:var(--accent2)}
+.h-stat-num{color:#fff}
+.h-stat-label{color:rgba(255,255,255,0.52)}
+.h-stat{border-color:rgba(255,255,255,0.12);border-bottom-color:rgba(255,255,255,0.12)}
+.hero-ctas .btn-outline{border-color:rgba(255,255,255,0.28);color:rgba(255,255,255,0.72)}
+.hero-ctas .btn-outline:hover{border-color:#fff;color:#fff}
+
+
+/* ── HAMBURGER MENU ── */
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
+@media(max-width:768px){
+  .menu-toggle{display:flex}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}
+  .nav-links.active{display:flex}
+  .nav-cta{margin-top:8px;text-align:center;display:block}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <!-- Hamburger -->
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance &amp; BFSI</a>
+        <a href="/industries/automotive">Automotive &amp; AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="/company/about">About Us</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="/contact">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/resources">Resources</a>
+      <div class="nav-dropdown">
+        <a href="/resources">Blogs</a>
+        <a href="/resources/case-studies">Case Studies</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="/contact" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/">Home</a><span>›</span>
+  <a href="index.html#services">Services</a><span>›</span>
+  Continuous Model Quality Retainer
+</div>
+
+<section class="hero">
+  <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=85&auto=format&fit=crop')"></div>
+
+  <div>
+    <div class="hero-eyebrow">🔄 Continuous Model Quality Retainer</div>
+    <h1>Your model stays <em>aligned</em> as the world changes</h1>
+    <p class="hero-sub">A standing team of expert annotators permanently assigned to your model evaluating live outputs weekly, detecting drift monthly, and delivering a curated retraining batch before problems become visible to users.</p>
+    <div class="hero-actions">
+      <a href="/contact" class="btn-primary">Get a Retainer Quote →</a>
+      <a href="#deliverables" class="btn-secondary">See what's included ↓</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num">500–2K</div>
+      <div class="stat-label">Live outputs evaluated per week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">48h</div>
+      <div class="stat-label">Priority turnaround on urgent drift alerts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">Monthly</div>
+      <div class="stat-label">Curated retraining batch delivered</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">SLA</div>
+      <div class="stat-label">Contractually backed quality guarantees</div>
+    </div>
+  </div>
+</section>
+
+<!-- Mid-page visual section -->
+<section class="vis-split">
+  <div class="vis-split-img">
+    <img src="https://images.unsplash.com/photo-1686061594225-3e92c0cd51b0?w=800&q=80&auto=format&fit=crop" alt="Model Quality Monitoring Dashboard" loading="lazy" style="filter:brightness(0.62)">
+    <!-- Top KPI metrics row label the live numbers as monitored signals -->
+    <div style="position:absolute;left:0;top:0;right:0;background:linear-gradient(rgba(13,15,14,0.82),transparent);padding:10px 14px 18px;pointer-events:none;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● IAA κ TRACKED</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#fdcb6e;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">⚠ DRIFT SIGNAL DETECTED</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● EVAL VOLUME METRIC</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#ff7675;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● ERROR RATE KPI</div>
+    </div>
+    <!-- Callout pinned over the trend chart area in the middle of the image -->
+    <div style="position:absolute;left:4%;bottom:14%;pointer-events:none">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#55efc4;letter-spacing:0.08em;margin-bottom:4px">▼ QUALITY TREND CHART</div>
+      <div style="width:180px;height:3px;background:linear-gradient(to right,#ff6b6b 0%,#fdcb6e 35%,#55efc4 70%,#55efc4 100%);border-radius:2px"></div>
+      <div style="display:flex;justify-content:space-between;width:180px;margin-top:3px">
+        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#55efc475">Wk 5</span>
+        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#55efc475">Wk 8</span>
+        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#55efc4">Wk 12 ▶</span>
+      </div>
+    </div>
+    <!-- Bottom-right: batch status badge -->
+    <div style="position:absolute;right:4%;bottom:10%;pointer-events:none;text-align:right">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:4px 10px;border-radius:2px;letter-spacing:0.07em;display:inline-block">✓ MONTHLY BATCH DELIVERED · 2,400</div>
+    </div>
+  </div>
+  <div class="vis-split-body">
+    <span class="sec-eyebrow">Continuous Monitoring</span>
+    <h2 class="sec-title" style="margin-top:12px">Weekly signals. Monthly <em>retraining.</em> Zero surprises.</h2>
+    <p class="sec-desc">Your dedicated team evaluates 500–2,000 live outputs every week, tracks quality trends across sprints, and delivers a curated retraining batch before drift becomes visible to your users.</p>
+    <a href="/contact" class="btn-cta">Get a Retainer Quote →</a>
+  </div>
+</section>
+
+<!-- Retainer Monitoring Demo -->
+<section class="section" style="padding-top:20px;padding-bottom:60px">
+  <span class="sec-eyebrow">Live Quality Dashboard</span>
+  <h2 class="sec-title" style="margin-top:12px">Model Quality <em>Monitoring</em> Interface</h2>
+  <p class="sec-desc">Your retainer team surfaces this dashboard every Friday showing inter-annotator agreement, output quality trends, drift signals, and retraining batch status.</p>
+  <div class="ret-demo">
+    <div class="ret-demo-bar">
+      <span>ConcaveLabel Quality Monitor · Model: HealthBot v3.1 · Week 12 of Retainer · Sprint Summary</span>
+    </div>
+    <div class="ret-metrics">
+      <div class="ret-metric-card">
+        <div class="ret-metric-label">Cohen's κ (IAA)</div>
+        <div class="ret-metric-val good">0.87</div>
+        <div class="ret-metric-delta up">↑ +0.03 vs last week</div>
+      </div>
+      <div class="ret-metric-card">
+        <div class="ret-metric-label">Output Quality Score</div>
+        <div class="ret-metric-val good">4.6/5</div>
+        <div class="ret-metric-delta up">↑ +0.2 vs baseline</div>
+      </div>
+      <div class="ret-metric-card">
+        <div class="ret-metric-label">Drift Alert Status</div>
+        <div class="ret-metric-val warn">MEDIUM</div>
+        <div class="ret-metric-delta down">↓ Medical queries drifting</div>
+      </div>
+      <div class="ret-metric-card">
+        <div class="ret-metric-label">Retraining Batch</div>
+        <div class="ret-metric-val neutral">2,400</div>
+        <div class="ret-metric-delta up">✓ Delivered this month</div>
+      </div>
+    </div>
+    <div class="ret-chart-area">
+      <div class="ret-chart">
+        <div class="ret-chart-title">WEEKLY QUALITY SCORE TREND (last 8 weeks)</div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 5</span><div class="ret-bar-bg"><div class="ret-bar-fill low" style="width:52%"></div></div><span class="ret-bar-val">2.6</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 6</span><div class="ret-bar-bg"><div class="ret-bar-fill med" style="width:64%"></div></div><span class="ret-bar-val">3.2</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 7</span><div class="ret-bar-bg"><div class="ret-bar-fill med" style="width:72%"></div></div><span class="ret-bar-val">3.6</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 8</span><div class="ret-bar-bg"><div class="ret-bar-fill med" style="width:76%"></div></div><span class="ret-bar-val">3.8</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 9</span><div class="ret-bar-bg"><div class="ret-bar-fill good" style="width:82%"></div></div><span class="ret-bar-val">4.1</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 10</span><div class="ret-bar-bg"><div class="ret-bar-fill good" style="width:86%"></div></div><span class="ret-bar-val">4.3</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 11</span><div class="ret-bar-bg"><div class="ret-bar-fill good" style="width:88%"></div></div><span class="ret-bar-val">4.4</span></div>
+        <div class="ret-week-row"><span class="ret-week-label">Week 12 ▶</span><div class="ret-bar-bg"><div class="ret-bar-fill good" style="width:92%"></div></div><span class="ret-bar-val">4.6</span></div>
+      </div>
+      <div class="ret-alerts">
+        <div class="ret-alerts-title">THIS WEEK'S ALERTS</div>
+        <div class="ret-alert-item"><div class="ret-alert-dot warn"></div><div class="ret-alert-text">Medical dosage queries: 14% error rate spike vs 6% baseline flag for retraining priority</div></div>
+        <div class="ret-alert-item"><div class="ret-alert-dot ok"></div><div class="ret-alert-text">Appointment booking category: 4.9/5 quality stable, no intervention needed</div></div>
+        <div class="ret-alert-item"><div class="ret-alert-dot ok"></div><div class="ret-alert-text">IAA κ improved to 0.87 following calibration session on Week 11</div></div>
+        <div class="ret-alert-item"><div class="ret-alert-dot ok"></div><div class="ret-alert-text">Monthly retraining batch (2,400 samples) delivered model update scheduled</div></div>
+      </div>
+    </div>
+    <div class="ret-demo-footer">
+      <span class="retdf-stat">Outputs Evaluated:<span class="retdf-val">1,840 / week</span></span>
+      <span class="retdf-stat">Retainer Month:<span class="retdf-val">3 of 12</span></span>
+      <span class="retdf-stat">Team Size:<span class="retdf-val">6 Annotators</span></span>
+      <span class="retdf-stat">Next Report:<span class="retdf-val">Friday · 5 PM IST</span></span>
+    </div>
+  </div>
+
+  <div class="scroll-hint-bar"><span>Scroll</span><div class="scroll-hint-line"></div></div>
+</section>
+
+<section class="section alt" id="overview">
+  <span class="sec-eyebrow">The Problem</span>
+  <h2 class="sec-title">Your model was great at launch.<br>Then user behaviour <em>changed.</em></h2>
+  <div class="overview-grid">
+    <div class="overview-text">
+      <p>Every language model degrades over time. Not because the model changes it doesn't because the <strong>world does</strong>. New slang enters the language. Policy topics evolve. Your users start asking questions your training data never anticipated. Edge cases pile up.</p>
+      <p>Most AI teams catch this late: a spike in negative feedback, a customer complaint that goes viral, a safety incident. By that point, you need a fast retraining scramble under pressure expensive, disruptive, and rushed.</p>
+      <p>The alternative is a <strong>standing quality retainer</strong>: a dedicated team that monitors your live model every week, surfaces drift before it becomes visible, and delivers a clean retraining batch every month so your model improves continuously rather than degrades silently.</p>
+      <p>Think of it as a <strong>quality engineering function embedded in your model pipeline</strong>, without the overhead of hiring, managing, and retaining annotation staff internally.</p>
+    </div>
+    <div>
+      <div class="problem-box">
+        <h4>Without a retainer</h4>
+        <p>Drift discovered via user complaints. Emergency retraining cycle at high cost. No systematic coverage of what went wrong or why. Model quality lurches rather than improves steadily. Safety incidents handled reactively.</p>
+      </div>
+      <div class="solution-box">
+        <h4>With a Concave AI retainer</h4>
+        <p>Drift detected in weekly evaluation. Corrective data already being prepared. Monthly retraining batch delivers targeted improvement. Safety issues surfaced before users see them. Model quality improves quarter-over-quarter, measurably.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="deliverables">
+  <span class="sec-eyebrow">What's Included</span>
+  <h2 class="sec-title">Six deliverables, every <em>month</em></h2>
+  <p class="sec-desc">Every retainer engagement includes a fixed set of deliverables on a weekly and monthly cadence. Nothing is ad hoc you know exactly what you're getting.</p>
+  <div class="deliverables-grid">
+    <div class="deliv-card">
+      <span class="deliv-icon">📊</span>
+      <div class="deliv-title">Weekly Quality Report</div>
+      <div class="deliv-body">Detailed breakdown of 500–2,000 live outputs evaluated that week. Includes error rate by category, any anomalies flagged, inter-annotator agreement score, and comparison against your baseline from onboarding. Delivered every Friday.</div>
+    </div>
+    <div class="deliv-card">
+      <span class="deliv-icon">🚨</span>
+      <div class="deliv-title">Drift Alerts</div>
+      <div class="deliv-body">When any quality dimension drops more than 8% week-over-week, you receive a same-day alert with specific examples, a severity classification, and a recommended corrective action. 48-hour response SLA for P1 drift events.</div>
+    </div>
+    <div class="deliv-card">
+      <span class="deliv-icon">📦</span>
+      <div class="deliv-title">Monthly Retraining Batch</div>
+      <div class="deliv-body">200–1,000 curated annotation pairs specifically targeting your model's weakest areas identified that month. Includes preference pairs (for RLHF), corrective examples (for SFT), or flagged-and-corrected outputs whichever format your pipeline requires.</div>
+    </div>
+    <div class="deliv-card">
+      <span class="deliv-icon">🎯</span>
+      <div class="deliv-title">Monthly Quality Digest</div>
+      <div class="deliv-body">Executive-readable summary of the month's quality performance: trend lines, top failure categories, drift events and resolutions, retraining batch composition, and a recommended priority for the next month's evaluation focus.</div>
+    </div>
+    <div class="deliv-card">
+      <span class="deliv-icon">📈</span>
+      <div class="deliv-title">Quarterly Benchmark Review</div>
+      <div class="deliv-body">Every 90 days, we run a full benchmark against your agreed-upon evaluation set and provide a longitudinal quality trend report. Tracks whether retraining batches are producing measurable improvement and recalibrates the evaluation rubric if needed.</div>
+    </div>
+    <div class="deliv-card">
+      <span class="deliv-icon">🔒</span>
+      <div class="deliv-title">Dedicated Annotator Team</div>
+      <div class="deliv-body">A fixed team of 3–8 domain-expert annotators assigned exclusively to your model. They accumulate deep familiarity with your model's specific failure modes, style, and domain over time  eliminating the cold-start quality dip every new annotator batch introduces.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section dark" id="cadence">
+  <span class="sec-eyebrow">Delivery Cadence</span>
+  <h2 class="sec-title" style="color:var(--paper)">What happens <em>every week</em></h2>
+  <p class="sec-desc">A structured, predictable rhythm so your team always knows what's coming and when.</p>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-period">Monday</div>
+      <div class="timeline-content">
+        <h4 style="color:var(--paper)">Live output sample extraction</h4>
+        <p>We pull the agreed sample of your model's live outputs from the previous week via API, log export, or shared storage. Format agreed at onboarding. No manual work required from your team.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Automated ingestion</span>
+          <span class="timeline-tag">Encrypted transfer</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Mon–Thu</div>
+      <div class="timeline-content">
+        <h4 style="color:var(--paper)">Expert evaluation & annotation</h4>
+        <p>Your dedicated annotator team evaluates each output against your agreed rubric. Flagged outputs are escalated to senior review. Anomalies trigger a same-day alert. Gold standard tasks injected for calibration throughout.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Rubric-based scoring</span>
+          <span class="timeline-tag">Senior escalation</span>
+          <span class="timeline-tag">Gold injection</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Thursday</div>
+      <div class="timeline-content">
+        <h4 style="color:var(--paper)">QA review & anomaly resolution</h4>
+        <p>Internal QA pass on the week's annotations. Any inter-annotator disagreements resolved. Drift alerts drafted if triggered. Data verified against previous week's baseline for trend analysis.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">Kappa verification</span>
+          <span class="timeline-tag">Drift comparison</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Friday</div>
+      <div class="timeline-content">
+        <h4 style="color:var(--paper)">Weekly quality report delivered</h4>
+        <p>Structured report delivered to your designated contact: error rate by category, kappa scores, drift indicators, top failure examples (anonymised where needed), and a brief commentary from our ML lead.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">PDF + JSON delivery</span>
+          <span class="timeline-tag">Slack ping optional</span>
+        </div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Month-end</div>
+      <div class="timeline-content">
+        <h4 style="color:var(--paper)">Retraining batch + monthly digest</h4>
+        <p>Curated retraining batch assembled from the month's flagged outputs. Monthly digest written. Batch delivered in your preferred format (JSONL, CSV, or Hugging Face dataset card). Digest includes next month's recommended evaluation priority.</p>
+        <div class="timeline-tags">
+          <span class="timeline-tag">JSONL / CSV</span>
+          <span class="timeline-tag">HuggingFace ready</span>
+          <span class="timeline-tag">Data card included</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <div class="dashboard-header">
+      <div class="dashboard-title">Live quality dashboard sample view</div>
+      <div class="dashboard-live">Live monitoring active</div>
+    </div>
+    <div class="dashboard-metrics">
+      <div class="dash-metric">
+        <div class="dash-metric-val">94.2%</div>
+        <div class="dash-metric-label">Overall quality score</div>
+        <div class="dash-metric-delta up">↑ +1.8% vs last week</div>
+      </div>
+      <div class="dash-metric">
+        <div class="dash-metric-val">0.78</div>
+        <div class="dash-metric-label">Inter-annotator kappa</div>
+        <div class="dash-metric-delta up">↑ Within SLA (≥0.72)</div>
+      </div>
+      <div class="dash-metric">
+        <div class="dash-metric-val">1,240</div>
+        <div class="dash-metric-label">Outputs evaluated (week)</div>
+        <div class="dash-metric-delta up">↑ On target</div>
+      </div>
+      <div class="dash-metric">
+        <div class="dash-metric-val">3</div>
+        <div class="dash-metric-label">Active drift alerts</div>
+        <div class="dash-metric-delta down">↓ Medical domain drifting</div>
+      </div>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(245,242,236,0.3);text-transform:uppercase;margin-bottom:12px">Quality by category this week</div>
+    <div class="drift-row">
+      <div class="drift-category">General helpfulness</div>
+      <div class="drift-bar-wrap"><div class="drift-fill safe" style="width:92%"></div></div>
+      <div class="drift-pct">92%</div>
+    </div>
+    <div class="drift-row">
+      <div class="drift-category">Factual accuracy</div>
+      <div class="drift-bar-wrap"><div class="drift-fill safe" style="width:89%"></div></div>
+      <div class="drift-pct">89%</div>
+    </div>
+    <div class="drift-row">
+      <div class="drift-category">Safety & tone</div>
+      <div class="drift-bar-wrap"><div class="drift-fill safe" style="width:97%"></div></div>
+      <div class="drift-pct">97%</div>
+    </div>
+    <div class="drift-row">
+      <div class="drift-category">Medical domain accuracy</div>
+      <div class="drift-bar-wrap"><div class="drift-fill alert" style="width:74%"></div></div>
+      <div class="drift-pct" style="color:#e8a070">74% ⚠</div>
+    </div>
+    <div class="drift-row">
+      <div class="drift-category">Code generation quality</div>
+      <div class="drift-bar-wrap"><div class="drift-fill warn" style="width:85%"></div></div>
+      <div class="drift-pct">85%</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sla">
+  <span class="sec-eyebrow">Service Level Agreements</span>
+  <h2 class="sec-title">Backed by contract, not <em>promises</em></h2>
+  <p class="sec-desc">Every retainer tier comes with explicit, contractually binding SLAs. If we miss them, credits apply automatically no need to chase us.</p>
+  <table class="sla-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>Weekly Volume</th>
+        <th>Report SLA</th>
+        <th>Drift Alert SLA</th>
+        <th>Retraining Batch</th>
+        <th>Annotator Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="sla-tier">Starter <span class="sla-badge starter">₹4L/mo</span></div>
+          <div class="sla-detail">1–3 person teams, focused product AI</div>
+        </td>
+        <td style="color:rgba(10,10,10,0.7)">500 outputs/week</td>
+        <td style="color:rgba(10,10,10,0.7)">Every Friday, 5pm IST</td>
+        <td style="color:rgba(10,10,10,0.7)">72 hours</td>
+        <td style="color:rgba(10,10,10,0.7)">200 pairs/month</td>
+        <td style="color:rgba(10,10,10,0.7)">3 dedicated annotators</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="sla-tier">Growth <span class="sla-badge growth">₹8L/mo</span></div>
+          <div class="sla-detail">Scale-ups with multiple model endpoints</div>
+        </td>
+        <td style="color:rgba(10,10,10,0.7)">1,000 outputs/week</td>
+        <td style="color:rgba(10,10,10,0.7)">Every Friday, 5pm IST</td>
+        <td style="color:rgba(10,10,10,0.7)">48 hours</td>
+        <td style="color:rgba(10,10,10,0.7)">500 pairs/month</td>
+        <td style="color:rgba(10,10,10,0.7)">5 dedicated annotators</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="sla-tier">Enterprise <span class="sla-badge enterprise">₹12–15L/mo</span></div>
+          <div class="sla-detail">Large AI teams, regulated industries</div>
+        </td>
+        <td style="color:rgba(10,10,10,0.7)">2,000 outputs/week</td>
+        <td style="color:rgba(10,10,10,0.7)">Friday + Tuesday</td>
+        <td style="color:rgba(10,10,10,0.7)">24 hours (P1: 4 hours)</td>
+        <td style="color:rgba(10,10,10,0.7)">1,000 pairs/month</td>
+        <td style="color:rgba(10,10,10,0.7)">8 annotators + ML lead</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section alt">
+  <span class="sec-eyebrow">Pricing</span>
+  <h2 class="sec-title">Predictable monthly cost,<br>measurable <em>model improvement</em></h2>
+  <p class="sec-desc">All retainer tiers are billed monthly, with a minimum 3-month commitment. No surprise usage charges volume is fixed at the tier level.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Starter</div>
+      <div class="price-desc">Ideal for focused AI products with a single primary model endpoint and a small team.</div>
+      <div class="price-amount">₹4L / month</div>
+      <div class="price-unit">3-month minimum · ₹10.8L total minimum</div>
+      <div class="price-features">
+        <div class="price-feature">500 live outputs evaluated per week</div>
+        <div class="price-feature">Weekly quality report every Friday</div>
+        <div class="price-feature">72-hour drift alert SLA</div>
+        <div class="price-feature">200 retraining pairs per month</div>
+        <div class="price-feature">3 dedicated domain-expert annotators</div>
+        <div class="price-feature">Quarterly benchmark review</div>
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Growth</div>
+      <div class="price-desc">For scale-ups with multiple model endpoints, or a single model with high traffic and diverse use cases.</div>
+      <div class="price-amount">₹8L / month</div>
+      <div class="price-unit">3-month minimum · ₹24L total minimum</div>
+      <div class="price-features">
+        <div class="price-feature">1,000 live outputs evaluated per week</div>
+        <div class="price-feature">Weekly report + monthly digest</div>
+        <div class="price-feature">48-hour drift alert SLA</div>
+        <div class="price-feature">500 retraining pairs per month</div>
+        <div class="price-feature">5 dedicated domain-expert annotators</div>
+        <div class="price-feature">Quarterly benchmark + trend analysis</div>
+        <div class="price-feature">Slack integration for drift alerts</div>
+      </div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Enterprise</div>
+      <div class="price-desc">For large AI teams in regulated industries legal, finance requiring full-coverage monitoring and fast SLAs.</div>
+      <div class="price-amount">₹12–15L / month</div>
+      <div class="price-unit">Custom contract · HIPAA/DPDP compliant</div>
+      <div class="price-features">
+        <div class="price-feature">2,000 live outputs evaluated per week</div>
+        <div class="price-feature">Twice-weekly reports + monthly digest</div>
+        <div class="price-feature">24h drift SLA · P1 events: 4-hour response</div>
+        <div class="price-feature">1,000 retraining pairs per month</div>
+        <div class="price-feature">8 annotators + dedicated ML lead</div>
+        <div class="price-feature">Custom benchmark + regulatory reporting</div>
+        <div class="price-feature">On-site calibration session (quarterly)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <span class="sec-eyebrow">FAQ</span>
+  <h2 class="sec-title">Common questions about <em>retainers</em></h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">How do you get access to our live model outputs?</div>
+      <div class="faq-a">At onboarding, we agree on an ingestion method. Common approaches: (1) we call your inference API on a fixed test prompt set each week, (2) you export a sample of production logs to a shared encrypted S3 bucket weekly, or (3) you push samples to us via webhook. We work around whatever is easiest for your engineering team we have never needed direct production access.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if our model's domain is highly specialised say, cardiology or derivatives trading?</div>
+      <div class="faq-a">That's where the retainer model pays off most. We onboard your annotator team with a 2-week domain calibration before the engagement begins: structured reading, worked examples, supervised annotation rounds, kappa calibration. By week 3, your team understands your model's specific failure patterns. A new project-based annotator batch never gets that depth. If we cannot source sufficient domain expertise internally, we tell you before signing not after delivery.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What format is the monthly retraining batch delivered in?</div>
+      <div class="faq-a">JSONL is default (compatible with most fine-tuning frameworks including OpenAI, Hugging Face, and Axolotl). We can deliver in CSV, Parquet, or as a Hugging Face dataset with a full data card at no extra cost. The data card documents: annotation rubric, annotator counts, kappa scores, collection period, domain coverage, and known limitations.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can we increase volume mid-contract if our traffic spikes?</div>
+      <div class="faq-a">Yes. We build a 30% burst capacity buffer into every retainer team. If you need to evaluate more outputs than your tier allows for a given week, we can handle it, we will flag it and invoice any significant overage at the per-output rate. If the spike becomes consistent, we recommend upgrading tiers at the next billing cycle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's your offboarding process if we need to end the retainer?</div>
+      <div class="faq-a">30-day written notice after the minimum commitment period. We deliver a full off-boarding package: complete historical quality dataset, longitudinal trend report, annotator calibration notes (useful if you move to an internal team), and a summary of all drift events and resolutions. You own all data produced during the engagement nothing is retained by Concave AI after offboarding.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is this different from hiring an in-house annotation team?</div>
+      <div class="faq-a">Three core differences. First, speed: hiring, onboarding, and calibrating annotation staff takes 3–6 months. Our retainer team is ready in 2 weeks. Second, quality infrastructure: the QA pipeline, gold standard sets, kappa tracking, and delivery tooling are all built and maintained by us your engineering team doesn't build or manage any of it. Third, flexibility: you can scale up or down each quarter; in-house teams are fixed costs. The retainer is typically 30–40% cheaper than an equivalent in-house function once you account for salaries, tooling, and management overhead.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="related">
+  <span class="sec-eyebrow">Related Services</span>
+  <h2 class="sec-title">Often paired with the <em>retainer</em></h2>
+  <p class="sec-desc">Most retainer clients use these services to establish a quality baseline before or alongside the ongoing engagement.</p>
+  <div class="related-grid">
+    <a class="related-card" href="/services/hallucination">
+      <span class="related-icon">🧠</span>
+      <div class="related-name">Hallucination Detection</div>
+      <div class="related-desc">Claim-by-claim verification of AI outputs. Ideal as a baseline audit before starting the retainer sets the error rate you're measuring against.</div>
+    </a>
+    <a class="related-card" href="/services/rlhf">
+      <span class="related-icon">⚖</span>
+      <div class="related-name">RLHF Preference Data</div>
+      <div class="related-desc">Monthly retraining batches often include RLHF preference pairs. Retainer clients get priority access to our senior RLHF annotator pool.</div>
+    </a>
+    <a class="related-card" href="/services/red-teaming">
+      <span class="related-icon">🛡</span>
+      <div class="related-name">Red-Teaming & Safety Eval</div>
+      <div class="related-desc">Enterprise retainer clients can add a quarterly red-team sweep. Detects new jailbreaks and safety failures that emerge as adversarial techniques evolve.</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="/" style="font-family:'DM Serif Display',serif;font-size:24px;color:var(--paper);text-decoration:none">Concave AI</a>
+      <p style="font-size:14px;color:rgba(245,242,236,0.65);line-height:1.65;max-width:280px;margin-top:16px">Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-links">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audit</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="index.html#about">About</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="/contact">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Compliance</div>
+      <div class="footer-links">
+        <a href="#">DPDP Act 2023</a>
+        <a href="#">GDPR Ready</a>
+        <a href="#">HIPAA-Aligned</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-badges">
+      <div class="footer-badge">DPDP Compliant</div>
+      <div class="footer-badge">GDPR Ready</div>
+      <div class="footer-badge">AWS Secured</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.deliv-card,.related-card,.price-card,.faq-item,.timeline-item').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.5s ease,transform 0.5s ease';
+  observer.observe(el);
+});
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  nav.style.boxShadow=window.scrollY>20?'0 1px 32px rgba(0,0,0,0.06)':'none';
+});
+
+// Hamburger menu toggle
+(function(){
+  var btn=document.getElementById('menuToggle');
+  var nav=document.querySelector('.nav-links');
+  if(btn&&nav){
+    btn.addEventListener('click',function(){
+      nav.classList.toggle('active');
+      btn.setAttribute('aria-label', nav.classList.contains('active') ? 'Close Menu' : 'Open Menu');
+    });
+    document.addEventListener('click',function(e){
+      if(!btn.contains(e.target)&&!nav.contains(e.target)){nav.classList.remove('active')}
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Multimodal AI Fails When You Label Each Data Type Separately and How to Fix It ! · Concave AI</title>
+<meta name="description" content="Multimodal AI models process images, text, audio, and sensor data together but most annotation pipelines label them separately. Here is why that breaks your model and the cross-modal annotation workflow that fixes it.">
+<meta name="keywords" content=" multimodal annotation, multimodal data labeling, cross-modal annotation, multimodal AI training data, LiDAR annotation, sensor fusion annotation, multimodal LLM training ">
+<meta property="og:title" content="Why Multimodal AI Fails When You Label Each Data Type Separately and How to Fix It">
+<meta property="og:url" content="https://theconcaveai.com/resources/multimodal-data-why-it-fails">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://theconcaveai.com/resources/multimodal-data-why-it-fails">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Multimodal AI Fails When You Label Each Data Type Separately and How to Fix It ! ",
+  "author": {
+    "@type": "Person",
+    "name": "Aniket Nerali",
+    "url": "https://theconcaveai.com/company/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Concave AI",
+    "url": "https://theconcaveai.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://theconcaveai.com/logo.png"
+    }
+  },
+  "datePublished": "2026-05-04",
+  "dateModified": "2026-05-04",
+  "description": "Multimodal AI models process images, text, audio, and sensor data together but most annotation pipelines label them separately. Here is why that breaks your model and the cross-modal annotation workflow that fixes it.",
+  "mainEntityOfPage": "https://theconcaveai.com/resources/multimodal-data-why-it-fails"
+}
+</script>
+<!-- Favicon for Google Search and Browser Tabs -->
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="shortcut icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent:#bc5113;--accent2:#c8a96e;--muted:#5a4a3a;--border:rgba(10,10,10,0.1);--white:#ffffff;--green:#1a784a;--red:#a32d2d;--amber:#b58a10}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* HERO */
+.article-hero{position:relative;min-height:70vh;display:flex;align-items:flex-end;padding:0 60px 80px;overflow:hidden}
+.article-hero-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(10,10,10,0.1) 0%,rgba(10,10,10,0.72) 100%),url('images/Screenshot 2026-05-26 11.12.38 AM.png');background-size:cover;background-position:center}
+.article-hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.4;pointer-events:none}
+.article-hero-inner{position:relative;z-index:2;max-width:720px}
+.article-hero-back{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,0.5);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;transition:color .2s}
+.article-hero-back:hover{color:white}
+.article-hero-tags{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.article-hero-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;padding:4px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:2px;color:rgba(255,255,255,0.7);text-transform:uppercase}
+.article-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(36px,4.5vw,56px);line-height:1.06;letter-spacing:-2px;color:var(--white);margin-bottom:20px}
+.article-hero h1 em{font-style:italic;color:var(--accent2)}
+.article-meta{font-size:14px;color:rgba(255,255,255,0.5);display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.article-meta-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.3)}
+
+/* LAYOUT */
+.article-layout{display:grid;grid-template-columns:1fr 400px;gap:80px;padding:80px 60px 60px;align-items:start}
+.article-wrap{padding:0}
+.article-sidebar{position:sticky;top:100px;display:flex;flex-direction:column;gap:28px}
+.sidebar-img{border-radius:6px;overflow:hidden;height:480px;background-size:cover;background-position:center}
+.sidebar-fact{background:var(--ink);border-radius:6px;padding:28px}
+.sidebar-fact-num{font-family:'DM Serif Display',serif;font-size:52px;letter-spacing:-2px;color:var(--accent);line-height:1;margin-bottom:8px}
+.sidebar-fact-label{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.55}
+.sidebar-caption{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted);line-height:1.5;border-top:1px solid var(--border);padding-top:12px}
+
+/* ARTICLE TYPOGRAPHY */
+.article-wrap h2{font-family:'DM Serif Display',serif;font-size:clamp(26px,3vw,36px);letter-spacing:-1px;line-height:1.1;margin:56px 0 20px;color:var(--ink)}
+.article-wrap h2 em{font-style:italic;color:var(--accent)}
+.article-wrap h3{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.3px;margin:40px 0 12px;color:var(--ink)}
+.article-wrap p{font-size:17px;color:var(--muted);line-height:1.82;margin-bottom:24px;font-weight:300}
+.article-wrap strong{color:var(--ink);font-weight:500}
+.article-wrap a:not(.article-cta-btn){color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+/* PULL QUOTE */
+.pull-quote{border-left:3px solid var(--accent);padding:20px 24px;background:rgba(188,81,19,0.05);border-radius:0 6px 6px 0;font-size:19px;color:var(--accent);font-style:italic;line-height:1.55;margin:40px 0;font-family:'DM Serif Display',serif;letter-spacing:-.3px}
+
+/* APPROACH CARDS */
+.approach-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:40px 0}
+.approach-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:24px}
+.approach-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+.approach-card h4{font-family:'DM Serif Display',serif;font-size:20px;letter-spacing:-.3px;margin-bottom:10px;color:var(--ink)}
+.approach-card p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+.approach-insight{margin-top:12px;padding:10px 14px;background:rgba(188,81,19,0.06);border:1px solid rgba(188,81,19,0.15);border-radius:4px;font-size:13px;color:var(--accent);line-height:1.55}
+
+/* DATA REQUIREMENT CARDS */
+.data-req-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:32px 0}
+.data-req-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:18px}
+.data-req-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;margin-bottom:6px}
+.data-req-range{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:-.5px;color:var(--ink);margin-bottom:6px}
+.data-req-desc{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* STEP LIST */
+.step-list{display:flex;flex-direction:column;gap:0;margin:40px 0}
+.step-item{display:flex;gap:16px;padding:20px 0;border-bottom:1px solid var(--border)}
+.step-item:last-child{border:none}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-content h4{font-size:16px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.step-content p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+
+/* MISTAKE BOXES */
+.mistake-group{display:flex;flex-direction:column;gap:14px;margin:40px 0}
+.mistake-box{border:1px solid rgba(163,45,45,0.2);background:rgba(163,45,45,0.03);border-radius:6px;padding:22px}
+.mistake-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.mistake-box h4{font-family:'DM Serif Display',serif;font-size:19px;letter-spacing:-.3px;margin-bottom:8px;color:var(--ink)}
+.mistake-box p{font-size:15px;color:var(--muted);line-height:1.65;margin-bottom:0}
+
+/* DATA TABLES */
+.dt-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.table-scroll{overflow-x:auto;margin:32px 0}
+.data-table{border:1px solid var(--border);border-radius:6px;overflow:hidden;min-width:480px}
+.dt-head,.dt-row{display:flex;border-bottom:1px solid var(--border)}
+.dt-row:last-child{border-bottom:none}
+.dt-head{background:var(--ink)}
+.dt-head .dt-cell{color:rgba(255,255,255,0.75);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.04em;border-right-color:rgba(255,255,255,0.08)}
+.dt-cell{flex:1;padding:11px 14px;font-size:13px;color:var(--muted);border-right:1px solid var(--border)}
+.dt-cell:last-child{border-right:none}
+.dt-cell.wide{flex:2}
+.dt-cell.label{font-weight:500;color:var(--ink)}
+.dt-row.alt{background:rgba(245,242,236,0.4)}
+.dt-row.sep{border-top:2px solid rgba(188,81,19,0.15);background:rgba(188,81,19,0.02)}
+.dt-ok{color:var(--green)!important}
+.dt-imp{color:var(--accent)!important;font-weight:700!important}
+.dt-warn{color:var(--amber)!important}
+
+/* CODE BLOCK */
+.code-block{background:var(--ink);border-radius:6px;padding:24px;margin:32px 0;overflow-x:auto}
+.code-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;margin-bottom:12px}
+.code-block pre{font-family:'Space Mono',monospace;font-size:13px;color:rgba(255,255,255,0.75);line-height:1.8;white-space:pre}
+.code-block .val{color:var(--accent2)}
+.code-block .label-k{color:rgba(255,255,255,0.4)}
+.code-block .comment{color:rgba(255,255,255,0.28)}
+
+/* CHECKLIST */
+.checklist{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.checklist-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:16px}
+.checklist-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.checklist-item:last-child{border:none}
+.checklist-box{width:18px;height:18px;border:2px solid var(--accent);border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.checklist-box-fill{width:10px;height:10px;background:var(--accent);border-radius:1px}
+.checklist-text{font-size:15px;color:var(--muted);line-height:1.6}
+.checklist-text strong{color:var(--ink)}
+
+/* KEY TAKEAWAY */
+.key-takeaway{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:28px;margin:40px 0}
+.key-takeaway-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+.key-takeaway-list{display:flex;flex-direction:column;gap:10px}
+.key-takeaway-item{display:flex;gap:10px;font-size:15px;color:var(--muted);line-height:1.6;align-items:flex-start}
+.key-takeaway-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:7px}
+
+/* TIMELINE BLOCK */
+.timeline{display:flex;flex-direction:column;gap:0;margin:32px 0}
+.timeline-item{display:flex;gap:20px;padding:16px 0;border-bottom:1px solid var(--border)}
+.timeline-item:last-child{border:none}
+.timeline-phase{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--accent);min-width:140px;padding-top:2px}
+.timeline-content{font-size:15px;color:var(--muted);line-height:1.6}
+.timeline-content strong{color:var(--ink)}
+
+/* CTA + AUTHOR */
+.article-cta-banner{background:var(--ink);border-radius:6px;padding:48px 40px;margin:60px 0 40px;text-align:center}
+.article-cta-banner h3{font-family:'DM Serif Display',serif;font-size:28px;letter-spacing:-1px;color:var(--white);margin-bottom:12px}
+.article-cta-banner h3 em{color:var(--accent2)}
+.article-cta-banner p{font-size:15px;color:rgba(255,255,255,0.5);max-width:460px;margin:0 auto 24px;font-weight:300}
+.article-cta-btn{background:var(--accent);color:var(--white);padding:13px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s}
+.author-card{display:flex;gap:20px;align-items:center;padding:28px 0;border-top:1px solid var(--border);margin-top:40px}
+.author-avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:24px;color:var(--white);flex-shrink:0}
+.author-name{font-size:16px;font-weight:600;margin-bottom:2px}
+.author-role{font-size:13px;color:var(--muted)}
+
+/* RELATED */
+.related{padding:0 60px 80px}
+.related-title{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-.5px;margin-bottom:24px}
+.related-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.related-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .2s}
+.related-card:hover{transform:translateY(-3px)}
+.related-card-img{height:140px;background-size:cover;background-position:center}
+.related-card-body{padding:16px}
+.related-card-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.related-card-title{font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:-.3px;line-height:1.2}
+
+/* FOOTER */
+footer{background:var(--accent);color:var(--paper);padding:60px 60px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-wm{font-family:'DM Serif Display',serif;font-size:20px;color:var(--white)}
+.footer-wm em{color:var(--accent2)}
+.footer-brand p{font-size:13px;color:rgba(245,242,236,0.6);line-height:1.6;margin-top:10px;max-width:260px}
+.footer-col-title{font-family:'DM Serif Display',serif;font-size:11px;letter-spacing:.15em;color:var(--white);text-transform:uppercase;margin-bottom:16px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(245,242,236,0.3)}
+
+/* MOBILE */
+@media(max-width:768px){nav{padding:14px 24px}.article-hero{padding:0 24px 60px;min-height:55vh}.article-layout{grid-template-columns:1fr;padding:48px 20px 40px;gap:40px}.article-sidebar{position:relative;top:0}.sidebar-img{height:280px}.related-grid,.data-req-grid{grid-template-columns:1fr}.related{padding:0 20px 60px}.timeline-item{flex-direction:column;gap:4px}.timeline-phase{min-width:auto}footer{padding:40px 24px 24px}.footer-grid{grid-template-columns:1fr}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo svg{width:36px;height:36px;flex-shrink:0}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.orange-ai{color:var(--muted)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+.menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+.menu-toggle span{width:25px;height:3px;background-color:var(--accent);border-radius:2px;display:block}
+@media(max-width:768px){.menu-toggle{display:flex}.nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--paper);padding:20px 24px;box-shadow:0 4px 10px rgba(0,0,0,0.1);z-index:100}.nav-links.active{display:flex}.nav-cta{margin-top:8px;text-align:center;display:block}}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="#">Services</a>
+      <div class="nav-dropdown">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Industries</a>
+      <div class="nav-dropdown">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance &amp; BFSI</a>
+        <a href="/industries/automotive">Automotive &amp; AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Company</a>
+      <div class="nav-dropdown">
+        <a href="/company/about">About Us</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+        <a href="/contact">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/resources">Resources</a>
+      <div class="nav-dropdown">
+        <a href="/resources">Blogs</a>
+        <a href="/resources/case-studies">Case Studies</a>
+      </div>
+    </div>
+    <div class="nav-item plain"><a href="index.html#pricing">Pricing</a></div>
+    <a href="/contact" class="nav-cta">Get a Free Audit</a>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-grain"></div>
+  <div class="article-hero-inner">
+    <a href="/resources" class="article-hero-back">← All articles</a>
+    <div class="article-hero-tags">
+      <span class="article-hero-tag">Multimodal Annotation</span>
+      <span class="article-hero-tag">Computer Vision</span>
+      <span class="article-hero-tag">LiDAR</span>
+      <span class="article-hero-tag">NLP</span>
+      <span class="article-hero-tag">Cross-Modal QA</span>
+    </div>
+    <h1>Why multimodal AI fails when you label each data type separately  <em>and how to fix it</em></h1>
+    <div class="article-meta">
+      <span>Concave AI Team</span>
+      <span class="article-meta-dot"></span>
+      <span>16 min read</span>
+      <span class="article-meta-dot"></span>
+      <span>Technical Guide · Multimodal Annotation</span>
+    </div>
+  </div>
+</section>
+
+<div class="article-layout">
+<article class="article-wrap">
+
+  <p> A self-driving car fuses camera images with LiDAR point clouds and radar signals. A multimodalLLM processes text, images, and audio in a single inference pass. A retail AI matches product photographs with text descriptions and customer reviews. These systems do not process datatypes independentl<strong> they learn the relationships between them</strong>.Annotation that labels eachmodality in isolation produces training data where those relationships are broken, inconsistent, or missing entirely.</p>
+
+  <p> Multimodal AI is not a future trend it is the current default architecture for production AI systems across nearly every industry. Autonomous vehicles have always been multimodal fusing camera, LiDAR, radar, and ultrasonic sensor data into a unified perception system. But in 2026, multimodality has expanded far beyond autonomous driving. The leading language models GPT-4o, Claude, Gemini are natively multimodal, processing text, images, audio, and video within a single model architecture. Retail AI systems combine product images with text metadata, pricing data, and user behaviour signals. Medical AI fuses radiology images with clinical notes, lab results, and patient history. Agricultural AI combines satellite imagery with weather data, soil sensor readings, and crop growth stage documentation.</p>
+  
+  <p> The common thread: these systems learn from the relationships between data types, not just from each data type independently. An autonomous vehicle does not learn "what a pedestrian looks like in a camera image" and separately learn "what a pedestrian looks like in a LiDAR point cloud." It learns that a specific cluster of points in the LiDAR scan corresponds to a specific bounding box in the camera frame, and that both represent the same physical pedestrian at the same moment in time. This means the training data must explicitly encode these cross-modal relationships. And this is where most annotation pipelines fail <strong> because they label each data type separately, in separate workflows, often by separate teams </strong>and then attempt to merge the results after the fact.</p>
+
+  <p> The model learns inconsistent cross-modal signals. And the team spends weeks debugging model behaviour that traces back to an annotation pipeline design decision made at the start of the project.This guide covers what multimodal annotation actually requires, why labeling data types separately produces broken training data, the cross-modal annotation workflow that prevents this, and the quality assurance methodology that catches cross-modal inconsistencies before they enter your training pipeline.</p>
+  
+  <h2>What is multimodal data annotation?</h2>
+
+  <p> Multimodal data annotation is the process of labeling training data that contains two or more data types - images, text, audio, video, 3D point clouds, sensor signals within a unified workflow where the labels across modalities are explicitly aligned, synchronised, and cross-validated. The distinction between multimodal annotation and standard annotation is not about the data types themselves. You can label images, text, and audio using any standard annotation workflow. The difference is whether the labels agree with each other across modalities whether the bounding box in the camera frame corresponds to the correct cuboid in the LiDAR scan, whether the text description accurately matches the visual content, whether the audio transcription aligns with the speaker visible in the video.</p>
+
+  <p> Standard annotation labels each modality correctly in isolation. Multimodal annotation ensures the labels are correct across modalities that the relationships between data types are accurately captured in the training data. This is a harder problem. It requires annotators who can work across data types simultaneously, annotation interfaces that display multiple modalities in synchronised views, and quality assurance processes that check consistency between modalities rather than just within them.</p>
+
+  <h2>The five core modalities and what each requires </h2>
+<div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Image data</h4>
+        <p> Image annotation is the most mature modality, with well-established techniques for classification, object detection (bounding boxes), instance segmentation (pixel-level masks), and semantic segmentation (labeling every pixel by class). In a multimodal context, image annotations must be spatially and temporally aligned with other modalities. A bounding box around a car in a camera frame must correspond to the same car's 3D cuboid in a LiDAR point cloud. The spatial mapping between 2D image coordinates and 3D world coordinates requires calibration data7 the camera's intrinsic and extrinsic parameters which the annotation workflow must account for.</p>
+        
+        <p> The annotation quality factor: boundary precision matters more in multimodal contexts because misaligned boundaries between image and 3D annotations compound the cross-modal error. A bounding box that is 5 pixels too wide in an image-only pipeline is a minor error. In a multimodal pipeline where that box is fused with a LiDAR cuboid, the 5-pixel error creates a systematic misalignment that the model learns as signal. Tools like SAM2 (Segment Anything Model 2) provide AI-assisted pre-annotation that accelerates image labeling by generating initial segmentation masks for human correction. In multimodal pipelines, SAM2 pre-annotation on the image modality can reduce image annotation time by 40–60%, freeing annotator time for the more complex cross-modal alignment tasks.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Text and Documents</h4>
+        <p> Text annotation covers named entity recognition (NER), intent classification, sentiment analysis, relation extraction, and text summarisation for NLP tasks and prompt-response evaluation for LLM alignment (RLHF/DPO). In multimodal contexts, text annotation must align with visual or audio content. For a multimodal LLM, a training example might consist of an image paired with a text description. The text annotation must accurately describe what is actually visible in the image not what the annotator assumes, remembers, or hallucinates about the scene. Cross-modal hallucination in training data text that describes objects not present in the image is a direct cause of multimodal model hallucination in production.</p>
+
+        <p> For document AI, text extraction must align with spatial layout which field a number belongs to, how table structures are interpreted, and how multi-page documents maintain referential coherence. This is fundamentally a multimodal problem even though all the data is on paper because the spatial arrangement is a separate modality from the text content.</p>
+    </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Video data</h4>
+        <p> Video annotation extends image annotation across the temporal dimension. Objects must be tracked consistently across frames maintaining identity, class, and boundary accuracy as objects move, occlude, rotate, and change appearance. Multi-object tracking tools like ByteTrack and DeepSORT automate frame-to-frame tracking, but require human correction when tracks are lost during occlusion, when objects re-enter the frame, or when two objects merge and separate in the visual field.</p>
+
+        <p> In multimodal pipelines, video annotation must be temporally synchronised with accompanying audio, sensor data, and text metadata. A 100-millisecond synchronisation drift between video and audio too small for a human to notice creates misaligned training data that teaches the model incorrect temporal relationships. For an autonomous vehicle perception system, 100ms of drift at 60 km/h translates to 1.7 metres of spatial misalignment enough to confuse a pedestrian's position by an entire lane width.</p>
+    </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Audio data</h4>
+        <p> Audio annotation includes speech transcription, speaker diarisation (who said what), emotion detection, sound event classification, and music annotation. In multimodal contexts, audio annotations must be time-aligned with corresponding video, text, and sensor data. For a meeting transcription AI that also processes video, the speaker identified in the audio must correspond to the person visually active in the video at that timestamp. If the audio annotator identifies a speaker as "SpeakerA" and the video annotator identifies the same person as "Speaker B," the multimodal model learns an incorrect correspondence.</p>
+
+        <p> For Indian language audio, the challenge is compounded by code-switching speakers who alternate between English and Hindi (or another Indian language) within a single utterance. The audio transcription must accurately capture the language switch, and any paired text annotations must maintain the same code-switching pattern. A training example where the audio says "Let's finalise the timeline by agle mahine" (mixing English and Hindi) but the text transcription normalises it to "Let's finalise the timeline by next month" teaches the model to suppress code-switching rather than handle it naturally.</p>
+    </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>3D point cloud and sensor data</h4>
+        <p> LiDAR point clouds, radar signals, and other sensor modalities are critical for autonomous vehicles, robotics, and industrial inspection. 3D annotation requires placing cuboids (3D bounding boxes) around objects in point cloud space, classifying objects by type, and tracking them across frames. The annotation is inherently three-dimensional annotators must rotate, pan, and zoom in 3D space to accurately place cuboid boundaries. In multimodal pipelines, 3D point cloud annotations must be precisely aligned with corresponding 2D camera annotations. The same physical object must have: a 3D cuboid in point cloud space with correct dimensions and orientation, a 2D bounding box or segmentation mask in the camera frame at the exact same timestamp, and consistent class labels across both modalities.</p>
+
+        <p>If the LiDAR annotator labels a van as "truck" and the camera annotator labels the same vehicle as "van," the model receives contradictory supervision on the same physical object. Sensor calibration the mathematical relationship between the LiDAR coordinate system and the camera coordinate system must be correct for cross-modal alignment to work. Even small calibration errors (a fraction of a degree in sensor mounting angle) produce systematic misalignment that grows larger at greater distances from the sensor.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>The multimodal annotation workflow <em>best practices</em></h2>
+
+  <div class="approach-grid">
+    <div class="approach-card">
+      <div class="approach-tag">Practice 1</div>
+      <h4>Define your taxonomy across all modalities before annotation starts</h4>
+      <p>The single most common source of cross-modal inconsistency is using different class taxonomies in different annotation workflows. If the image team uses "car, truck, van, SUV" and the LiDAR team uses "passenger_vehicle, commercial_vehicle, utility_vehicle," the labels will never align even if both teams annotate perfectly within their own modality. Define one unified taxonomy that applies across all modalities every class, every attribute, every label option must be identical in every annotation interface regardless of data type.</p>
+      <div class="approach-insight">Document this taxonomy in a single guidelines document that all annotators regardless of which modality they are labeling read and calibrate against before starting work.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Practice 2</div>
+      <h4>Synchronise and align data before annotation starts</h4>
+      <p>Temporal alignment between modalities must be verified and corrected before any annotation begins. This is a pre-processing step but if done incorrectly, no amount of careful annotation can compensate. For AV data: verify that camera timestamps, LiDAR sweep timestamps, radar cycle timestamps, and GPS timestamps are all synchronised to the same clock reference. Even systems designed for synchronisation can drift check the alignment empirically by verifying that a fast-moving object appears at the same position in the camera frame and the LiDAR scan at the same timestamp.</p>
+      <div class="approach-insight">For audio-visual data: use a clap test or synchronisation tone to verify alignment empirically rather than relying on metadata timestamps alone.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Practice 3</div>
+      <h4>Design annotation workflows around cross-modal context</h4>
+      <p>This is the practice that distinguishes professional multimodal annotation from amateur attempts. Annotators should see and work with multiple modalities simultaneously not sequentially. For AV annotation: the interface should display the camera image and the LiDAR point cloud side by side, with cross-hairs showing the correspondence between a selected point in 3D space and its projection onto the 2D camera image. When an annotator places a 3D cuboid in the point cloud, the corresponding 2D bounding box should appear automatically in the camera view for verification.</p>
+      <div class="approach-insight">When the two do not align, the annotator investigates is the 3D cuboid placed incorrectly, or is the calibration off? This investigation is impossible when modalities are labeled sequentially in separate workflows.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Practice 4</div>
+      <h4>Build QA that checks between modalities, not just within</h4>
+      <p>Standard QA checks whether labels are correct within each modality. Cross-modal QA checks whether labels agree across modalities a completely different check. Cross-modal QA includes: <strong>class consistency</strong> (same physical object, same label in every modality), <strong>spatial alignment</strong> (2D box projects inside 3D cuboid footprint sample 10–15% manually), <strong>temporal alignment</strong> (labels at the same timestamp describe the same scene state), and <strong>completeness</strong> (object labeled in one modality → labeled in every modality where visible).</p>
+      <div class="approach-insight">Inter-annotator agreement must be measured across the full multimodal annotation not just within each modality. Two annotators' 2D boxes should correspond to their 3D cuboids in the same way.</div>
+    </div>
+    <div class="approach-card">
+      <div class="approach-tag">Practice 5</div>
+      <h4>Accelerate with AI pre-annotation, validate with human expertise</h4>
+      <p>AI-assisted pre-annotation is essential for multimodal workflows because annotation volume is inherently larger every scene is labeled multiple times across modalities. SAM2 for image pre-segmentation reduces annotation time by 40–60%. ByteTrack for video tracking reduces per-frame annotation to keyframe annotation with interpolation. Whisper for audio transcription reduces time by 60–80%. 3D auto-labeling for LiDAR reduces point cloud annotation time by 30–50%.</p>
+      <div class="approach-insight">The critical rule: AI pre-annotation handles the volume. Human annotators handle the judgment cross-modal alignment verification, edge case labeling, and quality verification. The AI tools do not verify cross-modal consistency. That remains the most important human task in the workflow.</div>
+    </div>
+  </div>
+
+  <h2>Where multimodal annotation matters most <em>industry applications</em></h2>
+
+  <h3>Autonomous vehicles and ADAS</h3>
+  <p>The original and most demanding multimodal annotation use case. A modern AV perception stack processes camera images (6–12 cameras), LiDAR point clouds (1–3 LiDAR sensors), radar signals, ultrasonic sensors, GPS/INS positioning, and HD map data all simultaneously at 10–20 Hz. Every training frame requires annotation across camera and LiDAR at minimum. A single driving sequence of 20 seconds at 10 Hz produces 200 frames × 2+ modalities = 400+ annotation tasks that must all be cross-modally consistent.</p>
+  <p>Indian road conditions add specific multimodal challenges: auto-rickshaws that appear very differently in camera (distinctive shape and colour) versus LiDAR (small point cloud signature easily confused with motorcycles), two-wheelers that occlude differently in camera versus LiDAR due to their thin profile, and unstructured intersections where object motion patterns do not follow lane-based predictions that Western-trained models assume.</p>
+
+  <h3>Multimodal LLMs and generative AI</h3>
+  <p>GPT-4o, Claude, and Gemini all process images alongside text. Their training data includes image-text pairs where the model learns to describe, analyse, and reason about visual content. The annotation challenge: every image-text pair must be cross-modally accurate. The text must describe what is actually in the image not what a similar image might show, not what the annotator assumes. Cross-modal hallucination in training data text descriptions that mention objects not visible in the image directly causes the model to hallucinate in production.</p>
+  <p>For RLHF alignment of multimodal models, preference annotators must evaluate responses that include references to visual content. A well-written but factually incorrect image description should not be preferred over a less polished but accurate one the same sycophancy resistance principle that applies to text-only RLHF, extended to the cross-modal dimension.</p>
+
+  <h3>Retail and e-commerce AI</h3>
+  <p>Product search, recommendation engines, and visual commerce all require multimodal training data that pairs product images with text descriptions, pricing data, category taxonomies, and user behaviour signals. The annotation challenge is attribute consistency the colour described in the text metadata must match the colour visible in the product image. "Navy blue" in the text but clearly royal blue in the image teaches the model an incorrect colour-text association. This error type is invisible in single-modality QA but creates systematic failures in multimodal search and recommendation.</p>
+
+  <h3>Healthcare and medical AI</h3>
+  <p>Clinical AI systems that combine radiology images with pathology reports, lab results, and clinical notes are inherently multimodal. Annotation requires clinicians who can verify cross-modal alignment that findings described in the text report correspond to the specific regions annotated in the image. A report that mentions "a 2.3cm nodule in the right upper lobe" must correspond to an image annotation that marks a 2.3cm region in the right upper lobe not the left, not a different size, and not a region the annotator assumed without clinical verification.</p>
+
+  <h2>Common multimodal annotation failures <em>and how to prevent them</em></h2>
+
+  <div class="mistake-group">
+    <div class="mistake-box">
+      <div class="mistake-tag">Failure 1</div>
+      <h4>Taxonomy drift between modalities</h4>
+      <p>The camera team adds a new class ("electric_scooter") partway through the project without updating the LiDAR team's taxonomy. The LiDAR team continues labeling electric scooters as "motorcycle." The training data now contains objects that are simultaneously "electric_scooter" in one modality and "motorcycle" in the other. <strong>Prevention:</strong> single taxonomy document, version-controlled, with mandatory sync across all annotation teams when any change is made. No modality-specific taxonomy additions without cross-modal review.</p>
+    </div>
+    <div class="mistake-box">
+      <div class="mistake-tag">Failure 2</div>
+      <h4>Temporal desynchronisation</h4>
+      <p>Camera and LiDAR timestamps drift by 50ms during a 10-minute recording session. At 60 km/h, 50ms of drift means objects appear 0.83 metres apart in camera vs LiDAR. The model learns that camera and LiDAR never quite agree on object position degrading its ability to fuse the two modalities effectively. <strong>Prevention:</strong> verify temporal alignment empirically before annotation starts, using fast-moving objects as reference. Flag and correct any sequence where drift exceeds 10ms.</p>
+    </div>
+    <div class="mistake-box">
+      <div class="mistake-tag">Failure 3</div>
+      <h4>Missing annotations in one modality</h4>
+      <p>An object is clearly visible in the camera image and labeled correctly, but the LiDAR annotator does not label it because the point cloud return is sparse the object is far away or has a low-reflectivity surface. The training data teaches the model that this object exists in camera but not in LiDAR when in reality it exists in both, just with different confidence levels. <strong>Prevention:</strong> cross-modal completeness check. Every object labeled in any modality must be reviewed in every other modality. If genuinely not visible, explicitly mark as "not visible in LiDAR" rather than omitting.</p>
+    </div>
+    <div class="mistake-box">
+      <div class="mistake-tag">Failure 4</div>
+      <h4>Cross-modal hallucination in text-image data</h4>
+      <p>An annotator writes a text description that includes details not visible in the image inferred from general knowledge, assumed from the image category, or copied from a similar image's description. The multimodal model trains on this mismatch and learns to generate text that includes plausible but ungrounded details. <strong>Prevention:</strong> text descriptions must be verified against the specific image, not written from memory or assumption. QA reviewers should read the text while looking at the image and flag any detail not visually confirmable.</p>
+    </div>
+  </div>
+
+  <h2>Quality assurance for multimodal annotation</h2>
+
+  <p>The QA architecture for multimodal annotation extends standard QA with cross-modal checks at every tier.</p>
+
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num" style="font-size:10px;width:36px;height:36px;flex-shrink:0">T1</div>
+      <div class="step-content">
+        <h4>Automated cross-modal validation</h4>
+        <p>Scripts check class label consistency across modalities (same object, same label), spatial alignment within tolerance bounds (2D box projects inside 3D cuboid footprint), temporal alignment verification, and completeness object present in one modality triggers a check for corresponding labels in all other modalities.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="font-size:10px;width:36px;height:36px;flex-shrink:0">T2</div>
+      <div class="step-content">
+        <h4>Cross-modal peer review</h4>
+        <p>A second annotator reviews 10–15% of multimodal scenes, specifically focused on cross-modal consistency not re-labeling each modality, but verifying that the labels agree across modalities. Kappa is measured on cross-modal agreement, not just per-modality agreement.</p>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num" style="font-size:10px;width:36px;height:36px;flex-shrink:0">T3</div>
+      <div class="step-content">
+        <h4>Expert audit</h4>
+        <p>A senior annotator or ML engineer reviews all automated flags, all cross-modal disagreements from peer review, and a random sample of scenes that passed both previous tiers. Expert review catches the subtle cross-modal failures that automated checks and peer review miss context-dependent alignment issues, edge cases where cross-modal annotation guidelines are ambiguous, and systematic biases that only become visible across a large sample of scenes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull-quote">"Cross-modal consistency is the primary quality metric. A bounding box can be perfectly placed in the camera image and a cuboid perfectly placed in the LiDAR scan but if they do not refer to the same physical object at the same timestamp, the training data is worse than useless. It actively teaches the model incorrect cross-modal relationships."</div>
+
+  <div class="key-takeaway">
+    <div class="key-takeaway-title">Key takeaways</div>
+    <div class="key-takeaway-list">
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Multimodal annotation is not multiple single-modality annotations combined. It is a unified workflow where labels across data types are explicitly aligned, synchronised, and cross-validated. Labeling each modality separately and merging after the fact produces broken training data.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Cross-modal consistency is the primary quality metric. A bounding box can be perfectly placed in a camera image and a cuboid perfectly placed in a LiDAR scan but if they do not refer to the same physical object at the same timestamp, the training data actively teaches the model incorrect cross-modal relationships.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Define one taxonomy across all modalities before annotation starts. Taxonomy drift between modality-specific annotation teams is the single most common source of cross-modal inconsistency and the easiest to prevent.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>QA must check between modalities, not just within them. Standard QA that validates each modality independently will not catch cross-modal failures. Add automated cross-modal validation, cross-modal peer review, and expert audit of cross-modal alignment.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>AI pre-annotation handles the volume SAM2 for images, ByteTrack for video, Whisper for audio, auto-labeling for LiDAR. Human annotators handle the judgment cross-modal alignment verification, edge case labeling, and quality verification. The hybrid approach is the only one that scales while maintaining cross-modal consistency.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Temporal synchronisation between modalities must be verified empirically before annotation starts. Even small drift (50ms) at moderate speeds produces spatial misalignment measured in metres enough to confuse a perception system about which lane an object is in.</span></div>
+    </div>
+  </div>
+
+  <div class="article-cta-banner">
+    <h3>Need cross-modal annotation that <em>actually aligns?</em></h3>
+    <p>We run 3-tier QA that checks between modalities, not just within. Free pilot 200 multimodal scenes annotated and verified across camera, LiDAR, and text.</p>
+    <a href="/contact" class="article-cta-btn">Request a Free Audit →</a>
+  </div>
+
+  <div class="author-card">
+    <div class="author-avatar">A</div>
+    <div>
+      <div class="author-name">Aniket Nerali</div>
+      <div class="author-role">Founder · ML Engineer , Concave AI</div>
+    </div>
+  </div>
+
+</article>
+
+<aside class="article-sidebar">
+  <div class="sidebar-img" style="background-image:url('images/Screenshot 2026-05-26 11.20.21 AM.png')"></div>
+  <div class="sidebar-fact">
+    <div class="sidebar-fact-num">40–60%</div>
+    <div class="sidebar-fact-label">reduction in image annotation time when SAM2 pre-annotation is used in multimodal pipelines freeing annotators for cross-modal alignment tasks that AI cannot verify</div>
+  </div>
+  <div class="sidebar-caption">Cross-modal consistency is a human judgment task. AI handles volume. Human annotators verify the relationships between modalities that determine whether your model learns to fuse data types correctly.</div>
+</aside>
+
+</div>
+
+<section class="related">
+  <div class="related-title">Related reading</div>
+  <div class="related-grid">
+    <a class="related-card" href="/resources/blog/how-to-train-ai-model">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=85')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">AI Training</div>
+        <div class="related-card-title">How to Train an AI Model: The Complete 2026 Guide to Workflow, Data, and Getting It Right</div>
+      </div>
+    </a>
+    <a class="related-card" href="/resources/blog/sycophancy-rlhf">
+      <div class="related-card-img" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=85')"></div>
+      <div class="related-card-body">
+        <div class="related-card-tag">RLHF</div>
+        <div class="related-card-title">Why 38% of RLHF preference data trains your model to lie and how to detect it before training</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="footer-wm">Concave <em>AI</em></div><p> Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p></div>
+    <div><div class="footer-col-title">Services</div><div class="footer-links"><a href="index.html#services">RLHF Preference Data</a><a href="index.html#services">NLP Annotation</a><a href="index.html#services">SFT Instruction Data</a><a href="index.html#services">Sycophancy Audits</a><a href="index.html#services">Hallucination Detection</a></div></div>
+    <div><div class="footer-col-title">Industries</div><div class="footer-links"><a href="/industries/legal">Legal</a><a href="/industries/finance">Finance &amp; BFSI</a><a href="/industries/automotive">Automotive</a><a href="/industries/agriculture">Agriculture</a><a href="/industries/genai">Enterprise GenAI</a></div></div>
+    <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="/company/about">About</a><a href="/company/quality">Quality Standards</a><a href="/company/how-it-works">How It Works</a><a href="/contact">Contact</a><a href="/resources">Resources</a></div></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-badges"><span class="footer-badge">DPDP 2023</span><span class="footer-badge">GDPR Ready</span><span class="footer-badge">AWS Secured</span></div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').style.boxShadow=window.scrollY>20?'0 1px 28px rgba(0,0,0,.08)':'none';});
+document.getElementById('menuToggle').addEventListener('click',()=>{document.querySelector('.nav-links').classList.toggle('active');});
+</script>
+</body>
+</html>
