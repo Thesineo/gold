@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="google-site-verification" content="FA1_Q0s3EtwT5ZYy6RVnkq0hTvR-hM-51567TH8Wopo" />
-<title>Concave AI - Data Infrastructure for AI Model Training | Production-Grade Model Training</title>
+<title>Concave AI — AI Training Data Infrastructure | Production-Grade Model Training</title>
 <meta property="og:site_name" content="Concave AI" />
-<meta name="description" content="Production-grade Data infrastructure for AI model training. RLHF, NLP, image, and evaluation data built for model training pipelines. Published quality metrics on every delivery.">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="description" content="Production-grade AI training data infrastructure. RLHF, NLP, image, and evaluation data built for model training pipelines. Published quality metrics on every delivery.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -15,447 +15,446 @@
   "name": "Concave AI",
   "url": "https://theconcaveai.com",
   "logo": "https://theconcaveai.com/logo.png",
-  "description": "ML-engineered Data infrastructure for AI model training. Production-grade RLHF, NLP, image, and evaluation data for model training pipelines with published quality metrics on every delivery.",
-  "founder": {
-    "@type": "Person",
-    "name": "Aniket Nerali",
-    "jobTitle": "Founder & ML Engineer",
-    "url": "https://www.linkedin.com/in/aniket-nerali/",
-    "sameAs": [
-      "https://www.linkedin.com/in/aniket-nerali/",
-      "https://github.com/Thesineo"
-    ]
-  },
+  "description": "ML-engineer-led AI training data infrastructure. Production-grade RLHF, NLP, image, and evaluation data for model training pipelines — with published quality metrics on every delivery.",
+  "founder": {"@type":"Person","name":"Aniket Nerali","jobTitle":"Founder & ML Engineer","url":"https://www.linkedin.com/in/aniket-nerali/"},
   "foundingDate": "2026",
-  "foundingLocation": {
-    "@type": "Place",
-    "name": "Bengaluru, India"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Bengaluru",
-    "addressCountry": "IN"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "email": "aniket.nerali@theconcaveai.com",
-    "contactType": "sales",
-    "availableLanguage": ["English"]
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/theconcaveai/",
-  ]
-  "numberOfEmployees": {
-    "@type": "QuantitativeValue",
-    "minValue": 1,
-    "maxValue": 10
-  },
-  "knowsAbout": [
-    "Data infrastructure for AI model training",
-    "RLHF",
-    "Model Training Pipelines",
-    "Data Annotation",
-    "NLP",
-    "Computer Vision",
-    "AI Alignment",
-    "Cohen's Kappa",
-    "Sycophancy Detection",
-    "Production Model Training"
-  ]
+  "foundingLocation": {"@type":"Place","name":"Bengaluru, India"},
+  "address": {"@type":"PostalAddress","addressLocality":"Bengaluru","addressCountry":"IN"},
+  "contactPoint": {"@type":"ContactPoint","email":"aniket.nerali@theconcaveai.com","contactType":"sales"},
+  "sameAs": ["https://www.linkedin.com/company/theconcaveai/"],
+  "knowsAbout": ["AI Training Data Infrastructure","RLHF","Model Training Pipelines","Data Annotation","NLP","Computer Vision","AI Alignment","Cohen's Kappa","Production Model Training"]
 }
 </script>
-
-<!-- Favicon for Google Search and Browser Tabs -->
-<link rel="icon" href="/logo.png" type="image/png" sizes="48 x 48 ">
-<link rel="shortcut icon" href="/logo.png" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="shortcut icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
 <style>
+/* ── DESIGN TOKENS ─────────────────────────────────────── */
 :root {
-  --ink: #06080f;
-  --paper: #f0f4ff;
-  --surface: #0d1117;
-  --accent: #7c3aed;
-  --accent2: #06b6d4;
-  --accent3: #f472b6;
-  --muted: #64748b;
-  --border: rgba(124, 58, 237, 0.16);
-  --white: #ffffff;
-  --gradient-brand: linear-gradient(135deg, #7c3aed 0%, #06b6d4 55%, #f472b6 100%);
-  --gradient-dark: linear-gradient(160deg, #06080f 0%, #12182a 45%, #0a1628 100%);
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --shadow-glow: 0 0 60px rgba(124, 58, 237, 0.15), 0 24px 48px rgba(6, 8, 15, 0.12);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --bg:       #ffffff;
+  --surface:  #f4f4f5;
+  --ink:      #09090b;
+  --ink-2:    #3f3f46;
+  --muted:    #71717a;
+  --subtle:   #a1a1aa;
+  --border:   rgba(9,9,11,0.08);
+  --border-md:rgba(9,9,11,0.13);
+  --dark-card:#09090b;
+  --dc-border:rgba(255,255,255,0.09);
+  --em-color: #6366f1;
+  --green:    #16a34a;
+  --amber:    #d97706;
+  --blue:     #2563eb;
+  --red:      #dc2626;
+  --radius:   6px;
 }
+[data-theme="dark"] {
+  --bg:       #09090b;
+  --surface:  #18181b;
+  --ink:      #fafafa;
+  --ink-2:    #d4d4d8;
+  --muted:    #a1a1aa;
+  --subtle:   #71717a;
+  --border:   rgba(255,255,255,0.08);
+  --border-md:rgba(255,255,255,0.13);
+  --dark-card:#111113;
+  --dc-border:rgba(255,255,255,0.1);
+  --em-color: #818cf8;
+  --green:    #4ade80;
+  --amber:    #fbbf24;
+  --blue:     #60a5fa;
+  --red:      #f87171;
+}
+
+/* ── RESET ──────────────────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden;position:relative}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;background:radial-gradient(ellipse at 20% 0%,rgba(124,58,237,0.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 100%,rgba(6,182,212,0.04) 0%,transparent 50%)}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;transition:background 0.25s,color 0.25s}
+a{color:inherit;text-decoration:none}
+em{font-style:italic;color:var(--em-color)}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,15,0.78);backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid rgba(124,58,237,0.12);transition:background 0.4s var(--ease),box-shadow 0.4s var(--ease),padding 0.3s ease}
-nav.nav-scrolled{background:rgba(6,8,15,0.94);box-shadow:0 8px 32px rgba(0,0,0,0.3),0 0 0 1px rgba(124,58,237,0.08);padding-top:14px;padding-bottom:14px}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--white)}
-.nav-logo svg{width:36px;height:36px;flex-shrink:0}
-.logo-text{font-family:var(--font-display);font-size:24px;color:var(--white);font-weight:600;letter-spacing:-0.3px}
-.orange-ai{background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:24px;align-items:center}
+/* ── NAV ────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:0 48px;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  transition:background 0.25s,border-color 0.25s;
+}
+[data-theme="dark"] nav{background:rgba(9,9,11,0.88)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.nav-logo-mark{font-size:18px;font-weight:700;color:var(--em-color);line-height:1}
+.nav-logo-text{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;letter-spacing:-0.3px;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:6px}
 .nav-item{position:relative}
-.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
-.nav-item>a{font-family:var(--font-display);font-size:15px;font-weight:600;color:rgba(240,244,255,0.75);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.25s var(--ease);padding:4px 0;letter-spacing:0.02em}
-.nav-item>a:hover{color:var(--accent2)}
-.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:16px}
+.nav-item>a{font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;padding:6px 12px;border-radius:var(--radius);transition:color 0.15s,background 0.15s}
+.nav-item>a::after{content:'▾';font-size:9px;margin-left:2px;opacity:0.6}
 .nav-item.plain>a::after{display:none}
-.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:rgba(13,17,23,0.96);border:1px solid rgba(124,58,237,0.2);border-radius:var(--radius-md);min-width:220px;z-index:200;box-shadow:var(--shadow-glow);overflow:hidden;animation:dropdownIn 0.25s var(--ease)}
-@keyframes dropdownIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:rgba(240,244,255,0.7);text-decoration:none;border-bottom:1px solid rgba(124,58,237,0.08);white-space:nowrap;transition:all 0.2s ease}
+.nav-item>a:hover{color:var(--ink);background:var(--surface)}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 10px);left:0;background:var(--bg);border:1px solid var(--border-md);min-width:210px;z-index:300;border-radius:var(--radius);box-shadow:0 8px 24px rgba(0,0,0,0.08);overflow:hidden}
+[data-theme="dark"] .nav-dropdown{box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.nav-dropdown a{display:block;padding:9px 16px;font-size:13px;font-weight:500;color:var(--muted);border-bottom:1px solid var(--border);transition:background 0.12s,color 0.12s}
 .nav-dropdown a:last-child{border:none}
-.nav-dropdown a:hover{background:linear-gradient(90deg,rgba(124,58,237,0.2),rgba(6,182,212,0.1));color:var(--white);padding-left:24px}
+.nav-dropdown a:hover{background:var(--surface);color:var(--ink)}
 .nav-item:hover .nav-dropdown{display:block}
-.nav-cta{background:var(--gradient-brand);color:var(--white)!important;padding:11px 24px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:transform 0.3s var(--ease),box-shadow 0.3s ease;position:relative;overflow:hidden}
-.nav-cta::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.25) 50%,transparent 60%);transform:translateX(-100%);transition:transform 0.6s ease}
-.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,58,237,0.45);color:var(--white)!important}
-.nav-cta:hover::before{transform:translateX(100%)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.theme-toggle{width:34px;height:34px;border-radius:var(--radius);border:1px solid var(--border-md);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:background 0.15s,color 0.15s;font-size:15px}
+.theme-toggle:hover{background:var(--surface);color:var(--ink)}
+.nav-cta{background:var(--ink);color:var(--bg);padding:8px 18px;border-radius:var(--radius);font-size:13px;font-weight:600;text-decoration:none;letter-spacing:-0.01em;transition:opacity 0.15s;white-space:nowrap}
+.nav-cta:hover{opacity:0.82}
+.menu-toggle{display:none;flex-direction:column;gap:4px;background:none;border:none;cursor:pointer;padding:6px}
+.menu-toggle span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:background 0.15s}
 
-/* HERO */
+/* ── HERO ───────────────────────────────────────────────── */
 .hero{
-  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
-  padding:140px 60px 80px;gap:60px;align-items:center;
+  min-height:100vh;padding:120px 48px 80px;
+  display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;
   position:relative;overflow:hidden;
-  background-image:
-    linear-gradient(160deg,rgba(6,8,15,0.88) 0%,rgba(18,24,42,0.75) 50%,rgba(6,8,15,0.92) 100%),
-    url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1920&q=85&auto=format&fit=crop');
-  background-size:cover;background-position:center;
+  background:var(--bg);
 }
 .hero::before{
-  content:'';position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 80%,rgba(124,58,237,0.25) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 20%,rgba(6,182,212,0.2) 0%,transparent 55%),
-    radial-gradient(ellipse 40% 40% at 50% 50%,rgba(244,114,182,0.08) 0%,transparent 70%);
-  pointer-events:none;
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 0%,transparent 100%);
 }
-.hero::after{
-  content:'';position:absolute;inset:0;z-index:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:0.2;pointer-events:none;
+.hero-eyebrow{
+  font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:0.18em;color:var(--muted);text-transform:uppercase;
+  margin-bottom:24px;display:block;
 }
-#hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.55;transition:transform 0.1s linear}
-.hero-left,.hero-stats{position:relative;z-index:2}
-.hero-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:20px;background:rgba(6,182,212,0.1);display:inline-block;padding:6px 14px;border-radius:999px;border:1px solid rgba(6,182,212,0.25)}
-.hero h1{font-family:var(--font-display);font-size:clamp(48px,5vw,72px);line-height:1.05;letter-spacing:-2px;margin-bottom:24px;color:var(--white)}
-.hero h1 em{font-style:normal;background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:18px;color:rgba(255,255,255,0.72);line-height:1.65;max-width:500px;margin-bottom:40px;font-weight:300}
-.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.btn-primary{background:var(--gradient-brand);color:var(--white);padding:14px 28px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:transform 0.3s var(--ease),box-shadow 0.3s ease;box-shadow:0 4px 20px rgba(124,58,237,0.35);border:none}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(124,58,237,0.45)}
-.btn-secondary{font-size:14px;font-weight:500;color:var(--accent2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.25s ease}
-.btn-secondary:hover{color:var(--white)}
-.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.stat-card{background:rgba(255,255,255,0.04);backdrop-filter:blur(16px);padding:28px;border-radius:var(--radius-md);border:1px solid rgba(124,58,237,0.15);transition:transform 0.4s var(--ease),border-color 0.3s ease,box-shadow 0.3s ease}
-.stat-card:hover{transform:translateY(-4px);border-color:rgba(6,182,212,0.35);box-shadow:0 12px 40px rgba(124,58,237,0.15)}
-.stat-num{font-family:var(--font-display);font-size:42px;letter-spacing:-2px;color:var(--white);line-height:1}
-.stat-label{font-family:var(--font-display);font-size:13px;color:rgba(255,255,255,0.55);margin-top:6px;font-weight:400}
-.stat-card.accent{background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(6,182,212,0.1));border-color:rgba(124,58,237,0.35)}
-.stat-card.accent .stat-num{color:var(--accent2)}
-.stat-card.accent .stat-label{color:rgba(255,255,255,0.55)}
+.hero h1{
+  font-size:clamp(44px,5.5vw,76px);font-weight:800;
+  line-height:1.04;letter-spacing:-2.5px;
+  margin-bottom:24px;color:var(--ink);
+}
+.hero h1 em{font-style:italic;color:var(--muted);font-weight:700}
+.hero-sub{
+  font-size:17px;color:var(--muted);line-height:1.7;
+  max-width:480px;margin-bottom:40px;font-weight:400;
+}
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--ink);color:var(--bg);
+  padding:13px 24px;border-radius:var(--radius);
+  font-size:14px;font-weight:600;text-decoration:none;
+  letter-spacing:-0.01em;transition:opacity 0.15s;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-primary:hover{opacity:0.82}
+.btn-secondary{
+  border:1px solid var(--border-md);color:var(--ink-2);
+  padding:12px 22px;border-radius:var(--radius);
+  font-size:14px;font-weight:500;text-decoration:none;
+  transition:border-color 0.15s,color 0.15s;
+}
+.btn-secondary:hover{border-color:var(--muted);color:var(--ink)}
 
-/* HERO SCROLL HINT */
-.hero-scroll-hint{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;
-  opacity:0;animation:fadeUp 0.6s 1.1s ease forwards;
+/* ── PIPELINE WIDGET ─────────────────────────────────────── */
+.pipeline-widget{
+  background:var(--dark-card);border:1px solid var(--dc-border);
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 24px 64px rgba(0,0,0,0.18);
 }
-.hero-scroll-hint span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;color:rgba(255,255,255,.35);text-transform:uppercase}
-.hero-scroll-line{width:1px;height:40px;background:rgba(255,255,255,.18);position:relative;overflow:hidden}
-.hero-scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gradient-brand);animation:scrollDrop 1.8s 1.5s ease-in-out infinite}
-@keyframes scrollDrop{0%{top:-100%}100%{top:200%}}
+[data-theme="dark"] .pipeline-widget{box-shadow:0 24px 64px rgba(0,0,0,0.5)}
+.pw-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--dc-border);
+}
+.pw-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;color:rgba(255,255,255,0.35);text-transform:uppercase}
+.pw-active{display:flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:10px;color:var(--green)}
+.pw-dot-green{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse-green 2s ease infinite}
+@keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.4)}50%{box-shadow:0 0 0 5px rgba(74,222,128,0)}}
+.pw-rows{padding:8px 0}
+.pw-row{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 20px;transition:background 0.12s;
+}
+.pw-row:hover{background:rgba(255,255,255,0.03)}
+.pw-row-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pw-row-label{font-family:'Space Mono',monospace;font-size:11px;color:rgba(255,255,255,0.45);flex:1;letter-spacing:0.05em}
+.pw-row-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:rgba(255,255,255,0.9)}
+.pw-row-badge{font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:3px;letter-spacing:0.08em}
+.badge-stable{background:rgba(22,163,74,0.15);color:var(--green)}
+.badge-verified{background:rgba(37,99,235,0.15);color:var(--blue)}
+.badge-auto{background:rgba(217,119,6,0.15);color:var(--amber)}
+.badge-run{background:rgba(99,102,241,0.15);color:#a5b4fc}
+.pw-chart{padding:16px 20px;border-top:1px solid var(--dc-border)}
+.pw-chart-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.25);text-transform:uppercase;margin-bottom:12px}
+.pw-bars{display:flex;align-items:flex-end;gap:4px;height:52px}
+.pw-bar{flex:1;border-radius:2px 2px 0 0;background:rgba(99,102,241,0.35);transition:background 0.15s}
+.pw-bar:hover{background:rgba(99,102,241,0.6)}
+.pw-bar.hi{background:rgba(99,102,241,0.55)}
+.pw-chart-foot{display:flex;justify-content:space-between;margin-top:8px}
+.pw-chart-foot span{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,0.2)}
+.pw-chart-foot span:last-child{color:rgba(255,255,255,0.4)}
+.pw-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 20px;border-top:1px solid var(--dc-border);
+}
+.pw-footer-label{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.08em}
+.pw-check{color:var(--green);font-size:14px}
 
-/* TICKER */
-.ticker{background:var(--gradient-dark);padding:14px 0;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(124,58,237,0.15);border-bottom:1px solid rgba(6,182,212,0.15)}
-.ticker-inner{display:inline-flex;gap:0;animation:ticker 30s linear infinite}
-.ticker-item{font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;color:var(--accent2);padding:0 40px}
-.ticker-item::after{content:'·';margin-left:40px;color:var(--accent3)}
+/* ── TICKER ─────────────────────────────────────────────── */
+.ticker{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;animation:ticker 32s linear infinite}
+.ticker-item{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--muted);padding:0 36px;text-transform:uppercase}
+.ticker-item::after{content:'·';margin-left:36px;color:var(--subtle)}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* SECTION HEADER */
-.sec-header{margin-bottom:64px}
-.sec-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;display:block}
-.sec-title{font-family:var(--font-display);font-size:clamp(36px,4vw,52px);letter-spacing:-1.5px;line-height:1.05}
-.sec-title em{font-style:normal;background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.sec-desc{font-size:17px;color:var(--muted);max-width:560px;margin-top:16px;font-weight:300;line-height:1.65}
-.sec-desc a{color:var(--accent);text-decoration:none;transition:color 0.2s}
-.sec-desc a:hover{color:var(--accent2)}
-/* WHAT WE DO */
-.what{padding:120px 60px;background:var(--paper);border-top:1px solid var(--border)}
+/* ── SECTION SCAFFOLDING ─────────────────────────────────── */
+.sec{padding:112px 48px}
+.sec-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;margin-bottom:16px;display:block}
+.sec-title{font-size:clamp(30px,3.5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.05;color:var(--ink)}
+.sec-title em{font-style:italic;color:var(--em-color)}
+.sec-desc{font-size:17px;color:var(--muted);max-width:560px;margin-top:16px;font-weight:400;line-height:1.7}
+.sec-desc a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+
+/* ── WHAT / DIFFERENTIATORS ──────────────────────────────── */
+.what{padding:112px 48px;background:var(--bg);border-top:1px solid var(--border)}
 .what-grid{display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start}
-.what-sticky{position:sticky;top:120px}
+.what-sticky{position:sticky;top:90px}
 .differentiators{display:flex;flex-direction:column;gap:0}
-.diff-item{display:flex;gap:24px;padding:28px 0;border-bottom:1px solid rgba(124,58,237,0.1);align-items:flex-start;transition:padding-left 0.3s var(--ease)}
-.diff-item:hover{padding-left:8px}
+.diff-item{display:flex;gap:24px;padding:28px 0;border-bottom:1px solid var(--border);align-items:flex-start}
 .diff-item:last-child{border:none}
-.diff-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);width:28px;flex-shrink:0;padding-top:3px}
-.diff-title{font-size:18px;font-weight:600;margin-bottom:6px;letter-spacing:-0.3px}
-.diff-body{font-size:14px;color:var(--muted);line-height:1.6}
+.diff-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--subtle);width:26px;flex-shrink:0;padding-top:4px;letter-spacing:0.05em}
+.diff-title{font-size:16px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px;color:var(--ink)}
+.diff-body{font-size:14px;color:var(--muted);line-height:1.65}
 
-/* SERVICES */
-.services{padding:120px 60px}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
-.svc-card{background:var(--white);padding:36px 32px;border:1px solid rgba(124,58,237,0.1);border-radius:var(--radius-lg);box-shadow:0 4px 24px rgba(6,8,15,0.04);transition:transform 0.45s var(--ease),box-shadow 0.45s ease,border-color 0.3s ease,background 0.3s ease;cursor:pointer;display:block;text-decoration:none;color:inherit;position:relative;overflow:hidden;animation:cardFadeIn 0.6s var(--ease) both}
-.svc-card:nth-child(1){animation-delay:0.05s}.svc-card:nth-child(2){animation-delay:0.1s}.svc-card:nth-child(3){animation-delay:0.15s}
-.svc-card:nth-child(4){animation-delay:0.2s}.svc-card:nth-child(5){animation-delay:0.25s}.svc-card:nth-child(6){animation-delay:0.3s}
-.svc-card:nth-child(7){animation-delay:0.35s}.svc-card:nth-child(8){animation-delay:0.4s}.svc-card:nth-child(9){animation-delay:0.45s}
-.svc-card::before{content:'';position:absolute;inset:0;background:var(--gradient-brand);opacity:0;transition:opacity 0.4s ease;z-index:0}
-.svc-card>*{position:relative;z-index:1}
-.svc-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-glow);border-color:rgba(124,58,237,0.3);background:var(--surface)}
-.svc-card:hover::before{opacity:0.06}
-.svc-card:hover .svc-title{color:var(--white)}
-.svc-card:hover .svc-body{color:rgba(240,244,255,0.65)}
-.svc-card:hover .svc-tag{background:rgba(6,182,212,0.15);color:var(--accent2);border-color:transparent}
-.svc-card:hover .svc-icon{color:var(--accent2)}
-.svc-icon{font-size:28px;margin-bottom:20px;display:block;color:var(--accent);transition:color 0.3s ease}
-.svc-title{font-family:var(--font-display);font-size:22px;letter-spacing:-0.5px;margin-bottom:10px;color:var(--ink);transition:color 0.3s ease;line-height:1.2}
-.svc-body{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px;transition:color 0.3s ease}
+/* ── VIS SPLIT ───────────────────────────────────────────── */
+.vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;border-top:1px solid var(--border)}
+.vis-split-img{position:relative;overflow:hidden}
+.vis-split-img img{width:100%;height:100%;object-fit:cover;display:block}
+.vis-split-body{background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:72px 56px;border-left:1px solid var(--border)}
+.vis-split-body .sec-title{margin-top:12px}
+.vis-split-body .sec-desc{margin-top:20px}
+.btn-cta{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:var(--bg);padding:13px 24px;border-radius:var(--radius);font-size:14px;font-weight:600;text-decoration:none;margin-top:28px;transition:opacity 0.15s}
+.btn-cta:hover{opacity:0.82}
+
+/* ── IMAGE STRIP ─────────────────────────────────────────── */
+.img-strip{position:relative;height:380px;overflow:hidden;border-top:1px solid var(--border)}
+.img-strip img{width:100%;height:100%;object-fit:cover;display:block}
+.img-strip-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(9,9,11,0.92) 0%,rgba(9,9,11,0.6) 55%,rgba(9,9,11,0) 100%);display:flex;align-items:center;padding:0 72px}
+.img-strip-text{max-width:500px}
+.img-strip-text h3{font-size:clamp(24px,2.8vw,38px);font-weight:800;line-height:1.1;margin-bottom:14px;letter-spacing:-1px;color:#fafafa}
+.img-strip-text p{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7}
+
+/* ── SERVICES ────────────────────────────────────────────── */
+.services{padding:112px 48px;background:var(--bg);border-top:1px solid var(--border)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:64px;border-radius:var(--radius);overflow:hidden}
+.svc-card{background:var(--bg);padding:32px 28px;text-decoration:none;color:inherit;display:block;transition:background 0.18s}
+.svc-card:hover{background:var(--ink)}
+.svc-card:hover .svc-title{color:var(--bg)}
+.svc-card:hover .svc-body{color:rgba(255,255,255,0.5)}
+.svc-card:hover .svc-tag{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border-color:transparent}
+.svc-card:hover .svc-icon{color:#818cf8}
+.svc-icon{font-size:24px;margin-bottom:16px;display:block;color:var(--em-color)}
+.svc-title{font-size:17px;font-weight:700;letter-spacing:-0.3px;margin-bottom:8px;color:var(--ink);transition:color 0.18s;line-height:1.25}
+.svc-body{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px;transition:color 0.18s}
 .svc-tags{display:flex;flex-wrap:wrap;gap:6px}
-.svc-tag{font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;padding:4px 10px;border:1px solid rgba(124,58,237,0.15);border-radius:999px;color:var(--muted);background:rgba(124,58,237,0.05);transition:all 0.3s ease}
+.svc-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.06em;padding:3px 9px;border:1px solid var(--border-md);border-radius:3px;color:var(--muted);transition:all 0.18s}
 
-/* HOW */
-.how{padding:120px 60px;background:var(--paper);color:var(--accent2)}
-.how .sec-eyebrow{color:var(--accent)}
-.how .sec-title{color:var(--ink)}
-.how .sec-title em{color:var(--accent)}
-.how .sec-desc{color:var(--muted)}
-.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;border:1px solid rgba(124,58,237,0.12);border-radius:var(--radius-lg);overflow:hidden;background:var(--white)}
-.how-step{padding:40px 32px;border-right:1px solid rgba(124,58,237,0.08);position:relative;transition:background 0.3s ease}
-.how-step:hover{background:rgba(124,58,237,0.04)}
+/* ── HOW IT WORKS ────────────────────────────────────────── */
+.how{padding:112px 48px;background:var(--surface);border-top:1px solid var(--border)}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.how-step{padding:36px 28px;background:var(--bg);border-right:1px solid var(--border);position:relative;transition:background 0.18s}
 .how-step:last-child{border-right:none}
-.how-step-num{font-family:var(--font-display);font-size:48px;font-weight:700;color:rgba(124,58,237,0.12);letter-spacing:-2px;position:absolute;top:20px;right:20px;line-height:1}
-.how-step-icon{font-size:24px;margin-bottom:16px}
-.how-step-title{font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px}
-.how-step-body{font-size:13px;color:var(--muted);line-height:1.6}
+.how-step:hover{background:var(--surface)}
+.how-step-num{font-family:'Space Mono',monospace;font-size:44px;font-weight:700;color:var(--border-md);letter-spacing:-2px;position:absolute;top:18px;right:18px;line-height:1}
+.how-step-icon{font-size:22px;margin-bottom:14px}
+.how-step-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-0.2px}
+.how-step-body{font-size:13px;color:var(--muted);line-height:1.65}
 
-/* INDUSTRIES */
-.industries{padding:120px 60px;background:var(--paper);border-top:1px solid var(--border)}
-.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
-.ind-card{background:var(--white);padding:36px;border:1px solid rgba(124,58,237,0.1);border-radius:var(--radius-lg);box-shadow:0 4px 24px rgba(6,8,15,0.04);transition:transform 0.45s var(--ease),box-shadow 0.45s ease,border-color 0.3s ease,background 0.3s ease;cursor:pointer;display:block;text-decoration:none;color:inherit;position:relative;overflow:hidden;animation:cardFadeIn 0.6s var(--ease) both}
-.ind-card:nth-child(1){animation-delay:0.05s}.ind-card:nth-child(2){animation-delay:0.1s}.ind-card:nth-child(3){animation-delay:0.15s}
-.ind-card:nth-child(4){animation-delay:0.2s}.ind-card:nth-child(5){animation-delay:0.25s}.ind-card:nth-child(6){animation-delay:0.3s}
-.ind-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-glow);border-color:rgba(124,58,237,0.3);background:var(--surface)}
-.ind-card:hover .ind-name{color:var(--white)}
-.ind-card:hover .ind-desc{color:rgba(240,244,255,0.65)}
-.ind-card:hover .ind-service{color:rgba(240,244,255,0.65)}
-.ind-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-brand);transform:scaleX(0);transform-origin:left;transition:transform 0.4s var(--ease);z-index:2}
-.ind-card:hover::before{transform:scaleX(1)}
-.ind-emoji{font-size:32px;margin-bottom:16px;display:block}
-.ind-name{font-family:var(--font-display);font-size:24px;letter-spacing:-0.5px;margin-bottom:8px;transition:color 0.3s ease}
-.ind-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
-.ind-services{display:flex;flex-direction:column;gap:6px}
-.ind-service{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
+/* ── INDUSTRIES ──────────────────────────────────────────── */
+.industries{padding:112px 48px;background:var(--bg);border-top:1px solid var(--border)}
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:64px;border-radius:var(--radius);overflow:hidden}
+.ind-card{background:var(--bg);padding:32px;text-decoration:none;color:inherit;display:block;transition:background 0.18s;position:relative}
+.ind-card::after{content:'→';position:absolute;bottom:28px;right:28px;font-size:14px;color:var(--subtle);transition:all 0.18s;opacity:0}
+.ind-card:hover{background:var(--ink)}
+.ind-card:hover::after{opacity:1;color:rgba(255,255,255,0.4)}
+.ind-card:hover .ind-name{color:var(--bg)}
+.ind-card:hover .ind-desc{color:rgba(255,255,255,0.5)}
+.ind-card:hover .ind-service{color:rgba(255,255,255,0.4)}
+.ind-emoji{font-size:28px;margin-bottom:14px;display:block}
+.ind-name{font-size:20px;font-weight:700;letter-spacing:-0.4px;margin-bottom:8px;color:var(--ink);transition:color 0.18s}
+.ind-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:14px;transition:color 0.18s}
+.ind-services{display:flex;flex-direction:column;gap:5px}
+.ind-service{font-size:12px;color:var(--subtle);display:flex;align-items:center;gap:6px;transition:color 0.18s}
+.ind-service::before{content:'–';opacity:0.5}
 
-/* METRICS */
-.metrics{padding:120px 60px;background:var(--paper)}
+/* ── ANNOTATION STUDIO ───────────────────────────────────── */
+.ann-studio{padding:80px 48px;background:var(--surface);border-top:1px solid var(--border)}
+.ann-studio-head{text-align:center;margin-bottom:48px}
+.ann-studio-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--muted);text-transform:uppercase;margin-bottom:12px;display:block}
+.ann-studio-title{font-size:clamp(26px,3vw,40px);font-weight:800;letter-spacing:-1.2px;color:var(--ink)}
+.ann-studio-title em{font-style:italic;color:var(--em-color)}
+.ann-studio-desc{font-size:15px;color:var(--muted);margin-top:12px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7}
+.ann-panels{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.ann-panel{background:#0d1117;overflow:hidden}
+.ann-panel-header{background:#161b22;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.ann-panel-dot{width:6px;height:6px;border-radius:50%}
+.ann-panel-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em}
+.ann-panel-body{height:220px;overflow:hidden;position:relative}
+.ann-panel-footer{padding:12px 16px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06)}
+.ann-tag{font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:2px;border:1px solid transparent}
+.ann-studio-stats{margin-top:1px;background:#161b22;border:1px solid var(--border);border-top:0;border-radius:0 0 var(--radius) var(--radius);padding:13px 22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.ann-stat-item{font-family:'Space Mono',monospace;font-size:10px;color:#636e7b}
+.ann-stat-item strong{color:#f5f5f5}
+
+/* ── METRICS ─────────────────────────────────────────────── */
+.metrics{padding:112px 48px;background:var(--bg);border-top:1px solid var(--border)}
 .metrics-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-.metrics-text .sec-title{margin-bottom:24px}
-.metric-rows{display:flex;flex-direction:column;gap:0}
-.metric-row{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid rgba(124,58,237,0.1)}
+.metric-rows{display:flex;flex-direction:column;gap:0;margin-top:40px}
+.metric-row{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--border)}
 .metric-row:last-child{border:none}
 .metric-name{font-size:14px;color:var(--muted);font-weight:400}
-.metric-val{font-family:var(--font-mono);font-size:20px;font-weight:700;color:var(--ink)}
-.metric-bar-wrap{margin-top:6px}
-.metric-bar{height:2px;background:var(--border);border-radius:1px;overflow:hidden;width:200px}
-.metric-fill{height:100%;background:var(--gradient-brand);border-radius:1px}
-.metric-right{text-align:right}
-.pipe-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:3px;background:rgba(255,255,255,0.04);transition:background 0.2s}
-.pipe-row:hover{background:rgba(255,255,255,0.08)}
-.pipe-icon{font-size:16px;width:28px;flex-shrink:0;text-align:center}
-.pipe-label{font-size:13px;color:rgba(240,244,255,0.7);flex:1}
-.pipeline-visual{background:var(--gradient-dark);border-radius:var(--radius-lg);padding:40px;display:flex;flex-direction:column;gap:2px;border:1px solid rgba(124,58,237,0.2);box-shadow:var(--shadow-glow)}
-.pipe-badge{font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:999px;background:rgba(6,182,212,0.2);color:var(--accent2)}
-.pipe-badge.ai{background:rgba(124,58,237,0.25);color:#c4b5fd}
-.pipe-arrow{text-align:center;color:rgba(255,255,255,0.15);font-size:12px;padding:4px 0}
+.metric-bar-wrap{margin-top:5px}
+.metric-bar{height:2px;background:var(--border);width:160px;border-radius:1px;overflow:hidden}
+.metric-fill{height:100%;background:var(--em-color);border-radius:1px}
+.metric-val{font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:var(--ink)}
+.pipeline-visual{background:var(--dark-card);border:1px solid var(--dc-border);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column;gap:2px}
+.pipe-section-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.2);text-transform:uppercase;margin-bottom:14px}
+.pipe-row{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:4px;background:rgba(255,255,255,0.03);transition:background 0.15s}
+.pipe-row:hover{background:rgba(255,255,255,0.06)}
+.pipe-icon{font-size:14px;width:24px;flex-shrink:0;text-align:center}
+.pipe-label{font-size:13px;color:rgba(255,255,255,0.65);flex:1}
+.pipe-badge{font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:3px;letter-spacing:0.06em}
+.badge-secure{background:rgba(22,163,74,0.15);color:var(--green)}
+.badge-ai{background:rgba(99,102,241,0.2);color:#a5b4fc}
+.badge-qa{background:rgba(37,99,235,0.15);color:var(--blue)}
+.badge-human{background:rgba(245,158,11,0.15);color:var(--amber)}
+.badge-auto{background:rgba(217,119,6,0.12);color:var(--amber)}
+.badge-expert{background:rgba(99,102,241,0.15);color:#a5b4fc}
+.badge-done{background:rgba(22,163,74,0.15);color:var(--green)}
+.pipe-arrow{text-align:center;color:rgba(255,255,255,0.12);font-size:11px;padding:3px 0}
 
-/* PRICING BANDS */
-.pricing{padding:120px 60px;background:var(--paper);color:var(--paper)}
-.pricing .sec-eyebrow{color:var(--accent)}
-.pricing .sec-title{color:var(--ink)}
-.pricing .sec-title em{font-style:normal;background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
-.price-card{border:1px solid rgba(124,58,237,0.12);border-radius:var(--radius-lg);padding:40px;position:relative;transition:transform 0.45s var(--ease),box-shadow 0.45s ease,border-color 0.3s ease,background 0.3s ease;background:var(--white);animation:cardFadeIn 0.6s var(--ease) both}
-.price-card:nth-child(1){animation-delay:0.05s}.price-card:nth-child(2){animation-delay:0.15s}.price-card:nth-child(3){animation-delay:0.25s}
-.price-card.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow-glow)}
-.price-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-glow);background:var(--surface);border-color:rgba(124,58,237,0.3)}
-.price-card:hover .price-name{color:var(--white)}
-.price-card:hover .price-desc{color:rgba(240,244,255,0.65)}
-.price-card:hover .price-feature{color:rgba(240,244,255,0.65)}
-.price-card:hover .price-amount{color:var(--white)}
-.price-badge{position:absolute;top:-12px;left:24px;background:var(--gradient-brand);color:var(--white);font-family:var(--font-mono);font-size:10px;padding:4px 14px;border-radius:999px;font-weight:700;letter-spacing:0.05em}
-.price-name{font-family:var(--font-display);font-size:24px;margin-bottom:6px;color:var(--ink);transition:color 0.3s ease}
-.price-desc{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.5}
-.price-amount{font-family:var(--font-mono);font-size:28px;font-weight:700;color:var(--ink);margin-bottom:4px;transition:color 0.3s ease}
-.price-unit{font-size:12px;color:var(--muted);margin-bottom:28px}
-.price-features{display:flex;flex-direction:column;gap:12px}
-.price-feature{font-size:13px;color:var(--muted);display:flex;gap:10px;align-items:flex-start;line-height:1.4}
-.price-feature::before{content:'✓';color:var(--accent2);flex-shrink:0;font-size:12px;margin-top:1px}
+/* ── PRICING ─────────────────────────────────────────────── */
+.pricing{padding:112px 48px;background:var(--surface);border-top:1px solid var(--border)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:64px;border-radius:var(--radius);overflow:hidden}
+.price-card{background:var(--bg);padding:36px;position:relative;transition:background 0.18s}
+.price-card:hover{background:var(--ink)}
+.price-card:hover .price-name,.price-card:hover .price-amount{color:var(--bg)}
+.price-card:hover .price-desc,.price-card:hover .price-feature,.price-card:hover .price-unit{color:rgba(255,255,255,0.45)}
+.price-badge{position:absolute;top:-11px;left:24px;background:var(--em-color);color:#fff;font-family:'Space Mono',monospace;font-size:9px;padding:3px 10px;border-radius:3px;font-weight:700;letter-spacing:0.06em}
+.price-name{font-size:22px;font-weight:800;margin-bottom:6px;color:var(--ink);letter-spacing:-0.4px;transition:color 0.18s}
+.price-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6;transition:color 0.18s}
+.price-amount{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:var(--ink);margin-bottom:4px;letter-spacing:-0.5px;transition:color 0.18s}
+.price-unit{font-size:11px;color:var(--subtle);margin-bottom:24px;font-family:'Space Mono',monospace;transition:color 0.18s}
+.price-features{display:flex;flex-direction:column;gap:10px}
+.price-feature{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;line-height:1.5;transition:color 0.18s}
+.price-feature::before{content:'✓';color:var(--em-color);flex-shrink:0;font-size:11px;margin-top:2px}
 
-/* TRUST */
-.trust{padding:80px 60px;background:linear-gradient(90deg,rgba(124,58,237,0.04),rgba(6,182,212,0.04));border-top:1px solid rgba(124,58,237,0.1);border-bottom:1px solid rgba(124,58,237,0.1)}
-.trust-inner{display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap}
-.trust-items{display:flex;gap:48px;align-items:center;flex-wrap:wrap}
-.trust-item{font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:8px}
-.trust-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
-.trust-item::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gradient-brand);animation:trustPulse 2s ease infinite}
-@keyframes trustPulse{0%,100%{box-shadow:0 0 0 0 rgba(124,58,237,0.4)}50%{box-shadow:0 0 0 6px transparent}}
+/* ── TRUST ───────────────────────────────────────────────── */
+.trust{padding:56px 48px;background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-inner{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap}
+.trust-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--subtle);text-transform:uppercase;white-space:nowrap}
+.trust-items{display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+.trust-item{font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:7px}
+.trust-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--em-color);flex-shrink:0}
 
-/* CTA */
-.cta-section{padding:140px 60px;background:var(--gradient-dark);text-align:center;position:relative;overflow:hidden}
-.cta-section::before{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.15) 0%,transparent 70%);border:none;animation:ctaPulse 4s ease-in-out infinite}
-.cta-section::after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.1) 0%,transparent 70%);border:none;animation:ctaPulse 4s ease-in-out infinite 2s}
-@keyframes ctaPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+/* ── CTA ─────────────────────────────────────────────────── */
+.cta-section{padding:120px 48px;background:var(--ink);text-align:center;position:relative;overflow:hidden}
+[data-theme="dark"] .cta-section{background:var(--em-color)}
+.cta-section::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:48px 48px}
 .cta-inner{position:relative;z-index:1}
-.cta-section p{font-size:18px;color:rgba(255,255,255,0.75);max-width:500px;margin:0 auto 40px;font-weight:300}
-.cta-actions{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
-.cta-section h2{font-family:var(--font-display);font-size:clamp(40px,5vw,68px);letter-spacing:-2px;color:var(--white);margin-bottom:20px;line-height:1.05}
-.cta-section h2 em{font-style:normal;background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.cta-btn-white{background:var(--white);color:var(--accent);padding:16px 32px;border-radius:999px;font-size:15px;font-weight:700;text-decoration:none;transition:transform 0.3s ease,box-shadow 0.3s ease}
-.cta-btn-white:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(255,255,255,0.2);opacity:1}
-.cta-btn-ghost{border:1.5px solid rgba(6,182,212,0.5);color:var(--white);padding:16px 32px;border-radius:999px;font-size:15px;font-weight:600;text-decoration:none;transition:all 0.3s ease}
-.cta-btn-ghost:hover{border-color:var(--accent2);background:rgba(6,182,212,0.1)}
+.cta-section h2{font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-2px;color:#fff;margin-bottom:16px;line-height:1.05}
+.cta-section h2 em{font-style:italic;color:rgba(255,255,255,0.55)}
+.cta-section p{font-size:17px;color:rgba(255,255,255,0.65);max-width:480px;margin:0 auto 36px;line-height:1.7}
+.cta-actions{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+.cta-btn-white{background:#fff;color:var(--ink);padding:14px 28px;border-radius:var(--radius);font-size:14px;font-weight:700;text-decoration:none;transition:opacity 0.15s}
+.cta-btn-white:hover{opacity:0.9}
+.cta-btn-ghost{border:1.5px solid rgba(255,255,255,0.3);color:#fff;padding:13px 28px;border-radius:var(--radius);font-size:14px;font-weight:600;text-decoration:none;transition:border-color 0.15s}
+.cta-btn-ghost:hover{border-color:rgba(255,255,255,0.7)}
 
-/* FOOTER */
-footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px;border-top:1px solid rgba(124,58,237,0.2)}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px}
-.footer-brand .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:16px}
-.footer-brand .nav-logo svg{width:30px;height:30px;flex-shrink:0}
-.footer-brand p{font-size:14px;color:rgba(240,244,255,0.65);line-height:1.65;max-width:280px;margin-top:0}
-.footer-links{display:flex;flex-direction:column;gap:12px}
-.footer-links a{font-size:14px;color:rgba(240,244,255,0.65);text-decoration:none;transition:color 0.2s}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-copy{font-size:13px;color:rgba(240,244,255,0.35)}
-.footer-badges{display:flex;gap:12px;flex-wrap:wrap}
-.footer-brand .logo-text{font-family:var(--font-display);font-size:20px;color:var(--white);font-weight:600;letter-spacing:-0.3px}
-.footer-brand .orange-ai{background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.footer-col-title{font-family:var(--font-display);font-size:16px;letter-spacing:0.15em;color:var(--white);text-transform:uppercase;margin-bottom:20px}
-.footer-links a:hover{color:var(--accent2)}
-.footer-badge{font-family:var(--font-mono);font-size:9px;letter-spacing:0.1em;padding:5px 12px;border:1px solid rgba(6,182,212,0.25);border-radius:999px;color:var(--paper);transition:border-color 0.2s ease}
-.footer-badge:hover{border-color:var(--accent2)}
+/* ── FOOTER ──────────────────────────────────────────────── */
+footer{background:var(--ink);color:var(--bg);padding:72px 48px 36px}
+[data-theme="dark"] footer{background:var(--surface);color:var(--ink)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+.footer-logo-row{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.footer-logo-mark{font-size:16px;font-weight:700;color:var(--em-color)}
+.footer-logo-text{font-size:14px;font-weight:700;color:#fff;letter-spacing:-0.2px}
+[data-theme="dark"] .footer-logo-text{color:var(--ink)}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.7;max-width:260px}
+[data-theme="dark"] .footer-brand p{color:var(--muted)}
+.footer-col-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:18px}
+[data-theme="dark"] .footer-col-title{color:var(--subtle)}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.15s}
+[data-theme="dark"] .footer-links a{color:var(--muted)}
+.footer-links a:hover{color:#fff}
+[data-theme="dark"] .footer-links a:hover{color:var(--ink)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+[data-theme="dark"] .footer-bottom{border-color:var(--border)}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25)}
+[data-theme="dark"] .footer-copy{color:var(--subtle)}
+.footer-badges{display:flex;gap:8px;flex-wrap:wrap}
+.footer-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:4px 9px;border:1px solid rgba(255,255,255,0.1);border-radius:3px;color:rgba(255,255,255,0.3)}
+[data-theme="dark"] .footer-badge{border-color:var(--border);color:var(--subtle)}
 
-/* VISUAL BREAK SECTIONS */
-.vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:520px;overflow:hidden}
-.vis-split-img{position:relative;overflow:hidden}
-.vis-split-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.72) saturate(1.2);transition:transform 0.8s var(--ease),filter 0.5s ease}
-.vis-split:hover .vis-split-img img{transform:scale(1.04);filter:brightness(0.78) saturate(1.3)}
-.vis-split-body{background:var(--paper);color:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:80px 60px;border-left:1px solid rgba(124,58,237,0.1)}
-.vis-split-body em{font-style:normal;background:var(--gradient-brand);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.vis-split-body .btn-cta{display:inline-block;background:var(--gradient-brand);color:var(--white);padding:14px 28px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;margin-top:28px;transition:transform 0.3s ease,box-shadow 0.3s ease;box-shadow:0 4px 20px rgba(124,58,237,0.35)}
-.vis-split-body .btn-cta:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(124,58,237,0.45)}
+/* ── ANNOTATION DEMO (inline panels) ────────────────────── */
+@keyframes ann-pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.3)}50%{box-shadow:0 0 0 4px rgba(74,222,128,0)}}
+@keyframes ann-pulse-amber{0%,100%{opacity:1}50%{opacity:0.35}}
 
-.img-strip-overlay{background:linear-gradient(to right,rgba(240,244,255,0.95) 0%,rgba(240,244,255,0.7) 50%,transparent 100%)}
-.img-strip-text h3{font-family:var(--font-display);font-size:clamp(26px,3vw,40px);line-height:1.1;margin-bottom:16px;letter-spacing:-1px;color:var(--ink)}
+/* ── SCROLL HINT ─────────────────────────────────────────── */
+.hero-scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp 0.6s 1.1s ease forwards}
+.hero-scroll-hint span{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;color:var(--subtle);text-transform:uppercase}
+.hero-scroll-line{width:1px;height:36px;background:var(--border-md);position:relative;overflow:hidden}
+.hero-scroll-line::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--em-color);animation:scrollDrop 2s 1.6s ease-in-out infinite}
+@keyframes scrollDrop{0%{top:-100%}100%{top:200%}}
 
-.img-trio-cell img{transition:transform 0.8s var(--ease);filter:brightness(0.95) saturate(1.1)}
-.img-trio-cell:hover img{transform:scale(1.08)}
-.img-trio-label{background:linear-gradient(to top,rgba(6,8,15,0.85),transparent);color:var(--accent2);font-family:var(--font-mono)}
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{animation:fadeUp 0.5s ease both}
+.hero h1{animation:fadeUp 0.5s ease 0.08s both}
+.hero-sub{animation:fadeUp 0.5s ease 0.16s both}
+.hero-actions{animation:fadeUp 0.5s ease 0.22s both}
+.pipeline-widget{animation:fadeUp 0.6s ease 0.12s both}
 
-/* 1. Basic Hamburger Styling */
-.menu-toggle {
-  display: none; /* Hidden on desktop */
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background-color: var(--accent); /* Uses your accent color from the image */
-  border-radius: 2px;
-}
-
-/* 2. Mobile Responsive Rules */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: flex; /* Show button on mobile */
-  }
-
-  .nav-links {
-    display: none; /* Hide links by default on mobile */
-    flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: var(--paper);
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  /* When the 'active' class is added via JS, show the menu */
-  .nav-links.active {
-    display: flex;
-  }
-}
-
-/* ANNOTATION STUDIO ANIMATIONS */
-@keyframes ann-pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(0,184,148,0.4)}50%{box-shadow:0 0 0 5px rgba(0,184,148,0)}}
-@keyframes ann-pulse-amber{0%,100%{opacity:1}50%{opacity:0.3}}
-
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.hero-eyebrow{animation:fadeUp 0.6s ease both}
-.hero h1{animation:fadeUp 0.6s ease 0.1s both}
-.hero-sub{animation:fadeUp 0.6s ease 0.2s both}
-.hero-actions{animation:fadeUp 0.6s ease 0.3s both}
-.hero-stats{animation:fadeUp 0.6s ease 0.4s both}
-
-/* RESPONSIVE */
+/* ── RESPONSIVE ──────────────────────────────────────────── */
 @media(max-width:1100px){
-  .hero{grid-template-columns:1fr;padding:130px 40px 80px}
-  .hero-stats{grid-template-columns:1fr 1fr;max-width:480px}
-  .services-grid{grid-template-columns:1fr 1fr}
+  .hero{grid-template-columns:1fr;padding:110px 32px 72px}
+  .pipeline-widget{max-width:520px}
+  .what-grid,.metrics-layout,.vis-split{grid-template-columns:1fr}
+  .what-sticky{position:static;margin-bottom:24px}
+  .vis-split-img{height:280px}
+  .vis-split-body{padding:48px 32px;border-left:none;border-top:1px solid var(--border)}
   .how-steps{grid-template-columns:1fr 1fr}
-  .how-step{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08)}
-  .metrics-layout{grid-template-columns:1fr}
+  .how-step{border-right:none;border-bottom:1px solid var(--border)}
+  .services-grid,.ind-grid,.pricing-grid,.ann-panels{grid-template-columns:1fr 1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  nav{padding:16px 24px}
-  .nav-links{display:none}
-  .hero,.services,.industries,.metrics,.pricing,.what,.how,.trust,.cta-section{padding-left:24px;padding-right:24px}
-  .services-grid,.ind-grid,.pricing-grid{grid-template-columns:1fr}
-  .what-grid{grid-template-columns:1fr}
-  .what-sticky{position:static;margin-bottom:32px}
-  .hero{padding-top:100px}
-  .vis-split{grid-template-columns:1fr}
-  .vis-split-img{height:280px}
-  .vis-split-body{padding:48px 28px}
-  .img-strip{height:320px}
-  .img-strip-overlay{padding:0 28px}
-  .img-trio{grid-template-columns:1fr;height:auto}
-  .img-trio-cell{height:220px}
+  nav{padding:0 20px}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;width:100%;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 20px 20px;box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+  .nav-links.open{display:flex}
+  .nav-item>a{padding:10px 8px}
+  .nav-dropdown{position:static;box-shadow:none;border:none;border-top:1px solid var(--border);border-radius:0;padding-left:16px}
+  .menu-toggle{display:flex}
+  .sec,.what,.services,.industries,.metrics,.pricing,.ann-studio,.how,.trust,.cta-section{padding-left:20px;padding-right:20px}
+  .hero{padding:100px 20px 64px;grid-template-columns:1fr}
+  .services-grid,.ind-grid,.pricing-grid,.ann-panels{grid-template-columns:1fr}
+  .how-steps{grid-template-columns:1fr}
+  .img-strip{height:300px}
+  .img-strip-overlay{padding:0 24px}
+  .footer-grid{grid-template-columns:1fr}
+  footer{padding:48px 20px 28px}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a href="/" class="nav-logo">
-    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
-    <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-mark">&lt;</span>
+    <span class="nav-logo-text">CONCAVE AI</span>
   </a>
-
-  <!-- The Hamburger Button -->
-  <button class="menu-toggle" aria-label="Open Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button> 
-
-  <div class="nav-links">
+  <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
     <div class="nav-item">
       <a href="#">Services</a>
       <div class="nav-dropdown">
@@ -501,45 +500,93 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
       </div>
     </div>
     <div class="nav-item plain"><a href="#pricing">Pricing</a></div>
-    <a href="/contact" class="nav-cta">Get a Free Audit</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg id="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a href="/contact" class="nav-cta">Free Audit</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-left">
-    <div class="hero-eyebrow">Data infrastructure for AI model training</div>
-    <h1>Training data that <em>actually</em> improves your model</h1>
-    <p class="hero-sub">Production-grade RLHF, NLP, image, and evaluation data built for the model training pipeline, not checked off a labelling spreadsheet. AI+human hybrid pipeline with published quality metrics you can verify.</p>
+  <div class="hero-left" style="position:relative;z-index:1">
+    <span class="hero-eyebrow">Data infrastructure for AI model training</span>
+    <h1>Training data that actually improves your model.</h1>
+    <p class="hero-sub">Production-grade RLHF, NLP, image, and evaluation data built for the model training pipeline not checked off a labelling spreadsheet. AI+human hybrid pipeline with published quality metrics you can verify.</p>
     <div class="hero-actions">
       <a href="/contact" class="btn-primary">Start Free Audit →</a>
       <a href="#services" class="btn-secondary">Explore services ↓</a>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="stat-card">
-      <div class="stat-num">0.72+</div>
-      <div class="stat-label">Cohen's kappa showing data accuracy on every delivery </div>
+
+  <!-- Pipeline Widget -->
+  <div class="pipeline-widget" style="position:relative;z-index:1">
+    <div class="pw-header">
+      <span class="pw-title">Live Pipeline</span>
+      <span class="pw-active"><span class="pw-dot-green"></span>Active</span>
     </div>
-    <div class="stat-card ">
-      <div class="stat-num">60%</div>
-      <div class="stat-label">Faster than pure-manual annotation via RLAIF pipeline</div>
+    <div class="pw-rows">
+      <div class="pw-row">
+        <span class="pw-row-dot" style="background:var(--green)"></span>
+        <span class="pw-row-label">IAA κ</span>
+        <span class="pw-row-val">0.87</span>
+        <span class="pw-row-badge badge-stable">STABLE</span>
+      </div>
+      <div class="pw-row">
+        <span class="pw-row-dot" style="background:var(--blue)"></span>
+        <span class="pw-row-label">GOLD PASS</span>
+        <span class="pw-row-val">94.2%</span>
+        <span class="pw-row-badge badge-verified">VERIFIED</span>
+      </div>
+      <div class="pw-row">
+        <span class="pw-row-dot" style="background:var(--amber)"></span>
+        <span class="pw-row-label">RLAIF PRE-SCORE</span>
+        <span class="pw-row-val">72%</span>
+        <span class="pw-row-badge badge-auto">AUTO</span>
+      </div>
+      <div class="pw-row">
+        <span class="pw-row-dot" style="background:#a5b4fc"></span>
+        <span class="pw-row-label">3-TIER QA</span>
+        <span class="pw-row-val">ACTIVE</span>
+        <span class="pw-row-badge badge-run">RUN</span>
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">3-Tier</div>
-      <div class="stat-label">Automated + peer + expert QA on every batch</div>
+    <div class="pw-chart">
+      <div class="pw-chart-label">Batch Quality Trend</div>
+      <div class="pw-bars">
+        <div class="pw-bar" style="height:38%"></div>
+        <div class="pw-bar" style="height:44%"></div>
+        <div class="pw-bar" style="height:42%"></div>
+        <div class="pw-bar" style="height:50%"></div>
+        <div class="pw-bar" style="height:55%"></div>
+        <div class="pw-bar" style="height:58%"></div>
+        <div class="pw-bar hi" style="height:64%"></div>
+        <div class="pw-bar hi" style="height:68%"></div>
+        <div class="pw-bar hi" style="height:72%"></div>
+        <div class="pw-bar hi" style="height:78%"></div>
+        <div class="pw-bar hi" style="height:84%"></div>
+        <div class="pw-bar hi" style="height:90%"></div>
+      </div>
+      <div class="pw-chart-foot">
+        <span>Batch 1</span><span>Batch 6</span><span>Batch 12 ▶</span>
+      </div>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">8 wk</div>
-      <div class="stat-label">Average time from brief to first model improvement seen</div>
+    <div class="pw-footer">
+      <span class="pw-footer-label">DELIVERED · 2,400 PAIRS</span>
+      <span class="pw-check">✓</span>
     </div>
   </div>
+
   <div class="hero-scroll-hint">
     <span>Scroll to explore</span>
     <div class="hero-scroll-line"></div>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">RLHF Preference Data</span>
@@ -569,295 +616,166 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
   </div>
 </div>
 
+<!-- WHY CONCAVE AI -->
 <section class="what" id="about">
   <div class="what-grid">
     <div class="what-sticky">
       <span class="sec-eyebrow">Why Concave AI</span>
-      <h2 class="sec-title">Not another annotation vendor.<br><em>Data infrastructure for your model.</em></h2>
-      <p class="sec-desc" style="margin-top:16px">Every competitor claims "98% accuracy." We publish the actual numbers Cohen's kappa, gold standard pass rates, batch error logs on every single delivery. The training data layer your model is built on. <a href="/company/about">Learn more</a></p>
+      <h2 class="sec-title"> Data infrastructure solution for your model.</em></h2>
+      <p class="sec-desc" style="margin-top:16px">Every competitor claims "98% accuracy." We publish the actual numbers — Cohen's kappa, gold standard pass rates, batch error logs on every single delivery. The training data layer your model is built on. <a href="/company/about">Learn more</a></p>
     </div>
     <div class="differentiators">
       <div class="diff-item">
         <span class="diff-num">01</span>
         <div>
           <div class="diff-title">Published, verifiable quality metrics</div>
-          <div class="diff-body">Every project ships with a QA report inter-annotator kappa scores, gold standard accuracy per annotator, batch error rates, and a data card. You can verify our quality claim. No competitor does this.</div>
+          <div class="diff-body">Every project ships with a QA report — inter-annotator kappa scores, gold standard accuracy per annotator, batch error rates, and a data card. You can verify our quality claim. No competitor does this.</div>
         </div>
       </div>
       <div class="diff-item">
         <span class="diff-num">02</span>
         <div>
           <div class="diff-title">RLAIF + human expert hybrid pipeline</div>
-          <div class="diff-body">AI pre-scores 70–90% of annotation tasks automatically (using Claude/GPT as AI evaluator). Your expert human annotators handle all uncertain cases, edge cases, and domain sensitive content. Result: 60% faster, same accuracy as pure-human, 40% lower cost.</div>
+          <div class="diff-body">AI pre-scores 70–90% of annotation tasks automatically. Expert human annotators handle uncertain cases, edge cases, and domain-sensitive content. Result: 60% faster, same accuracy as pure-human, 40% lower cost.</div>
         </div>
       </div>
       <div class="diff-item">
         <span class="diff-num">03</span>
         <div>
-          <div class="diff-title">ML-engineer-led infrastructure, not outsourced ops</div>
-          <div class="diff-body">Our founder is an ML engineer who personally designs the data pipelines, annotation rubrics, and QA systems that power your model training. You get a technical partner who understands what the model actually needs not a project manager reading a script.</div>
+          <div class="diff-title">ML-engineered infrastructure</div>
+          <div class="diff-body"> We engineer machine learning solution to design the data pipelines, annotation rubrics, and QA systems that power your model training. You get a technical partner who understands what the model actually needs — not a project manager reading a script.</div>
         </div>
       </div>
       <div class="diff-item">
         <span class="diff-num">04</span>
         <div>
           <div class="diff-title">Model feedback loop in every contract</div>
-          <div class="diff-body">We build a mandatory 2-week model performance follow-up into every engagement. You train on our data, measure your benchmark we collect that result and use it to improve the next batch. No competitor does this as standard.</div>
+          <div class="diff-body">We build a mandatory 2-week model performance follow-up into every engagement. You train on our data, measure your benchmark — we collect that result and use it to improve the next batch. No competitor does this as standard.</div>
         </div>
       </div>
       <div class="diff-item">
         <span class="diff-num">05</span>
         <div>
           <div class="diff-title">Completely vendor-neutral and DPDP compliant</div>
-          <div class="diff-body">We are independently owned not backed by any AI lab, cloud provider, or model company. Your training data stays yours. All operations are DPDP Act 2023 compliant for Indian customers.</div>
+          <div class="diff-body">We are independently owned — not backed by any AI lab, cloud provider, or model company. Your training data stays yours. All operations are DPDP Act 2023 compliant for Indian customers.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Visual Break 1: Annotation in action -->
+<!-- VIS BREAK -->
 <section class="vis-split">
   <div class="vis-split-img">
-    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80&auto=format&fit=crop" alt="Data annotation quality pipeline" loading="lazy" style="filter:brightness(0.60)">
-    <div style="position:absolute;left:0;top:0;right:0;background:linear-gradient(rgba(10,10,10,0.82),transparent);padding:10px 14px 20px;pointer-events:none;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● IAA κ: 0.87 · STABLE</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">✓ GOLD PASS: 94.2%</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#fdcb6e;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">⚙ RLAIF PRE-SCORE: 72%</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● 3-TIER QA · ACTIVE</div>
-    </div>
-    <div style="position:absolute;left:4%;bottom:14%;pointer-events:none">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa;letter-spacing:0.08em;margin-bottom:4px">▼ BATCH QUALITY TREND</div>
-      <div style="width:180px;height:3px;background:linear-gradient(to right,#ff6b6b 0%,#fdcb6e 35%,#55efc4 65%,#55efc4 100%);border-radius:2px"></div>
-      <div style="display:flex;justify-content:space-between;width:180px;margin-top:3px">
-        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#ffffff55">Batch 1</span>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#ffffff55">Batch 6</span>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#ffffffaa">Batch 12 ▶</span>
-      </div>
-    </div>
-    <div style="position:absolute;right:4%;bottom:10%;pointer-events:none;text-align:right">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:4px 10px;border-radius:2px;letter-spacing:0.07em;display:inline-block">✓ DELIVERED · 2,400 PAIRS</div>
+    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80&auto=format&fit=crop" alt="Data quality pipeline" loading="lazy" style="filter:brightness(0.5)">
+    <div style="position:absolute;left:0;top:0;right:0;background:linear-gradient(rgba(9,9,11,0.8),transparent);padding:12px 16px 20px;pointer-events:none;display:flex;gap:6px;flex-wrap:wrap">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#16a34a22;color:#4ade80;border:1px solid #16a34a44;padding:3px 8px;border-radius:3px;letter-spacing:0.07em">● IAA κ: 0.87 · STABLE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#2563eb22;color:#60a5fa;border:1px solid #2563eb44;padding:3px 8px;border-radius:3px;letter-spacing:0.07em">✓ GOLD PASS: 94.2%</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#d9770622;color:#fbbf24;border:1px solid #d9770644;padding:3px 8px;border-radius:3px;letter-spacing:0.07em">⚙ RLAIF PRE-SCORE: 72%</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#6366f122;color:#a5b4fc;border:1px solid #6366f144;padding:3px 8px;border-radius:3px;letter-spacing:0.07em">● 3-TIER QA · ACTIVE</div>
     </div>
   </div>
   <div class="vis-split-body">
     <span class="sec-eyebrow">Our Infrastructure</span>
-    <h2 class="sec-title" style="margin-top:12px">Intelligence that<br><em>trains intelligence</em></h2>
-    <p class="sec-desc" style="color:var(--muted);margin-top:20px">Every data decision is made by humans who understand the domain not crowdworkers ticking boxes. Our ML-engineered training data pipeline ensures your model learns from signal, not noise.</p>
-    <div style="margin-top:36px">
-      <a href="/contact" class="btn-primary" style="background:var(--accent)">Start Free Audit →</a>
-    </div>
+    <h2 class="sec-title">Intelligence that<br><em>trains intelligence</em></h2>
+    <p class="sec-desc">Every data decision is made by humans who understand the domain — not crowdworkers ticking boxes. Our ML-engineered training data pipeline ensures your model learns from signal, not noise.</p>
+    <a href="/contact" class="btn-cta">Start Free Audit →</a>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
+    <span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span><span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span>
   </div>
 </div>
 
+<!-- SERVICES -->
 <section class="services" id="services">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Services</span>
-    <h2 class="sec-title">Every layer your model<br>training pipeline <em>needs</em></h2>
-    <p class="sec-desc">From raw preference data to production evaluation we cover the full training data infrastructure stack for NLP, GenAI, and computer vision models.</p>
-  </div>
+  <span class="sec-eyebrow">Services</span>
+  <h2 class="sec-title">Every layer your model<br>training pipeline <em>needs</em></h2>
+  <p class="sec-desc">From raw preference data to production evaluation — we cover the full training data infrastructure stack for NLP, GenAI, and computer vision models.</p>
   <div class="services-grid">
-
     <a class="svc-card" href="/services/rlhf">
       <span class="svc-icon">⚖</span>
       <div class="svc-title">RLHF Preference Data</div>
-      <div class="svc-body">Expert-vetted pairwise response ranking for LLM training. Domain-specialist annotators evaluate helpfulness, safety, accuracy, and cultural appropriateness. Every pair includes structured reasoning.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Pairwise ranking</span>
-        <span class="svc-tag">DPO pairs</span>
-        <span class="svc-tag">Reward modeling</span>
-      </div>
+      <div class="svc-body">Expert-vetted pairwise response ranking for LLM training. Domain-specialist evaluation for helpfulness, safety, accuracy, and cultural appropriateness. Every pair includes structured reasoning.</div>
+      <div class="svc-tags"><span class="svc-tag">Pairwise ranking</span><span class="svc-tag">DPO pairs</span><span class="svc-tag">Reward modeling</span></div>
     </a>
-
     <a class="svc-card" href="/services/nlp">
       <span class="svc-icon">🔤</span>
       <div class="svc-title">NLP Annotation</div>
       <div class="svc-body">Named entity recognition, intent classification, sentiment analysis, relation extraction, and coreference resolution. AI pre-labeling cuts annotation time 40%. Human experts validate and correct.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">NER</span>
-        <span class="svc-tag">Sentiment</span>
-        <span class="svc-tag">Intent tagging</span>
-        <span class="svc-tag">Relation extraction</span>
-      </div>
+      <div class="svc-tags"><span class="svc-tag">NER</span><span class="svc-tag">Sentiment</span><span class="svc-tag">Intent tagging</span><span class="svc-tag">Relation extraction</span></div>
     </a>
-
     <a class="svc-card" href="/services/sft">
       <span class="svc-icon">📝</span>
       <div class="svc-title">SFT Instruction Data</div>
-      <div class="svc-body">Expert-written prompt and ideal-response pairs for supervised fine-tuning. Domain specialists lawyers, engineers, educators write responses your model should emulate. The quality ceiling of your SFT model starts here.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Instruction tuning</span>
-        <span class="svc-tag">Domain-expert written</span>
-        <span class="svc-tag">Multi-domain</span>
-      </div>
+      <div class="svc-body">Expert-written prompt and ideal-response pairs for supervised fine-tuning. Domain specialists — lawyers, engineers, educators — write responses your model should emulate. The quality ceiling of your SFT model starts here.</div>
+      <div class="svc-tags"><span class="svc-tag">Instruction tuning</span><span class="svc-tag">Domain-expert written</span><span class="svc-tag">Multi-domain</span></div>
     </a>
-
     <a class="svc-card" href="/services/sycophancy">
       <span class="svc-icon">🔬</span>
       <div class="svc-title">Sycophancy Detection Audit</div>
       <div class="svc-body">We inject 50–100 sycophancy traps into your RLHF pipeline and measure how often annotators incorrectly reward agreeable but wrong responses. Delivers a susceptibility score, risk report, and corrective training pairs.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">RLHF audit</span>
-        <span class="svc-tag">Bias detection</span>
-        <span class="svc-tag">Fixed-price report</span>
-      </div>
+      <div class="svc-tags"><span class="svc-tag">RLHF audit</span><span class="svc-tag">Bias detection</span><span class="svc-tag">Fixed-price report</span></div>
     </a>
-
     <a class="svc-card" href="/services/red-teaming">
       <span class="svc-icon">🛡</span>
       <div class="svc-title">Red-Teaming & Safety Eval</div>
-      <div class="svc-body">Structured adversarial probing across 8 attack categories jailbreaks, prompt injections, factual hallucinations, bias elicitation, harmful content, privacy leakage, sycophancy, and instructionfollowing failures. Delivered as a graded report with corrective RLHF data.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Adversarial testing</span>
-        <span class="svc-tag">Safety report</span>
-        <span class="svc-tag">Corrective data</span>
-      </div>
+      <div class="svc-body">Structured adversarial probing across 8 attack categories — jailbreaks, prompt injections, factual hallucinations, bias elicitation, harmful content, privacy leakage, sycophancy, and instruction-following failures. Delivered as a graded report with corrective RLHF data.</div>
+      <div class="svc-tags"><span class="svc-tag">Adversarial testing</span><span class="svc-tag">Safety report</span><span class="svc-tag">Corrective data</span></div>
     </a>
-
     <a class="svc-card" href="/services/hallucination">
       <span class="svc-icon">🧠</span>
       <div class="svc-title">Hallucination Detection</div>
-      <div class="svc-body">Claim by claim verification of AI outputs against source documents or domain knowledge. Our ML pipeline auto-extracts all factual claim, expert annotators verify each. Delivered with a hallucination rate breakdown by category and severity tier.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Claim extraction</span>
-        <span class="svc-tag">Fact verification</span>
-        <span class="svc-tag">Severity scoring</span>
-      </div>
+      <div class="svc-body">Claim-by-claim verification of AI outputs against source documents or domain knowledge. Our ML pipeline auto-extracts all factual claims; expert annotators verify each. Delivered with a hallucination rate breakdown by category and severity tier.</div>
+      <div class="svc-tags"><span class="svc-tag">Claim extraction</span><span class="svc-tag">Fact verification</span><span class="svc-tag">Severity scoring</span></div>
     </a>
-
     <a class="svc-card" href="/services/code-rlhf">
       <span class="svc-icon">💻</span>
       <div class="svc-title">Code RLHF</div>
       <div class="svc-body">Software engineers evaluate AI-generated code on correctness, security, readability, efficiency, and style. Specialist pools by language: Python, JavaScript, SQL, Java, Go. Includes automated unit test execution and security linting alongside human judgment.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Multi-language</span>
-        <span class="svc-tag">Security review</span>
-        <span class="svc-tag">Engineer annotators</span>
-      </div>
+      <div class="svc-tags"><span class="svc-tag">Multi-language</span><span class="svc-tag">Security review</span><span class="svc-tag">Engineer annotators</span></div>
     </a>
-
     <a class="svc-card" href="/services/image">
       <span class="svc-icon">🖼</span>
       <div class="svc-title">Image Annotation</div>
-      <div class="svc-body">SAM2 powered pre-annotation reduces manual work 40–60%. Bounding boxes, polygon segmentation, semantic and instance segmentation, keypoint detection, and medical DICOM labeling. Human experts validate all AI-suggested labels.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Segmentation</span>
-        <span class="svc-tag">Bounding boxes</span>
-        <span class="svc-tag">DICOM / medical</span>
-        <span class="svc-tag">SAM2 pre-annotation</span>
-      </div>
+      <div class="svc-body">SAM2-powered pre-annotation reduces manual work 40–60%. Bounding boxes, polygon segmentation, semantic and instance segmentation, keypoint detection, and medical DICOM labeling. Human experts validate all AI-suggested labels.</div>
+      <div class="svc-tags"><span class="svc-tag">Segmentation</span><span class="svc-tag">Bounding boxes</span><span class="svc-tag">DICOM / medical</span><span class="svc-tag">SAM2 pre-annotation</span></div>
     </a>
-
     <a class="svc-card" href="/services/video">
       <span class="svc-icon">🎬</span>
       <div class="svc-title">Video Annotation</div>
       <div class="svc-body">Object tracking with consistent ID across frames, action recognition, temporal segmentation, and AV scenario annotation. Temporal interpolation reduces frame-by-frame work 70%. Multi-object tracking via ByteTrack. Supports surveillance, healthcare, and autonomous vehicle use cases.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Object tracking</span>
-        <span class="svc-tag">Action recognition</span>
-        <span class="svc-tag">AV scenarios</span>
-      </div>
+      <div class="svc-tags"><span class="svc-tag">Object tracking</span><span class="svc-tag">Action recognition</span><span class="svc-tag">AV scenarios</span></div>
     </a>
-
     <a class="svc-card" href="/services/synthetic-data">
       <span class="svc-icon">📊</span>
       <div class="svc-title">Synthetic Data QA</div>
-      <div class="svc-body">AI-generated training data reviewed by expert humans for bias, hallucination, distribution drift, and edge-case coverage. We generate synthetic examples using LLMs then route through our expert verification layer. Gartner predicts 60%+ of training data will be synthetic by 2027 this is the trust layer it needs.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Bias detection</span>
-        <span class="svc-tag">Quality verification</span>
-        <span class="svc-tag">Data provenance</span>
-      </div>
+      <div class="svc-body">AI-generated training data reviewed by expert humans for bias, hallucination, distribution drift, and edge-case coverage. We generate synthetic examples using LLMs then route through our expert verification layer. Gartner predicts 60%+ of training data will be synthetic by 2027 — this is the trust layer it needs.</div>
+      <div class="svc-tags"><span class="svc-tag">Bias detection</span><span class="svc-tag">Quality verification</span><span class="svc-tag">Data provenance</span></div>
     </a>
-
     <a class="svc-card" href="/services/rag">
       <span class="svc-icon">📡</span>
       <div class="svc-title">RAG System Evaluation</div>
-      <div class="svc-body">Human evaluation of retrieval + generation quality in RAG pipelines. Annotators assess: did the retrieval surface the right context? Did the generation faithfully use it? Detects faithfulness failures, citation errors, and hallucinations. Targeted at enterprise AI teams deploying knowledge-base assistants.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Faithfulness eval</span>
-        <span class="svc-tag">Citation accuracy</span>
-        <span class="svc-tag">Enterprise AI</span>
-      </div>
+      <div class="svc-body">Human evaluation of retrieval + generation quality in RAG pipelines. Annotators assess: did the retrieval surface the right context? Did the generation faithfully use it? Detects faithfulness failures, citation errors, and hallucinations.</div>
+      <div class="svc-tags"><span class="svc-tag">Faithfulness eval</span><span class="svc-tag">Citation accuracy</span><span class="svc-tag">Enterprise AI</span></div>
     </a>
-
     <a class="svc-card" href="/services/retainer">
       <span class="svc-icon">🔄</span>
       <div class="svc-title">Continuous Model Quality Retainer</div>
       <div class="svc-body">A standing team of expert annotators permanently assigned to your model. Weekly: evaluate 500–2,000 live outputs. Monthly: quality report, drift alerts, and a curated retraining batch. Your model stays aligned as user behaviour evolves.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Monthly retainer</span>
-        <span class="svc-tag">Drift monitoring</span>
-        <span class="svc-tag">SLA-backed</span>
-      </div>
+      <div class="svc-tags"><span class="svc-tag">Monthly retainer</span><span class="svc-tag">Drift monitoring</span><span class="svc-tag">SLA-backed</span></div>
     </a>
-
   </div>
 </section>
 
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-  </div>
-</div>
-
+<!-- HOW IT WORKS -->
 <section class="how" id="how">
-  <div class="sec-header">
-    <span class="sec-eyebrow">How It Works</span>
-    <h2 class="sec-title">From brief to <em>verified delivery</em> in 4 steps</h2>
-    <p class="sec-desc">Every project runs through the same rigorous data pipeline. The RLAIF pre-scorer handles volume. Human experts handle judgment. Automated QA runs throughout. You get a training-ready dataset, not just labelled files.<a href="/company/how-it-works"> Learn more</a></p>
-  </div>
+  <span class="sec-eyebrow">How It Works</span>
+  <h2 class="sec-title">From brief to <em>verified delivery</em> in 4 steps</h2>
+  <p class="sec-desc">Every project runs through the same rigorous data pipeline. The RLAIF pre-scorer handles volume. Human experts handle judgment. Automated QA runs throughout. You get a training-ready dataset, not just labelled files. <a href="/company/how-it-works">Learn more</a></p>
   <div class="how-steps">
     <div class="how-step">
       <div class="how-step-num">1</div>
@@ -869,7 +787,7 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
       <div class="how-step-num">2</div>
       <div class="how-step-icon">🤖</div>
       <div class="how-step-title">AI Pre-Annotation</div>
-      <div class="how-step-body">RLAIF pre-scorer (Claude API) evaluates each task and provides a first-pass suggestion with reasoning. Gold standard tasks are injected at 6% rate. For image tasks, SAM2 pre-draws segmentation masks. Humans see AI suggestions they validate or override.</div>
+      <div class="how-step-body">RLAIF pre-scorer evaluates each task and provides a first-pass suggestion with reasoning. Gold standard tasks are injected at 6% rate. For image tasks, SAM2 pre-draws segmentation masks. Humans see AI suggestions they validate or override.</div>
     </div>
     <div class="how-step">
       <div class="how-step-num">3</div>
@@ -881,62 +799,39 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
       <div class="how-step-num">4</div>
       <div class="how-step-icon">📦</div>
       <div class="how-step-title">Verified Delivery + Feedback</div>
-      <div class="how-step-body">Delivery: dataset + QA report (kappa scores, gold accuracy, error log) + data card. Two weeks later: we follow up for your model benchmark result. That result improves the next batch. The loop that makes us better than any one-time vendor.</div>
+      <div class="how-step-body">Delivery: dataset + QA report (kappa scores, gold accuracy, error log) + data card. Two weeks later: we follow up for your model benchmark result. That result improves the next batch — the loop that makes us better than anyone else.</div>
     </div>
   </div>
 </section>
 
-<!-- Visual Break 2: Human + AI collaboration strip -->
+<!-- IMAGE STRIP -->
 <section class="img-strip">
-  <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1600&q=80&auto=format&fit=crop" alt="Human and AI collaboration" loading="lazy" style="filter:brightness(0.72) saturate(1.1)">
-  <div class="img-strip-overlay" style="background:linear-gradient(to right,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.55) 55%,rgba(10,10,10,0.0) 100%)">
+  <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1600&q=80&auto=format&fit=crop" alt="Human and AI collaboration" loading="lazy" style="filter:brightness(0.55) saturate(1.1)">
+  <div class="img-strip-overlay">
     <div class="img-strip-text">
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">⚙ RLAIF PRE-SCORES: 72%</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">👤 EXPERT VALIDATES: 100%</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(74,222,128,0.15);color:#4ade80;border:1px solid rgba(74,222,128,0.25);padding:3px 8px;border-radius:3px;letter-spacing:0.07em">⚙ RLAIF PRE-SCORES: 72%</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(165,180,252,0.15);color:#a5b4fc;border:1px solid rgba(165,180,252,0.25);padding:3px 8px;border-radius:3px;letter-spacing:0.07em">👤 EXPERT VALIDATES: 100%</div>
       </div>
-      <span class="sec-eyebrow" style="display:block;margin-bottom:14px;color:#55efc4">Human + Machine</span>
-      <h3 style="color:#f5f2ec">The future of model training is a pipeline, not a transaction</h3>
-      <p style="color:rgba(245,242,236,0.72)">AI handles volume and speed. Humans provide judgment, domain expertise, and accountability. Together they build the training data layer that no one-shot vendor can replicate.</p>
+      <span style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.15em;color:#4ade80;text-transform:uppercase;display:block;margin-bottom:14px">Human + Machine</span>
+      <h3>The future of model training is a pipeline, not a transaction</h3>
+      <p style="margin-top:12px">AI handles volume and speed. Humans provide judgment, domain expertise, and accountability. Together they build the training data layer that no one-shot vendor can replicate.</p>
     </div>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
+    <span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span><span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span>
   </div>
 </div>
 
+<!-- INDUSTRIES -->
 <section class="industries" id="industries">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Industry Verticals</span>
-    <h2 class="sec-title">Deep expertise in <em>five</em> domains</h2>
-    <p class="sec-desc">Production model training requires data built by people who understand the domain not just the task format. We operate specialist training data pipelines for each vertical below.</p>
-  </div>
+  <span class="sec-eyebrow">Industry Verticals</span>
+  <h2 class="sec-title">Deep expertise in <em>five</em> domains</h2>
+  <p class="sec-desc">Production model training requires data built by people who understand the domain — not just the task format. We operate specialist training data pipelines for each vertical below.</p>
   <div class="ind-grid">
     <a class="ind-card" href="/industries/legal">
       <span class="ind-emoji">⚖</span>
@@ -963,7 +858,7 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
     <a class="ind-card" href="/industries/automotive">
       <span class="ind-emoji">🚗</span>
       <div class="ind-name">Automotive & AV</div>
-      <div class="ind-desc">Specialist annotators for Indian road conditions auto-rickshaws, cattle crossings, unstructured intersections, monsoon visibility. Data that Western providers cannot supply authentically.</div>
+      <div class="ind-desc">Specialist annotators for Indian road conditions — auto-rickshaws, cattle crossings, unstructured intersections, monsoon visibility. Data that Western providers cannot supply authentically.</div>
       <div class="ind-services">
         <div class="ind-service">Object detection + tracking (Indian traffic)</div>
         <div class="ind-service">Lane detection in unstructured roads</div>
@@ -996,253 +891,168 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
   </div>
 </section>
 
-<!-- Visual Break 3: Live Annotation Studio Showcase -->
-<section style="background:var(--paper);padding:80px 60px;border-top:1px solid rgba(255,255,255,0.06)">
-  <div style="text-align:center;margin-bottom:48px">
-    <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:#bc5113;text-transform:uppercase;margin-bottom:12px">ConcaveLabel Studio · Live Demo</div>
-    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,48px);letter-spacing:-1.5px;color:var(--ink);line-height:1.05">Three annotation types. <em style="color:var(--accent);font-style:italic">One pipeline.</em></h2>
-    <p style="font-size:16px;color:var(--muted);margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto;font-weight:300">From bounding boxes to preference pairs to NER spans every task type runs through the same QA-backed pipeline.</p>
+<!-- ANNOTATION STUDIO -->
+<section class="ann-studio">
+  <div class="ann-studio-head">
+    <span class="ann-studio-eyebrow">ConcaveLabel Studio · Live Demo</span>
+    <h2 class="ann-studio-title">Three annotation types. <em>One pipeline.</em></h2>
+    <p class="ann-studio-desc">From bounding boxes to preference pairs to NER spans — every task type runs through the same QA-backed pipeline.</p>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
-
+  <div class="ann-panels">
     <!-- Panel 1: Object Detection -->
-    <div style="background:#0d1015;border-radius:4px 0 0 4px;overflow:hidden">
-      <div style="background:#12161e;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06)">
-        <div style="width:7px;height:7px;border-radius:50%;background:#00b894"></div>
-        <span style="font-family:'Space Mono',monospace;font-size:10px;color:#00b894;letter-spacing:0.1em">IMAGE · OBJECT DETECTION</span>
+    <div class="ann-panel">
+      <div class="ann-panel-header">
+        <span class="ann-panel-dot" style="background:#00b894"></span>
+        <span class="ann-panel-label" style="color:#00b894">IMAGE · OBJECT DETECTION</span>
       </div>
-      <div style="position:relative;overflow:hidden;height:220px">
-        <img src="https://images.unsplash.com/photo-1575260603071-eab438fecff1?w=600&q=80&auto=format&fit=crop" alt="Object detection annotation" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.55)">
-        <!-- Bounding boxes -->
+      <div class="ann-panel-body">
+        <img src="https://images.unsplash.com/photo-1575260603071-eab438fecff1?w=600&q=80&auto=format&fit=crop" alt="Object detection" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.55)">
         <div style="position:absolute;left:14%;top:28%;width:18%;height:36%;border:2px solid #00b894;border-radius:2px;pointer-events:none;animation:ann-pulse-green 2s ease infinite">
-          <div style="position:absolute;top:-18px;left:0;background:#00b894;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap">CAR · 0.97</div>
+          <div style="position:absolute;top:-18px;left:0;background:#00b894;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap;border-radius:2px">CAR · 0.97</div>
         </div>
         <div style="position:absolute;left:55%;top:32%;width:20%;height:32%;border:2px solid #a29bfe;border-radius:2px;pointer-events:none">
-          <div style="position:absolute;top:-18px;left:0;background:#a29bfe;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap">PERSON · 0.94</div>
+          <div style="position:absolute;top:-18px;left:0;background:#a29bfe;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap;border-radius:2px">PERSON · 0.94</div>
         </div>
-        <div style="position:absolute;left:36%;top:48%;width:14%;height:28%;border:2px solid #fdcb6e;border-radius:2px;pointer-events:none">
-          <div style="position:absolute;top:-18px;left:0;background:#fdcb6e;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap">MOTO · 0.89</div>
+        <div style="position:absolute;left:36%;top:48%;width:14%;height:28%;border:2px solid #fbbf24;border-radius:2px;pointer-events:none">
+          <div style="position:absolute;top:-18px;left:0;background:#fbbf24;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap;border-radius:2px">MOTO · 0.89</div>
         </div>
       </div>
-      <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06)">
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#00b89422;color:#00b894;border:1px solid #00b89444;padding:2px 7px;border-radius:2px">3 objects</span>
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#ffffff0a;color:#8faab8;padding:2px 7px;border-radius:2px">mAP 0.94</span>
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#00b89422;color:#00b894;border:1px solid #00b89444;padding:2px 7px;border-radius:2px">QA PASS ✓</span>
+      <div class="ann-panel-footer">
+        <span class="ann-tag" style="background:#00b89422;color:#00b894;border-color:#00b89444">3 objects</span>
+        <span class="ann-tag" style="background:#ffffff0a;color:#8faab8">mAP 0.94</span>
+        <span class="ann-tag" style="background:#00b89422;color:#00b894;border-color:#00b89444">QA PASS ✓</span>
       </div>
     </div>
 
-    <!-- Panel 2: NER Annotation -->
-    <div style="background:#0d1015;overflow:hidden;border-left:1px solid rgba(255,255,255,0.04);border-right:1px solid rgba(255,255,255,0.04)">
-      <div style="background:#12161e;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06)">
-        <div style="width:7px;height:7px;border-radius:50%;background:#a29bfe"></div>
-        <span style="font-family:'Space Mono',monospace;font-size:10px;color:#a29bfe;letter-spacing:0.1em">NLP · NAMED ENTITY RECOGNITION</span>
+    <!-- Panel 2: NER -->
+    <div class="ann-panel">
+      <div class="ann-panel-header">
+        <span class="ann-panel-dot" style="background:#a29bfe"></span>
+        <span class="ann-panel-label" style="color:#a29bfe">NLP · NAMED ENTITY RECOGNITION</span>
       </div>
-      <div style="padding:20px;height:220px;overflow:hidden">
-        <div style="font-size:13px;color:#c8d6e5;line-height:2.4;font-family:'DM Sans',sans-serif">
-          <span style="background:#a29bfe22;color:#a29bfe;border:1px solid #a29bfe44;padding:1px 5px;border-radius:2px;font-size:11px">Rajesh Kumar<sup style="font-size:8px;color:#a29bfe;margin-left:1px">PER</sup></span>, CFO of
-          <span style="background:#81ecec22;color:#81ecec;border:1px solid #81ecec44;padding:1px 5px;border-radius:2px;font-size:11px">Infotech Ltd.<sup style="font-size:8px;color:#81ecec;margin-left:1px">ORG</sup></span>, was found by
-          <span style="background:#81ecec22;color:#81ecec;border:1px solid #81ecec44;padding:1px 5px;border-radius:2px;font-size:11px">SEBI<sup style="font-size:8px;color:#81ecec;margin-left:1px">ORG</sup></span> to have made undisclosed trades on
-          <span style="background:#fd79a822;color:#fd79a8;border:1px solid #fd79a844;padding:1px 5px;border-radius:2px;font-size:11px">March 14, 2023<sup style="font-size:8px;color:#fd79a8;margin-left:1px">DATE</sup></span>. The fine was
-          <span style="background:#55efc422;color:#55efc4;border:1px solid #55efc444;padding:1px 5px;border-radius:2px;font-size:11px">₹4.2 crore<sup style="font-size:8px;color:#55efc4;margin-left:1px">AMT</sup></span> from the
-          <span style="background:#fab36522;color:#fab365;border:1px solid #fab36544;padding:1px 5px;border-radius:2px;font-size:11px">Mumbai Regional Office<sup style="font-size:8px;color:#fab365;margin-left:1px">LOC</sup></span>.
+      <div class="ann-panel-body" style="padding:20px;height:220px;overflow:hidden">
+        <div style="font-size:13px;color:#c8d6e5;line-height:2.5;font-family:'Inter',sans-serif">
+          <span style="background:#a29bfe22;color:#a29bfe;border:1px solid #a29bfe44;padding:1px 5px;border-radius:3px;font-size:11px">Rajesh Kumar<sup style="font-size:8px;color:#a29bfe;margin-left:1px">PER</sup></span>, CFO of
+          <span style="background:#81ecec22;color:#81ecec;border:1px solid #81ecec44;padding:1px 5px;border-radius:3px;font-size:11px">Infotech Ltd.<sup style="font-size:8px;color:#81ecec;margin-left:1px">ORG</sup></span>, was found by
+          <span style="background:#81ecec22;color:#81ecec;border:1px solid #81ecec44;padding:1px 5px;border-radius:3px;font-size:11px">SEBI<sup style="font-size:8px;color:#81ecec;margin-left:1px">ORG</sup></span> to have made undisclosed trades on
+          <span style="background:#fd79a822;color:#fd79a8;border:1px solid #fd79a844;padding:1px 5px;border-radius:3px;font-size:11px">March 14, 2023<sup style="font-size:8px;color:#fd79a8;margin-left:1px">DATE</sup></span>. The fine was
+          <span style="background:#55efc422;color:#55efc4;border:1px solid #55efc444;padding:1px 5px;border-radius:3px;font-size:11px">₹4.2 crore<sup style="font-size:8px;color:#55efc4;margin-left:1px">AMT</sup></span>.
         </div>
       </div>
-      <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06)">
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe22;color:#a29bfe;border:1px solid #a29bfe44;padding:2px 7px;border-radius:2px">6 entities</span>
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#ffffff0a;color:#8faab8;padding:2px 7px;border-radius:2px">F1: 0.91</span>
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe22;color:#a29bfe;border:1px solid #a29bfe44;padding:2px 7px;border-radius:2px">VERIFIED ✓</span>
+      <div class="ann-panel-footer">
+        <span class="ann-tag" style="background:#a29bfe22;color:#a29bfe;border-color:#a29bfe44">6 entities</span>
+        <span class="ann-tag" style="background:#ffffff0a;color:#8faab8">F1: 0.91</span>
+        <span class="ann-tag" style="background:#a29bfe22;color:#a29bfe;border-color:#a29bfe44">VERIFIED ✓</span>
       </div>
     </div>
 
-    <!-- Panel 3: RLHF Preference -->
-    <div style="background:#0d1015;border-radius:0 4px 4px 0;overflow:hidden">
-      <div style="background:#12161e;padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06)">
-        <div style="width:7px;height:7px;border-radius:50%;background:#fdcb6e;animation:ann-pulse-amber 1.8s ease infinite"></div>
-        <span style="font-family:'Space Mono',monospace;font-size:10px;color:#fdcb6e;letter-spacing:0.1em">RLHF · PREFERENCE ANNOTATION</span>
+    <!-- Panel 3: RLHF -->
+    <div class="ann-panel">
+      <div class="ann-panel-header">
+        <span class="ann-panel-dot" style="background:#fbbf24;animation:ann-pulse-amber 1.8s ease infinite"></span>
+        <span class="ann-panel-label" style="color:#fbbf24">RLHF · PREFERENCE ANNOTATION</span>
       </div>
-      <div style="height:220px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:0">
+      <div class="ann-panel-body" style="display:grid;grid-template-columns:1fr 1fr;height:220px">
         <div style="padding:14px;border-right:1px solid rgba(255,255,255,0.06)">
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:#ff6b6b;margin-bottom:8px;letter-spacing:0.08em">RESPONSE A</div>
-          <div style="font-size:11px;color:#c8a4a4;line-height:1.6">The RBI was <span style="background:#ff4d4d22;color:#ff6b6b;border-bottom:1px solid #ff4d4d;padding:0 2px;font-size:10px">established in 1930</span>. Your understanding is clearly <span style="background:#f39c1222;color:#fdcb6e;border-bottom:1px dashed #f39c12;padding:0 2px;font-size:10px">very advanced</span>.</div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:#f87171;margin-bottom:8px;letter-spacing:0.08em">RESPONSE A</div>
+          <div style="font-size:11px;color:#c8a4a4;line-height:1.6">The RBI was <span style="background:#f8717122;color:#f87171;border-bottom:1px solid #f87171;padding:0 2px;font-size:10px">established in 1930</span>. Your understanding is clearly <span style="background:#fbbf2422;color:#fbbf24;border-bottom:1px dashed #fbbf24;padding:0 2px;font-size:10px">very advanced</span>.</div>
           <div style="margin-top:10px;display:flex;gap:4px;flex-wrap:wrap">
-            <span style="font-family:'Space Mono',monospace;font-size:8px;background:#ff4d4d22;color:#ff6b6b;border:1px solid #ff4d4d44;padding:1px 5px;border-radius:2px">HALLUCINATION</span>
-            <span style="font-family:'Space Mono',monospace;font-size:8px;background:#f39c1222;color:#fdcb6e;border:1px solid #f39c1244;padding:1px 5px;border-radius:2px">SYCOPHANTIC</span>
+            <span style="font-family:'Space Mono',monospace;font-size:8px;background:#f8717122;color:#f87171;border:1px solid #f8717144;padding:1px 5px;border-radius:2px">HALLUCINATION</span>
+            <span style="font-family:'Space Mono',monospace;font-size:8px;background:#fbbf2422;color:#fbbf24;border:1px solid #fbbf2444;padding:1px 5px;border-radius:2px">SYCOPHANTIC</span>
           </div>
         </div>
-        <div style="padding:14px;border:1px solid #00b89433;background:#00b89408;animation:ann-pulse-green 2.5s ease infinite">
-          <div style="font-family:'Space Mono',monospace;font-size:9px;color:#00d2a0;margin-bottom:8px;letter-spacing:0.08em">RESPONSE B ✓</div>
-          <div style="font-size:11px;color:#b2d8c8;line-height:1.6">The RBI was <span style="background:#00b89420;color:#00d2a0;padding:0 2px;font-size:10px">established in 1935</span>. The repo rate stands at <span style="background:#00b89420;color:#00d2a0;padding:0 2px;font-size:10px">6.50%</span> as of April 2024.</div>
-          <div style="margin-top:10px;display:flex;gap:4px;flex-wrap:wrap">
-            <span style="font-family:'Space Mono',monospace;font-size:8px;background:#00b89422;color:#00d2a0;border:1px solid #00b89444;padding:1px 5px;border-radius:2px">PREFERRED ✓</span>
-          </div>
+        <div style="padding:14px;border:1px solid #4ade8033;background:#4ade8008;animation:ann-pulse-green 2.5s ease infinite">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;color:#4ade80;margin-bottom:8px;letter-spacing:0.08em">RESPONSE B ✓</div>
+          <div style="font-size:11px;color:#b2d8c8;line-height:1.6">The RBI was <span style="background:#4ade8020;color:#4ade80;padding:0 2px;font-size:10px">established in 1935</span>. The repo rate stands at <span style="background:#4ade8020;color:#4ade80;padding:0 2px;font-size:10px">6.50%</span> as of April 2024.</div>
+          <div style="margin-top:10px"><span style="font-family:'Space Mono',monospace;font-size:8px;background:#4ade8022;color:#4ade80;border:1px solid #4ade8044;padding:1px 5px;border-radius:2px">PREFERRED ✓</span></div>
         </div>
       </div>
-      <div style="padding:14px 16px;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.06)">
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#00b89422;color:#00b894;border:1px solid #00b89444;padding:2px 7px;border-radius:2px">B PREFERRED</span>
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#ffffff0a;color:#8faab8;padding:2px 7px;border-radius:2px">κ: 0.84</span>
-        <span style="font-family:'Space Mono',monospace;font-size:9px;background:#00b89422;color:#00b894;border:1px solid #00b89444;padding:2px 7px;border-radius:2px">LOGGED ✓</span>
+      <div class="ann-panel-footer">
+        <span class="ann-tag" style="background:#4ade8022;color:#4ade80;border-color:#4ade8044">B PREFERRED</span>
+        <span class="ann-tag" style="background:#ffffff0a;color:#8faab8">κ: 0.84</span>
+        <span class="ann-tag" style="background:#4ade8022;color:#4ade80;border-color:#4ade8044">LOGGED ✓</span>
       </div>
     </div>
-
   </div>
-  <!-- Footer stats bar -->
-  <div style="margin-top:2px;background:#12161e;border-radius:0 0 4px 4px;padding:14px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
-    <span style="font-family:'Space Mono',monospace;font-size:10px;color:#636e7b">ConcaveLabel Studio · Active Session</span>
-    <div style="display:flex;gap:32px;flex-wrap:wrap">
-      <span style="font-family:'Space Mono',monospace;font-size:10px;color:#55efc4">● Tasks Completed: <strong style="color:#f5f2ec">1,247</strong></span>
-      <span style="font-family:'Space Mono',monospace;font-size:10px;color:#a29bfe">● Annotators Online: <strong style="color:#f5f2ec">8</strong></span>
-      <span style="font-family:'Space Mono',monospace;font-size:10px;color:#fdcb6e">● Avg κ This Session: <strong style="color:#f5f2ec">0.86</strong></span>
-      <span style="font-family:'Space Mono',monospace;font-size:10px;color:#00b894">✓ QA Passing</span>
-    </div>
+  <div class="ann-studio-stats">
+    <span class="ann-stat-item">ConcaveLabel Studio · Active Session</span>
+    <span class="ann-stat-item">Tasks Completed: <strong>1,247</strong></span>
+    <span class="ann-stat-item">Annotators Online: <strong>8</strong></span>
+    <span class="ann-stat-item">Avg κ This Session: <strong>0.86</strong></span>
+    <span class="ann-stat-item" style="color:#4ade80">✓ QA Passing</span>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
+    <span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span><span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span>
   </div>
 </div>
 
+<!-- METRICS -->
 <section class="metrics" id="quality">
   <div class="metrics-layout">
-    <div class="metrics-text">
+    <div>
       <span class="sec-eyebrow">Quality Standards</span>
       <h2 class="sec-title">Numbers, not <em>claims</em></h2>
-      <p class="sec-desc">Every competitor says "98% accuracy." We say: here is our Cohen's kappa score, our gold standard pass rate, and your model's benchmark improvement after training on our data. Verify it yourself.<a href="/company/quality"> Learn more</a></p>
+      <p class="sec-desc">Every competitor says "98% accuracy." We say: here is our Cohen's kappa score, our gold standard pass rate, and your model's benchmark improvement after training on our data. Verify it yourself. <a href="/company/quality">Learn more</a></p>
       <div class="metric-rows" style="margin-top:40px">
         <div class="metric-row">
-          <div><div class="metric-name">Inter-Annotator Agreement (kappa)</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:85%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">≥ 0.72</div></div>
+          <div><div class="metric-name">Inter-Annotator Agreement (kappa)</div><div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:85%"></div></div></div></div>
+          <div><div class="metric-val">≥ 0.72</div></div>
         </div>
         <div class="metric-row">
-          <div><div class="metric-name">Gold Standard Pass Rate</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:90%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">≥ 88%</div></div>
+          <div><div class="metric-name">Gold Standard Pass Rate</div><div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:90%"></div></div></div></div>
+          <div><div class="metric-val">≥ 88%</div></div>
         </div>
         <div class="metric-row">
-          <div><div class="metric-name">RLAIF Pre-annotation Speed Gain</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:60%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">40–60%</div></div>
+          <div><div class="metric-name">RLAIF Pre-annotation Speed Gain</div><div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:60%"></div></div></div></div>
+          <div><div class="metric-val">40–60%</div></div>
         </div>
         <div class="metric-row">
-          <div><div class="metric-name">Image annotation speed gain (SAM2)</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:55%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">40–60%</div></div>
+          <div><div class="metric-name">Image annotation speed gain (SAM2)</div><div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:55%"></div></div></div></div>
+          <div><div class="metric-val">40–60%</div></div>
         </div>
         <div class="metric-row">
           <div><div class="metric-name">QA tiers per batch</div></div>
-          <div class="metric-right"><div class="metric-val">3</div></div>
+          <div><div class="metric-val">3</div></div>
         </div>
       </div>
     </div>
     <div>
       <div class="pipeline-visual">
-        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(245,242,236,0.3);text-transform:uppercase;margin-bottom:16px">Live project pipeline</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">📥</div>
-          <div class="pipe-label">Customer data ingested to encrypted S3</div>
-          <span class="pipe-badge">Secure</span>
-        </div>
+        <div class="pipe-section-label">Live project pipeline</div>
+        <div class="pipe-row"><div class="pipe-icon">📥</div><div class="pipe-label">Customer data ingested to encrypted S3</div><span class="pipe-badge badge-secure">Secure</span></div>
         <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">⚙</div>
-          <div class="pipe-label">RLAIF pre-scorer evaluates each task</div>
-          <span class="pipe-badge ai">AI</span>
-        </div>
+        <div class="pipe-row"><div class="pipe-icon">⚙</div><div class="pipe-label">RLAIF pre-scorer evaluates each task</div><span class="pipe-badge badge-ai">AI</span></div>
         <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">🥇</div>
-          <div class="pipe-label">Gold tasks injected at 6% rate</div>
-          <span class="pipe-badge">QA</span>
-        </div>
+        <div class="pipe-row"><div class="pipe-icon">🥇</div><div class="pipe-label">Gold tasks injected at 6% rate</div><span class="pipe-badge badge-qa">QA</span></div>
         <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">👤</div>
-          <div class="pipe-label">Expert annotators validate + correct</div>
-          <span class="pipe-badge">Human</span>
-        </div>
+        <div class="pipe-row"><div class="pipe-icon">👤</div><div class="pipe-label">Expert annotators validate + correct</div><span class="pipe-badge badge-human">Human</span></div>
         <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">📊</div>
-          <div class="pipe-label">Kappa + anomaly + gold accuracy checks</div>
-          <span class="pipe-badge">Auto-QA</span>
-        </div>
+        <div class="pipe-row"><div class="pipe-icon">📊</div><div class="pipe-label">Kappa + anomaly + gold accuracy checks</div><span class="pipe-badge badge-auto">Auto-QA</span></div>
         <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">🔍</div>
-          <div class="pipe-label">Senior expert review 5% sample + flags</div>
-          <span class="pipe-badge">Expert</span>
-        </div>
+        <div class="pipe-row"><div class="pipe-icon">🔍</div><div class="pipe-label">Senior expert review 5% sample + flags</div><span class="pipe-badge badge-expert">Expert</span></div>
         <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">📦</div>
-          <div class="pipe-label">Dataset + QA report + data card delivered</div>
-          <span class="pipe-badge">Delivered</span>
-        </div>
+        <div class="pipe-row"><div class="pipe-icon">📦</div><div class="pipe-label">Dataset + QA report + data card delivered</div><span class="pipe-badge badge-done">Done</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
+    <span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span><span class="ticker-item">RLHF Preference Data</span><span class="ticker-item">NLP Annotation</span><span class="ticker-item">SFT Instruction Data</span><span class="ticker-item">Sycophancy Audits</span><span class="ticker-item">Hallucination Detection</span><span class="ticker-item">Red-Teaming</span><span class="ticker-item">Code RLHF</span><span class="ticker-item">Image Annotation</span><span class="ticker-item">Video Labeling</span><span class="ticker-item">Synthetic Data QA</span><span class="ticker-item">RAG Evaluation</span><span class="ticker-item">Model Benchmarking</span>
   </div>
 </div>
 
+<!-- PRICING -->
 <section class="pricing" id="pricing">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Pricing</span>
-    <h2 class="sec-title">Simple, transparent <em>pricing</em></h2>
-    <p class="sec-desc">No opaque enterprise quotes. Pricing is per-unit, per-project, or monthly retainer. All engagements start with a free audit no commitment required.</p>
-  </div>
+  <span class="sec-eyebrow">Pricing</span>
+  <h2 class="sec-title">Simple, transparent <em>pricing</em></h2>
+  <p class="sec-desc">No opaque enterprise quotes. Pricing is per-unit, per-project, or monthly retainer. All engagements start with a free audit — no commitment required.</p>
   <div class="pricing-grid">
     <div class="price-card">
       <div class="price-name">Project</div>
@@ -1258,7 +1068,7 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
         <div class="price-feature">Full QA report + data card on every delivery</div>
       </div>
     </div>
-    <div class="price-card featured">
+    <div class="price-card" style="position:relative">
       <div class="price-badge">MOST POPULAR</div>
       <div class="price-name">Retainer</div>
       <div class="price-desc">Standing annotator team for your model. Continuous quality evaluation, drift monitoring, and monthly retraining batches.</div>
@@ -1290,36 +1100,20 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
   </div>
 </section>
 
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
+<!-- TRUST -->
+<section class="trust">
+  <div class="trust-inner">
+    <div class="trust-label">Compliance & Standards</div>
+    <div class="trust-items">
+      <div class="trust-item">DPDP Act 2023 Compliant</div>
+      <div class="trust-item">GDPR — In Process</div>
+      <div class="trust-item">AWS Encrypted Storage</div>
+      <div class="trust-item">Signed NDA All Projects</div>
+    </div>
   </div>
-</div>
+</section>
 
-
+<!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="cta-inner">
     <h2>Start with a <em>free</em> model audit</h2>
@@ -1331,14 +1125,15 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
-        <div class="footer-brand">
-      <a href="/" class="nav-logo">
-        <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
-        <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
-      </a>
-      <p>Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <span class="footer-logo-mark">&lt;</span>
+        <span class="footer-logo-text">CONCAVE AI</span>
+      </div>
+      <p>AI training data infrastructure built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
     </div>
     <div>
       <div class="footer-col-title">Services</div>
@@ -1360,7 +1155,6 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
     <div>
       <div class="footer-col-title">Industries</div>
       <div class="footer-links">
-        <a href="#industries">Healthcare</a>
         <a href="/industries/legal">Legal</a>
         <a href="/industries/finance">Finance & BFSI</a>
         <a href="/industries/automotive">Automotive & AV</a>
@@ -1373,10 +1167,11 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
       <div class="footer-links">
         <a href="/company/about">About</a>
         <a href="/company/quality">Quality Standards</a>
-        <a href="#how">How It Works</a>
+        <a href="/company/how-it-works">How It Works</a>
         <a href="#pricing">Pricing</a>
         <a href="/contact">Contact</a>
-        <a href="#">Privacy Policy</a>
+        <a href="/resources">Resources</a>
+        <a href="/resources/case-studies">Case Studies</a>
       </div>
     </div>
   </div>
@@ -1391,217 +1186,63 @@ footer{background:var(--gradient-dark);color:var(--paper);padding:80px 60px 40px
 </footer>
 
 <script>
-// Smooth nav highlight
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
-  })
+// Dark mode toggle
+const html = document.documentElement;
+const btn = document.getElementById('themeToggle');
+const sun = document.getElementById('icon-sun');
+const moon = document.getElementById('icon-moon');
+
+function setTheme(t) {
+  html.setAttribute('data-theme', t);
+  localStorage.setItem('theme', t);
+  if (t === 'dark') { sun.style.display = 'none'; moon.style.display = ''; }
+  else { sun.style.display = ''; moon.style.display = 'none'; }
+}
+
+// Init from storage or system
+const saved = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme:dark)').matches;
+setTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+btn.addEventListener('click', () => {
+  setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+// Mobile nav
+document.querySelector('.menu-toggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
 });
 
 // Nav shadow on scroll
-window.addEventListener('scroll',()=>{
-  const nav=document.querySelector('nav');
-  nav.style.boxShadow=window.scrollY>20?'0 1px 32px rgba(0,0,0,0.06)':'none';
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow =
+    window.scrollY > 20 ? '0 1px 24px rgba(0,0,0,0.07)' : 'none';
+}, { passive: true });
+
+// Smooth scroll for hash links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
 });
 
-// Intersection observer for subtle fade-in
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.style.opacity='1';
-      e.target.style.transform='translateY(0)';
+// Scroll-triggered fade-in
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
     }
   });
-},{threshold:0.08});
+}, { threshold: 0.07 });
 
-document.querySelectorAll('.svc-card,.ind-card,.how-step,.diff-item,.price-card').forEach(el=>{
-  el.style.opacity='0';
-  el.style.transform='translateY(20px)';
-  el.style.transition='opacity 0.5s ease, transform 0.5s ease';
-  observer.observe(el);
+document.querySelectorAll('.svc-card,.ind-card,.how-step,.diff-item,.price-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(18px)';
+  el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+  obs.observe(el);
 });
-
-// ── DNA Helix + Circuit Intelligence Background ─────────────────────────────
-(function(){
-  const canvas = document.getElementById('hero-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  const ACCENT  = [188, 81,  19];
-  const ACCENT2 = [200,169, 110];
-  const INK     = [10,  10,  10];
-  const DATA_CHARS = ['0','1','A','F','3','E','7','B','∫','λ','∂','∑','01','10'];
-
-  function rgba(c, a){ return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')'; }
-
-  let H, circNodes, floats;
-
-  function initAll(){
-    H = [
-      { cx: canvas.width * 0.11, amp: 30, wl: 150, speed: 0.014, phase: 0 },
-      { cx: canvas.width * 0.89, amp: 24, wl: 120, speed: 0.011, phase: Math.PI * 0.7 }
-    ];
-    circNodes = Array.from({length: 20}, function(){
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: 1.5 + Math.random() * 1.8,
-        pulse: Math.random() * Math.PI * 2,
-        ps: 0.011 + Math.random() * 0.016
-      };
-    });
-    floats = Array.from({length: 32}, function(){
-      return {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        char: DATA_CHARS[Math.floor(Math.random() * DATA_CHARS.length)],
-        alpha: 0.025 + Math.random() * 0.06,
-        vy: -(0.07 + Math.random() * 0.16),
-        size: 9 + Math.floor(Math.random() * 7)
-      };
-    });
-  }
-
-  function resize(){
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    initAll();
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  let t = 0;
-
-  function drawHelix(h){
-    var STEP     = 5;
-    var rungStep = h.wl / 7;
-
-    // Draw strands segment by segment with depth-based opacity
-    for(var y = -h.wl * 0.5; y < canvas.height + STEP; y += STEP){
-      var a1  = (2*Math.PI*y/h.wl) + h.phase + t*h.speed;
-      var a1n = (2*Math.PI*(y+STEP)/h.wl) + h.phase + t*h.speed;
-      var x1s = h.cx + h.amp * Math.sin(a1);
-      var x1e = h.cx + h.amp * Math.sin(a1n);
-      var x2s = h.cx - h.amp * Math.sin(a1);
-      var x2e = h.cx - h.amp * Math.sin(a1n);
-      var d1  = Math.cos(a1);
-
-      // Strand 1
-      ctx.beginPath();
-      ctx.moveTo(x1s, y); ctx.lineTo(x1e, y+STEP);
-      ctx.strokeStyle = rgba(ACCENT, d1 > 0 ? 0.62 : 0.16);
-      ctx.lineWidth   = d1 > 0 ? 2.5 : 1.2;
-      ctx.stroke();
-
-      // Strand 2
-      ctx.beginPath();
-      ctx.moveTo(x2s, y); ctx.lineTo(x2e, y+STEP);
-      ctx.strokeStyle = rgba(ACCENT2, d1 < 0 ? 0.62 : 0.16);
-      ctx.lineWidth   = d1 < 0 ? 2.5 : 1.2;
-      ctx.stroke();
-    }
-
-    // Rungs (base pairs) at fixed y intervals
-    for(var ry = -h.wl; ry < canvas.height + rungStep; ry += rungStep){
-      var ra  = (2*Math.PI*ry/h.wl) + h.phase + t*h.speed;
-      var rx1 = h.cx + h.amp * Math.sin(ra);
-      var rx2 = h.cx - h.amp * Math.sin(ra);
-      var dep = (Math.cos(ra) + 1) / 2; // 0–1
-
-      ctx.beginPath();
-      ctx.moveTo(rx1, ry); ctx.lineTo(rx2, ry);
-      ctx.strokeStyle = rgba(INK, 0.07 + dep * 0.22);
-      ctx.lineWidth   = 0.9;
-      ctx.stroke();
-
-      // Glowing nodes at rung endpoints
-      [[rx1, ACCENT],[rx2, ACCENT2]].forEach(function(pair){
-        var nx = pair[0], col = pair[1];
-        var na = 0.18 + dep * 0.45;
-        // outer glow
-        var gr = ctx.createRadialGradient(nx, ry, 0, nx, ry, 9);
-        gr.addColorStop(0, rgba(col, na * 0.7));
-        gr.addColorStop(1, rgba(col, 0));
-        ctx.beginPath(); ctx.arc(nx, ry, 9, 0, Math.PI*2);
-        ctx.fillStyle = gr; ctx.fill();
-        // core dot
-        ctx.beginPath(); ctx.arc(nx, ry, 3, 0, Math.PI*2);
-        ctx.fillStyle = rgba(col, na); ctx.fill();
-      });
-    }
-  }
-
-  function drawCircuit(){
-    for(var i = 0; i < circNodes.length; i++){
-      var a = circNodes[i];
-      a.pulse += a.ps;
-      var pv = (Math.sin(a.pulse)+1)*0.5;
-
-      for(var j = i+1; j < circNodes.length; j++){
-        var b  = circNodes[j];
-        var dx = b.x-a.x, dy = b.y-a.y;
-        var d  = Math.sqrt(dx*dx+dy*dy);
-        if(d < 210){
-          var al = (1-d/210)*0.065;
-          // PCB L-trace
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(a.x, b.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.strokeStyle = rgba(INK, al);
-          ctx.lineWidth = 0.5; ctx.stroke();
-          // junction dot
-          ctx.beginPath(); ctx.arc(a.x, b.y, 1.5, 0, Math.PI*2);
-          ctx.fillStyle = rgba(ACCENT, al*2); ctx.fill();
-        }
-      }
-
-      // Pulsing node
-      var gr2 = ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,a.r*5);
-      gr2.addColorStop(0, rgba(ACCENT, 0.05+pv*0.08));
-      gr2.addColorStop(1, rgba(ACCENT, 0));
-      ctx.beginPath(); ctx.arc(a.x,a.y,a.r*5,0,Math.PI*2);
-      ctx.fillStyle = gr2; ctx.fill();
-      ctx.beginPath(); ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
-      ctx.fillStyle = rgba(ACCENT, 0.10+pv*0.10); ctx.fill();
-    }
-  }
-
-  function drawFloats(){
-    ctx.textAlign = 'center';
-    for(var i = 0; i < floats.length; i++){
-      var p = floats[i];
-      ctx.font = p.size+'px \'Space Mono\', monospace';
-      ctx.fillStyle = rgba(INK, p.alpha);
-      ctx.fillText(p.char, p.x, p.y);
-      p.y += p.vy;
-      if(p.y < -20){
-        p.y = canvas.height + 20;
-        p.x = Math.random() * canvas.width;
-        p.char = DATA_CHARS[Math.floor(Math.random() * DATA_CHARS.length)];
-      }
-    }
-  }
-
-  function tick(){
-    requestAnimationFrame(tick);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    t++;
-    drawCircuit();
-    for(var i = 0; i < H.length; i++) drawHelix(H[i]);
-    drawFloats();
-  }
-  tick();
-})();
-// This waits for the button to be clicked
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navLinks = document.querySelector('.nav-links');
-
-      menuToggle.addEventListener('click', () => {
-        // This 'toggles' the active class to show/hide the menu
-        navLinks.classList.toggle('active');
-      });
 </script>
 </body>
 </html>
