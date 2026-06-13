@@ -1,51 +1,212 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <!-- Homepage -->
   <url>
     <loc>https://theconcaveai.com/</loc>
     <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Service Pages (From your navigation menu) -->
-  <url><loc>https://theconcaveai.com/service-rlhf.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-nlp.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-sft.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-sycophancy.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-hallucination.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-redteaming.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-code-rlhf.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-image.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-video.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-synthetic-data.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-rag.html</loc></url>
-  <url><loc>https://theconcaveai.com/service-retainer.html</loc></url>
+  <!-- Contact -->
+  <url>
+    <loc>https://theconcaveai.com/contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-  <!-- Industry Pages -->
-  <url><loc>https://theconcaveai.com/industry-legal.html</loc></url>
-  <url><loc>https://theconcaveai.com/industry-finance.html</loc></url>
-  <url><loc>https://theconcaveai.com/industry-automotive.html</loc></url>
-  <url><loc>https://theconcaveai.com/industry-agriculture.html</loc></url>
-  <url><loc>https://theconcaveai.com/industry-genai.html</loc></url>
+  <!-- Services -->
+  <url>
+    <loc>https://theconcaveai.com/services/rlhf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/rlhf-preference</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/nlp</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/sft</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/sycophancy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/hallucination</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/red-teaming</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/code-rlhf</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/image</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/video</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/synthetic-data</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/rag</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/services/retainer</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
+  <!-- Industries -->
+  <url>
+    <loc>https://theconcaveai.com/industries/legal</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/industries/finance</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/industries/automotive</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/industries/agriculture</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/industries/genai</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
-  <!--Company Pages-->
-  <url><loc>https://theconcaveai.com/about</loc></url>
-  <url><loc>https://theconcaveai.com/quality</loc></url>
-  <url><loc>https://theconcaveai.com/how-it-works</loc></url>
-  <url><loc>https://theconcaveai.com/contact</loc></url>
+  <!-- Company -->
+  <url>
+    <loc>https://theconcaveai.com/company/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/company/quality</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/company/how-it-works</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 
-  <url><loc>https://theconcaveai.com/resources</loc></url>
-  <url><loc>https://theconcaveai.com/casestudies</loc></url>
-  <url><loc>https://theconcaveai.com/blog-cohens-kappa.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/blog-sycophancy-rlhf.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/blog-how-to-train-ai-model.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/blog-multimodal-data-why-it-fails.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/blog-synthetic-data-vs-real-data.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/blog-adas-data-annotation.html</loc><lastmod>2026-05-17</lastmod></url>
-  <url><loc>https://theconcaveai.com/blog-satellite-image-annotation.html</loc><lastmod>2026-05-17</lastmod></url>
-  <url><loc>https://theconcaveai.com/casestudy-1-computer-vision-av.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/casestudy-2-rlhf-agentic.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/casestudy-3-fintech-document-intelligence.html</loc><lastmod>2026-05-13</lastmod></url>
-  <url><loc>https://theconcaveai.com/casestudy-4-agtech-crop-weed.html</loc><lastmod>2026-05-13</lastmod></url>
+  <!-- Resources -->
+  <url>
+    <loc>https://theconcaveai.com/resources</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://theconcaveai.com/resources/cohens-kappa</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/sycophancy-rlhf</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/how-to-train-ai-model</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/multimodal-data-why-it-fails</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/synthetic-data-vs-real-data</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/adas-data-annotation</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/satellite-image-annotation</loc>
+    <lastmod>2026-05-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Case Studies -->
+  <url>
+    <loc>https://theconcaveai.com/resources/case-studies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/case-studies/computer-vision-av</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/case-studies/rlhf-agentic</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/case-studies/fintech-document-intelligence</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/case-studies/agtech-crop-weed</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>
