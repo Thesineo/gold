@@ -66,10 +66,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .nav-item:hover .nav-dropdown{display:block}
 .nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
 .nav-cta:hover{background:var(--ink);color:var(--paper)!important}
-.breadcrumb{padding:100px 60px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-.breadcrumb a{color:var(--muted);text-decoration:none}
-.breadcrumb a:hover{color:var(--ink)}
-.breadcrumb span{color:var(--border)}
 /* Buttons */
 .btn-primary{background:var(--ink);color:var(--paper);padding:14px 28px;border-radius:2px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:background 0.2s;display:inline-block;margin-top:32px}
 .btn-primary:hover{background:var(--accent)}
@@ -123,34 +119,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .origin-word-lang{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--accent2);margin-bottom:14px;text-transform:uppercase}
 .origin-word-def{font-size:14px;color:var(--accent2);line-height:1.65}
 /* Why grid */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);margin-top:60px}
-.why-card{padding:40px 32px;border-right:1px solid var(--border);transition:background 0.2s}
-.why-card:last-child{border-right:none}
-.why-card:hover{background:var(--ink)}
-.why-card:hover .why-card-h3{color:var(--paper)}
-.why-card:hover .why-card-p{color:var(--accent2)}
-.why-card:hover .why-num{color:var(--accent2)}
-.why-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:18px;letter-spacing:0.1em}
-.why-card-h3{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:10px;line-height:1.2;letter-spacing:-0.3px}
-.why-card-p{font-size:14px;color:var(--muted);line-height:1.65}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.why-card{padding:40px 32px;position:relative;overflow:hidden;background-size:cover;background-position:center;cursor:default}
+.why-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.88);z-index:0;pointer-events:none}
+.why-card>*{position:relative;z-index:1}
+.why-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--accent2);margin-bottom:18px;letter-spacing:0.1em}
+.why-card-h3{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:10px;line-height:1.2;letter-spacing:-0.3px;color:var(--paper)}
+.why-card-p{font-size:14px;color:var(--accent2);line-height:1.65}
 /* Problem grid */
-.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
-.problem-card{border:1px solid rgba(255,255,255,0.08);border-radius:4px;padding:32px}
-.problem-card:hover {background: var(--ink);}
-.problem-card:hover .problem-label{color: var(--accent2);}
-.problem-card:hover .problem-body{color: var(--accent2);}
-.problem-card:hover .problem-title{color: var(--paper);}
-.problem-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
-.problem-title{font-family:'DM Serif Display',serif ;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:10px}
-.problem-body{font-size:14px;color:var(--muted);line-height:1.65}
-.problem-card.solution{border-color:var(--accent2);background:rgba(200,169,110,0.06)}
-.problem-card.solution:hover {background: var(--ink);}
-.problem-card.solution:hover .problem-label{color: var(--accent2);}
-.problem-card.solution:hover .problem-body{color: var(--accent2);}
-.problem-card.solution:hover .problem-title{color: var(--paper);}
-.problem-card.solution .problem-label{color:var(--accent)}
-.problem-card.solution .problem-title{color:var(--ink)}
-.problem-card.solution .problem-body{color:var(--muted)}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.problem-card{padding:32px;position:relative;overflow:hidden;background-size:cover;background-position:center;cursor:default}
+.problem-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.88);z-index:0;pointer-events:none}
+.problem-card>*{position:relative;z-index:1}
+.problem-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--accent2);text-transform:uppercase;margin-bottom:12px}
+.problem-title{font-family:'DM Serif Display',serif;font-size:18px;font-weight:600;color:var(--paper);margin-bottom:10px}
+.problem-body{font-size:14px;color:var(--accent2);line-height:1.65}
 /* Values */
 .values-list{display:flex;flex-direction:column;gap:0;margin-top:60px}
 .value-row{display:grid;grid-template-columns:80px 1fr 1fr;gap:40px;align-items:start;padding:36px 0;border-bottom:1px solid var(--border);transition:all 0.2s}
@@ -226,7 +209,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .footer-badges{display:flex;gap:12px}
 .footer-badge{font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:var(--paper)}
 @media(max-width:1100px){.page-hero,.two-col,.commitment-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr 1fr}.problem-grid{grid-template-columns:1fr}.value-row{grid-template-columns:60px 1fr}.value-body{grid-column:2}.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.page-hero,.sec,.cta-section{padding-left:24px;padding-right:24px}.why-grid{grid-template-columns:1fr}.why-card{border-right:none;border-bottom:1px solid var(--border)}.value-row{grid-template-columns:1fr;gap:10px}.value-num{font-size:20px}.location-strip{padding-left:24px;padding-right:24px}.breadcrumb{padding:90px 24px 0}}
+@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.page-hero,.sec,.cta-section{padding-left:24px;padding-right:24px}.why-grid{grid-template-columns:1fr}.why-card{border-right:none;border-bottom:1px solid var(--border)}.value-row{grid-template-columns:1fr;gap:10px}.value-num{font-size:20px}.location-strip{padding-left:24px;padding-right:24px}}
 
 /* ── SHARED VISUAL SECTIONS ─────────────────────────────────────────────── */
 .vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;overflow:hidden}
@@ -292,7 +275,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </button>
   <div class="nav-links">
     <div class="nav-item">
-      <a href="#">Services</a>
+      <a href="#">Solutions</a>
       <div class="nav-dropdown">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -340,10 +323,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </nav>
 
-<div class="breadcrumb">
-  <a href="/">Home</a><span>›</span>
-  About
-</div>
 
 <section class="page-hero">
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1742459785723-667110cf8326?w=1920&q=85&auto=format&fit=crop')"></div>
@@ -376,7 +355,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">ML-Engineer </span><span class="ticker-item">Bengaluru India</span><span class="ticker-item">Published Kappa Scores</span><span class="ticker-item">8 Indic Languages</span><span class="ticker-item">Founder Owned</span><span class="ticker-item">Vendor Neutral</span><span class="ticker-item">DPDP Act 2023</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">ML-Engineer Led</span><span class="ticker-item">Bengaluru India</span><span class="ticker-item">Published Kappa Scores</span><span class="ticker-item">8 Indic Languages</span><span class="ticker-item">Founder Owned</span><span class="ticker-item">Vendor Neutral</span>
+    <span class="ticker-item">ML-Engineer </span><span class="ticker-item">Production Grade</span><span class="ticker-item">Published Kappa Scores</span><span class="ticker-item">20+ Languages</span><span class="ticker-item">Founder Owned</span><span class="ticker-item">Vendor Neutral</span><span class="ticker-item">Privacy First</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">ML-Engineer Led</span><span class="ticker-item">Production Grade</span><span class="ticker-item">Published Kappa Scores</span><span class="ticker-item">20+ Languages</span><span class="ticker-item">Founder Owned</span><span class="ticker-item">Vendor Neutral</span>
   </div>
 </div>
 
@@ -421,43 +400,43 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <h2 class="sec-title">The solution <em>we build</em></h2>
   <p class="sec-desc">AI companies were left without a credible, technically rigorous training data infrastructure partner. They were either paying to vendors or accepting inconsistent quality from generic providers.</p>
   <div class="why-grid">
-    <div class="why-card">
+    <div class="why-card" style="background-image:url('/images/annotation1.png')">
       <div class="why-num">01 / The problem</div>
       <div class="why-card-h3">Generic vendors claim quality they cannot measure</div>
-      <div class="why-card-p">Training data providers overwhelmingly claim "98% accuracy" a number that is unmeasurable, unverifiable, and meaningless in practice. Inter-annotator agreement, gold standard monitoring, anomaly detection these systematic quality controls simply do not exist at most providers. The result is inconsistent data that produces models which are unreliable in production.</div>
+      <div class="why-card-p">Training data providers claim "98% accuracy" a number that is unmeasurable, unverifiable, and meaningless in practice. Inter-annotator agreement, gold standard monitoring, anomaly detection: these systematic controls simply do not exist at most providers.</div>
     </div>
-    <div class="why-card">
+    <div class="why-card" style="background-image:url('/images/RHLF.png')">
       <div class="why-num">02 / The gap</div>
-      <div class="why-card-h3">The annotation industry measures speed and cost. Nobody measures quality.</div>
-      <div class="why-card-p">Ask any training data vendor how fast they deliver. They will give you a number. Ask what they charge per unit. They will give you a number. Ask for the Cohen's kappa on your last delivered batch the metric that determines whether your training data is signal or noise and most cannot answer. The industry optimised for volume and turnaround time, and treated quality as something the client discovers after training. We exist because training data quality should be engineered, measured, and published, not hoped.</div>
+      <div class="why-card-h3">The industry measures speed and cost. Nobody measures quality.</div>
+      <div class="why-card-p">Training data vendors readily quote speed and per-unit cost. Ask for the Cohen's kappa on a delivered batch the metric that actually determines signal vs. noise and most have no answer. The industry optimised for volume and turnaround, leaving quality to be discovered after training.</div>
     </div>
-    <div class="why-card">
+    <div class="why-card" style="background-image:url('/images/AV2.png')">
       <div class="why-num">03 / Our answer</div>
-      <div class="why-card-h3">Expert quality, Affordable pricing, published metrics</div>
-      <div class="why-card-p">We apply rigor experts, project-specific guidelines, three-tier QA, published kappa scores at an affordable pricing that works for AI startups. We are here to adjust, to your needs. We have native annotators, being independently owned, so your training data is heavily protected. And we publish the numbers.</div>
+      <div class="why-card-h3">Engineering rigour, transparent pricing, published metrics</div>
+      <div class="why-card-p">We apply engineering rigour with project-specific guidelines, three-tier QA, published kappa scores at a pricing that works for AI startups and scale-ups. We operate with native-language coverage across 8 Indic languages, and being independently owned means your training data stays yours.</div>
     </div>
   </div>
 </section>
 
 <section class="sec ink-bg">
   <span class="sec-eyebrow light">The Problem We Solve</span>
-  <h2 class="sec-title lights">Types of annotation failure. <em>All preventable.</em></h2>
-  <p class="sec-desc light">Every AI model quality problem traces back to one of three annotation failures. We are specifically designed to prevent all three.</p>
+  <h2 class="sec-title lights">Three data failure modes. <em>All preventable.</em></h2>
+  <p class="sec-desc light">Every AI model quality problem traces back to one of three data failures. Our pipeline is specifically designed to prevent all three.</p>
   <div class="problem-grid">
-    <div class="problem-card">
+    <div class="problem-card" style="background-image:url('/images/annotation2.png')">
       <div class="problem-label">Failure Type 1</div>
       <div class="problem-title">Sycophancy baked in at the data level</div>
-      <div class="problem-body">When annotators reward agreeable-sounding responses over accurate ones even without realising it the model learns to validate user beliefs rather than provide truthful answers. This is a data-level problem that no amount of RLHF training can fix if the preference data itself is sycophantic. Most annotation teams never measure it. We inject sycophancy traps and measure susceptibility on every project.</div>
+      <div class="problem-body">When preference data rewards agreeable-sounding responses over accurate ones, the model learns to validate user beliefs rather than provide truthful answers. This is a data-level problem no RLHF training can fix, we inject sycophancy traps and measure susceptibility on every project.</div>
     </div>
-    <div class="problem-card">
+    <div class="problem-card" style="background-image:url('/images/bounding-box.png')">
       <div class="problem-label">Failure Type 2</div>
-      <div class="problem-title">Domain errors from unqualified annotators</div>
-      <div class="problem-body">A medical AI trained by annotators who cannot distinguish a contraindication from a side effect. A legal AI trained by annotators who confuse jurisdiction with precedent. A financial AI trained by annotators who cannot read a balance sheet. These are not edge cases they are the standard outcome of generic crowdsourcing applied to specialist domains. We maintain quality annotator pools for exactly this reason.</div>
+      <div class="problem-title">Domain errors from miscalibrated pipelines</div>
+      <div class="problem-body">A medical AI trained on data that misclassifies contraindications. A legal AI trained on data that confuses jurisdiction with precedent. These are not edge cases they are the standard outcome of generic crowdsourcing applied to specialist domains. Our domain-calibrated pipelines exist for exactly this reason.</div>
     </div>
-    <div class="problem-card solution">
+    <div class="problem-card" style="background-image:url('/images/AV1.png')">
       <div class="problem-label">Our Solution</div>
-      <div class="problem-title">Expert judgment + published proof</div>
-      <div class="problem-body">Domain-experts calibrated to a kappa baseline before every project. RLAIF pre-scorer handling clear-cut cases at AI speed. Three-tier QA running concurrently. Gold standard injection catching drift in real time. And a data card with every delivery that shows exactly what you received and how it was produced so you never have to guess whether the data is good enough.</div>
+      <div class="problem-title">Engineered data infrastructure + published proof</div>
+      <div class="problem-body">Domain-calibrated pipelines, RLAIF pre-scoring for clear-cut cases, three-tier QA running concurrently, and gold standard injection catching drift in real time. Every delivery ships with a data card showing exactly what you received and how it was produced so you never have to guess whether the data is good enough.</div>
     </div>
   </div>
 </section>
@@ -472,7 +451,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="value-title">Transparency over claims</div>
         <div class="value-tagline">If you cannot measure it, we do not claim it</div>
       </div>
-      <div class="value-body">Every delivery includes a QA report with actual Cohen's kappa scores broken down by annotator pair and task category, gold standard accuracy per annotator, and a complete batch error log. You do not have to take our word for the quality you have the numbers to verify it yourself. No other Indian AI training data company does this as a standard deliverable on every project.</div>
+      <div class="value-body">Every delivery includes a QA report: actual Cohen's kappa by annotator pair and task category, gold standard accuracy, and a batch error log. You verify the quality yourself, the numbers are computed from pipeline export data by automated scripts, not self-reported.</div>
     </div>
     <div class="value-row">
       <div class="value-num">02</div>
@@ -480,15 +459,15 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="value-title">ML-native quality design</div>
         <div class="value-tagline">Built by someone who trains models, not just manages annotators</div>
       </div>
-      <div class="value-body">Our quality systems are designed by ML engineers who understands what downstream model training needs. We design annotation rubrics that account for reward hacking, sycophancy, and distribution shift. We build automated QA pipelines that catch failures before a human reviewer sees the data. We audit for ML failure modes not just labeling consistency.</div>
+      <div class="value-body">Our quality systems are designed by ML engineers who understand what downstream training pipelines need. We build automated QA that audits for ML failure modes which reward hacking, sycophancy, distribution shift not just labelling consistency.</div>
     </div>
     <div class="value-row">
       <div class="value-num">03</div>
       <div>
-        <div class="value-title"> Expertise is non-negotiable</div>
-        <div class="value-tagline">Generic annotators produce generic results</div>
+        <div class="value-title">Domain calibration is non-negotiable</div>
+        <div class="value-tagline">Generic pipelines produce generic results</div>
       </div>
-      <div class="value-body">A healthcare AI trained on annotations by people who cannot read a clinical note will fail at the moments that matter. A legal AI trained on annotations by someone who confuses common law with statute will produce dangerous outputs. We maintain specialist annotator pools for every domain we serve.</div>
+      <div class="value-body">A healthcare AI trained on data that misreads a clinical note will fail at the moments that matter. We maintain domain-calibrated pipelines - legal, financial, agriculture, automotive, genai for every industry we serve.</div>
     </div>
     <div class="value-row">
       <div class="value-num">04</div>
@@ -496,7 +475,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="value-title">Complete vendor neutrality</div>
         <div class="value-tagline">Your training data never sees a competitor</div>
       </div>
-      <div class="value-body">When a major foundational model developer takes a significant stake in a leading annotation firm, competitors often migrate their data operations to other providers within weeks to protect their proprietary training cycles and strategic roadmap. Concave AI is private company, and your proprietary training data is yours and stays yours.</div>
+      <div class="value-body">Concave AI is independently owned soyour training data never passes through any other pipeline. We operate with native-language coverage across 8 Indic languages, and your proprietary training cycles and roadmap stay yours.</div>
     </div>
     <div class="value-row">
       <div class="value-num">05</div>
@@ -504,7 +483,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="value-title">The feedback loop is the product</div>
         <div class="value-tagline">We stay until your model actually improves</div>
       </div>
-      <div class="value-body">Most training data providers deliver a data file and disappear. We build a mandatory model performance follow-up into every engagement two weeks after delivery, we ask for your benchmark result. If our data produced a measurable improvement, that result becomes the evidence we use to improve the next batch. If it did not produce the expected improvement, we investigate the cause and re-deliver at no cost. This is the loop that turns one project into a partnership.</div>
+      <div class="value-body">Two weeks after every delivery, we ask for your benchmark result. If the data produced the expected improvement, we document it if not, we investigate and re-deliver at no cost, this is what turns one project into a partnership.</div>
     </div>
   </div>
 </section>
@@ -512,42 +491,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <section class="sec white-bg">
   <span class="sec-eyebrow">How We Work</span>
   <h2 class="sec-title">The model behind <em>the quality</em></h2>
-  <div class="two-col">
-    <div class="body-text">
-      <p>Every project has three layers working in sequence. The RLAIF layer handles clear-cut tasks at AI speed, pre-scoring RLHF pairs and pre-labelling NLP entities before any human sees them. The human expert layer handles all uncertain cases, edge cases, and domain-sensitive content that requires genuine judgment. The QA layer - three automated + peer + expert tiers which runs concurrently on all live annotation.</p>
-      <p><strong>The result:</strong> AI speed on volume. Human precision on judgment. Published metrics on output. 40–60% faster than pure-human annotation at the same quality level, at 35–45% lower cost. That cost advantage is passed to customers not kept as margin.</p>
-    </div>
-    <div>
-      <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:14px">Work distribution typical RLHF project</div>
-      <div class="how-model">
-        <div class="how-layer l1">
-          <span class="how-layer-icon">🤖</span>
-          <span class="how-layer-label">RLAIF pre-scorer clear preference tasks</span>
-          <span class="how-layer-pct">~72%</span>
-        </div>
-        <div class="how-arrow">↓</div>
-        <div class="how-layer l2">
-          <span class="how-layer-icon">👤</span>
-          <span class="how-layer-label">Human expert - uncertain + edge cases</span>
-          <span class="how-layer-pct">~22%</span>
-        </div>
-        <div class="how-arrow">↓</div>
-        <div class="how-layer l3">
-          <span class="how-layer-icon">🔍</span>
-          <span class="how-layer-label">3-tier QA review (concurrent)</span>
-          <span class="how-layer-pct">~6%</span>
-        </div>
-      </div>
-      <div class="how-note">Result: 60% faster than pure-human annotation at the same Cohen's kappa score because humans still validate every annotation before delivery. AI handles volume. Humans handle judgment.</div>
-      <div class="timeline">
-        <div class="timeline-label">What a typical engagement looks like</div>
-        <div class="timeline-row"><span class="timeline-day">Day 1–3</span><span class="timeline-desc">Scoping call, SOW signed, NDA executed</span></div>
-        <div class="timeline-row"><span class="timeline-day">Day 3–7</span><span class="timeline-desc">Guidelines written, annotators calibrated</span></div>
-        <div class="timeline-row"><span class="timeline-day">Day 7+</span><span class="timeline-desc">RLAIF + human annotation + 3-tier QA</span></div>
-        <div class="timeline-row"><span class="timeline-day">Day N</span><span class="timeline-desc">Data + QA report + data card delivered</span></div>
-        <div class="timeline-row"><span class="timeline-day">+14 days</span><span class="timeline-desc">Model benchmark follow-up call</span></div>
-      </div>
-    </div>
+  <div class="body-text" style="max-width:680px;margin-top:24px">
+    <p>Every project runs through a layered pipeline with AI pre-scoring for clear-cut tasks, a domain expert review layer for judgment calls, and three-tier QA running concurrently. The result is AI speed on volume with human precision on judgment, at 40–60% faster turnaround and 35–45% lower cost than pure-human annotation.</p>
+    <a href="/company/how-it-works" class="btn-primary" style="margin-top:28px;display:inline-block">See the full process →</a>
   </div>
 </section>
 
@@ -585,8 +531,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="commitment-item">
         <div class="commitment-item-icon">🔒</div>
         <div>
-          <div class="commitment-item-title">Complete data confidentiality - DPDP + GDPR ready</div>
-          <div class="commitment-item-body">Encrypted S3 storage, signed NDAs for all annotators, named-access-only policies, and DPDP Act 2023 compliant data handling. Your training data never leaves your encrypted bucket.</div>
+          <div class="commitment-item-title">Complete data confidentiality - Privacy First + GDPR</div>
+          <div class="commitment-item-body">Encrypted S3 storage, signed NDAs for all annotators, named-access-only policies, and privacy-first data handling. Your training data never leaves your encrypted bucket.</div>
         </div>
       </div>
     </div>
@@ -604,7 +550,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <p> Data infrastructure for AI model training built for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
     </div>
     <div>
-      <div class="footer-col-title">Services</div>
+      <div class="footer-col-title">Solutions</div>
       <div class="footer-links">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -615,7 +561,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       </div>
     </div>
     <div>
-      <div class="footer-col-title">More Services</div>
+      <div class="footer-col-title">More Solutions</div>
       <div class="footer-links">
         <a href="/services/code-rlhf">Code RLHF</a>
         <a href="/services/image">Image Annotation</a>
@@ -637,7 +583,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Concave AI. All rights reserved.</div>
     <div class="footer-badges">
-      <span class="footer-badge">DPDP 2023</span>
+      <span class="footer-badge">Privacy First</span>
       <span class="footer-badge">GDPR Ready</span>
       <span class="footer-badge">ISO 27001</span>
     </div>

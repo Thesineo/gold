@@ -182,8 +182,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .diff-body{font-size:14px;color:var(--muted);line-height:1.6}
 
 /* SERVICES */
-.services{padding:120px 60px}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.solutions{padding:120px 60px}
+.solutions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
 .svc-card{background:var(--paper);padding:36px 32px;transition:background 0.2s;cursor:pointer;display:block;text-decoration:none;color:inherit}
 .svc-card:hover{background:var(--ink)}
 .svc-card:hover .svc-title{color:var(--paper)}
@@ -223,7 +223,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .ind-emoji{font-size:32px;margin-bottom:16px;display:block}
 .ind-name{font-family:'DM Serif Display',serif;font-size:24px;letter-spacing:-0.5px;margin-bottom:8px}
 .ind-desc{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
-.ind-services{display:flex;flex-direction:column;gap:6px}
+.ind-solutions{display:flex;flex-direction:column;gap:6px}
 .ind-service{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px}
 
 /* METRICS */
@@ -390,7 +390,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 @media(max-width:1100px){
   .hero{grid-template-columns:1fr;padding:130px 40px 80px}
   .hero-stats{grid-template-columns:1fr 1fr;max-width:480px}
-  .services-grid{grid-template-columns:1fr 1fr}
+  .solutions-grid{grid-template-columns:1fr 1fr}
   .how-steps{grid-template-columns:1fr 1fr}
   .how-step{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08)}
   .metrics-layout{grid-template-columns:1fr}
@@ -399,8 +399,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 @media(max-width:768px){
   nav{padding:16px 24px}
   .nav-links{display:none}
-  .hero,.services,.industries,.metrics,.pricing,.what,.how,.trust,.cta-section{padding-left:24px;padding-right:24px}
-  .services-grid,.ind-grid,.pricing-grid{grid-template-columns:1fr}
+  .hero,.solutions,.industries,.metrics,.pricing,.what,.how,.trust,.cta-section{padding-left:24px;padding-right:24px}
+  .solutions-grid,.ind-grid,.pricing-grid{grid-template-columns:1fr}
   .what-grid{grid-template-columns:1fr}
   .what-sticky{position:static;margin-bottom:32px}
   .hero{padding-top:100px}
@@ -412,6 +412,27 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   .img-trio{grid-template-columns:1fr;height:auto}
   .img-trio-cell{height:220px}
 }
+
+/* Category card hover — all go paper on hover */
+.cat-card{transition:background 0.25s}
+.cat-card:hover{background:var(--paper)!important}
+.cat-card:hover .cat-num{color:var(--accent)!important}
+.cat-card:hover .cat-title{color:var(--ink)!important}
+.cat-card:hover .cat-body{color:var(--muted)!important}
+.cat-card:hover .cat-divider{border-color:var(--border)!important}
+.cat-card:hover .cat-link-text{color:var(--ink)!important}
+.cat-card:hover .cat-link-hint{color:var(--muted)!important}
+.cat-card:hover .cat-link{border-color:var(--border)!important}
+.cat-card:hover .cat-badge{background:rgba(188,81,19,0.08)!important;color:var(--accent)!important}
+.cat-card:hover .cat-cta{color:var(--accent)!important}
+
+/* Why-box hover */
+.why-box{transition:background 0.25s}
+.why-box:hover{background:var(--paper)!important}
+.why-box:hover .why-num{color:var(--accent)!important}
+.why-box:hover .why-title{color:var(--ink)!important}
+.why-box:hover .why-body{color:var(--muted)!important}
+.why-box-accent:hover{background:var(--paper)!important;border-left-color:var(--accent)!important}
 </style>
 </head>
 <body>
@@ -431,7 +452,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
   <div class="nav-links">
     <div class="nav-item">
-      <a href="#">Services</a>
+      <a href="#">Solutions</a>
       <div class="nav-dropdown">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -487,7 +508,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <p class="hero-sub">Production-grade RLHF, NLP, image, and evaluation data built for the model training pipeline, not checked off a labelling spreadsheet. AI+human hybrid pipeline with published quality metrics you can verify.</p>
     <div class="hero-actions">
       <a href="/contact" class="btn-primary">Start Free Audit →</a>
-      <a href="#services" class="btn-secondary">Explore services ↓</a>
+      <a href="#services" class="btn-secondary">Explore solutions ↓</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -543,439 +564,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </div>
 
-<section class="what" id="about">
-  <div class="what-grid">
-    <div class="what-sticky">
-      <span class="sec-eyebrow">Why Concave AI</span>
-      <h2 class="sec-title">Not another annotation vendor.<br><em>Data infrastructure for your model.</em></h2>
-      <p class="sec-desc" style="margin-top:16px">Every competitor claims "98% accuracy." We publish the actual numbers Cohen's kappa, gold standard pass rates, batch error logs on every single delivery. The training data layer your model is built on. <a href="/company/about">Learn more</a></p>
-    </div>
-    <div class="differentiators">
-      <div class="diff-item">
-        <span class="diff-num">01</span>
-        <div>
-          <div class="diff-title">Published, verifiable quality metrics</div>
-          <div class="diff-body">Every project ships with a QA report inter-annotator kappa scores, gold standard accuracy per annotator, batch error rates, and a data card. You can verify our quality claim.</div>
-        </div>
-      </div>
-      <div class="diff-item">
-        <span class="diff-num">02</span>
-        <div>
-          <div class="diff-title">RLAIF + human expert hybrid pipeline</div>
-          <div class="diff-body">AI pre-scores 70–90% of annotation tasks automatically. Expert human annotators handle all other uncertain cases, edge cases, and domain sensitive content. Result: 60% faster, same accuracy as pure-human, 40% lower cost.</div>
-        </div>
-      </div>
-      <div class="diff-item">
-        <span class="diff-num">03</span>
-        <div>
-          <div class="diff-title">ML-engineered infrastructure</div>
-          <div class="diff-body">We engineer machine learning solution to design the data pipelines, annotation rubrics, and QA systems that power your model training. You get a technical partner who understands what the model actually needs not a project manager reading a script.</div>
-        </div>
-      </div>
-      <div class="diff-item">
-        <span class="diff-num">04</span>
-        <div>
-          <div class="diff-title">Model feedback loop in every contract</div>
-          <div class="diff-body">We build a mandatory 2-week model performance follow-up into every engagement. You train on our data, measure your benchmark we collect that result and use it to improve the next batch. No competitor does this as standard.</div>
-        </div>
-      </div>
-      <div class="diff-item">
-        <span class="diff-num">05</span>
-        <div>
-          <div class="diff-title">Completely vendor-neutral and DPDP compliant</div>
-          <div class="diff-body">We are independently owned not backed by any AI lab, cloud provider, or model company. Your training data stays yours. All operations are DPDP compliant for Indian customers.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Visual Break 1: Annotation in action -->
-<section class="vis-split">
-  <div class="vis-split-img">
-    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80&auto=format&fit=crop" alt="Data annotation quality pipeline" loading="lazy" style="filter:brightness(0.60)">
-    <div style="position:absolute;left:0;top:0;right:0;background:linear-gradient(rgba(10,10,10,0.82),transparent);padding:10px 14px 20px;pointer-events:none;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● IAA κ: 0.87 · STABLE</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">✓ GOLD PASS: 94.2%</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#fdcb6e;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">⚙ RLAIF PRE-SCORE: 72%</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● 3-TIER QA · ACTIVE</div>
-    </div>
-    <div style="position:absolute;left:4%;bottom:14%;pointer-events:none">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa;letter-spacing:0.08em;margin-bottom:4px">▼ BATCH QUALITY TREND</div>
-      <div style="width:180px;height:3px;background:linear-gradient(to right,#ff6b6b 0%,#fdcb6e 35%,#55efc4 65%,#55efc4 100%);border-radius:2px"></div>
-      <div style="display:flex;justify-content:space-between;width:180px;margin-top:3px">
-        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#ffffff55">Batch 1</span>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#ffffff55">Batch 6</span>
-        <span style="font-family:'Space Mono',monospace;font-size:8px;color:#ffffffaa">Batch 12 ▶</span>
-      </div>
-    </div>
-    <div style="position:absolute;right:4%;bottom:10%;pointer-events:none;text-align:right">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:4px 10px;border-radius:2px;letter-spacing:0.07em;display:inline-block">✓ DELIVERED · 2,400 PAIRS</div>
-    </div>
-  </div>
-  <div class="vis-split-body">
-    <span class="sec-eyebrow">Our Infrastructure</span>
-    <h2 class="sec-title" style="margin-top:12px">Intelligence that<br><em>trains intelligence</em></h2>
-    <p class="sec-desc" style="color:var(--muted);margin-top:20px">Every data decision is made by humans who understand the domain. Our ML-engineered training data pipeline ensures your model learns from signal, not noise.</p>
-    <div style="margin-top:36px">
-      <a href="/contact" class="btn-primary" style="background:var(--accent)">Start Free Audit →</a>
-    </div>
-  </div>
-</section>
-
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-  </div>
-</div>
-
-<section class="services" id="services">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Services</span>
-    <h2 class="sec-title">Every layer your model<br>training pipeline <em>needs</em></h2>
-    <p class="sec-desc">From raw preference data to production evaluation we cover the full training data infrastructure stack for NLP, GenAI, and computer vision models.</p>
-  </div>
-  <div class="services-grid">
-
-    <a class="svc-card" href="/services/rlhf">
-      <span class="svc-icon">⚖</span>
-      <div class="svc-title">RLHF Preference Data</div>
-      <div class="svc-body">Expert-vetted pairwise response ranking for LLM training. Domain-specialist evaluation for helpfulness, safety, accuracy, and cultural appropriateness. Every pair includes structured reasoning.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Pairwise ranking</span>
-        <span class="svc-tag">DPO pairs</span>
-        <span class="svc-tag">Reward modeling</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/nlp">
-      <span class="svc-icon">🔤</span>
-      <div class="svc-title">NLP Annotation</div>
-      <div class="svc-body">Named entity recognition, intent classification, sentiment analysis, relation extraction, and coreference resolution. AI pre-labeling cuts annotation time by 70%. Human experts validate and correct the responses.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">NER</span>
-        <span class="svc-tag">Sentiment</span>
-        <span class="svc-tag">Intent tagging</span>
-        <span class="svc-tag">Relation extraction</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/sft">
-      <span class="svc-icon">📝</span>
-      <div class="svc-title">SFT Instruction Data</div>
-      <div class="svc-body">Expert-written prompt and ideal-response pairs for supervised fine-tuning. Domain specialists write responses that your model should emulate. The quality ceiling of your SFT model starts here.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Instruction tuning</span>
-        <span class="svc-tag">Domain-expert written</span>
-        <span class="svc-tag">Multi-domain</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/sycophancy">
-      <span class="svc-icon">🔬</span>
-      <div class="svc-title">Sycophancy Detection Audit</div>
-      <div class="svc-body">We inject 50–100 sycophancy traps into your RLHF pipeline and measure how often annotators incorrectly reward agreeable but wrong responses. Delivers a susceptibility score, risk report, and corrective training pairs.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">RLHF audit</span>
-        <span class="svc-tag">Bias detection</span>
-        <span class="svc-tag">Fixed-price report</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/red-teaming">
-      <span class="svc-icon">🛡</span>
-      <div class="svc-title">Red-Teaming & Safety Eval</div>
-      <div class="svc-body">Structured adversarial probing across 8 attack categories jailbreaks, prompt injections, factual hallucinations, bias elicitation, harmful content, privacy leakage, sycophancy, and instruction following failures. Delivered as a graded report with corrective RLHF data.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Adversarial testing</span>
-        <span class="svc-tag">Safety report</span>
-        <span class="svc-tag">Corrective data</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/hallucination">
-      <span class="svc-icon">🧠</span>
-      <div class="svc-title">Hallucination Detection</div>
-      <div class="svc-body">Claim by claim verification of AI outputs against source documents or domain knowledge. Our ML pipeline auto-extracts all factual claim, expert annotators verify each claim. Delivered with a hallucination rate breakdown by category and severity tier.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Claim extraction</span>
-        <span class="svc-tag">Fact verification</span>
-        <span class="svc-tag">Severity scoring</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/code-rlhf">
-      <span class="svc-icon">💻</span>
-      <div class="svc-title">Code RLHF</div>
-      <div class="svc-body">Software engineers evaluate AI-generated code on correctness, security, readability, efficiency, and style. Specialist pools by language: Python, JavaScript, SQL, Java, Go. Includes automated unit test execution and security linting alongside human judgment.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Multi-language</span>
-        <span class="svc-tag">Security review</span>
-        <span class="svc-tag">Engineer annotators</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/image">
-      <span class="svc-icon">🖼</span>
-      <div class="svc-title">Image Annotation</div>
-      <div class="svc-body">SAM2 powered pre-annotation reduces manual work 40–60%. Bounding boxes, polygon segmentation, semantic and instance segmentation and  keypoint detection. Human experts validate all AI-suggested labels.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Segmentation</span>
-        <span class="svc-tag">Bounding boxes</span>
-        <span class="svc-tag">DICOM / medical</span>
-        <span class="svc-tag">SAM2 pre-annotation</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/video">
-      <span class="svc-icon">🎬</span>
-      <div class="svc-title">Video Annotation</div>
-      <div class="svc-body">Object tracking with consistent ID across frames, action recognition, temporal segmentation, and AV scenario annotation. Temporal interpolation reduces frame-by-frame work 70%. Multi-object tracking via ByteTrack. Supports surveillance, supply chain and autonomous vehicle use cases.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Object tracking</span>
-        <span class="svc-tag">Action recognition</span>
-        <span class="svc-tag">AV scenarios</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/synthetic-data">
-      <span class="svc-icon">📊</span>
-      <div class="svc-title">Synthetic Data QA</div>
-      <div class="svc-body">AI-generated training data reviewed by expert humans for bias, hallucination, distribution drift, and edge-case coverage. We generate synthetic examples using LLMs then route through our expert verification layer. Gartner predicts 60%+ of training data will be synthetic by 2027 this is the trust layer it needs.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Bias detection</span>
-        <span class="svc-tag">Quality verification</span>
-        <span class="svc-tag">Data provenance</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/rag">
-      <span class="svc-icon">📡</span>
-      <div class="svc-title">RAG System Evaluation</div>
-      <div class="svc-body">Human evaluation of retrieval + generation quality in RAG pipelines. Annotators assess: did the retrieval surface the right context? Did the generation faithfully use it? Detects faithfulness failures, citation errors, and hallucinations. Targeted at enterprise AI teams deploying knowledge-base assistants.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Faithfulness eval</span>
-        <span class="svc-tag">Citation accuracy</span>
-        <span class="svc-tag">Enterprise AI</span>
-      </div>
-    </a>
-
-    <a class="svc-card" href="/services/retainer">
-      <span class="svc-icon">🔄</span>
-      <div class="svc-title">Continuous Model Quality Retainer</div>
-      <div class="svc-body">A standing team of expert annotators permanently assigned to your model. Weekly: evaluate 500–2,000 live outputs. Monthly: quality report, drift alerts, and a curated retraining batch. Your model stays aligned as user behaviour evolves.</div>
-      <div class="svc-tags">
-        <span class="svc-tag">Monthly retainer</span>
-        <span class="svc-tag">Drift monitoring</span>
-        <span class="svc-tag">SLA-backed</span>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-  </div>
-</div>
-
-<section class="how" id="how">
-  <div class="sec-header">
-    <span class="sec-eyebrow">How It Works</span>
-    <h2 class="sec-title">From brief to <em>verified delivery</em> in 4 steps</h2>
-    <p class="sec-desc">Every project runs through the same rigorous data pipeline. The RLAIF pre-scorer handles volume. Human experts handle judgment. Automated QA runs throughout. You get a training-ready dataset, not just labelled files.<a href="/company/how-it-works"> Learn more</a></p>
-  </div>
-  <div class="how-steps">
-    <div class="how-step">
-      <div class="how-step-num">1</div>
-      <div class="how-step-icon">📋</div>
-      <div class="how-step-title">Scoping + Guidelines</div>
-      <div class="how-step-body">We review your data samples, define evaluation criteria, write project-specific annotation guidelines with 20+ worked examples, and run an annotator calibration session. Target kappa ≥ 0.70 before any annotation begins.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-step-num">2</div>
-      <div class="how-step-icon">🤖</div>
-      <div class="how-step-title">AI Pre-Annotation</div>
-      <div class="how-step-body">RLAIF pre-scorer evaluates each task and provides a first-pass suggestion with reasoning. Gold standard tasks are injected at 6% rate. For image tasks, SAM2 pre-draws segmentation masks. Humans see AI suggestions they validate or override.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-step-num">3</div>
-      <div class="how-step-icon">👥</div>
-      <div class="how-step-title">Expert Human Review</div>
-      <div class="how-step-body">Vetted domain-expert annotators handle uncertain cases, edge cases, and domain-sensitive content. Three-tier QA: automated anomaly detection → peer review (15% sample) → expert spot check (5% + all flagged tasks). Daily kappa tracking.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-step-num">4</div>
-      <div class="how-step-icon">📦</div>
-      <div class="how-step-title">Verified Delivery + Feedback</div>
-      <div class="how-step-body">Delivery: dataset + QA report (kappa scores, gold accuracy, error log) + data card. Two weeks later: we follow up for your model benchmark result. That result improves the next batch. The loop that makes us better than anyone else.</div>
-    </div>
-  </div>
-</section>
-
-<!-- Visual Break 2: Human + AI collaboration strip -->
-<section class="img-strip">
-  <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1600&q=80&auto=format&fit=crop" alt="Human and AI collaboration" loading="lazy" style="filter:brightness(0.72) saturate(1.1)">
-  <div class="img-strip-overlay" style="background:linear-gradient(to right,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.55) 55%,rgba(10,10,10,0.0) 100%)">
-    <div class="img-strip-text">
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
-        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">⚙ RLAIF PRE-SCORES: 72%</div>
-        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">👤 EXPERT VALIDATES: 100%</div>
-      </div>
-      <span class="sec-eyebrow" style="display:block;margin-bottom:14px;color:#55efc4">Human + Machine</span>
-      <h3 style="color:#f5f2ec">The future of model training is a pipeline, not a transaction</h3>
-      <p style="color:rgba(245,242,236,0.72)">AI handles volume and speed. Humans provide judgment, domain expertise, and accountability. Together they build the training data layer that help to build sustaining AI models.</p>
-    </div>
-  </div>
-</section>
-
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-  </div>
-</div>
-
-<section class="industries" id="industries">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Industry Verticals</span>
-    <h2 class="sec-title">Deep expertise in <em>five</em> domains</h2>
-    <p class="sec-desc">Production model training requires data built by people who understand the domain not just the task format. We operate specialist training data pipelines for each vertical below.</p>
-  </div>
-  <div class="ind-grid">
-    <a class="ind-card" href="/industries/legal">
-      <span class="ind-emoji">⚖</span>
-      <div class="ind-name">Legal</div>
-      <div class="ind-desc">Annotators include qualified professional with legal training. Contract clause extraction, legal NER, judgment quality evaluation, compliance document annotation.</div>
-      <div class="ind-services">
-        <div class="ind-service">Contract clause tagging + risk flagging</div>
-        <div class="ind-service">Legal NER (statutes, precedents, entities)</div>
-        <div class="ind-service">Legal AI RLHF (lawyer annotators)</div>
-        <div class="ind-service">Red-teaming legal AI outputs</div>
-      </div>
-    </a>
-    <a class="ind-card" href="/industries/finance">
-      <span class="ind-emoji">💰</span>
-      <div class="ind-name">Finance & BFSI</div>
-      <div class="ind-desc">Annotators include finance and banking professionals. KYC document processing, fraud detection data, loan document NLP, financial AI RLHF.</div>
-      <div class="ind-services">
-        <div class="ind-service">KYC/loan document NLP annotation</div>
-        <div class="ind-service">Financial AI hallucination detection</div>
-        <div class="ind-service">RLHF for finance LLMs (CA annotators)</div>
-        <div class="ind-service">GST/ITR document processing</div>
-      </div>
-    </a>
-    <a class="ind-card" href="/industries/automotive">
-      <span class="ind-emoji">🚗</span>
-      <div class="ind-name">Automotive & AV</div>
-      <div class="ind-desc">Specialist annotators for regional and global conditions such as object identification, unstructured intersections, monsoon visibility.</div>
-      <div class="ind-services">
-        <div class="ind-service">Object detection + tracking (Indian traffic)</div>
-        <div class="ind-service">Lane detection in unstructured roads</div>
-        <div class="ind-service">LiDAR point cloud annotation</div>
-        <div class="ind-service">ADAS sensor fusion labeling</div>
-      </div>
-    </a>
-    <a class="ind-card" href="/industries/agriculture">
-      <span class="ind-emoji">🌾</span>
-      <div class="ind-name">Agriculture</div>
-      <div class="ind-desc">Annotators understand crops, soil types, and farming conditions. Satellite imagery, drone footage, and field photo annotation for crop disease detection, yield estimation, and PMFBY insurance claims.</div>
-      <div class="ind-services">
-        <div class="ind-service">Satellite imagery crop classification</div>
-        <div class="ind-service">Crop disease detection annotation</div>
-        <div class="ind-service">PMFBY insurance claim photo labeling</div>
-        <div class="ind-service">Yield estimation model training data</div>
-      </div>
-    </a>
-    <a class="ind-card" href="/industries/genai">
-      <span class="ind-emoji">🏢</span>
-      <div class="ind-name">Enterprise GenAI</div>
-      <div class="ind-desc">For enterprises deploying internal AI assistants, RAG-based knowledge systems, and domain-specific copilots. Continuous quality assurance, hallucination monitoring, and red-teaming to keep production models safe and aligned.</div>
-      <div class="ind-services">
-        <div class="ind-service">RAG system faithfulness evaluation</div>
-        <div class="ind-service">Continuous hallucination monitoring</div>
-        <div class="ind-service">Custom benchmark creation + tracking</div>
-        <div class="ind-service">Production AI red-teaming</div>
-      </div>
-    </a>
-  </div>
-</section>
-
 <!-- Visual Break 3: Live Annotation Studio Showcase -->
-<section style="background:var(--paper);padding:80px 60px;border-top:1px solid rgba(255,255,255,0.06)">
-  <div style="text-align:center;margin-bottom:48px">
+<section style="background:var(--paper);padding:100px 60px;border-top:1px solid rgba(255,255,255,0.06)">
+  <div style="text-align:center;margin-bottom:64px">
     <div style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:#bc5113;text-transform:uppercase;margin-bottom:12px">ConcaveLabel Studio · Live Demo</div>
-    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(32px,4vw,48px);letter-spacing:-1.5px;color:var(--ink);line-height:1.05">Three annotation types. <em style="color:var(--accent);font-style:italic">One pipeline.</em></h2>
-    <p style="font-size:16px;color:var(--muted);margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto;font-weight:300">From bounding boxes to preference pairs to NER spans every task type runs through the same QA-backed pipeline.</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,56px);letter-spacing:-1.5px;color:var(--ink);line-height:1.05">See the annotation pipeline <em style="color:var(--accent);font-style:italic">in action.</em></h2>
+    <p style="font-size:17px;color:var(--muted);margin-top:16px;max-width:540px;margin-left:auto;margin-right:auto;font-weight:300">Object detection, NER, and RLHF preference pairs, three task types, one QA-backed pipeline.</p>
   </div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
 
@@ -987,7 +581,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       </div>
       <div style="position:relative;overflow:hidden;height:220px">
         <img src="https://images.unsplash.com/photo-1575260603071-eab438fecff1?w=600&q=80&auto=format&fit=crop" alt="Object detection annotation" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.55)">
-        <!-- Bounding boxes -->
         <div style="position:absolute;left:14%;top:28%;width:18%;height:36%;border:2px solid #00b894;border-radius:2px;pointer-events:none;animation:ann-pulse-green 2s ease infinite">
           <div style="position:absolute;top:-18px;left:0;background:#00b894;color:#0a0a0a;font-size:8px;padding:1px 5px;font-family:'Space Mono',monospace;white-space:nowrap">CAR · 0.97</div>
         </div>
@@ -1071,227 +664,410 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </section>
 
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-  </div>
-</div>
 
-<section class="metrics" id="quality">
-  <div class="metrics-layout">
-    <div class="metrics-text">
-      <span class="sec-eyebrow">Quality Standards</span>
-      <h2 class="sec-title">Numbers, not <em>claims</em></h2>
-      <p class="sec-desc">Every competitor says "98% accuracy." We say: here is our Cohen's kappa score, our gold standard pass rate, and your model's benchmark improvement after training on our data. Verify it yourself.<a href="/company/quality"> Learn more</a></p>
-      <div class="metric-rows" style="margin-top:40px">
-        <div class="metric-row">
-          <div><div class="metric-name">Inter-Annotator Agreement (kappa)</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:85%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">≥ 0.72</div></div>
-        </div>
-        <div class="metric-row">
-          <div><div class="metric-name">Gold Standard Pass Rate</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:90%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">≥ 88%</div></div>
-        </div>
-        <div class="metric-row">
-          <div><div class="metric-name">RLAIF Pre-annotation Speed Gain</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:60%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">40–60%</div></div>
-        </div>
-        <div class="metric-row">
-          <div><div class="metric-name">Image annotation speed gain (SAM2)</div>
-          <div class="metric-bar-wrap"><div class="metric-bar"><div class="metric-fill" style="width:55%"></div></div></div></div>
-          <div class="metric-right"><div class="metric-val">40–60%</div></div>
-        </div>
-        <div class="metric-row">
-          <div><div class="metric-name">QA tiers per batch</div></div>
-          <div class="metric-right"><div class="metric-val">3</div></div>
-        </div>
+<section class="vis-split" id="about">
+  <div class="vis-split-img">
+    <img src="/images/bounding-box.png" alt="Data labeling and annotation pipeline" loading="lazy" style="filter:brightness(0.75) saturate(1.05)">
+    <!-- Floating stat chips on image -->
+    <div style="position:absolute;left:0;top:0;right:0;background:linear-gradient(rgba(10,10,10,0.75),transparent);padding:12px 16px 28px;pointer-events:none;display:flex;gap:8px;flex-wrap:wrap">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">● κ: 0.87 · STABLE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">✓ GOLD PASS: 94.2%</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#fdcb6e;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">⚙ RLAIF: 72%</div>
+    </div>
+    <div style="position:absolute;bottom:20px;left:20px;pointer-events:none">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(0,184,148,0.9);color:#0a0a0a;padding:5px 12px;border-radius:2px;letter-spacing:0.07em">✓ DELIVERED · 2,400 PAIRS</div>
+    </div>
+  </div>
+  <div class="vis-split-body">
+    <span class="sec-eyebrow">Why Concave AI</span>
+    <h2 class="sec-title" style="margin-top:12px">Data Infrastructure for<br><em>AI Model Training</em></h2>
+    <p style="font-size:14px;color:var(--muted);margin-top:14px;line-height:1.65;max-width:420px">We build the data layer your model trains on, not just labelled files. ML-engineered pipelines, published quality metrics, and a feedback loop baked into every contract. <a href="/company/about" style="color:var(--muted)">Learn more</a></p>
+    <!-- Compact reason boxes — all dark -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px">
+      <div class="why-box" style="background:var(--ink);padding:16px">
+        <div class="why-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-bottom:6px">01</div>
+        <div class="why-title" style="font-size:13px;font-weight:600;color:#f5f2ec;margin-bottom:3px">Published metrics</div>
+        <div class="why-body" style="font-size:12px;color:rgba(245,242,236,0.5);line-height:1.5">Kappa, gold pass rates, error logs on every delivery</div>
+      </div>
+      <div class="why-box" style="background:var(--ink);padding:16px">
+        <div class="why-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-bottom:6px">02</div>
+        <div class="why-title" style="font-size:13px;font-weight:600;color:#f5f2ec;margin-bottom:3px">RLAIF + human hybrid</div>
+        <div class="why-body" style="font-size:12px;color:rgba(245,242,236,0.5);line-height:1.5">60% faster · same accuracy · 40% lower cost</div>
+      </div>
+      <div class="why-box" style="background:var(--ink);padding:16px">
+        <div class="why-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-bottom:6px">03</div>
+        <div class="why-title" style="font-size:13px;font-weight:600;color:#f5f2ec;margin-bottom:3px">ML-engineered pipeline</div>
+        <div class="why-body" style="font-size:12px;color:rgba(245,242,236,0.5);line-height:1.5">Schemas, rubrics, and QA not just annotation</div>
+      </div>
+      <div class="why-box" style="background:var(--ink);padding:16px">
+        <div class="why-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;margin-bottom:6px">04</div>
+        <div class="why-title" style="font-size:13px;font-weight:600;color:#f5f2ec;margin-bottom:3px">Model feedback loop</div>
+        <div class="why-body" style="font-size:12px;color:rgba(245,242,236,0.5);line-height:1.5">2-week benchmark follow-up, standard in every contract</div>
       </div>
     </div>
-    <div>
-      <div class="pipeline-visual">
-        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(245,242,236,0.3);text-transform:uppercase;margin-bottom:16px">Live project pipeline</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">📥</div>
-          <div class="pipe-label">Customer data ingested to encrypted S3</div>
-          <span class="pipe-badge">Secure</span>
-        </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">⚙</div>
-          <div class="pipe-label">RLAIF pre-scorer evaluates each task</div>
-          <span class="pipe-badge ai">AI</span>
-        </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">🥇</div>
-          <div class="pipe-label">Gold tasks injected at 6% rate</div>
-          <span class="pipe-badge">QA</span>
-        </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">👤</div>
-          <div class="pipe-label">Expert annotators validate & correct</div>
-          <span class="pipe-badge">Human</span>
-        </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">📊</div>
-          <div class="pipe-label">Kappa + anomaly + gold accuracy checks</div>
-          <span class="pipe-badge">Auto-QA</span>
-        </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">🔍</div>
-          <div class="pipe-label">Senior expert review 5% sample + flags</div>
-          <span class="pipe-badge">Expert</span>
-        </div>
-        <div class="pipe-arrow">↓</div>
-        <div class="pipe-row">
-          <div class="pipe-icon">📦</div>
-          <div class="pipe-label">Dataset + QA report + data card delivered</div>
-          <span class="pipe-badge">Delivered</span>
-        </div>
+    <div class="why-box-accent" style="background:var(--ink);border-left:2px solid var(--accent2);padding:12px 16px;margin-top:10px;display:flex;align-items:center;gap:16px">
+      <div class="why-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;flex-shrink:0">05</div>
+      <div>
+        <div class="why-title" style="font-size:13px;font-weight:600;color:#f5f2ec">Vendor-neutral · DPDP compliant</div>
+        <div class="why-body" style="font-size:12px;color:rgba(245,242,236,0.5);margin-top:2px">Independently owned. Your training data stays yours.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
+
+
+<section class="services" id="services">
+  <div class="sec-header">
+    <span class="sec-eyebrow">Solutions</span>
+    <h2 class="sec-title">Every layer your model<br>training pipeline <em>needs</em></h2>
+    <p class="sec-desc">Four capability buckets every service links to a dedicated page with full detail.</p>
   </div>
-</div>
+
+  <!-- 4 category cards in 2x2 grid — all dark, hover → paper -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:64px">
+
+    <!-- Category 1: LLM & RLHF -->
+    <div class="cat-card" style="padding:48px 44px;background:var(--ink)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div class="cat-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px">Category 01</div>
+          <div class="cat-title" style="font-family:'DM Serif Display',serif;font-size:26px;color:#f5f2ec;letter-spacing:-0.5px">LLM & RLHF Data</div>
+        </div>
+        <span class="cat-badge" style="font-family:'Space Mono',monospace;font-size:10px;background:rgba(200,169,110,0.15);color:var(--accent2);padding:4px 10px;border-radius:2px;white-space:nowrap;margin-top:4px">3 solutions</span>
+      </div>
+      <div class="cat-body" style="font-size:14px;color:rgba(245,242,236,0.55);margin-bottom:28px;line-height:1.65">Preference pairs, instruction data, and code evaluation that teach your LLM what good output looks like, built for data infrastructure.</div>
+      <div class="cat-divider" style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.08)">
+        <a class="cat-link" href="/services/rlhf" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">⚖ RLHF Preference Data</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">DPO · Reward modeling →</span>
+        </a>
+        <a class="cat-link" href="/services/sft" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">📝 SFT Instruction Data</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Fine-tuning · Multi-domain →</span>
+        </a>
+        <a class="cat-link" href="/services/code-rlhf" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">💻 Code RLHF</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Python · JS · SQL · Go →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 2: Safety & Evaluation -->
+    <div class="cat-card" style="padding:48px 44px;background:var(--ink)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div class="cat-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px">Category 02</div>
+          <div class="cat-title" style="font-family:'DM Serif Display',serif;font-size:26px;color:#f5f2ec;letter-spacing:-0.5px">Safety & Evaluation</div>
+        </div>
+        <span class="cat-badge" style="font-family:'Space Mono',monospace;font-size:10px;background:rgba(200,169,110,0.15);color:var(--accent2);padding:4px 10px;border-radius:2px;white-space:nowrap;margin-top:4px">4 solutions</span>
+      </div>
+      <div class="cat-body" style="font-size:14px;color:rgba(245,242,236,0.55);margin-bottom:28px;line-height:1.65">Find failure modes before your users do. Red-teaming, sycophancy audits, hallucination detection, and RAG faithfulness,  graded reports with corrective training data.</div>
+      <div class="cat-divider" style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.08)">
+        <a class="cat-link" href="/services/red-teaming" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🛡 Red-Teaming & Safety</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">8 attack categories →</span>
+        </a>
+        <a class="cat-link" href="/services/sycophancy" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🔬 Sycophancy Detection</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Fixed-price audit →</span>
+        </a>
+        <a class="cat-link" href="/services/hallucination" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🧠 Hallucination Detection</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Claim-by-claim →</span>
+        </a>
+        <a class="cat-link" href="/services/rag" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">📡 RAG Evaluation</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Faithfulness · Citations →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 3: NLP & Computer Vision -->
+    <div class="cat-card" style="padding:48px 44px;background:var(--ink)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div class="cat-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px">Category 03</div>
+          <div class="cat-title" style="font-family:'DM Serif Display',serif;font-size:26px;color:#f5f2ec;letter-spacing:-0.5px">NLP & Computer Vision</div>
+        </div>
+        <span class="cat-badge" style="font-family:'Space Mono',monospace;font-size:10px;background:rgba(200,169,110,0.15);color:var(--accent2);padding:4px 10px;border-radius:2px;white-space:nowrap;margin-top:4px">3 solutions</span>
+      </div>
+      <div class="cat-body" style="font-size:14px;color:rgba(245,242,236,0.55);margin-bottom:28px;line-height:1.65">Structured text annotation and visual labeling via RLAIF + SAM2. NLP gets 70% faster labeling; images and video get AI-suggested masks that humans validate.</div>
+      <div class="cat-divider" style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.08)">
+        <a class="cat-link" href="/services/nlp" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🔤 NLP Annotation</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">NER · Intent · Sentiment →</span>
+        </a>
+        <a class="cat-link" href="/services/image" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🖼 Image Annotation</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">SAM2 · DICOM · Segmentation →</span>
+        </a>
+        <a class="cat-link" href="/services/video" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🎬 Video Annotation</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Tracking · AV · Action →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Category 4: Ongoing Quality -->
+    <div class="cat-card" style="padding:48px 44px;background:var(--ink)">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div class="cat-num" style="font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px">Category 04</div>
+          <div class="cat-title" style="font-family:'DM Serif Display',serif;font-size:26px;color:#f5f2ec;letter-spacing:-0.5px">Ongoing Quality</div>
+        </div>
+        <span class="cat-badge" style="font-family:'Space Mono',monospace;font-size:10px;background:rgba(200,169,110,0.15);color:var(--accent2);padding:4px 10px;border-radius:2px;white-space:nowrap;margin-top:4px">2 solutions</span>
+      </div>
+      <div class="cat-body" style="font-size:14px;color:rgba(245,242,236,0.55);margin-bottom:28px;line-height:1.65">Your model's quality degrades as user behaviour evolves. A standing annotator team and a synthetic data verification layer keep it calibrated week after week.</div>
+      <div class="cat-divider" style="display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.08)">
+        <a class="cat-link" href="/services/retainer" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.06);text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">🔄 Model Quality Retainer</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Monthly · SLA-backed →</span>
+        </a>
+        <a class="cat-link" href="/services/synthetic-data" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;text-decoration:none">
+          <span class="cat-link-text" style="font-size:14px;color:rgba(245,242,236,0.7)">📊 Synthetic Data QA</span>
+          <span class="cat-link-hint" style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.3)">Bias · Drift · Provenance →</span>
+        </a>
+      </div>
+      <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08)">
+        <a class="cat-cta" href="/contact" style="font-family:'Space Mono',monospace;font-size:10px;color:var(--accent2);text-decoration:none;letter-spacing:0.08em">Not sure which fits? Start with a free audit →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="how" id="how">
+  <div class="sec-header">
+    <span class="sec-eyebrow">How It Works</span>
+    <h2 class="sec-title">From brief to <em>verified delivery</em></h2>
+    <p class="sec-desc">AI handles volume. Humans provide judgment. QA runs throughout. <a href="/company/how-it-works" style="color:var(--muted)">Learn more</a></p>
+  </div>
+  <!-- Visual Pipeline Diagram -->
+  <div style="display:flex;align-items:stretch;border-radius:4px;overflow:hidden;margin-top:48px;gap:3px">
+
+    <div style="flex:1;background:linear-gradient(to top,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.45) 55%,rgba(10,10,10,0.2) 100%),url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:280px;padding:28px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;text-align:center">
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#f5f2ec;font-weight:600">Data In</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.55);letter-spacing:0.06em;line-height:1.6">Secure ingestion<br>+ scoping brief</div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(255,255,255,0.1);color:rgba(245,242,236,0.55);padding:3px 10px;border-radius:2px">STEP 1</span>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;background:var(--ink);padding:0 10px;color:var(--accent2);font-size:18px;flex-shrink:0">→</div>
+
+    <div style="flex:1;background:linear-gradient(to top,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.45) 55%,rgba(10,10,10,0.2) 100%),url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:280px;padding:28px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;text-align:center">
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#f5f2ec;font-weight:600">AI Pre-Score</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.55);letter-spacing:0.06em;line-height:1.6">RLAIF handles<br>70–90% of tasks</div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(200,169,110,0.2);color:var(--accent2);padding:3px 10px;border-radius:2px">AI</span>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;background:var(--ink);padding:0 10px;color:var(--accent2);font-size:18px;flex-shrink:0">→</div>
+
+    <div style="flex:1;background:linear-gradient(to top,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.45) 55%,rgba(10,10,10,0.2) 100%),url('https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:280px;padding:28px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;text-align:center">
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#f5f2ec;font-weight:600">Human Review</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.55);letter-spacing:0.06em;line-height:1.6">Edge cases,<br>domain expertise</div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(0,184,148,0.2);color:#00b894;padding:3px 10px;border-radius:2px">Expert</span>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;background:var(--ink);padding:0 10px;color:var(--accent2);font-size:18px;flex-shrink:0">→</div>
+
+    <div style="flex:1;background:linear-gradient(to top,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.45) 55%,rgba(10,10,10,0.2) 100%),url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:280px;padding:28px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;text-align:center">
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#f5f2ec;font-weight:600">3-Tier QA</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.55);letter-spacing:0.06em;line-height:1.6">Auto → Peer review<br>→ Expert spot check</div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(162,155,254,0.2);color:#a29bfe;padding:3px 10px;border-radius:2px">QA</span>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:center;background:var(--ink);padding:0 10px;color:var(--accent2);font-size:18px;flex-shrink:0">→</div>
+
+    <div style="flex:1;background:linear-gradient(to top,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.45) 55%,rgba(10,10,10,0.2) 100%),url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:280px;padding:28px 18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;text-align:center">
+      <div style="font-family:'DM Serif Display',serif;font-size:16px;color:#f5f2ec;font-weight:600">Deliver + Loop</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.55);letter-spacing:0.06em;line-height:1.6">Dataset + QA report<br>+ 2-wk benchmark loop</div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(0,184,148,0.2);color:#00b894;padding:3px 10px;border-radius:2px">VERIFIED ✓</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- Visual Break 2: Human + AI collaboration strip -->
+<section class="img-strip">
+  <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1600&q=80&auto=format&fit=crop" alt="Human and AI collaboration" loading="lazy" style="filter:brightness(0.72) saturate(1.1)">
+  <div class="img-strip-overlay" style="background:linear-gradient(to right,rgba(10,10,10,0.88) 0%,rgba(10,10,10,0.55) 55%,rgba(10,10,10,0.0) 100%)">
+    <div class="img-strip-text">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">⚙ RLAIF PRE-SCORES: 72%</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em">👤 EXPERT VALIDATES: 100%</div>
+      </div>
+      <span class="sec-eyebrow" style="display:block;margin-bottom:14px;color:#55efc4">Human + Machine</span>
+      <h3 style="color:#f5f2ec">The future of model training is a pipeline, not a transaction</h3>
+      <p style="color:rgba(245,242,236,0.72)">AI handles volume and speed. Humans provide judgment, domain expertise, and accountability. Together they build the training data layer that help to build sustaining AI models.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="industries" id="industries">
+  <div class="sec-header">
+    <span class="sec-eyebrow">Industry Verticals</span>
+    <h2 class="sec-title">Deep expertise in <em>five</em> domains</h2>
+    <p class="sec-desc">Providing data infrastructual layer across this domains.</p>
+  </div>
+  <div class="ind-grid" style="grid-template-columns:repeat(5,1fr);gap:8px">
+
+    <a class="ind-card" href="/industries/legal" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Legal</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">Lawyer-annotated contracts, legal NER, RLHF, and red-teaming.</div>
+    </a>
+
+    <a class="ind-card" href="/industries/finance" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Finance & BFSI</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">KYC/loan NLP, hallucination detection, CA-annotated finance LLMs.</div>
+    </a>
+
+    <a class="ind-card" href="/industries/automotive" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Automotive & AV</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">Indian traffic, unstructured roads, LiDAR, ADAS, AV scenario labeling.</div>
+    </a>
+
+    <a class="ind-card" href="/industries/agriculture" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Agriculture</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">Satellite crop classification, disease detection, PMFBY insurance labeling.</div>
+    </a>
+
+    <a class="ind-card" href="/industries/genai" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Enterprise GenAI</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">RAG eval, hallucination monitoring, red-teaming for production AI.</div>
+    </a>
+
+  </div>
+</section>
+
+
+
+<section class="metrics" id="quality">
+  <!-- Header + stats side by side -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:56px">
+    <div>
+      <span class="sec-eyebrow">Quality Standards</span>
+      <h2 class="sec-title" style="margin-top:12px">Numbers, not <em>claims</em></h2>
+      <p style="font-size:14px;color:var(--muted);margin-top:12px;line-height:1.65;max-width:380px">Every delivery ships with a QA report which includes kappa scores, gold pass rates, error logs. Published, not promised. <a href="/company/quality" style="color:var(--accent)">See a sample →</a></p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+      <div style="background:var(--ink);padding:28px 24px">
+        <div style="font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-2px;color:#f5f2ec;line-height:1">≥ 0.72</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.45);letter-spacing:0.08em;margin-top:8px;text-transform:uppercase">Cohen's Kappa</div>
+      </div>
+      <div style="background:rgba(188,81,19,0.08);padding:28px 24px;border-left:2px solid rgba(188,81,19,0.25)">
+        <div style="font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-2px;color:var(--ink);line-height:1">≥ 88%</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.08em;margin-top:8px;text-transform:uppercase">Gold Pass Rate</div>
+      </div>
+      <div style="background:var(--paper);padding:28px 24px;border:1px solid var(--border)">
+        <div style="font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-2px;color:var(--ink);line-height:1">60%</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.08em;margin-top:8px;text-transform:uppercase">Faster via RLAIF</div>
+      </div>
+      <div style="background:rgba(0,184,148,0.06);padding:28px 24px;border-left:2px solid rgba(0,184,148,0.25)">
+        <div style="font-family:'DM Serif Display',serif;font-size:36px;letter-spacing:-2px;color:var(--ink);line-height:1">3-Tier</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:0.08em;margin-top:8px;text-transform:uppercase">QA per Batch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual pipeline flow — numbered nodes on gradient track -->
+  <div style="position:relative;padding-top:60px">
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;color:var(--muted);text-transform:uppercase;margin-bottom:40px;text-align:center">How quality is enforced on every batch</div>
+
+    <!-- Gradient connecting track -->
+    <div style="position:absolute;top:137px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(to right,#5ecba1 0%,#c8a96e 33%,#a29bfe 66%,#00b894 100%);pointer-events:none"></div>
+
+    <!-- Four steps -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);text-align:center">
+
+      <!-- Step 1 -->
+      <div style="padding:0 28px">
+        <div style="width:48px;height:48px;border-radius:50%;background:#5ecba1;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;z-index:1;box-shadow:0 0 0 7px var(--paper)">01</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8px;color:#1a6b4a;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:10px">Intake</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:8px">Data Ingested</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px">Encrypted intake with schema & format validation before any labeling begins.</div>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(94,203,161,0.15);color:#1a6b4a;padding:4px 12px;border-radius:2px">Secure</span>
+      </div>
+
+      <!-- Step 2 -->
+      <div style="padding:0 28px">
+        <div style="width:48px;height:48px;border-radius:50%;background:#c8a96e;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;z-index:1;box-shadow:0 0 0 7px var(--paper)">02</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8px;color:var(--accent2);letter-spacing:0.13em;text-transform:uppercase;margin-bottom:10px">AI Layer</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:8px">RLAIF Pre-scores</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px">AI flags edge cases and pre-scores 72% of tasks with cutting human review to what matters.</div>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(200,169,110,0.18);color:var(--accent2);padding:4px 12px;border-radius:2px">AI</span>
+      </div>
+
+      <!-- Step 3 -->
+      <div style="padding:0 28px">
+        <div style="width:48px;height:48px;border-radius:50%;background:#a29bfe;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;z-index:1;box-shadow:0 0 0 7px var(--paper)">03</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8px;color:#6c63ff;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:10px">Human Layer</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:8px">Expert Validates</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px">Domain experts review all AI outputs. Kappa tracked live. Errors returned for calibration.</div>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(162,155,254,0.18);color:#6c63ff;padding:4px 12px;border-radius:2px">Human</span>
+      </div>
+
+      <!-- Step 4 -->
+      <div style="padding:0 28px">
+        <div style="width:48px;height:48px;border-radius:50%;background:#00b894;color:#0a0a0a;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto 28px;position:relative;z-index:1;box-shadow:0 0 0 7px var(--paper)">04</div>
+        <div style="font-family:'Space Mono',monospace;font-size:8px;color:#00b894;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:10px">Delivery</div>
+        <div style="font-family:'DM Serif Display',serif;font-size:17px;color:var(--ink);margin-bottom:8px">Delivered + Looped</div>
+        <div style="font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px">Full dataset + QA report delivered. 2-week benchmark check included in every contract.</div>
+        <span style="font-family:'Space Mono',monospace;font-size:9px;background:rgba(0,184,148,0.14);color:#00b894;padding:4px 12px;border-radius:2px">VERIFIED ✓</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
 <section class="pricing" id="pricing">
   <div class="sec-header">
     <span class="sec-eyebrow">Pricing</span>
     <h2 class="sec-title">Simple, transparent <em>pricing</em></h2>
-    <p class="sec-desc">No opaque enterprise quotes. Pricing is per-unit, per-project, or monthly retainer. All engagements start with a free audit no commitment required.</p>
+    <p class="sec-desc">Per-unit, per-project, or monthly retainer. All engagements start with a free audit, no commitment required.</p>
   </div>
   <div class="pricing-grid">
     <div class="price-card">
       <div class="price-name">Project</div>
-      <div class="price-desc">One-off annotation, evaluation, or audit project with a defined scope and deliverable.</div>
-      <div class="price-amount">₹3L – ₹20L</div>
+      <div class="price-desc">One-off annotation, audit, or evaluation with a defined scope.</div>
+      <div class="price-amount">$4K – $25K</div>
       <div class="price-unit">per project · varies by type and volume</div>
       <div class="price-features">
-        <div class="price-feature">RLHF: ₹250–1,500 per preference pair</div>
-        <div class="price-feature">NLP: ₹100–400 per document</div>
-        <div class="price-feature">Image: ₹5–50 per image (complexity-based)</div>
-        <div class="price-feature">Sycophancy audit: ₹4–12L fixed scope</div>
-        <div class="price-feature">Red-team assessment: ₹6–20L fixed scope</div>
-        <div class="price-feature">Full QA report + data card on every delivery</div>
+        <div class="price-feature">RLHF $4–20/pair · NLP $1.25–5/doc</div>
+        <div class="price-feature">Image $0.06–3.50/image · Video on scope</div>
+        <div class="price-feature">Sycophancy / red-team audits: $5K–25K fixed</div>
+        <div class="price-feature">QA report + data card on every delivery</div>
       </div>
     </div>
     <div class="price-card featured">
       <div class="price-badge">MOST POPULAR</div>
       <div class="price-name">Retainer</div>
-      <div class="price-desc">Standing annotator team for your model. Continuous quality evaluation, drift monitoring, and monthly retraining batches.</div>
-      <div class="price-amount">₹4L – ₹15L</div>
+      <div class="price-desc">Standing team for continuous evaluation, drift monitoring, monthly retraining.</div>
+      <div class="price-amount">$5K – $15K</div>
       <div class="price-unit">per month · SLA-backed</div>
       <div class="price-features">
-        <div class="price-feature">500–2,000 live outputs evaluated per week</div>
-        <div class="price-feature">Weekly quality report + drift alerts</div>
-        <div class="price-feature">Monthly curated retraining batch</div>
-        <div class="price-feature">Dedicated annotator team assigned</div>
-        <div class="price-feature">Priority turnaround (48–72 hours)</div>
+        <div class="price-feature">500–2,000 live outputs evaluated weekly</div>
+        <div class="price-feature">Monthly retraining batch + drift alerts</div>
+        <div class="price-feature">Dedicated annotator team + 48-hr turnaround</div>
         <div class="price-feature">Quarterly model benchmark review included</div>
       </div>
     </div>
     <div class="price-card">
       <div class="price-name">Free Audit</div>
-      <div class="price-desc">We evaluate 50 of your model outputs or RLHF pairs and deliver a 1-page finding. No cost, no commitment.</div>
-      <div class="price-amount">₹0</div>
-      <div class="price-unit">zero cost · delivered in 5 working days</div>
+      <div class="price-desc">We evaluate 50 model outputs or RLHF pairs and deliver a 1-page finding.</div>
+      <div class="price-amount">$0</div>
+      <div class="price-unit">zero cost · 5 working days</div>
       <div class="price-features">
-        <div class="price-feature">Sycophancy susceptibility check on 50 pairs</div>
+        <div class="price-feature">Sycophancy check on 50 RLHF pairs</div>
         <div class="price-feature">Or: hallucination detection on 50 outputs</div>
-        <div class="price-feature">Or: inter-annotator agreement baseline</div>
         <div class="price-feature">1-page finding report delivered</div>
-        <div class="price-feature">No sales call required to start</div>
-        <div class="price-feature">Converts to paid project only if useful</div>
+        <div class="price-feature">No sales call required, converts only if useful</div>
       </div>
     </div>
   </div>
 </section>
-
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-    <span class="ticker-item">RLHF Preference Data</span>
-    <span class="ticker-item">NLP Annotation</span>
-    <span class="ticker-item">SFT Instruction Data</span>
-    <span class="ticker-item">Sycophancy Audits</span>
-    <span class="ticker-item">Hallucination Detection</span>
-    <span class="ticker-item">Red-Teaming</span>
-    <span class="ticker-item">Code RLHF</span>
-    <span class="ticker-item">Image Annotation</span>
-    <span class="ticker-item">Video Labeling</span>
-    <span class="ticker-item">Synthetic Data QA</span>
-    <span class="ticker-item">RAG Evaluation</span>
-    <span class="ticker-item">Model Benchmarking</span>
-  </div>
-</div>
 
 
 <section class="cta-section" id="contact">
@@ -1315,7 +1091,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <p>Data infrastructure for AI model training built for the global system. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
     </div>
     <div>
-      <div class="footer-col-title">Services</div>
+      <div class="footer-col-title">Solutions</div>
       <div class="footer-links">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>

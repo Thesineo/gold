@@ -36,6 +36,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .nav-cta:hover{background:var(--ink);color:var(--paper)!important}
 .svc-hero{position:relative;overflow:hidden;min-height:70vh;padding:160px 60px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-bottom:1px solid var(--border)}
 .svc-hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.svc-hero-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--accent)}
 .svc-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(42px,5vw,64px);line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
 .svc-hero h1 em{font-style:italic;color:var(--accent)}
 .svc-hero-sub{font-size:18px;color:var(--muted);line-height:1.65;max-width:520px;font-weight:300;margin-bottom:36px}
@@ -84,15 +85,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .step-body{font-size:15px;color:var(--muted);line-height:1.7;max-width:640px}
 .step-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .step-tag{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.08em;padding:4px 10px;border:1px solid var(--border);border-radius:2px;color:var(--muted)}
-.deliv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
-.deliv-card{background:var(--paper);padding:32px}
-.deliv-card:hover{background:var(--ink)}
-.deliv-card:hover .deliv-title{color:var(--paper)}
-.deliv-card:hover .deliv-body{color:rgba(245,242,236,0.6)}
-.deliv-card:hover .deliv-icon{color:var(--accent2);border-color:rgba(200,169,110,0.3)}
-.deliv-icon{font-size:28px;margin-bottom:16px;display:block}
-.deliv-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:8px}
-.deliv-body{font-size:14px;color:var(--muted);line-height:1.6}
+.deliv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.deliv-card{background:var(--ink);color:var(--paper);padding:36px;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.deliv-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.86);z-index:0;pointer-events:none}
+.deliv-card>*{position:relative;z-index:1}
+
+
+
+
+.deliv-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:8px;color:var(--paper)}
+.deliv-body{font-size:14px;color:var(--accent2);line-height:1.6}
 .faq-list{margin-top:60px;display:flex;flex-direction:column;gap:0}
 .faq-item{padding:28px 0;border-bottom:1px solid var(--border)}
 .faq-q{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:10px;letter-spacing:-0.3px}
@@ -141,12 +143,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .footer-copy{font-size:13px;color:rgba(245,242,236,0.35)}
 .footer-badges{display:flex;gap:12px}
 .footer-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:5px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:var(--paper)}
-.breadcrumb{padding:100px 60px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-.breadcrumb a{color:var(--muted);text-decoration:none}
-.breadcrumb a:hover{color:var(--ink)}
-.breadcrumb span{color:var(--border)}
 @media(max-width:1100px){.svc-hero,.overview-grid{grid-template-columns:1fr}.types-grid{grid-template-columns:1fr 1fr}.deliv-grid{grid-template-columns:1fr 1fr}.pricing-band{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.svc-hero,.sec,.cta-section,.pricing-band{padding-left:24px;padding-right:24px}.types-grid,.deliv-grid,.related-grid{grid-template-columns:1fr}.breadcrumb{padding:90px 24px 0}}
+@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.svc-hero,.sec,.cta-section,.pricing-band{padding-left:24px;padding-right:24px}.types-grid,.deliv-grid,.related-grid{grid-template-columns:1fr}}
 
 /* ── SHARED VISUAL SECTIONS ─────────────────────────────────────────────── */
 .vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;overflow:hidden}
@@ -226,6 +224,19 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   .nav-links.active{display:flex}
   .nav-cta{margin-top:8px;text-align:center;display:block}
 }
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.cap-card{background:var(--ink);color:var(--paper);padding:36px;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.cap-card-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:10px;color:var(--paper)}
+.cap-card-body{font-size:14px;color:var(--accent2);line-height:1.65}
+@media(max-width:768px){.cap-grid{grid-template-columns:1fr}}
+
+.how-card{padding:48px 40px;position:relative;overflow:hidden;background-size:cover;background-position:center;cursor:default}
+.how-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.88);z-index:0;pointer-events:none}
+.how-card>*{position:relative;z-index:1}
+.how-title{font-family:'DM Serif Display',serif;font-size:20px;color:#f5f2ec;margin-bottom:12px}
+.how-body{font-size:14px;color:var(--accent2);line-height:1.65}
+.cap-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.86);z-index:0;pointer-events:none}
+.cap-card>*{position:relative;z-index:1}
 </style>
 </head>
 <body>
@@ -242,7 +253,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </button>
   <div class="nav-links">
     <div class="nav-item">
-      <a href="#">Services</a>
+      <a href="#">Solutions</a>
       <div class="nav-dropdown">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -290,11 +301,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </nav>
 
-<div class="breadcrumb">
-  <a href="/">Home</a><span>›</span>
-  <a href="index.html#services">Services</a><span>›</span>
-  NLP Annotation
-</div>
 
 <section class="svc-hero">
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1692607431225-5f4564c8f132?w=1920&q=85&auto=format&fit=crop')"></div>
@@ -319,7 +325,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="h-stat">
       <div class="h-stat-num">12+</div>
-      <div class="h-stat-label">Supported Indian and international languages</div>
+      <div class="h-stat-label">Supported languages across domains</div>
     </div>
     <div class="h-stat">
       <div class="h-stat-num">6</div>
@@ -336,28 +342,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </div>
 
-<section class="sec" id="overview">
-  <span class="sec-eyebrow">What It Is</span>
-  <h2 class="sec-title">Structured text labels that teach machines to <em>understand</em> language</h2>
-  <p class="sec-desc">NLP annotation is the process of adding structured labels to raw text so that machine learning models can learn linguistic patterns. Every search engine, chatbot, document processor, and voice assistant relies on millions of carefully annotated text examples to understand what human language means.</p>
-  <div class="overview-grid">
-    <div class="overview-left">
-      <p>When your NLP model reads a sentence like "Dr. Arora at Apollo Hospital prescribed metformin for diabetes management," it needs to have learned  from thousands of labeled examples  that "Dr. Arora" is a PERSON, "Apollo Hospital" is an ORGANISATION, "metformin" is a MEDICATION, and "diabetes" is a CONDITION. That learning comes entirely from annotation.</p>
-      <p>The challenge is that NLP annotation is deceptively difficult. For a general-purpose model, "Apple" can be a fruit, a company, or a person's name and only context determines which. For a medical model, understanding whether "cold" is a symptom, a temperature, or a descriptor requires clinical knowledge that a non-expert annotator simply does not have.</p>
-      <p>Concave AI's NLP annotation combines an AI pre-labeling layer (which handles the clear, unambiguous cases quickly) with domain-specialist human annotators who handle every ambiguous case, entity boundary decision, and domain-specific judgment call. The result is datasets with the speed advantage of AI pre-labeling and the accuracy guarantee of expert human review.</p>
-    </div>
-    <div class="overview-right">
-      <div class="info-block">
-        <div class="info-block-title">What is AI pre-labeling and why does it matter?</div>
-        <div class="info-block-body">Before human annotators see a document, our NLP pipeline runs it through a pre-annotation model that proposes labels for clear cases. Annotators then confirm or correct these suggestions rather than labeling from scratch. Studies show this reduces annotation time by 35–50% with no decrease in quality  as long as the human remains the final decision-maker, not just a rubber stamp for AI suggestions.</div>
-      </div>
-      <div class="info-block">
-        <div class="info-block-title">Why does domain expertise matter for NLP annotation?</div>
-        <div class="info-block-body">Clinical NLP requires annotators who can distinguish "left bundle branch block" (a cardiac condition) from "left" as a directional term. Legal NLP requires annotators who understand the difference between a "party" (legal entity in a contract) and the general use of the word. Financial NLP requires annotators who can correctly tag regulatory citations, instrument names, and risk categories. General crowdworkers produce systematically low-quality data for these domains regardless of guideline quality.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Mid-page visual section -->
 <section class="vis-split">
@@ -373,49 +357,49 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div style="position:absolute;right:4%;bottom:10%;pointer-events:none;text-align:right"><div style="font-family:'Space Mono',monospace;font-size:9px;background:#81ecec;color:#0a0a0a;padding:4px 10px;border-radius:2px;letter-spacing:0.07em;display:inline-block">✓ 38,420 ENTITIES TAGGED</div></div>
 </div>
   <div class="vis-split-body">
-    <span class="sec-eyebrow">Language Understanding</span>
-    <h2 class="sec-title" style="margin-top:12px">Annotation that understands <em>context, not just tokens</em></h2>
-    <p class="sec-desc">NLP annotation requires human linguists who understand pragmatics, irony, and domain-specific terminology. Our annotators are trained on your domain before touching a single label.</p>
+    <span class="sec-eyebrow">What It Is</span>
+    <h2 class="sec-title" style="margin-top:12px">Structured text labels that teach machines to <em>understand</em> language</h2>
+    <p class="sec-desc">NLP annotation is the process of adding structured labels to raw text so that machine learning models can learn linguistic patterns. Every search engine, chatbot, document processor, and voice assistant relies on millions of carefully annotated text examples to understand what human language means.</p>
     <a href="/contact" class="btn-cta">Get a Free Audit →</a>
   </div>
 </section>
 
 
 <!-- NLP NER Annotation Demo -->
-<section class="sec" style="padding-top:0;padding-bottom:60px">
+<section class="sec" style="padding-top:70px;padding-bottom:60px">
   <span class="sec-eyebrow">Live Annotation Interface</span>
   <h2 class="sec-title" style="margin-top:12px">Named Entity <em>Recognition</em> Labelling Tool</h2>
   <p class="sec-desc">Domain-specialist annotators tag entities across legal, medical, financial, and news corpora building training sets for production NER models.</p>
   <div class="nlp-demo">
     <div class="nlp-demo-bar">
-      <span>ConcaveLabel Studio - NER Annotation · Corpus: SEBI Enforcement Orders · 14,820 sentences</span>
+      <span>ConcaveLabel Studio - NER Annotation · Corpus: SEC Enforcement Orders · 14,820 sentences</span>
     </div>
     <div class="nlp-demo-body">
       <div class="nlp-text-area">
         <p style="margin-bottom:18px">
-          <span class="nlp-ent per" data-type="PER">Rajesh Kumar Mehta</span>, former CFO of
-          <span class="nlp-ent org" data-type="ORG">Infotech Ventures Ltd.</span>, was found by
-          <span class="nlp-ent org" data-type="ORG">SEBI</span> to have made undisclosed trades on
+          <span class="nlp-ent per" data-type="PER">James Mitchell</span>, former CFO of
+          <span class="nlp-ent org" data-type="ORG">NovaTech Solutions Inc.</span>, was found by
+          <span class="nlp-ent org" data-type="ORG">SEC</span> to have made undisclosed trades on
           <span class="nlp-ent date" data-type="DATE">March 14, 2023</span> prior to the merger announcement with
-          <span class="nlp-ent org" data-type="ORG">Bharti Digital Solutions</span>.
+          <span class="nlp-ent org" data-type="ORG">Atlas Digital Corp.</span>
           The total gain was estimated at
-          <span class="nlp-ent amt" data-type="AMT">₹4.2 crore</span>.
+          <span class="nlp-ent amt" data-type="AMT">$4.2 million</span>.
         </p>
         <p style="margin-bottom:18px">
           The order, issued from the
-          <span class="nlp-ent loc" data-type="LOC">SEBI Mumbai Regional Office</span>, imposes a
-          <span class="nlp-ent amt" data-type="AMT">₹1.8 crore</span> penalty and bars
-          <span class="nlp-ent per" data-type="PER">Mehta</span> from securities markets for
+          <span class="nlp-ent loc" data-type="LOC">SEC New York Regional Office</span>, imposes a
+          <span class="nlp-ent amt" data-type="AMT">$1.8 million</span> penalty and bars
+          <span class="nlp-ent per" data-type="PER">Mitchell</span> from securities markets for
           <span class="nlp-ent date" data-type="DATE">3 years</span> effective
           <span class="nlp-ent date" data-type="DATE">01 April 2024</span>.
         </p>
         <p>
           Counsel
-          <span class="nlp-ent per" data-type="PER">Adv. Sunita Rao</span> of
-          <span class="nlp-ent org" data-type="ORG">Rao &amp; Pillai Associates</span>,
-          <span class="nlp-ent loc" data-type="LOC">New Delhi</span>, filed an appeal at the
-          <span class="nlp-ent org" data-type="ORG">Securities Appellate Tribunal</span> citing procedural violations under
-          <span class="nlp-ent med" data-type="SEC">Regulation 4(2)(g)</span>.
+          <span class="nlp-ent per" data-type="PER">Sarah Chen</span> of
+          <span class="nlp-ent org" data-type="ORG">Chen &amp; Partners LLP</span>,
+          <span class="nlp-ent loc" data-type="LOC">New York</span>, filed an appeal at the
+          <span class="nlp-ent org" data-type="ORG">U.S. Court of Appeals</span> citing procedural violations under
+          <span class="nlp-ent med" data-type="SEC">Regulation 10b-5</span>.
         </p>
       </div>
       <div class="nlp-legend">
@@ -431,146 +415,71 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="nlp-demo-footer">
       <span class="ndf-stat">Entities Tagged:<span class="ndf-val">38,420</span></span>
       <span class="ndf-stat">IAA Score:<span class="ndf-val">0.91 F1</span></span>
-      <span class="ndf-stat">Languages:<span class="ndf-val">EN / HI / MR</span></span>
+      <span class="ndf-stat">Languages:<span class="ndf-val">EN / DE / ES</span></span>
       <span class="ndf-stat">Annotators:<span class="ndf-val">12 Legal Specialists</span></span>
     </div>
   </div>
 </section>
 
 
-
-<section class="sec" id="tasktypes">
-  <span class="sec-eyebrow">Task Types</span>
-  <h2 class="sec-title">Six core NLP tasks, each with <em>specialist</em> annotators</h2>
-  <p class="sec-desc">We do not use a one-size-fits-all annotator pool. Each task type is matched to the appropriate domain expert to ensure annotation accuracy exceeds what guidelines alone can achieve.</p>
-  <div class="types-grid">
-    <div class="type-card">
-      <span class="type-icon">🏷</span>
-      <div class="type-title">Named Entity Recognition (NER)</div>
-      <div class="type-body">Identifying and classifying named entities  persons, organisations, locations, dates, products, medical terms, legal references  within text. We support standard ontologies (CoNLL, OntoNotes) and custom entity schemas for your domain.</div>
-      <div class="type-tags"><span class="type-tag">CoNLL format</span><span class="type-tag">Custom schemas</span><span class="type-tag">Nested entities</span></div>
+<section class="sec" id="how-it-works">
+  <span class="sec-eyebrow">How It Works</span>
+  <h2 class="sec-title">Three things the pipeline does <em>on every NLP project</em></h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px">
+    <div class="how-card" style="background-image:url('/images/annotation1.png')">
+      <div class="how-title">Domain-routed text annotation</div>
+      <div class="how-body">Tasks auto-routed to the right specialist pool by domain such as legal, automotive, agriculture, finance, or tech. No generalists on domain-specific corpora. Routing is schema-enforced, not manual assignment.</div>
     </div>
-    <div class="type-card">
-      <span class="type-icon">🎯</span>
-      <div class="type-title">Intent Classification</div>
-      <div class="type-body">Labeling utterances with the user's underlying intent for conversational AI, chatbot, and voice assistant training. We handle single-label, multi-label, and hierarchical intent taxonomies. Slot filling for entity extraction from intents also supported.</div>
-      <div class="type-tags"><span class="type-tag">Multi-label</span><span class="type-tag">Hierarchical</span><span class="type-tag">Slot filling</span></div>
+    <div class="how-card" style="background-image:url('/images/AV2.png')">
+      <div class="how-title">Span labeling with disagreement adjudication</div>
+      <div class="how-body">Every annotation span goes through automated disagreement detection, peer adjudication, and expert sign-off. Disagreement logs exported with every batch so you can audit every adjudicated label decision.</div>
     </div>
-    <div class="type-card">
-      <span class="type-icon">💬</span>
-      <div class="type-title">Sentiment Analysis</div>
-      <div class="type-body">Document-level, sentence-level, and aspect-level sentiment classification. Beyond positive/negative/neutral  fine-grained emotion detection, sentiment intensity scoring, and domain-specific sentiment (e.g., financial sentiment for earnings call transcripts is different from product review sentiment).</div>
-      <div class="type-tags"><span class="type-tag">Aspect-level</span><span class="type-tag">Fine-grained</span><span class="type-tag">Domain-specific</span></div>
+    <div class="how-card" style="background-image:url('/images/RHLF.png')">
+      <div class="how-title">Verifiable inter-annotator agreement</div>
+      <div class="how-body">F1 and Cohen's kappa published per label type, per annotator, per batch not averaged across the full corpus. Per-entity-boundary accuracy reported alongside label accuracy.</div>
     </div>
-    <div class="type-card">
-      <span class="type-icon">🔗</span>
-      <div class="type-title">Relation Extraction</div>
-      <div class="type-body">Identifying semantic relationships between entities "works_at," "prescribed_by," "subsidiary_of," "causes." Critical for knowledge graph construction, medical record structuring, and contract analysis. We support both closed and open information extraction formats.</div>
-      <div class="type-tags"><span class="type-tag">Knowledge graphs</span><span class="type-tag">Medical RE</span><span class="type-tag">Open IE</span></div>
+  </div>
+</section>
+<section class="sec" style="padding-top:0">
+  <span class="sec-eyebrow">Pipeline Capabilities</span>
+  <h2 class="sec-title">What the <em>infrastructure</em> delivers</h2>
+  <div class="cap-grid">
+    <div class="cap-card" style="background-image:url('/images/annotation2.png')">
+      <div class="cap-card-title">Multilingual Routing</div>
+      <div class="cap-card-body">Automatic language detection routes each document to the appropriate specialist annotator pool&#8212;domain coverage and language coverage managed as a single pipeline, not separate workstreams.</div>
     </div>
-    <div class="type-card">
-      <span class="type-icon">👥</span>
-      <div class="type-title">Coreference Resolution</div>
-      <div class="type-body">Linking all mentions of the same entity across a document "the company," "it," "Apple," "the tech giant" all referring to one entity. Essential for document understanding, summarisation models, and question-answering systems that need to track entities across long contexts.</div>
-      <div class="type-tags"><span class="type-tag">Pronoun resolution</span><span class="type-tag">Entity linking</span><span class="type-tag">Cross-sentence</span></div>
+    <div class="cap-card" style="background-image:url('/images/bounding-box.png')">
+      <div class="cap-card-title">Entity Consistency Enforcement</div>
+      <div class="cap-card-body">Named entity and coreference labels are validated for cross-document consistency before delivery. Duplicate entities, boundary drift, and schema violations are caught automatically, not by manual audit.</div>
     </div>
-    <div class="type-card">
-      <span class="type-icon">📁</span>
-      <div class="type-title">Text Classification</div>
-      <div class="type-body">Multi-class and multi-label categorisation of documents, paragraphs, or sentences. Topic classification, toxicity detection, language identification, readability scoring, compliance flagging. Custom taxonomy design included we work with your team to define the right label set for your use case.</div>
-      <div class="type-tags"><span class="type-tag">Multi-class</span><span class="type-tag">Toxicity detection</span><span class="type-tag">Custom taxonomy</span></div>
+    <div class="cap-card" style="background-image:url('/images/satellite.png')">
+      <div class="cap-card-title">Intent Hierarchy Annotation</div>
+      <div class="cap-card-body">Intent taxonomies are applied at the utterance level with slot-fill labels for NLU training&#8212;hierarchical intent structures supported with explicit parent-child validation built into the pipeline.</div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="process">
-  <span class="sec-eyebrow">The Process</span>
-  <h2 class="sec-title">From raw text to <em>verified</em> annotation dataset</h2>
-  <p class="sec-desc">Our NLP annotation pipeline is built to prevent the two most common failure modes: annotator inconsistency and domain knowledge gaps. Both are addressed structurally, not just through guidelines.</p>
-  <div class="process-steps">
-    <div class="process-step">
-      <div class="step-num">01</div>
-      <div class="step-content">
-        <div class="step-title">Data Audit & Taxonomy Design</div>
-        <div class="step-body">We review a sample of your raw text data (typically 200–500 documents) to understand language complexity, domain vocabulary, ambiguity distribution, and edge case frequency. From this, we design the annotation taxonomy entity types, relation types, or classification labels with explicit boundary rules for ambiguous cases. For each label, we write 5–10 positive and 3–5 negative examples with explanations. This taxonomy is approved by your team before annotation begins.</div>
-        <div class="step-tags"><span class="step-tag">Data sample review</span><span class="step-tag">Taxonomy design</span><span class="step-tag">Boundary rules</span><span class="step-tag">Client sign-off</span></div>
-      </div>
-    </div>
-    <div class="process-step">
-      <div class="step-num">02</div>
-      <div class="step-content">
-        <div class="step-title">AI Pre-Labeling Pipeline</div>
-        <div class="step-body">Our NLP preprocessing pipeline runs your documents through a pre-annotation model tuned to your task type. For NER, we use a combination of dictionary matching, SpaCy transformer models, and LLM-assisted labeling to propose entity spans. For classification tasks, a fine-tuned BERT/RoBERTa model generates probability-weighted label suggestions. All pre-labels are marked with confidence scores high-confidence labels require only quick validation; low-confidence labels trigger full human review. This reduces raw annotation time by 35–45%.</div>
-        <div class="step-tags"><span class="step-tag">SpaCy + transformer pre-labeling</span><span class="step-tag">Confidence scoring</span><span class="step-tag">35–45% time reduction</span></div>
-      </div>
-    </div>
-    <div class="process-step">
-      <div class="step-num">03</div>
-      <div class="step-content">
-        <div class="step-title">Domain-Expert Human Annotation</div>
-        <div class="step-body">Calibrated domain specialists annotate your data using our annotation platform. Annotators see pre-label suggestions but are not bound by them. Gold standard documents (with pre-verified correct labels) are injected at a 6% rate to monitor annotator accuracy in real time. Daily kappa tracking across the annotator pool catches individual annotator drift immediately. Ambiguous cases are flagged for adjudication by a senior annotator. We do not allow annotation velocity to compromise kappa slow annotators who annotate carefully are preferable to fast annotators who drift.</div>
-        <div class="step-tags"><span class="step-tag">Expert domain annotators</span><span class="step-tag">6% gold injection</span><span class="step-tag">Daily kappa monitoring</span><span class="step-tag">Ambiguity adjudication</span></div>
-      </div>
-    </div>
-    <div class="process-step">
-      <div class="step-num">04</div>
-      <div class="step-content">
-        <div class="step-title">Three-Tier Quality Assurance</div>
-        <div class="step-body">Tier 1: Automated schema validation and anomaly detection (missing required labels, suspiciously fast completion, unusual label distributions). Tier 2: 15% random sample independently re-annotated by a second expert; F1 score calculated against original annotation. Tier 3: ML-engineer review of 5% sample plus all flagged documents. Any batch where cross-annotator F1 falls below 0.88 is returned for reannotation before delivery.</div>
-        <div class="step-tags"><span class="step-tag">Auto schema validation</span><span class="step-tag">15% peer re-annotation</span><span class="step-tag">F1 ≥ 0.88 gate</span><span class="step-tag">ML-engineer review</span></div>
-      </div>
-    </div>
-    <div class="process-step">
-      <div class="step-num">05</div>
-      <div class="step-content">
-        <div class="step-title">Delivery & Benchmark Follow-Up</div>
-        <div class="step-body">Delivery in your requested format: CoNLL-2003, IOB2, BRAT, JSONL, CSV, or spaCy DocBin. Includes full QA report with per-annotator kappa, F1, and precision/recall by label type, plus a data card. Two weeks post-delivery, we follow up on your model's NER/classification performance metrics and use those results to refine annotation guidelines for your next batch.</div>
-        <div class="step-tags"><span class="step-tag">CoNLL / IOB2 / JSONL / BRAT</span><span class="step-tag">Per-label F1 report</span><span class="step-tag">Data card</span><span class="step-tag">Benchmark follow-up</span></div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <section class="sec" id="deliverables">
   <span class="sec-eyebrow">What You Get</span>
   <h2 class="sec-title">Annotated datasets backed by <em>verifiable</em> quality proof</h2>
   <div class="deliv-grid">
-    <div class="deliv-card">
-      <span class="deliv-icon">📦</span>
+    <div class="deliv-card" style="background-image:url('/images/68e571778c19d9c6b8c487e9_ai-agentic-workflows.jpg')">
       <div class="deliv-title">Annotated Dataset</div>
       <div class="deliv-body">Labeled data in your preferred format: CoNLL-2003, IOB2, BRAT standoff, JSONL, CSV, or spaCy DocBin. Each document includes annotation spans, label types, annotator IDs, confidence flags, and adjudication decisions for resolved disagreements.</div>
     </div>
-    <div class="deliv-card">
-      <span class="deliv-icon">📊</span>
+    <div class="deliv-card" style="background-image:url('/images/AV1.png')">
       <div class="deliv-title">QA Report</div>
       <div class="deliv-body">Per-annotator kappa and F1 by label type, gold standard accuracy, disagreement log with adjudication decisions, label distribution statistics, and entity boundary consistency analysis. Every metric verifiable against raw annotation logs.</div>
     </div>
-    <div class="deliv-card">
-      <span class="deliv-icon">🗂</span>
+    <div class="deliv-card" style="background-image:url('/images/AV3.png')">
       <div class="deliv-title">Data Card & Annotation Guide</div>
       <div class="deliv-body">ML data card with annotator profiles, label definitions, known ambiguities, out-of-scope cases, and quality thresholds applied. The full annotation guideline document is included so future annotators or reviewers can audit any label decision.</div>
     </div>
   </div>
 </section>
 
-<section class="sec" id="faq">
-  <span class="sec-eyebrow">Common Questions</span>
-  <h2 class="sec-title">What teams ask <em>before starting</em></h2>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-q">Which Indian languages do you support for NLP annotation?</div>
-      <div class="faq-a">We have active annotator pools for Hindi, Marathi, Tamil, Telugu, Kannada, Bengali, Malayalam, and Gujarati, in addition to English. For code-mixed text (Hinglish, Tanglish) we have specialist annotators who are native speakers of the relevant base languages. For other Indian languages, we can typically recruit qualified annotators within 2–3 weeks.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">Can you handle domain-specific entity types not in standard ontologies?</div>
-      <div class="faq-a">Yes and this is one of our core strengths. We design custom taxonomies for every project. For a pharmaceutical client, we might define DRUG_GENERIC, DRUG_BRAND, DOSAGE, FREQUENCY, ROUTE_OF_ADMINISTRATION, and ADVERSE_EVENT as custom entity types with precise boundary rules. We treat taxonomy design as part of the engagement, not an afterthought, because the entity schema is often the hardest part to get right.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q">What is a realistic timeline for a 10,000 document NLP annotation project?</div>
-      <div class="faq-a">With AI pre-labeling and a team of 5–8 expert annotators, a 10,000-document NER project typically takes 3–5 weeks for production annotation plus 1 week for QA review. Complex tasks (multi-layer annotation with relations and coreference) take longer. We provide a detailed timeline estimate after reviewing your data sample in scoping we do not give generic estimates without seeing your actual document complexity.</div>
-    </div>
-  </div>
-</section>
 
 <div class="pricing-band">
   <div>
@@ -580,18 +489,18 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <a href="/contact" class="btn-primary" style="margin-top:32px;display:inline-block;background:var(--accent2);color:var(--ink)">Request a Custom Quote →</a>
   </div>
   <div class="price-rows">
-    <div class="price-row"><span class="price-item-name">Basic NER / sentiment (short docs)</span><span class="price-item-val">₹100–200 / doc</span></div>
-    <div class="price-row"><span class="price-item-name">Multi-label classification</span><span class="price-item-val">₹150–300 / doc</span></div>
-    <div class="price-row"><span class="price-item-name">Complex NER + relations</span><span class="price-item-val">₹250–400 / doc</span></div>
-    <div class="price-row"><span class="price-item-name">Medical / legal / finance NLP</span><span class="price-item-val">₹300–600 / doc</span></div>
-    <div class="price-row"><span class="price-item-name">Coreference resolution</span><span class="price-item-val">₹200–400 / doc</span></div>
+    <div class="price-row"><span class="price-item-name">Basic NER / sentiment (short docs)</span><span class="price-item-val">$1.25–2.50 / doc</span></div>
+    <div class="price-row"><span class="price-item-name">Multi-label classification</span><span class="price-item-val">$1.75–3.50 / doc</span></div>
+    <div class="price-row"><span class="price-item-name">Complex NER + relations</span><span class="price-item-val">$3–5 / doc</span></div>
+    <div class="price-row"><span class="price-item-name">Medical / legal / finance NLP</span><span class="price-item-val">$3.50–7 / doc</span></div>
+    <div class="price-row"><span class="price-item-name">Coreference resolution</span><span class="price-item-val">$2.50–5 / doc</span></div>
     <div class="price-row"><span class="price-item-name">Minimum project size</span><span class="price-item-val">500 documents</span></div>
   </div>
 </div>
 
 <section class="sec" id="related">
-  <span class="sec-eyebrow">Related Services</span>
-  <h2 class="sec-title">Services that complement <em>NLP annotation</em></h2>
+  <span class="sec-eyebrow">Related Solutions</span>
+  <h2 class="sec-title">Solutions that complement <em>NLP annotation</em></h2>
   <div class="related-grid">
     <a href="/services/sft" class="related-card">
       <span class="rc-icon">📝</span>
@@ -629,10 +538,10 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
         <span class="logo-text">Concave <span class="orange-ai">AI</span></span>
       </a>
-      <p>Data infrastructure for AI model training built from India for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
+      <p>Data infrastructure for AI model training. Production-grade pipelines, published quality metrics, completely independent.</p>
     </div>
     <div>
-      <div class="footer-col-title">Services</div>
+      <div class="footer-col-title">Solutions</div>
       <div class="footer-links">
         <a href="/services/rlhf">RLHF Preference Data</a><a href="/services/nlp">NLP Annotation</a><a href="/services/sft">SFT Instruction Data</a><a href="/services/sycophancy">Sycophancy Audits</a><a href="/services/hallucination">Hallucination Detection</a><a href="/services/red-teaming">Red-Teaming</a><a href="/services/code-rlhf">Code RLHF</a><a href="/services/image">Image & Video Annotation</a>
       </div>
@@ -651,14 +560,14 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
-    <div class="footer-badges"><div class="footer-badge">DPDP Compliant</div><div class="footer-badge">GDPR Ready</div><div class="footer-badge">AWS Secured</div></div>
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved.</div>
+    <div class="footer-badges"><div class="footer-badge">Privacy First</div><div class="footer-badge">GDPR Ready</div><div class="footer-badge">AWS Secured</div></div>
   </div>
 </footer>
 <script>
 window.addEventListener('scroll',()=>{const nav=document.querySelector('nav');nav.style.boxShadow=window.scrollY>20?'0 1px 32px rgba(0,0,0,0.06)':'none';});
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});},{threshold:0.08});
-document.querySelectorAll('.type-card,.deliv-card,.related-card,.process-step,.faq-item').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';observer.observe(el);});
+document.querySelectorAll('.type-card,.related-card,.process-step,.faq-item').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';observer.observe(el);});
 
 // Hamburger menu toggle
 (function(){

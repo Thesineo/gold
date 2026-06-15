@@ -240,7 +240,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </button>
   <div class="nav-links">
     <div class="nav-item">
-      <a href="#">Services</a>
+      <a href="#">Solutions</a>
       <div class="nav-dropdown">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -409,7 +409,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
           <div class="form-section-label">What you need</div>
 
           <div class="form-group full">
-            <label>Services interested in <span class="req">*</span></label>
+            <label>Solutions interested in <span class="req">*</span></label>
             <div class="checkbox-grid" id="svcGrid">
               <label class="cb-item"><input type="checkbox" name="svc_rlhf" value="RLHF Preference Data"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">RLHF Preference Data</span></label>
               <label class="cb-item"><input type="checkbox" name="svc_nlp" value="NLP Annotation"><span class="cb-box"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4l2.5 2.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cb-label">NLP Annotation</span></label>
@@ -683,7 +683,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <p> Data infrastructure for AI model training. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
     </div>
     <div>
-      <div class="footer-col-title">Services</div>
+      <div class="footer-col-title">Solutions</div>
       <div class="footer-links">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -800,9 +800,9 @@ document.getElementById('leadForm').addEventListener('submit',async function(e){
   const data={};
   formData.forEach((value,key)=>{data[key]=value;});
 
-  // Collect checked services into a readable string
+  // Collect checked solutions into a readable string
   const checked=[...document.querySelectorAll('#svcGrid input[type="checkbox"]:checked')].map(c=>c.value);
-  data.services=checked.join(', ')||'None selected';
+  data.solutions=checked.join(', ')||'None selected';
 
   try{
     const res=await fetch('https://hook.eu2.make.com/acsgifyuq7e8nlwih51eol3vd7wcmg77',{

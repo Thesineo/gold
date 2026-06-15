@@ -541,7 +541,7 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
   </button>
   <div class="nav-links">
     <div class="nav-item">
-      <a href="#">Services</a>
+      <a href="#">Solutions</a>
       <div class="nav-dropdown">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -728,8 +728,8 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
         <div class="step-left"><div class="step-circle">3</div></div>
         <div class="step-body">
           <span class="step-day">Days 5–10</span>
-          <h3 class="step-title">Annotator Selection <em>&amp; Calibration</em></h3>
-          <p class="step-desc">From our vetted pool, we select annotators matching three criteria: native fluency in the target language, appropriate education and experience level, and relevant domain expertise for the specific task. Then we run a calibration session all selected annotators complete 20–30 tasks independently, then discuss every disagreement together. We do not begin live annotation until Cohen's kappa among the team is above 0.70. Anyone consistently below 0.65 on calibration is replaced.</p>
+          <h3 class="step-title">Pipeline <em>Calibration</em></h3>
+          <p class="step-desc">Each project's pipeline is calibrated against three criteria: native-language fluency in the target language, domain expertise, and task-relevant experience. A calibration pass runs 20–30 tasks through the pipeline independently, with every disagreement reviewed before live annotation begins. Live work does not start until kappa exceeds 0.70, anyone consistently below 0.65 on calibration is replaced before the project goes live.</p>
         </div>
       </div>
 
@@ -739,7 +739,7 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
         <div class="step-body">
           <span class="step-day">Days 8+ (Bulk of project)</span>
           <h3 class="step-title">RLAIF Pre-Annotation <em>+ Expert Review</em></h3>
-          <p class="step-desc">This is where our pipeline outperforms pure-human competitors. The RLAIF pre-scorer evaluates each task and pre-populates a suggested answer with reasoning before any annotator sees it. For image tasks, SAM2 pre-draws segmentation boundaries. Annotators then validate, correct, or override the AI suggestion they never start from scratch. AI handles the 70–90% of tasks with clear correct answers. Expert humans handle the 10–30% requiring genuine judgment.</p>
+          <p class="step-desc">The RLAIF pre-scorer evaluates each task and pre-populates a suggested answer with reasoning before the review layer sees it. For image tasks, SAM2 pre-draws segmentation boundaries. The review layer then validates, corrects, or overrides each AI suggestion with never starting from scratch. AI handles the 70–90% of tasks with clear correct answers; expert humans handle the 10–30% requiring genuine judgment.</p>
         </div>
       </div>
 
@@ -774,11 +774,11 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
     <h2 class="sec-title">How work is split on a <em>typical RLHF project</em></h2>
     <div class="rlaif-layout">
       <div class="rlaif-body reveal-fade">
-        <p>Traditional training data providers use humans for 100% of work. AI labeling tools use AI for 100% of work. We use each for what it is genuinely better at.</p>
-        <p>AI is better at: consistent application of clear rules at speed across large volumes. Humans are better at: nuanced judgment, cultural context, domain expertise, and catching the subtle failures that AI systems produce sycophancy, hallucination, cultural misrepresentation.</p>
-        <p>The RLAIF pre-scorer handles <strong>the 70–90% of tasks with clear correct answers.</strong> Expert human annotators handle <strong>the 10–30% requiring genuine judgment.</strong> The QA layer runs on everything. The result: AI speed at human quality, at 35–45% lower cost than pure-human competitors.</p>
+        <p>We use AI and human review for what each is genuinely better not as a replacement, but as a division of labour.</p>
+        <p>AI is better at consistent application of clear rules at speed across large volumes. Humans are better at nuanced judgment, cultural context, domain expertise, and catching subtle failures such as sycophancy, hallucination, cultural misrepresentation that AI systems produce.</p>
+        <p>The RLAIF pre-scorer handles <strong>the 70–90% of tasks with clear correct answers.</strong> The expert review layer handles <strong>the 10–30% requiring genuine judgment.</strong> The QA layer runs on everything.</p>
         <div class="rlaif-result">
-          Result: 60% faster than pure-human annotation at the same Cohen's kappa score because humans still review every annotation before delivery. AI handles volume. Humans handle judgment. You pay only for what requires human expertise.
+          Result: 60% faster than pure-human pipelines at the same Cohen's kappa score, at 35–45% lower cost. AI handles volume. Humans handle judgment. You pay only for what requires human expertise.
         </div>
       </div>
       <div class="reveal-fade" style="transition-delay:.2s">
@@ -835,53 +835,13 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
   </div>
 </section>
 
-<!-- ═══ QA TIERS ═══ -->
+<!-- ═══ QA SUMMARY ═══ -->
 <section class="sec qa-section">
   <div class="sec-inner">
     <span class="sec-eyebrow">Quality Architecture</span>
     <h2 class="sec-title">Three tiers on <em>every batch</em></h2>
-    <p class="sec-desc">Most training data providers run one quality pass. We run three independently throughout the project. Each tier catches failure modes the others miss.</p>
-    <div class="qa-grid">
-      <div class="qa-card t1">
-        <div class="qa-bg-num">1</div>
-        <div class="qa-tier">Tier 1 · Automated · Nightly</div>
-        <div class="qa-title">Statistical anomaly detection</div>
-        <div class="qa-body">Python scripts run every evening on all completed annotation. Flags suspicious patterns before any human reviewer looks at the data. Catches approximately 60% of quality problems at zero human cost.</div>
-        <div class="qa-checks">
-          <div class="qa-check"><span class="qa-dot"></span><span>Response bias - always choosing option A</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Speed anomaly - 3× faster than median, not reading</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Selection uniformity - variance too low across choices</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Gold standard accuracy below 80% threshold</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Reasoning field under 15 characters - placeholder responses</span></div>
-        </div>
-      </div>
-      <div class="qa-card t2">
-        <div class="qa-bg-num">2</div>
-        <div class="qa-tier">Tier 2 · Peer Review · 10–15% sample</div>
-        <div class="qa-title">Double-annotation + kappa recompute</div>
-        <div class="qa-body">A second annotator re-does 10–15% of each annotator's tasks independently, blind to the first annotator's choices. All disagreements are adjudicated. Kappa recomputed. Below 0.65 triggers recalibration.</div>
-        <div class="qa-checks">
-          <div class="qa-check"><span class="qa-dot"></span><span>Category-level bias disagreement in specific task types</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Guideline misinterpretation patterns across a batch</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Cultural context errors on Indic language tasks</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Label boundary drift on NLP entity annotation</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Domain knowledge gaps in specialist annotation</span></div>
-        </div>
-      </div>
-      <div class="qa-card t3">
-        <div class="qa-bg-num">3</div>
-        <div class="qa-tier">Tier 3 · Expert Audit · 5% + all flags</div>
-        <div class="qa-title">ML-engineer personal review</div>
-        <div class="qa-body">Senior ML engineer reviews every flag from Tiers 1 and 2, every gold standard failure, and a 5% random sample from across the full batch. Every decision is documented improves guidelines for next project.</div>
-        <div class="qa-checks">
-          <div class="qa-check"><span class="qa-dot"></span><span>Sycophancy in RLHF preference data most damaging single error</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Training signal quality will this data improve the model?</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Hallucination detection edge cases</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Cultural nuance errors in Indic language tasks</span></div>
-          <div class="qa-check"><span class="qa-dot"></span><span>Guideline gaps that need updating before next batch</span></div>
-        </div>
-      </div>
-    </div>
+    <p style="font-size:17px;color:var(--muted);max-width:640px;font-weight:300;line-height:1.65;margin-bottom:28px">Every batch runs through three independent QA tiers with automated nightly checks, peer double-review on 10–15% of tasks, and a senior ML engineer expert audit on all flags plus a 5% random sample. Quality failures are caught mid-project, not post-delivery.</p>
+    <a href="/company/quality" class="btn-ink" style="display:inline-block">Full QA architecture →</a>
   </div>
 </section>
 
@@ -962,7 +922,7 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
   <div class="sb-item reveal-fade"><div class="sb-num">≥0.72</div><div class="sb-label">Cohen's kappa guaranteed on every batch delivered</div></div>
   <div class="sb-item reveal-fade"><div class="sb-num">6%</div><div class="sb-label">Gold standard injection rate throughout every project</div></div>
   <div class="sb-item reveal-fade"><div class="sb-num">60%</div><div class="sb-label">Speed advantage via RLAIF + SAM2 pre-annotation</div></div>
-  <div class="sb-item reveal-fade"><div class="sb-num">8+</div><div class="sb-label">Indic languages with native-speaker expert annotators</div></div>
+  <div class="sb-item reveal-fade"><div class="sb-num">20+</div><div class="sb-label">Languages with native-speaker expert annotators</div></div>
   <div class="sb-item reveal-fade"><div class="sb-num">14d</div><div class="sb-label">Post-delivery model benchmark follow-up every project</div></div>
 </div>
 
@@ -990,7 +950,7 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
 
     </div>
     <div>
-      <div class="footer-col-title">Services</div>
+      <div class="footer-col-title">Solutions</div>
       <div class="footer-links">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -1022,9 +982,9 @@ footer { background:var(--accent); color:var(--paper); padding:80px 60px 40px }
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved.</div>
     <div class="footer-badges">
-      <span class="footer-badge">DPDP 2023</span>
+      <span class="footer-badge">Privacy First</span>
       <span class="footer-badge">GDPR Ready</span>
       <span class="footer-badge">AWS Secured</span>
     </div>

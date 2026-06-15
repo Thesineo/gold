@@ -34,10 +34,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .nav-item:hover .nav-dropdown{display:block}
 .nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
 .nav-cta:hover{background:var(--ink);color:var(--paper)!important}
-.breadcrumb{padding:100px 60px 0;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-.breadcrumb a{color:var(--muted);text-decoration:none}
-.breadcrumb a:hover{color:var(--ink)}
-.breadcrumb span{color:var(--border)}
 /* Hero */
 .page-hero{position:relative;overflow:hidden;min-height:70vh;padding:60px 60px 100px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-bottom:1px solid var(--border)}
 .page-hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:block}
@@ -109,26 +105,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .kappa-band.perfect .kb-fill{background:var(--accent2);width:95%}
 .kappa-band.good .kb-bar{background:rgba(255,255,255,0.1)}
 /* QA */
-.qa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border);margin-top:60px}
-.qa-card{padding:40px 32px;border-right:1px solid var(--border);position:relative;overflow:hidden;transition:background 0.2s}
-.qa-card:last-child{border-right:none}
-.qa-card:hover{background:var(--ink)}
-.qa-card:hover .qa-tier-label {color:var(--accent2)}
-.qa-card:hover .qa-card-h3{color:var(--paper)}
-.qa-card:hover .qa-body {color:var(--accent2)}
-.qa-card:hover .qa-catches {color:var(--accent2)}
-.qa-card:hover .qa-catch {color:var(--accent2)}
-.qa-card:hover .qa-catch-dot {color:var(--accent2)}
-.qa-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.qa-card.t1::before{background:var(--accent)}
-.qa-card.t2::before{background:var(--accent)}
-.qa-card.t3::before{background:var(--accent)}
-.qa-tier-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
-.qa-card-h3{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);letter-spacing:-0.3px;line-height:1.2}
-.qa-body{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:20px}
+.qa-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+.qa-card{padding:40px 32px;position:relative;overflow:hidden;background-size:cover;background-position:center;cursor:default}
+.qa-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.88);z-index:0;pointer-events:none}
+.qa-card>*{position:relative;z-index:1}
+.qa-tier-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--accent2);text-transform:uppercase;margin-bottom:14px}
+.qa-card-h3{font-family:'DM Serif Display',serif;font-size:22px;color:var(--paper);letter-spacing:-0.3px;line-height:1.2}
+.qa-body{font-size:14px;color:var(--accent2);line-height:1.65;margin-bottom:20px}
 .qa-catches{display:flex;flex-direction:column;gap:8px}
-.qa-catch{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
-.qa-catch-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px}
+.qa-catch{font-size:13px;color:var(--accent2);display:flex;gap:8px;align-items:flex-start;line-height:1.4}
+.qa-catch-dot{width:5px;height:5px;border-radius:50%;background:var(--accent2);flex-shrink:0;margin-top:6px}
 /* Gold */
 .gold-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
 .gold-stat{background:rgba(255,255,255,0.05);padding:22px}
@@ -230,7 +216,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .footer-badges{display:flex;gap:12px}
 .footer-badge{font-family:'Space Mono',monospace;font-size:9px;padding:5px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:2px;color:var(--paper)}
 @media(max-width:1100px){.page-hero,.two-col{grid-template-columns:1fr}.qa-grid,.comp-grid{grid-template-columns:1fr 1fr}.hero-stats{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.page-hero,.sec,.cta-section{padding-left:24px;padding-right:24px}.qa-grid,.comp-grid{grid-template-columns:1fr}.breadcrumb{padding:90px 24px 0}}
+@media(max-width:768px){nav{padding:16px 24px}.nav-links{display:none}.page-hero,.sec,.cta-section{padding-left:24px;padding-right:24px}.qa-grid,.comp-grid{grid-template-columns:1fr}}
 
 /* ── SHARED VISUAL SECTIONS ─────────────────────────────────────────────── */
 .vis-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;overflow:hidden}
@@ -296,7 +282,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </button>
   <div class="nav-links">
     <div class="nav-item">
-      <a href="#">Services</a>
+      <a href="#">Solutions</a>
       <div class="nav-dropdown">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -344,10 +330,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </nav>
 
-<div class="breadcrumb">
-  <a href="/">Home</a><span>›</span>
-  Quality Standards
-</div>
 
 <section class="page-hero">
   <div class="hero-zoom-bg" style="background-image:linear-gradient(to bottom, rgba(10,10,10,0.40) 0%, rgba(10,10,10,0.65) 100%),url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1920&q=85&auto=format&fit=crop')"></div>
@@ -385,7 +367,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">Cohen's Kappa ≥ 0.72</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">Gold Standard Injection</span><span class="ticker-item">RLAIF Pre-scoring</span><span class="ticker-item">Sycophancy Detection</span><span class="ticker-item">Data Card Delivery</span><span class="ticker-item">AES-256 Encryption</span><span class="ticker-item">DPDP Act 2023 Compliant</span><span class="ticker-item">Cohen's Kappa ≥ 0.72</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">Gold Standard Injection</span><span class="ticker-item">RLAIF Pre-scoring</span><span class="ticker-item">Sycophancy Detection</span><span class="ticker-item">Data Card Delivery</span>
+    <span class="ticker-item">Cohen's Kappa ≥ 0.72</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">Gold Standard Injection</span><span class="ticker-item">RLAIF Pre-scoring</span><span class="ticker-item">Sycophancy Detection</span><span class="ticker-item">Data Card Delivery</span><span class="ticker-item">AES-256 Encryption</span><span class="ticker-item">Privacy First</span><span class="ticker-item">Cohen's Kappa ≥ 0.72</span><span class="ticker-item">3-Tier QA</span><span class="ticker-item">Gold Standard Injection</span><span class="ticker-item">RLAIF Pre-scoring</span><span class="ticker-item">Sycophancy Detection</span><span class="ticker-item">Data Card Delivery</span>
   </div>
 </div>
 
@@ -396,7 +378,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="body-text">
       <p>When two annotators independently agree that Response A is better than Response B, that agreement has a statistical weight. Cohen's kappa measures genuine agreement beyond what random chance alone would predict. A kappa of 0.0 means two annotators agree exactly as often as random clicking would. A kappa of 1.0 means perfect agreement on every task.</p>
       <p>This is the gold standard for annotation quality measurement in academic NLP research and production AI systems worldwide. <strong>Most training data providers don't publish it</strong> because publishing requires actually measuring it consistently, which requires automated QA systems which we do.</p>
-      <p>On every Concave AI project, you receive a kappa breakdown by annotator pair, by task category, and as an overall project average. These numbers are computed from Label Studio export data by an automated Python script not estimated or reported by the annotators themselves. If our kappa drops below 0.70 on any batch, work pauses and we recalibrate before continuing. We have never delivered below our threshold.</p>
+      <p>On every Concave AI project, you receive a kappa breakdown by annotator pair, by task category, and as an overall project average. These numbers are computed automatically from pipeline export data via Python scripts. If our kappa drops below 0.70 on any batch, work pauses and we recalibrate before continuing. We have never delivered below our threshold.</p>
       <p><strong>What kappa below 0.60 means for your model:</strong> inconsistent preference data teaches your reward model to fit noise rather than signal. The model learns a pattern that reflects annotator disagreement, not human preference. This is how sycophancy, reward hacking, and unstable model behaviour emerge from training pipelines not from the training algorithm, but from the annotation data fed into it.</p>
     </div>
     <div class="kappa-scale">
@@ -404,7 +386,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="kb-range"> 0.20</div>
         <div style="flex:1">
           <div class="kb-name">Slight effectively random</div>
-          <div class="kb-body">Annotators agree no more than chance would predict. Your model learns noise disguised as signal. Produced by untrained crowds on ambiguous tasks with no guidelines. Useless for RLHF.</div>
+          <div class="kb-body">Annotators agree no more than chance predicts your model learns noise disguised as signal. Useless for RLHF.</div>
           <div class="kb-bar"><div class="kb-fill"></div></div>
         </div>
       </div>
@@ -412,7 +394,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="kb-range">0.20–0.40</div>
         <div style="flex:1">
           <div class="kb-name">Fair - poor guideline compliance</div>
-          <div class="kb-body">Significant disagreement remains. Caused by vague annotation guidelines, undertrained annotators, or domain mismatches. Inadequate for RLHF or GenAI alignment data.</div>
+          <div class="kb-body">Significant disagreement caused by vague guidelines or domain mismatches being inadequate for RLHF or GenAI alignment data.</div>
           <div class="kb-bar"><div class="kb-fill"></div></div>
         </div>
       </div>
@@ -420,7 +402,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="kb-range">0.40–0.60</div>
         <div style="flex:1">
           <div class="kb-name">Moderate - risky for alignment</div>
-          <div class="kb-body">Acceptable for simple binary classification. Risky for RLHF preference ranking, where inconsistency teaches reward models to fit human disagreement rather than human preference. Many Indian vendors operate here.</div>
+          <div class="kb-body">Acceptable for simple binary classification, risky for RLHF preference ranking as inconsistency here teaches reward models to fit disagreement, not preference.</div>
           <div class="kb-bar"><div class="kb-fill"></div></div>
         </div>
       </div>
@@ -428,7 +410,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="kb-range">0.60–0.80</div>
         <div style="flex:1">
           <div class="kb-name">★ Substantial - our minimum threshold (we guarantee ≥ 0.70)</div>
-          <div class="kb-body">Production-grade annotation quality. The standard used by academic NLP research and recommended for RLHF, SFT, and GenAI evaluation data. Typical Concave AI deliveries: 0.72–0.79. Below 0.70 triggers recalibration.</div>
+          <div class="kb-body">Production-grade quality with the standard used by academic NLP research and recommended for RLHF, SFT, and GenAI data. Typical Concave AI deliveries: 0.72–0.79; below 0.70 triggers recalibration.</div>
           <div class="kb-bar"><div class="kb-fill"></div></div>
         </div>
       </div>
@@ -436,7 +418,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
         <div class="kb-range">0.80–1.00</div>
         <div style="flex:1">
           <div class="kb-name">Near-perfect - treat with skepticism</div>
-          <div class="kb-body">Achievable only on simple, unambiguous, well-defined tasks. Any vendor claiming 0.85+ kappa on complex judgment tasks like RLHF preference ranking is almost certainly aggregating across easy tasks to inflate the headline number. Ask for the per-category breakdown.</div>
+          <div class="kb-body">Achievable only on simple, unambiguous tasks with any vendor claiming 0.85+ on complex judgment tasks like RLHF preference ranking is almost certainly inflating by aggregating easy tasks. Ask for the per-category breakdown.</div>
           <div class="kb-bar"><div class="kb-fill"></div></div>
         </div>
       </div>
@@ -463,37 +445,37 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <h2 class="sec-title">Three tiers, run on <em>every single batch</em></h2>
   <p class="sec-desc">Most training data providers run one quality pass at the end. We run three independently throughout the project. Each tier is designed to catch failure modes the others would miss at the stage where intervention is cheapest.</p>
   <div class="qa-grid">
-    <div class="qa-card t1">
-      <div class="qa-tier-label">Tier 1 - Automated · Runs nightly</div>
+    <div class="qa-card t1" style="background-image:url('/images/annotation1.png')">
+      <div class="qa-tier-label">Tier 1 · Automated · Nightly</div>
       <div class="qa-card-h3">Statistical anomaly detection</div>
-      <div class="qa-body">Automative scripts run every evening on all annotation completed that day. They check every annotator's behavioural patterns against four statistical rules and flag violations before any human reviewer looks at the data. Catches approximately 60% of quality problems at zero human cost and in time to fix them before the next working day.</div>
+      <div class="qa-body">Automated scripts run every evening on all completed annotation, flagging violations before any human reviewer sees the data. Catches ~60% of quality problems at zero human cost, in time to fix before the next working day.</div>
       <div class="qa-catches">
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Response bias:</strong> Annotator chooses option A more than 68% of the time which suggests position bias, not genuine preference evaluation</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Speed anomaly:</strong> Annotator completes tasks in less than 30% of the median time which suggests skimming without reading</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Uniformity anomaly:</strong> Response variance too low across a batch which suggests mechanical clicking without evaluation</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Gold standard failure:</strong> Gold task accuracy below 80% which directs evidence of quality drift</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Reasoning quality:</strong> Required reasoning text field under 15 characters which provides evidence of placeholder responses</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Response bias</strong> - option A selected >68% → position bias, not genuine preference</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Speed anomaly</strong> - &lt;30% of median completion time → skimming, not reading</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Uniformity anomaly</strong> - variance too low across a batch → mechanical clicking</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Gold standard failure</strong> - accuracy below 80% threshold → evidence of quality drift</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Reasoning quality</strong> - text field under 15 characters → placeholder response</span></div>
       </div>
     </div>
-    <div class="qa-card t2">
-      <div class="qa-tier-label">Tier 2 - Peer Review · 10–15% sample</div>
+    <div class="qa-card t2" style="background-image:url('/images/RHLF.png')">
+      <div class="qa-tier-label">Tier 2 · Peer Review · 10–15% sample</div>
       <div class="qa-card-h3">Double-annotation + kappa recompute</div>
-      <div class="qa-body">A second annotator re-does 10–15% of each annotator's completed tasks independently, blind to the first annotator's choices. All disagreements are logged and adjudicated by the project lead. Cohen's kappa is recomputed after each batch completes. If kappa falls below 0.65 on any batch, annotation pauses and a recalibration session runs before work continues.</div>
+      <div class="qa-body">10–15% of completed tasks are independently double-reviewed, blind to the first pass. Disagreements are logged and adjudicated by the senior reviewer; kappa below 0.65 on any batch triggers recalibration before work continues.</div>
       <div class="qa-catches">
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Category-level bias:</strong> An annotator consistently disagrees on "safety" tasks but agrees on "helpfulness"  domain knowledge gap, not general quality failure</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Guideline misinterpretation:</strong> Two annotators have different understandings of a criterion, triggers guideline clarification, not annotator removal</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Label boundary drift:</strong> For NLP tasks, entity span boundaries gradually widening or narrowing across a long batch</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Category-level bias</strong> - disagrees on "safety" but agrees on "helpfulness" → domain gap, not general failure</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Guideline misinterpretation</strong> - different readings of a criterion → clarification, not removal</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Label boundary drift</strong> - NLP entity spans gradually widening or narrowing across a batch</span></div>
       </div>
     </div>
-    <div class="qa-card t3">
-      <div class="qa-tier-label">Tier 3 - Expert Audit · 5% + all flags</div>
+    <div class="qa-card t3" style="background-image:url('/images/AV3.png')">
+      <div class="qa-tier-label">Tier 3 · Expert Audit · 5% + all flags</div>
       <div class="qa-card-h3">ML-engineer personal review</div>
-      <div class="qa-body">Our senior ML engineers review every task flagged by Tiers 1 and 2, every gold standard failure regardless of the overall pass rate, and a random 5% sample drawn from across the full batch. Every expert decision is documented with full reasoning.</div>
+      <div class="qa-body">Senior ML engineer reviews every flag from Tiers 1 and 2, every gold standard failure, and a random 5% sample from across the full batch. Every decision is documented for improving guidelines for the next project.</div>
       <div class="qa-catches">
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Sycophancy in RLHF data:</strong> Preference pairs where the "winning" response validates a false premise which gives the most damaging single annotation errors</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Training signal quality:</strong> Assessing whether the data will produce the desired model behaviour, not just whether it is correctly labeled</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Hallucination detection edge cases:</strong> Claims that are technically accurate but misleadingly incomplete</span></div>
-        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Guideline gaps:</strong> Recurring edge cases the guidelines don't cover but triggers a guidelines update before the next batch begins</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Sycophancy in RLHF data</strong> - "winning" response validates a false premise → most damaging single error type</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Training signal quality</strong> - will this data produce the desired model behaviour, not just correct labels?</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Hallucination edge cases</strong> - claims technically accurate but misleadingly incomplete</span></div>
+        <div class="qa-catch"><span class="qa-catch-dot"></span><span><strong>Guideline gaps</strong> - recurring edge cases not covered → triggers update before next batch</span></div>
       </div>
     </div>
   </div>
@@ -631,7 +613,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <p>Data infrastructure for AI model training built for the world. Production-grade data for model training pipelines. Published quality metrics. Completely independent.</p>
     </div>
     <div>
-      <div class="footer-col-title">Services</div>
+      <div class="footer-col-title">Solutions</div>
       <div class="footer-links">
         <a href="/services/rlhf">RLHF Preference Data</a>
         <a href="/services/nlp">NLP Annotation</a>
@@ -642,7 +624,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       </div>
     </div>
     <div>
-      <div class="footer-col-title">More Services</div>
+      <div class="footer-col-title">More Solutions</div>
       <div class="footer-links">
         <a href="/services/code-rlhf">Code RLHF</a>
         <a href="/services/image">Image Annotation</a>
@@ -664,7 +646,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="footer-bottom">
     <div class="footer-copy">© 2026 Concave AI. All rights reserved.</div>
     <div class="footer-badges">
-      <span class="footer-badge">DPDP 2023</span>
+      <span class="footer-badge">Privacy First</span>
       <span class="footer-badge">GDPR Ready</span>
       <span class="footer-badge">ISO 27001</span>
     </div>
