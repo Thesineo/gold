@@ -44,15 +44,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .left-panel h1 em{font-style:italic;color:var(--accent)}
 .left-panel>div>p{font-size:17px;color:var(--muted);line-height:1.68;font-weight:300;max-width:400px}
 .left-options{margin-top:40px;display:flex;flex-direction:column;gap:3px}
-.left-option{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:3px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:background .2s;cursor:default}
-.left-option:hover{background:var(--ink)}
-.left-option:hover .lo-title{color:var(--paper)}
-.left-option:hover .lo-body{color:var(--accent2)}
-.lo-icon{font-size:18px;flex-shrink:0;margin-top:2px}
-.lo-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
-.lo-body{font-size:12px;color:var(--muted);line-height:1.5}
-.left-trust{margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:10px}
-.trust-pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;padding:5px 11px;border:1px solid rgba(255,255,255,.12);border-radius:2px;color:rgba(255,255,255,.35);text-transform:uppercase}
+.left-option{padding:28px 24px;border-radius:3px;cursor:default;position:relative;overflow:hidden;background-size:cover;background-position:center;margin-bottom:3px}
+.left-option::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.82);z-index:0;pointer-events:none;transition:background .2s}
+.left-option>*{position:relative;z-index:1}
+.left-option:hover::before{background:rgba(10,10,10,0.92)}
+.lo-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:6px}
+.lo-body{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.55}
+.left-trust{margin-top:36px;padding-top:28px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:10px}
+.trust-pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;padding:5px 11px;border:1px solid var(--border);border-radius:2px;color:var(--muted);text-transform:uppercase}
 .right-panel{padding:80px 64px;background:var(--paper);overflow:auto}
 .form-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:12px}
 .form-header h2{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,42px);letter-spacing:-1.5px;line-height:1.05;margin-bottom:10px}
@@ -125,17 +124,15 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .sec-desc.light{color:var(--muted)}
 
 .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-.step-card{padding:40px 32px;position:relative;overflow:hidden}
+.step-card{padding:40px 32px;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.step-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.80);z-index:0;pointer-events:none;transition:background .25s}
+.step-card>*{position:relative;z-index:1}
 .step-card:last-child{border-right:none}
-.step-card:hover {background:var(--ink);}
-.step-card:hover .step-title{color:var(--paper);}
-.step-card:hover .step-body{color:var(--accent2);}
-.step-card:hover .step-num{color:var(--accent2);}
-.step-num{font-family:'DM Serif Display',serif;font-size:80px;color:var(--ink);position:absolute;top:10px;right:14px;line-height:1;letter-spacing:-3px}
-.step-icon{font-size:28px;margin-bottom:16px}
-.step-day{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
-.step-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px;letter-spacing:-.3px;line-height:1.2}
-.step-body{font-size:13px;color:var(--muted);line-height:1.65}
+.step-card:hover::before{background:rgba(10,10,10,0.92)}
+.step-num{font-family:'DM Serif Display',serif;font-size:80px;color:rgba(255,255,255,0.10);position:absolute;top:10px;right:14px;line-height:1;letter-spacing:-3px;z-index:1}
+.step-day{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--accent2);text-transform:uppercase;margin-bottom:8px}
+.step-title{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:8px;letter-spacing:-.3px;line-height:1.2;color:var(--paper)}
+.step-body{font-size:13px;color:rgba(255,255,255,0.65);line-height:1.65}
 
 /* ── FAQ ── */
 .faq-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
@@ -151,17 +148,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .faq-item.open .faq-icon{transform:rotate(45deg);color:var(--accent)}
 
 /* ── DIRECT CONTACT ── */
-.contact-alts{display:grid;grid-template-columns:repeat(1,2fr);gap:0;margin-top:60px}
-.contact-alt{padding:40px 32px;transition:background .2s}
-.contact-alt:last-child{border-right:none}
-.contact-alt:hover{background:var(--ink)}
-.contact-alt:hover .ca-title{color:var(--paper)}
-.contact-alt:hover .ca-body{color:var(--accent2)}
-.contact-alt:hover .ca-link{color:var(--accent2)}
-.ca-icon{font-size:32px;margin-bottom:16px}
-.ca-title{font-family:'DM Serif Display',serif;font-size:22px;color: var(--muted);margin-bottom:8px;letter-spacing:-.3px}
-.ca-body{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:16px}
-.ca-link{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent);text-decoration:none;letter-spacing:.02em;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
+.contact-alts{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:60px}
+.contact-alt{padding:48px 40px;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.contact-alt::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.82);z-index:0;pointer-events:none;transition:background .2s}
+.contact-alt>*{position:relative;z-index:1}
+.contact-alt:hover::before{background:rgba(10,10,10,0.92)}
+.ca-title{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+.ca-body{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px}
+.ca-link{font-family:'Space Mono',monospace;font-size:12px;color:var(--accent2);text-decoration:none;letter-spacing:.02em;display:inline-flex;align-items:center;gap:6px;transition:gap .2s}
 .ca-link:hover{gap:10px}
 
 /* ── LOCATION STRIP ── */
@@ -302,21 +296,17 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <h1>Let's look at your <em>model data</em> together</h1>
       <p>Tell us about your AI model and annotation needs. We respond within one working day with a specific plan or a free diagnostic on 50 of your outputs.</p>
       <div class="left-options">
-        <div class="left-option">
-          <span class="lo-icon">🔍</span>
-          <div><div class="lo-title">Free model diagnosis</div><div class="lo-body">50 outputs evaluated. Sycophancy susceptibility score and hallucination rate back in 5 working days. No cost, no commitment.</div></div>
+        <div class="left-option" style="background-image:url('/images/RHLF.png')">
+          <div class="lo-title">Free model diagnosis</div><div class="lo-body">50 outputs evaluated. Sycophancy susceptibility score and hallucination rate back in 5 working days. No cost, no commitment.</div>
         </div>
-        <div class="left-option">
-          <span class="lo-icon">📊</span>
-          <div><div class="lo-title">Annotation project pilot</div><div class="lo-body">A small scoped pilot 200 RLHF pairs or 500 NLP documents so you can verify our quality before committing.</div></div>
+        <div class="left-option" style="background-image:url('/images/annotation1.png')">
+          <div class="lo-title">Annotation project pilot</div><div class="lo-body">A small scoped pilot 200 RLHF pairs or 500 NLP documents so you can verify our quality before committing.</div>
         </div>
-        <div class="left-option">
-          <span class="lo-icon">🔄</span>
-          <div><div class="lo-title">Continuous evaluation retainer</div><div class="lo-body">Standing expert team evaluating live model outputs weekly. Monthly retraining batch included. For enterprise GenAI in production.</div></div>
+        <div class="left-option" style="background-image:url('/images/68e571778c19d9c6b8c487e9_ai-agentic-workflows.jpg')">
+          <div class="lo-title">Continuous evaluation retainer</div><div class="lo-body">Standing expert team evaluating live model outputs weekly. Monthly retraining batch included. For enterprise GenAI in production.</div>
         </div>
-        <div class="left-option">
-          <span class="lo-icon">⚙️</span>
-          <div><div class="lo-title">Custom pipeline design</div><div class="lo-body">We design your full RLAIF + human QA annotation pipeline before a single task is run.</div></div>
+        <div class="left-option" style="background-image:url('/images/ADAS-image.png')">
+          <div class="lo-title">Custom pipeline design</div><div class="lo-body">We design your full RLAIF + human QA annotation pipeline before a single task is run.</div>
         </div>
       </div>
     </div>
@@ -508,30 +498,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 </div><!-- /page-wrap -->
 
 <!-- ═══════════════════════════════════════
-     TICKER
-════════════════════════════════════════ -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-item">Response within 1 working day</span>
-    <span class="ticker-item">Free 50-output diagnosis</span>
-    <span class="ticker-item">NDA before any data exchange</span>
-    <span class="ticker-item">DPDP Act 2023 compliant</span>
-    <span class="ticker-item">Published kappa scores</span>
-    <span class="ticker-item">ML-engineer led quality</span>
-    <span class="ticker-item">Bengaluru, India</span>
-    <span class="ticker-item">8 Indic languages</span>
-    <span class="ticker-item">Response within 1 working day</span>
-    <span class="ticker-item">Free 50-output diagnosis</span>
-    <span class="ticker-item">NDA before any data exchange</span>
-    <span class="ticker-item">DPDP Act 2023 compliant</span>
-    <span class="ticker-item">Published kappa scores</span>
-    <span class="ticker-item">ML-engineer led quality</span>
-    <span class="ticker-item">Bengaluru, India</span>
-    <span class="ticker-item">8 Indic languages</span>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
      WHAT HAPPENS NEXT
 ════════════════════════════════════════ -->
 <section class="sec white">
@@ -539,30 +505,26 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <h2 class="sec-title">From enquiry to <em>first delivery</em> in four steps</h2>
   <p class="sec-desc">Here is exactly what happens after you submit this form no black boxes, no sales runaround.</p>
   <div class="steps-grid">
-    <div class="step-card">
+    <div class="step-card" style="background-image:url('/images/AV1.png')">
       <div class="step-num">1</div>
-      <div class="step-icon">📬</div>
       <div class="step-day">Within 1 working day</div>
       <div class="step-title">We review your enquiry and respond</div>
       <div class="step-body">Our ML engineer reviews your project description personally and replies with specific questions, a rough scope estimate, and if you selected the free audit instructions for sending us 50 model outputs securely.</div>
     </div>
-    <div class="step-card">
+    <div class="step-card" style="background-image:url('/images/AV2.png')">
       <div class="step-num">2</div>
-      <div class="step-icon">📋</div>
       <div class="step-day">Days 2–4</div>
       <div class="step-title">Scoping call + Scope of Work</div>
       <div class="step-body">A 30-minute call to clarify your requirements task type, data format, volume, quality threshold, delivery format, and timeline. We then produce a detailed Scope of Work document with exact pricing before anything begins. No surprises.</div>
     </div>
-    <div class="step-card">
+    <div class="step-card" style="background-image:url('/images/AV3.png')">
       <div class="step-num">3</div>
-      <div class="step-icon">🔏</div>
       <div class="step-day">Days 4–6</div>
       <div class="step-title">NDA signed + data transfer</div>
       <div class="step-body">Mutual NDA executed before any data moves. Your data arrives in an encrypted, isolated S3 bucket named access only. We set up Label Studio, write your project-specific annotation guidelines, and run annotator calibration. Cohen's kappa ≥ 0.70 before annotation begins.</div>
     </div>
-    <div class="step-card">
+    <div class="step-card" style="background-image:url('/images/agri-bug-detection.png')">
       <div class="step-num">4</div>
-      <div class="step-icon">📦</div>
       <div class="step-day">Project completion + Day 14</div>
       <div class="step-title">Delivery with QA report + data card</div>
       <div class="step-body">Dataset delivered with a full QA report (kappa scores, gold standard accuracy, batch error log) and a data card. Two weeks later we follow up for your model benchmark result. If the data does not improve your model, we investigate and re-deliver at no cost.</div>
@@ -641,15 +603,13 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <span class="sec-eyebrow">Other Ways to Reach Us</span>
   <h2 class="sec-title">Prefer a more <em>direct conversation?</em></h2>
   <p class="sec-desc">Not ready to fill a form? Reach out directly through any of the channels below.</p>
-  <div class="contact-alts">
-    <div class="contact-alt">
-      <div class="ca-icon">📧</div>
+  <div class="contact-alt">
+    <div class="contact-alt" style="background-image:url('/images/trafficAi.png')">
       <div class="ca-title">Email directly</div>
       <div class="ca-body">For general enquiries, data security questions, or if you want to share a large data sample before committing to a form submission.</div>
       <a href="mailto:hello@theconcaveai.com" class="ca-link">hello@theconcaveai.com →</a>
     </div>
-    <div class="contact-alt">
-      <div class="ca-icon">💼</div>
+    <div class="contact-alt" style="background-image:url('/images/satellite.png')">
       <div class="ca-title">LinkedIn</div>
       <div class="ca-body">Connect with our founder directly on LinkedIn for a technical peer conversation about your annotation challenge no sales pitch, just a genuine ML discussion.</div>
       <a href="https://www.linkedin.com/company/theconcaveai/" target="_blank" class="ca-link">Connect on LinkedIn →</a>
@@ -657,20 +617,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     LOCATION STRIP
-════════════════════════════════════════ -->
-<div class="location-strip">
-  <div class="location-label">Concave AI · Bengaluru, India</div>
-  <div class="location-items">
-    <div class="location-item"><span class="location-dot"></span>DPDP Act 2023 Compliant</div>
-    <div class="location-item"><span class="location-dot"></span>GDPR Ready</div>
-    <div class="location-item"><span class="location-dot"></span>AWS Encrypted Storage</div>
-    <div class="location-item"><span class="location-dot"></span>NDA on Every Project</div>
-    <div class="location-item"><span class="location-dot"></span>8 Indic Languages</div>
-    <div class="location-item"><span class="location-dot"></span>Vendor Neutral · Founder-Owned</div>
-  </div>
-</div>
 
 <!-- ═══════════════════════════════════════
      FOOTER
