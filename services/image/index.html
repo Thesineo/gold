@@ -168,6 +168,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .ia-box-label{position:absolute;top:-22px;left:0;font-size:9px;padding:2px 6px;letter-spacing:0.08em;font-family:'Space Mono',monospace;white-space:nowrap}
 .ia-box.person{border-color:#a29bfe} .ia-box.person .ia-box-label{background:#a29bfe;color:#0a0a0e}
 .ia-box.car{border-color:#00b894} .ia-box.car .ia-box-label{background:#00b894;color:#0a0a0e}
+.ia-box.suv_car{border-color:#0822b4} .ia-box.suv_car .ia-box-label{background:#0822b4;color:#0a0a0e}
 .ia-box.bike{border-color:#fdcb6e} .ia-box.bike .ia-box-label{background:#fdcb6e;color:#0a0a0e}
 .ia-box.truck{border-color:#e17300} .ia-box.truck .ia-box-label{background:#e17300;color:#fff}
 .ia-box.light{border-color:#fd79a8} .ia-box.light .ia-box-label{background:#fd79a8;color:#0a0a0e}
@@ -327,9 +328,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="h-stat-label">Annotation task types: bbox, polygon, semantic, instance, keypoint, DICOM</div>
     </div>
     <div class="h-stat">
-      <div class="h-stat-num">Medical</div>
-      <div class="h-stat-label">DICOM / radiology annotation by MBBS-qualified annotators only</div>
-    </div>
+  <div class="h-stat-num">Visual AI</div>
+  <div class="h-stat-label">Multi-class object detection & semantic segmentation with per-label quality metrics</div>
+</div>
   </div>
 
   <div class="scroll-hint-bar"><span>Scroll</span><div class="scroll-hint-line"></div></div>
@@ -346,12 +347,12 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="vis-split-img">
     <img src="/images/land-labelling.png" alt="Image Object Detection Annotation" loading="lazy" style="filter:brightness(0.62)">
     <div style="position:absolute;left:0;top:0;right:0;background:linear-gradient(rgba(10,10,10,0.82),transparent);padding:10px 14px 20px;pointer-events:none;display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start">
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● CAR · 0.98</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● PEDESTRIAN · 0.96</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#fdcb6e;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● MOTORCYCLE · 0.89</div>
-      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#e17300;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● TRUCK · 0.94</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● Crop Field · 0.98</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#a29bfe;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● Bare Soils · 0.96</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#fdcb6e;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● GRASSLAND · 0.89</div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;background:#e17300;color:#0a0a0a;padding:3px 8px;border-radius:2px;letter-spacing:0.07em;white-space:nowrap">● TREE COVER · 0.94</div>
     </div>
-    <div style="position:absolute;left:4%;bottom:10%;pointer-events:none;display:flex;flex-direction:column;gap:4px"><div style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa;letter-spacing:0.08em;margin-bottom:2px">▼ CLASS DETECTION SUMMARY</div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#00b894;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">CAR ×2</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#a29bfe;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">PEDESTRIAN ×2</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#fdcb6e;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">MOTORCYCLE ×1</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#e17300;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">TRUCK ×1</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#fd79a8;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">TRAFFIC LIGHT ×1</span></div></div>
+    <div style="position:absolute;left:4%;bottom:10%;pointer-events:none;display:flex;flex-direction:column;gap:4px"><div style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa;letter-spacing:0.08em;margin-bottom:2px">▼ CLASS DETECTION SUMMARY</div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#00b894;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">CROP FIELD ×2</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#a29bfe;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">BARE SOIL ×2</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#fdcb6e;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">GRASSLAND ×1</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#e17300;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">TREE COVER ×1</span></div><div style="display:flex;align-items:center;gap:6px"><div style="width:8px;height:8px;border-radius:2px;background:#fd79a8;flex-shrink:0"></div><span style="font-family:'Space Mono',monospace;font-size:9px;color:#ffffffaa">FARM STRUCTURE ×1</span></div></div>
     <div style="position:absolute;right:4%;bottom:10%;pointer-events:none;text-align:right"><div style="font-family:'Space Mono',monospace;font-size:9px;background:#00b894;color:#0a0a0a;padding:4px 10px;border-radius:2px;letter-spacing:0.07em;display:inline-block">7 OBJECTS · mAP 0.94 · QA PASS ✓</div></div>
 </div>
   <div class="vis-split-body">
@@ -374,38 +375,84 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     </div>
     <div class="ia-body">
       <div class="ia-canvas">
-        <img src="https://images.unsplash.com/photo-1575260603071-eab438fecff1?w=900&q=80&auto=format&fit=crop" alt="Traffic scene annotation" loading="lazy">
-        <div class="ia-box person" style="left:8%;top:30%;width:8%;height:28%">
+        <img src="/images/imagedemo1.jpg" alt="Traffic scene annotation" loading="lazy">
+        <div class="ia-box person" style="left:33%;top:2%;width:22%;height:27%">
           <div class="ia-box-label">PEDESTRIAN 0.96</div>
         </div>
-        <div class="ia-box person" style="left:52%;top:28%;width:7%;height:26%">
-          <div class="ia-box-label">PEDESTRIAN 0.91</div>
+        <div class="ia-box person" style="left:2%;top:58%;width:17%;height:22%">
+          <div class="ia-box-label">PEDESTRIAN 0.96</div>
         </div>
-        <div class="ia-box car" style="left:18%;top:42%;width:20%;height:32%">
-          <div class="ia-box-label">CAR 0.98</div>
+        <div class="ia-box person" style="left:10%;top:38%;width:17%;height:19%">
+          <div class="ia-box-label">PEDESTRIAN 0.92</div>
         </div>
-        <div class="ia-box car" style="left:60%;top:45%;width:22%;height:30%">
+        <div class="ia-box suv_car" style="left:84%;top:19%;width:15%;height:12%">
+          <div class="ia-box-label">SUV CAR 0.95</div>
+        </div>
+        <div class="ia-box suv_car" style="left:59%;top:1%;width:15%;height:7%">
+          <div class="ia-box-label">SUV CAR 0.92</div>
+        </div>
+        <div class="ia-box suv_car" style="left:34%;top:36%;width:15%;height:17%">
+          <div class="ia-box-label">SUV CAR 0.98</div>
+        </div>
+        <div class="ia-box car" style="left:55%;top:49%;width:18%;height:15%">
           <div class="ia-box-label">CAR 0.97</div>
         </div>
-        <div class="ia-box bike" style="left:40%;top:50%;width:10%;height:24%">
-          <div class="ia-box-label">MOTORCYCLE 0.89</div>
+        <div class="ia-box car" style="left:70%;top:41%;width:18%;height:15%">
+          <div class="ia-box-label">CAR 0.96</div>
         </div>
-        <div class="ia-box truck" style="left:74%;top:38%;width:18%;height:38%">
-          <div class="ia-box-label">TRUCK 0.94</div>
+        <div class="ia-box car" style="left:78%;top:30%;width:18%;height:12%">
+          <div class="ia-box-label">CAR 0.94</div>
         </div>
-        <div class="ia-box light" style="left:34%;top:10%;width:4%;height:14%">
+        <div class="ia-box car" style="left:88%;top:5%;width:18%;height:12%">
+          <div class="ia-box-label">CAR 0.94</div>
+        </div>
+        <div class="ia-box car" style="left:42%;top:69%;width:18%;height:15%">
+          <div class="ia-box-label">CAR 0.99</div>
+        </div>
+        <div class="ia-box car" style="left:43%;top:44%;width:18%;height:12%">
+          <div class="ia-box-label">CAR 0.93</div>
+        </div>
+        <div class="ia-box car" style="left:50%;top:35%;width:15%;height:10%">
+          <div class="ia-box-label">CAR 0.93</div>
+        </div>
+        <div class="ia-box car" style="left:53%;top:25%;width:15%;height:10%">
+          <div class="ia-box-label">CAR 0.97</div>
+        </div>
+         <div class="ia-box car" style="left:50%;top:15%;width:15%;height:10%">
+          <div class="ia-box-label">CAR 0.95</div>
+        </div>
+        <div class="ia-box bike" style="left:80%;top:63%;width:10%;height:12%">
+          <div class="ia-box-label">BICYCLE 0.95</div>
+        </div>
+        <div class="ia-box bike" style="left:72%;top:79%;width:10%;height:12%">
+          <div class="ia-box-label">BICYCLE 0.89</div>
+        </div>
+        <div class="ia-box bike" style="left:0%;top:49%;width:10%;height:9%">
+          <div class="ia-box-label">BICYCLE 0.88</div>
+        </div>
+        <div class="ia-box truck" style="left:67%;top:14%;width:22%;height:26%">
+          <div class="ia-box-label">BUS 0.97</div>
+        </div>
+        <div class="ia-box light" style="left:23%;top:40%;width:8%;height:8%">
+          <div class="ia-box-label">TRAFFIC LIGHT 0.91</div>
+        </div>
+        <div class="ia-box light" style="left:28%;top:57%;width:10%;height:14%">
           <div class="ia-box-label">TRAFFIC LIGHT 0.99</div>
+        </div>
+        <div class="ia-box light" style="left:8%;top:63%;width:10%;height:10%">
+          <div class="ia-box-label">TRAFFIC LIGHT 0.92</div>
         </div>
       </div>
       <div class="ia-sidebar">
         <div class="ia-sidebar-title">CLASS LEGEND</div>
-        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#a29bfe"></div>PEDESTRIAN<span class="ia-count">2</span></div>
-        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#00b894"></div>CAR<span class="ia-count">2</span></div>
-        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#fdcb6e"></div>MOTORCYCLE<span class="ia-count">1</span></div>
-        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#e17300"></div>TRUCK<span class="ia-count">1</span></div>
-        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#fd79a8"></div>TRAFFIC LIGHT<span class="ia-count">1</span></div>
+        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#a29bfe"></div>PEDESTRIAN<span class="ia-count">3</span></div>
+        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#00b894"></div>CAR<span class="ia-count">9</span></div>
+        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#0822b4"></div>SUV CAR<span class="ia-count">3</span></div>
+        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#fdcb6e"></div>BICYCLE<span class="ia-count">3</span></div>
+        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#e17300"></div>BUS<span class="ia-count">1</span></div>
+        <div class="ia-cls-item"><div class="ia-cls-dot" style="background:#fd79a8"></div>TRAFFIC LIGHT<span class="ia-count">3</span></div>
         <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);font-size:10px;color:#fdcb6e">FRAME STATUS</div>
-        <div style="font-size:11px;color:#c8d6e5;margin-top:6px">7 objects · QA PASS</div>
+        <div style="font-size:11px;color:#c8d6e5;margin-top:6px">22 objects · QA PASS</div>
       </div>
     </div>
     <div class="ia-demo-footer">
