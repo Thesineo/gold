@@ -46,14 +46,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
 /* ── 1. HERO ── */
 .prod-hero{min-height:100vh;background:var(--ink);display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:160px 60px 100px;align-items:center;position:relative;overflow:hidden}
-.prod-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 50%,rgba(188,81,19,0.08) 0%,transparent 70%);pointer-events:none}
-.prod-hero-left{position:relative;z-index:1}
+@keyframes kenBurns{0%{transform:scale(1)}100%{transform:scale(1.07)}}
+.prod-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;animation:kenBurns 12s ease forwards;z-index:0}
+.prod-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.92) 40%,rgba(10,10,10,0.72) 100%);z-index:1;pointer-events:none}
+.prod-hero-left{position:relative;z-index:2}
+.prod-hero-right{position:relative;z-index:2}
 .prod-hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:20px}
 .prod-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(42px,4.5vw,64px);line-height:1.05;letter-spacing:-2px;color:var(--paper);margin-bottom:24px}
 .prod-hero h1 em{color:var(--accent2);font-style:italic}
 .prod-hero-sub{font-size:16px;color:rgba(245,242,236,0.65);line-height:1.7;max-width:480px;margin-bottom:40px;font-weight:300}
 .prod-hero-actions{display:flex;gap:14px;flex-wrap:wrap}
-.prod-hero-right{position:relative;z-index:1}
 
 /* Architecture stack visual */
 .arch-stack{display:flex;flex-direction:column;gap:2px}
@@ -104,13 +106,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .six-layers .sec-title em{color:var(--accent2)}
 .six-layers-intro{font-size:15px;color:rgba(245,242,236,0.55);margin-top:16px;max-width:560px;line-height:1.65}
 .layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.layer-card{padding:44px 36px;position:relative;border-top:2px solid}
-.lc-1{background:rgba(94,203,161,0.04);border-color:#5ecba1}
-.lc-2{background:rgba(200,169,110,0.04);border-color:var(--accent2)}
-.lc-3{background:rgba(162,155,254,0.04);border-color:#a29bfe}
-.lc-4{background:rgba(253,203,110,0.04);border-color:#fdcb6e}
-.lc-5{background:rgba(0,184,148,0.04);border-color:#00b894}
-.lc-6{background:rgba(188,81,19,0.06);border-color:var(--accent)}
+.layer-card{padding:44px 36px;position:relative;border-top:2px solid;background-size:cover;background-position:center;overflow:hidden}
+.layer-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.84);z-index:0;pointer-events:none}
+.layer-card>*{position:relative;z-index:1}
+.lc-1{border-color:#5ecba1}
+.lc-2{border-color:var(--accent2)}
+.lc-3{border-color:#a29bfe}
+.lc-4{border-color:#fdcb6e}
+.lc-5{border-color:#00b894}
+.lc-6{border-color:var(--accent)}
 .layer-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
 .lc-1 .layer-num{color:#5ecba1}
 .lc-2 .layer-num{color:var(--accent2)}
@@ -162,7 +166,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .prod-roadmap .sec-title{color:var(--paper)}
 .prod-roadmap .sec-title em{color:var(--accent2)}
 .rm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.rm-card{padding:48px 40px;background:rgba(245,242,236,0.03);border-top:2px solid}
+.rm-card{padding:48px 40px;border-top:2px solid;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.rm-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.85);z-index:0;pointer-events:none}
+.rm-card>*{position:relative;z-index:1}
 .rm-card.rm-now{border-color:var(--accent2)}
 .rm-card.rm-next{border-color:rgba(200,169,110,0.45)}
 .rm-card.rm-later{border-color:rgba(200,169,110,0.18)}
@@ -174,7 +180,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .rm-body{font-size:13px;color:rgba(245,242,236,0.5);line-height:1.65}
 
 /* ── 8. PRODUCT POSITIONING ── */
-.positioning{padding:120px 60px;background:var(--accent)}
+.positioning{padding:120px 60px;background:var(--accent);position:relative;overflow:hidden;background-size:cover;background-position:center}
+.positioning::before{content:'';position:absolute;inset:0;background:rgba(188,81,19,0.88);z-index:0;pointer-events:none}
+.positioning>*{position:relative;z-index:1}
 .positioning .sec-eyebrow{color:rgba(245,242,236,0.65)}
 .positioning .sec-title{color:var(--paper);max-width:700px}
 .pos-body{font-size:18px;color:rgba(245,242,236,0.85);line-height:1.75;max-width:680px;margin-top:24px;font-weight:300}
@@ -209,7 +217,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 @media(max-width:1100px){
   .prod-hero{grid-template-columns:1fr;gap:60px;min-height:auto;padding-bottom:80px}
   .prod-hero-right{display:none}
-  .platform-summary-inner{grid-template-columns:1fr}
+  .platform-summary [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr}
+  .platform-summary [style*="min-height:580px"]{min-height:auto}
   .cap-inner{grid-template-columns:1fr}
   .layer-grid{grid-template-columns:1fr 1fr}
   .rm-grid{grid-template-columns:1fr}
@@ -289,6 +298,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
      1. HERO
 ════════════════════════════ -->
 <section class="prod-hero">
+  <div class="prod-hero-bg" style="background-image:url('/images/68e571778c19d9c6b8c487e9_ai-agentic-workflows.jpg')"></div>
+  <div class="prod-hero-overlay"></div>
   <div class="prod-hero-left">
     <div class="prod-hero-eyebrow">Platform · AI Data Infrastructure</div>
     <h1>The AI data infrastructure layer<br>for <em>model training</em></h1>
@@ -347,28 +358,27 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <!-- ═══════════════════════════
      2. PLATFORM SUMMARY
 ════════════════════════════ -->
-<section class="platform-summary" id="platform-summary">
-  <div class="platform-summary-inner">
-    <div class="platform-summary-left">
-      <span class="sec-eyebrow">What we are building</span>
-      <h2 class="sec-title">The unified AI data<br>infrastructure <em>platform</em></h2>
+<section class="platform-summary" id="platform-summary" style="padding:0;overflow:hidden">
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:580px">
+    <!-- Image left -->
+    <div style="position:relative;overflow:hidden;background:var(--ink)">
+      <img src="/images/imagedemo1.jpg" alt="AI data infrastructure" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.72) saturate(1.05)">
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.55),rgba(10,10,10,0.2));pointer-events:none"></div>
+      <div style="position:absolute;top:20px;left:20px;right:20px;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;background:var(--accent2);color:#0a0a0a;padding:3px 10px;border-radius:2px;letter-spacing:0.07em">● L1–L3 · Active</div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;background:#55efc4;color:#0a0a0a;padding:3px 10px;border-radius:2px;letter-spacing:0.07em">✓ κ 0.72+ on delivery</div>
+      </div>
     </div>
-    <div>
-      <p class="platform-summary-body">Concave AI is evolving from verified training-data delivery into a self-serve AI data infrastructure platform. The system is designed for teams that need recurring dataset operations, traceable versions, quality enforcement, and a consistent path from raw data to model-ready data.</p>
-      <p class="platform-summary-body" style="margin-top:20px">Today we deliver the first three layers as a managed service. Layers four through six — versioning, observability, and governed distribution — are being productized so teams can run them directly.</p>
-      <div class="platform-summary-stat">
-        <div class="ps-stat">
-          <div class="ps-stat-num">3</div>
-          <div class="ps-stat-label">Layers active</div>
-        </div>
-        <div class="ps-stat">
-          <div class="ps-stat-num">6</div>
-          <div class="ps-stat-label">Total platform layers</div>
-        </div>
-        <div class="ps-stat">
-          <div class="ps-stat-num">0.72+</div>
-          <div class="ps-stat-label">Kappa on every delivery</div>
-        </div>
+    <!-- Content right -->
+    <div style="background:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:80px 60px;border-left:1px solid var(--border)">
+      <span class="sec-eyebrow">What we are building</span>
+      <h2 class="sec-title" style="margin-top:12px">The unified AI data<br>infrastructure <em>platform</em></h2>
+      <p class="platform-summary-body" style="margin-top:16px">Concave AI is evolving from verified training-data delivery into a self-serve AI data infrastructure platform. The system is designed for teams that need recurring dataset operations, traceable versions, quality enforcement, and a consistent path from raw data to model-ready data.</p>
+      <p class="platform-summary-body" style="margin-top:14px">Today we deliver the first three layers as a managed service. Layers four through six — versioning, observability, and governed distribution — are being productized so teams can run them directly.</p>
+      <div class="platform-summary-stat" style="margin-top:32px">
+        <div class="ps-stat"><div class="ps-stat-num">3</div><div class="ps-stat-label">Layers active</div></div>
+        <div class="ps-stat"><div class="ps-stat-num">6</div><div class="ps-stat-label">Total layers</div></div>
+        <div class="ps-stat"><div class="ps-stat-num">0.72+</div><div class="ps-stat-label">Kappa on delivery</div></div>
       </div>
     </div>
   </div>
@@ -385,42 +395,42 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
   <div class="layer-grid">
 
-    <div class="layer-card lc-1">
+    <div class="layer-card lc-1" style="background-image:url('/images/RHLF.png')">
       <div class="layer-num">Layer 01 · Active</div>
       <div class="layer-sep"></div>
       <div class="layer-title">Data Ingestion Layer</div>
       <div class="layer-body">Connects files, APIs, storage, and enterprise sources into the platform. Validates schema and format before any processing begins. Supports encrypted, audited intake for compliance-sensitive data.</div>
     </div>
 
-    <div class="layer-card lc-2">
+    <div class="layer-card lc-2" style="background-image:url('/images/annotation1.png')">
       <div class="layer-num">Layer 02 · Active</div>
       <div class="layer-sep"></div>
       <div class="layer-title">Data Preparation Layer</div>
       <div class="layer-body">Cleans, validates, normalizes, and structures incoming data before labeling begins. Applies task-specific schemas, annotation guidelines, and calibration runs to ensure consistent input quality.</div>
     </div>
 
-    <div class="layer-card lc-3">
+    <div class="layer-card lc-3" style="background-image:url('/images/annotation2.png')">
       <div class="layer-num">Layer 03 · Active</div>
       <div class="layer-sep"></div>
       <div class="layer-title">Automated Labeling Layer (RLAIF)</div>
       <div class="layer-body">Uses AI to pre-label, score, or generate preference data — reducing manual workload by up to 60%. Human annotators review edge cases and high-risk items. Kappa tracked live throughout.</div>
     </div>
 
-    <div class="layer-card lc-4">
+    <div class="layer-card lc-4" style="background-image:url('/images/bounding-box.png')">
       <div class="layer-num">Layer 04 · Building</div>
       <div class="layer-sep"></div>
       <div class="layer-title">Curation and Versioning Layer</div>
       <div class="layer-body">Creates dataset releases with clear version history, diff tracking, and rollback capability. Ensures every dataset snapshot is reproducible and traceable — built for teams that iterate on training data.</div>
     </div>
 
-    <div class="layer-card lc-5">
+    <div class="layer-card lc-5" style="background-image:url('/images/trafficAi.png')">
       <div class="layer-num">Layer 05 · Roadmap</div>
       <div class="layer-sep"></div>
       <div class="layer-title">Observability Layer</div>
       <div class="layer-body">Monitors live model outputs, drift, performance changes, and quality degradation. Triggers re-labeling loops automatically when quality thresholds are breached. Closes the model feedback loop.</div>
     </div>
 
-    <div class="layer-card lc-6">
+    <div class="layer-card lc-6" style="background-image:url('/images/satellite.png')">
       <div class="layer-num">Layer 06 · Roadmap</div>
       <div class="layer-sep"></div>
       <div class="layer-title">Governed Data Marketplace Layer</div>
@@ -566,17 +576,17 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <h2 class="sec-title" style="color:var(--paper)">Current state and<br><em>what comes next</em></h2>
 
   <div class="rm-grid">
-    <div class="rm-card rm-now">
+    <div class="rm-card rm-now" style="background-image:url('/images/AV1.png')">
       <span class="rm-badge">Now · Active</span>
       <div class="rm-title">Verified Training Data Services</div>
       <div class="rm-body">Training data delivery, QA, evaluation, and RLAIF workflows. Managed service across RLHF, NLP, image, video, and evaluation data types. Published quality metrics and benchmark follow-up on every project.</div>
     </div>
-    <div class="rm-card rm-next">
+    <div class="rm-card rm-next" style="background-image:url('/images/3d-lidar.png')">
       <span class="rm-badge">Next · Building</span>
       <div class="rm-title">Self-Serve Platform MVP</div>
       <div class="rm-body">Self-serve dataset operations, versioning, lineage, and API access. Teams will be able to launch labeling projects, track versions, and integrate with MLOps systems directly — without going through a managed workflow.</div>
     </div>
-    <div class="rm-card rm-later">
+    <div class="rm-card rm-later" style="background-image:url('/images/satellite-image.png')">
       <span class="rm-badge">Later · Vision</span>
       <div class="rm-title">Governed Dataset Marketplace</div>
       <div class="rm-body">Certified dataset marketplace and reusable enterprise data products. Organisations will be able to publish, access-control, and distribute verified training datasets internally or across teams at scale.</div>
@@ -588,7 +598,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 <!-- ═══════════════════════════
      8. PRODUCT POSITIONING
 ════════════════════════════ -->
-<section class="positioning">
+<section class="positioning" style="background-image:url('/images/ADAS-image.png')">
   <span class="sec-eyebrow">Why this matters</span>
   <h2 class="sec-title">AI teams do not just<br>need labeling — they need<br>a <em>data operating system</em></h2>
   <p class="pos-body">AI teams do not just need labeling. They need a repeatable, auditable data operating system that turns raw data into production-ready model data and keeps improving it as models and users change. That is the system Concave AI is building.</p>
