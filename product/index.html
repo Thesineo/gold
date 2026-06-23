@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — Concave AI | AI Data Infrastructure Platform</title>
+<meta name="description" content="The AI data infrastructure layer for model training. Concave AI builds the unified workflow from raw data ingestion to governed, versioned, production-ready model data.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png" type="image/png">
+<style>
+:root{--ink:#0a0a0a;--paper:#f5f2ec;--accent2:#c8a96e;--accent:#bc5113;--muted:#763e1b;--border:rgba(10,10,10,0.12);--white:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(245,242,236,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo-text{font-family:'DM Serif Display',serif;font-size:24px;color:var(--muted);font-weight:normal;letter-spacing:-0.3px}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-item{position:relative}
+.nav-item::before{content:'';position:absolute;top:100%;left:0;right:0;height:14px}
+.nav-item>a{font-family:'DM Serif Display',serif;font-size:22px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:3px;transition:color 0.2s;padding:4px 0}
+.nav-item>a:hover{color:var(--accent)}
+.nav-item>a::after{content:'▾';font-size:10px;margin-left:2px;opacity:0.7}
+.nav-item.plain>a::after{display:none}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--paper);border:1px solid var(--border);min-width:220px;z-index:200;box-shadow:0 8px 32px rgba(10,10,10,0.1)}
+.nav-dropdown a{display:block;padding:10px 18px;font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.15s,color 0.15s}
+.nav-dropdown a:last-child{border:none}
+.nav-dropdown a:hover{background:var(--ink);color:var(--paper)}
+.nav-item:hover .nav-dropdown{display:block}
+.nav-cta{background:var(--accent2);color:var(--ink)!important;padding:10px 22px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.nav-cta:hover{background:var(--ink);color:var(--paper)!important}
+
+/* ── SHARED ── */
+.sec-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:14px;display:block}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,52px);letter-spacing:-1.5px;line-height:1.05}
+.sec-title em{font-style:italic;color:var(--accent)}
+.sec-desc{font-size:17px;color:var(--muted);max-width:560px;margin-top:16px;font-weight:300;line-height:1.65}
+.btn-primary{background:var(--accent2);color:var(--ink);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
+.btn-primary:hover{background:var(--white);color:var(--ink)}
+.btn-ghost{border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.8);padding:13px 28px;font-size:14px;font-weight:500;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
+.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2)}
+.btn-ink{background:var(--ink);color:var(--paper);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
+.btn-ink:hover{background:var(--accent)}
+
+/* ── 1. HERO ── */
+.prod-hero{min-height:100vh;background:var(--ink);display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:160px 60px 100px;align-items:center;position:relative;overflow:hidden}
+.prod-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 50%,rgba(188,81,19,0.08) 0%,transparent 70%);pointer-events:none}
+.prod-hero-left{position:relative;z-index:1}
+.prod-hero-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--accent2);text-transform:uppercase;margin-bottom:20px}
+.prod-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(42px,4.5vw,64px);line-height:1.05;letter-spacing:-2px;color:var(--paper);margin-bottom:24px}
+.prod-hero h1 em{color:var(--accent2);font-style:italic}
+.prod-hero-sub{font-size:16px;color:rgba(245,242,236,0.65);line-height:1.7;max-width:480px;margin-bottom:40px;font-weight:300}
+.prod-hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.prod-hero-right{position:relative;z-index:1}
+
+/* Architecture stack visual */
+.arch-stack{display:flex;flex-direction:column;gap:2px}
+.arch-layer{padding:14px 20px;display:flex;align-items:center;gap:14px;position:relative;border-left:2px solid}
+.arch-layer-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;flex-shrink:0;width:20px}
+.arch-layer-name{font-family:'DM Serif Display',serif;font-size:14px;letter-spacing:-0.2px}
+.arch-layer-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:0.1em;padding:2px 7px;border-radius:2px;margin-left:auto;white-space:nowrap;text-transform:uppercase}
+.arch-l1{background:rgba(94,203,161,0.06);border-color:#5ecba1}
+.arch-l1 .arch-layer-num{color:#5ecba1}
+.arch-l1 .arch-layer-name{color:rgba(245,242,236,0.9)}
+.arch-l1 .arch-layer-tag{background:rgba(94,203,161,0.12);color:#5ecba1}
+.arch-l2{background:rgba(200,169,110,0.06);border-color:var(--accent2)}
+.arch-l2 .arch-layer-num{color:var(--accent2)}
+.arch-l2 .arch-layer-name{color:rgba(245,242,236,0.85)}
+.arch-l2 .arch-layer-tag{background:rgba(200,169,110,0.12);color:var(--accent2)}
+.arch-l3{background:rgba(162,155,254,0.06);border-color:#a29bfe}
+.arch-l3 .arch-layer-num{color:#a29bfe}
+.arch-l3 .arch-layer-name{color:rgba(245,242,236,0.85)}
+.arch-l3 .arch-layer-tag{background:rgba(162,155,254,0.12);color:#a29bfe}
+.arch-l4{background:rgba(253,203,110,0.06);border-color:#fdcb6e}
+.arch-l4 .arch-layer-num{color:#fdcb6e}
+.arch-l4 .arch-layer-name{color:rgba(245,242,236,0.85)}
+.arch-l4 .arch-layer-tag{background:rgba(253,203,110,0.12);color:#fdcb6e}
+.arch-l5{background:rgba(0,184,148,0.06);border-color:#00b894}
+.arch-l5 .arch-layer-num{color:#00b894}
+.arch-l5 .arch-layer-name{color:rgba(245,242,236,0.85)}
+.arch-l5 .arch-layer-tag{background:rgba(0,184,148,0.12);color:#00b894}
+.arch-l6{background:rgba(188,81,19,0.08);border-color:var(--accent)}
+.arch-l6 .arch-layer-num{color:var(--accent)}
+.arch-l6 .arch-layer-name{color:rgba(245,242,236,0.85)}
+.arch-l6 .arch-layer-tag{background:rgba(188,81,19,0.12);color:var(--accent)}
+.arch-connector{width:2px;height:8px;background:rgba(245,242,236,0.1);margin-left:31px}
+
+/* ── 2. PLATFORM SUMMARY ── */
+.platform-summary{padding:120px 60px;background:var(--paper);border-top:1px solid var(--border)}
+.platform-summary-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
+.platform-summary-left .sec-title{font-size:clamp(28px,3vw,42px)}
+.platform-summary-body{font-size:16px;color:var(--muted);line-height:1.75;margin-top:0}
+.platform-summary-stat{display:flex;gap:2px;margin-top:40px}
+.ps-stat{padding:20px 24px;background:var(--ink);flex:1}
+.ps-stat-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--paper);margin-bottom:4px}
+.ps-stat-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase}
+
+/* ── 3. SIX-LAYER ARCHITECTURE ── */
+.six-layers{padding:120px 60px;background:var(--ink)}
+.six-layers .sec-eyebrow{color:var(--accent2)}
+.six-layers .sec-title{color:var(--paper)}
+.six-layers .sec-title em{color:var(--accent2)}
+.six-layers-intro{font-size:15px;color:rgba(245,242,236,0.55);margin-top:16px;max-width:560px;line-height:1.65}
+.layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
+.layer-card{padding:44px 36px;position:relative;border-top:2px solid}
+.lc-1{background:rgba(94,203,161,0.04);border-color:#5ecba1}
+.lc-2{background:rgba(200,169,110,0.04);border-color:var(--accent2)}
+.lc-3{background:rgba(162,155,254,0.04);border-color:#a29bfe}
+.lc-4{background:rgba(253,203,110,0.04);border-color:#fdcb6e}
+.lc-5{background:rgba(0,184,148,0.04);border-color:#00b894}
+.lc-6{background:rgba(188,81,19,0.06);border-color:var(--accent)}
+.layer-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
+.lc-1 .layer-num{color:#5ecba1}
+.lc-2 .layer-num{color:var(--accent2)}
+.lc-3 .layer-num{color:#a29bfe}
+.lc-4 .layer-num{color:#fdcb6e}
+.lc-5 .layer-num{color:#00b894}
+.lc-6 .layer-num{color:var(--accent)}
+.layer-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--paper);margin-bottom:12px;letter-spacing:-0.3px;line-height:1.15}
+.layer-body{font-size:13px;color:rgba(245,242,236,0.5);line-height:1.65}
+.layer-sep{width:24px;height:1px;background:rgba(245,242,236,0.15);margin:20px 0}
+
+/* ── 4. CAPABILITIES ── */
+.capabilities{padding:120px 60px;background:var(--paper);border-top:1px solid var(--border)}
+.cap-inner{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start}
+.cap-list{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:0}
+.cap-item{padding:22px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start}
+.cap-item:nth-child(odd){padding-right:32px;border-right:1px solid var(--border)}
+.cap-item:nth-child(even){padding-left:32px}
+.cap-check{width:20px;height:20px;border-radius:50%;background:var(--accent2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.cap-check::after{content:'✓';font-size:9px;color:var(--ink);font-weight:700}
+.cap-text{font-size:14px;color:var(--ink);line-height:1.55}
+
+/* ── 5. WORKFLOW ── */
+.workflow{padding:120px 60px;background:var(--ink)}
+.workflow .sec-eyebrow{color:var(--accent2)}
+.workflow .sec-title{color:var(--paper)}
+.workflow .sec-title em{color:var(--accent2)}
+.workflow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px}
+.workflow-step{padding:36px 28px;position:relative;border-top:1px solid rgba(245,242,236,0.08)}
+.workflow-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:44px;color:rgba(245,242,236,0.2);font-size:16px;z-index:1}
+.wf-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;margin-bottom:20px;position:relative;z-index:1}
+.wf-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;color:rgba(245,242,236,0.35)}
+.wf-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--paper);margin-bottom:8px;line-height:1.2}
+.wf-body{font-size:12px;color:rgba(245,242,236,0.45);line-height:1.6}
+.workflow-row2{grid-template-columns:repeat(4,1fr);margin-top:2px}
+
+/* ── 6. WHAT TO EXPECT ── */
+.expect{padding:100px 60px;background:var(--paper);border-top:1px solid var(--border)}
+.expect-inner{max-width:900px;margin:0 auto}
+.expect-box{padding:56px 60px;background:var(--ink);position:relative;overflow:hidden}
+.expect-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent2),var(--accent),transparent)}
+.expect-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent2);text-transform:uppercase;margin-bottom:20px}
+.expect-title{font-family:'DM Serif Display',serif;font-size:clamp(24px,3vw,36px);color:var(--paper);margin-bottom:24px;letter-spacing:-1px;line-height:1.1}
+.expect-body{font-size:16px;color:rgba(245,242,236,0.7);line-height:1.75;font-weight:300;max-width:680px}
+
+/* ── 7. ROADMAP ── */
+.prod-roadmap{padding:120px 60px;background:var(--ink);border-top:1px solid rgba(245,242,236,0.06)}
+.prod-roadmap .sec-eyebrow{color:var(--accent2)}
+.prod-roadmap .sec-title{color:var(--paper)}
+.prod-roadmap .sec-title em{color:var(--accent2)}
+.rm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
+.rm-card{padding:48px 40px;background:rgba(245,242,236,0.03);border-top:2px solid}
+.rm-card.rm-now{border-color:var(--accent2)}
+.rm-card.rm-next{border-color:rgba(200,169,110,0.45)}
+.rm-card.rm-later{border-color:rgba(200,169,110,0.18)}
+.rm-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;display:inline-block;padding:3px 10px;border-radius:2px}
+.rm-card.rm-now .rm-badge{background:rgba(200,169,110,0.12);color:var(--accent2)}
+.rm-card.rm-next .rm-badge{background:rgba(200,169,110,0.06);color:rgba(200,169,110,0.65)}
+.rm-card.rm-later .rm-badge{background:rgba(200,169,110,0.03);color:rgba(200,169,110,0.35)}
+.rm-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--paper);margin-bottom:12px;letter-spacing:-0.3px;line-height:1.1}
+.rm-body{font-size:13px;color:rgba(245,242,236,0.5);line-height:1.65}
+
+/* ── 8. PRODUCT POSITIONING ── */
+.positioning{padding:120px 60px;background:var(--accent)}
+.positioning .sec-eyebrow{color:rgba(245,242,236,0.65)}
+.positioning .sec-title{color:var(--paper);max-width:700px}
+.pos-body{font-size:18px;color:rgba(245,242,236,0.85);line-height:1.75;max-width:680px;margin-top:24px;font-weight:300}
+.pos-actions{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
+.btn-white{background:var(--paper);color:var(--ink);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
+.btn-white:hover{background:var(--white)}
+.btn-outline-white{border:1px solid rgba(245,242,236,0.4);color:rgba(245,242,236,0.9);padding:13px 28px;font-size:14px;font-weight:500;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
+.btn-outline-white:hover{border-color:var(--paper);color:var(--paper)}
+
+/* ── 9. FINAL CTA ── */
+.prod-cta{padding:140px 60px;background:var(--ink);text-align:center}
+.prod-cta-inner{max-width:620px;margin:0 auto}
+.prod-cta h2{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,52px);color:var(--paper);letter-spacing:-1.5px;line-height:1.05;margin-bottom:20px}
+.prod-cta h2 em{color:var(--accent2);font-style:italic}
+.prod-cta p{font-size:16px;color:rgba(245,242,236,0.65);line-height:1.7;margin-bottom:40px;font-weight:300}
+.prod-cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+.footer-brand p{font-size:13px;color:rgba(245,242,236,0.55);margin-top:16px;line-height:1.65;max-width:260px}
+.footer-col-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent2);margin-bottom:20px}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--paper)}
+.footer-bottom{border-top:1px solid rgba(245,242,236,0.12);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-copy{font-family:'Space Mono',monospace;font-size:11px;color:rgba(245,242,236,0.4);letter-spacing:0.06em}
+.footer-badges{display:flex;gap:10px}
+.footer-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;padding:5px 11px;border:1px solid rgba(245,242,236,0.2);border-radius:2px;color:rgba(245,242,236,0.45);text-transform:uppercase}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .prod-hero{grid-template-columns:1fr;gap:60px;min-height:auto;padding-bottom:80px}
+  .prod-hero-right{display:none}
+  .platform-summary-inner{grid-template-columns:1fr}
+  .cap-inner{grid-template-columns:1fr}
+  .layer-grid{grid-template-columns:1fr 1fr}
+  .rm-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .prod-hero{padding:120px 24px 80px}
+  .platform-summary,.capabilities,.expect,.prod-roadmap,.positioning,.prod-cta,.six-layers,.workflow{padding-left:24px;padding-right:24px}
+  .cap-list{grid-template-columns:1fr}
+  .cap-item:nth-child(odd){border-right:none;padding-right:0}
+  .cap-item:nth-child(even){padding-left:0}
+  .layer-grid{grid-template-columns:1fr}
+  .workflow-steps,.workflow-row2{grid-template-columns:1fr 1fr}
+  .workflow-step::after{display:none}
+  .expect-box{padding:40px 32px}
+  .footer-grid{grid-template-columns:1fr}
+  .rm-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════
+     NAV
+════════════════════════════ -->
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#g)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#g)"/></g></svg>
+    <span class="logo-text">Concave <span style="color:var(--muted)">AI</span></span>
+  </a>
+  <div class="nav-links">
+    <div class="nav-item">
+      <a href="/services/rlhf">Services</a>
+      <div class="nav-dropdown">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/sycophancy">Sycophancy Audits</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/code-rlhf">Code RLHF</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/synthetic-data">Synthetic Data QA</a>
+        <a href="/services/rag">RAG Evaluation</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/industries/legal">Industries</a>
+      <div class="nav-dropdown">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance & BFSI</a>
+        <a href="/industries/automotive">Automotive & AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <a href="/company/about">About</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/company/how-it-works">How It Works</a>
+      </div>
+    </div>
+    <div class="nav-item plain">
+      <a href="/contact" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════
+     1. HERO
+════════════════════════════ -->
+<section class="prod-hero">
+  <div class="prod-hero-left">
+    <div class="prod-hero-eyebrow">Platform · AI Data Infrastructure</div>
+    <h1>The AI data infrastructure layer<br>for <em>model training</em></h1>
+    <p class="prod-hero-sub">Concave AI is building the unified workflow that turns raw enterprise data into governed, versioned, production-ready model data — across ingestion, preparation, RLAIF labeling, curation, observability, and reusable data distribution.</p>
+    <div class="prod-hero-actions">
+      <a href="/contact" class="btn-primary">Start with a free audit →</a>
+      <a href="#platform-summary" class="btn-ghost">Talk to us about the platform</a>
+    </div>
+  </div>
+
+  <div class="prod-hero-right">
+    <!-- CSS architecture stack diagram -->
+    <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;color:rgba(245,242,236,0.3);text-transform:uppercase;margin-bottom:16px">Platform architecture · 6 layers</div>
+    <div class="arch-stack">
+      <div class="arch-layer arch-l1">
+        <span class="arch-layer-num">L1</span>
+        <span class="arch-layer-name">Data Ingestion</span>
+        <span class="arch-layer-tag">Active</span>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-layer arch-l2">
+        <span class="arch-layer-num">L2</span>
+        <span class="arch-layer-name">Data Preparation</span>
+        <span class="arch-layer-tag">Active</span>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-layer arch-l3">
+        <span class="arch-layer-num">L3</span>
+        <span class="arch-layer-name">RLAIF Labeling</span>
+        <span class="arch-layer-tag">Active</span>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-layer arch-l4">
+        <span class="arch-layer-num">L4</span>
+        <span class="arch-layer-name">Curation & Versioning</span>
+        <span class="arch-layer-tag">Building</span>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-layer arch-l5">
+        <span class="arch-layer-num">L5</span>
+        <span class="arch-layer-name">Observability</span>
+        <span class="arch-layer-tag">Roadmap</span>
+      </div>
+      <div class="arch-connector"></div>
+      <div class="arch-layer arch-l6">
+        <span class="arch-layer-num">L6</span>
+        <span class="arch-layer-name">Governed Marketplace</span>
+        <span class="arch-layer-tag">Roadmap</span>
+      </div>
+    </div>
+    <div style="margin-top:20px;font-family:'Space Mono',monospace;font-size:9px;color:rgba(245,242,236,0.2);letter-spacing:0.06em">Layers 1–3 active in service delivery · Layers 4–6 in productization</div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     2. PLATFORM SUMMARY
+════════════════════════════ -->
+<section class="platform-summary" id="platform-summary">
+  <div class="platform-summary-inner">
+    <div class="platform-summary-left">
+      <span class="sec-eyebrow">What we are building</span>
+      <h2 class="sec-title">The unified AI data<br>infrastructure <em>platform</em></h2>
+    </div>
+    <div>
+      <p class="platform-summary-body">Concave AI is evolving from verified training-data delivery into a self-serve AI data infrastructure platform. The system is designed for teams that need recurring dataset operations, traceable versions, quality enforcement, and a consistent path from raw data to model-ready data.</p>
+      <p class="platform-summary-body" style="margin-top:20px">Today we deliver the first three layers as a managed service. Layers four through six — versioning, observability, and governed distribution — are being productized so teams can run them directly.</p>
+      <div class="platform-summary-stat">
+        <div class="ps-stat">
+          <div class="ps-stat-num">3</div>
+          <div class="ps-stat-label">Layers active</div>
+        </div>
+        <div class="ps-stat">
+          <div class="ps-stat-num">6</div>
+          <div class="ps-stat-label">Total platform layers</div>
+        </div>
+        <div class="ps-stat">
+          <div class="ps-stat-num">0.72+</div>
+          <div class="ps-stat-label">Kappa on every delivery</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     3. SIX-LAYER ARCHITECTURE
+════════════════════════════ -->
+<section class="six-layers" id="architecture">
+  <span class="sec-eyebrow">Architecture</span>
+  <h2 class="sec-title">The platform <em>architecture</em></h2>
+  <p class="six-layers-intro">The product is organized into six infrastructure layers that work together as one end-to-end workflow — from raw data to certified, reusable model training data.</p>
+
+  <div class="layer-grid">
+
+    <div class="layer-card lc-1">
+      <div class="layer-num">Layer 01 · Active</div>
+      <div class="layer-sep"></div>
+      <div class="layer-title">Data Ingestion Layer</div>
+      <div class="layer-body">Connects files, APIs, storage, and enterprise sources into the platform. Validates schema and format before any processing begins. Supports encrypted, audited intake for compliance-sensitive data.</div>
+    </div>
+
+    <div class="layer-card lc-2">
+      <div class="layer-num">Layer 02 · Active</div>
+      <div class="layer-sep"></div>
+      <div class="layer-title">Data Preparation Layer</div>
+      <div class="layer-body">Cleans, validates, normalizes, and structures incoming data before labeling begins. Applies task-specific schemas, annotation guidelines, and calibration runs to ensure consistent input quality.</div>
+    </div>
+
+    <div class="layer-card lc-3">
+      <div class="layer-num">Layer 03 · Active</div>
+      <div class="layer-sep"></div>
+      <div class="layer-title">Automated Labeling Layer (RLAIF)</div>
+      <div class="layer-body">Uses AI to pre-label, score, or generate preference data — reducing manual workload by up to 60%. Human annotators review edge cases and high-risk items. Kappa tracked live throughout.</div>
+    </div>
+
+    <div class="layer-card lc-4">
+      <div class="layer-num">Layer 04 · Building</div>
+      <div class="layer-sep"></div>
+      <div class="layer-title">Curation and Versioning Layer</div>
+      <div class="layer-body">Creates dataset releases with clear version history, diff tracking, and rollback capability. Ensures every dataset snapshot is reproducible and traceable — built for teams that iterate on training data.</div>
+    </div>
+
+    <div class="layer-card lc-5">
+      <div class="layer-num">Layer 05 · Roadmap</div>
+      <div class="layer-sep"></div>
+      <div class="layer-title">Observability Layer</div>
+      <div class="layer-body">Monitors live model outputs, drift, performance changes, and quality degradation. Triggers re-labeling loops automatically when quality thresholds are breached. Closes the model feedback loop.</div>
+    </div>
+
+    <div class="layer-card lc-6">
+      <div class="layer-num">Layer 06 · Roadmap</div>
+      <div class="layer-sep"></div>
+      <div class="layer-title">Governed Data Marketplace Layer</div>
+      <div class="layer-body">Publishes certified datasets for internal reuse or cross-team distribution. Enforces access control, usage policy, and certification standards. Enables organisations to build reusable data products.</div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     4. CAPABILITIES
+════════════════════════════ -->
+<section class="capabilities" id="capabilities">
+  <div class="cap-inner">
+    <div>
+      <span class="sec-eyebrow">Capabilities</span>
+      <h2 class="sec-title">What the platform <em>enables</em></h2>
+      <p class="sec-desc">A consistent, auditable path from raw data to production-ready model data — at every stage of the AI development cycle.</p>
+    </div>
+    <div class="cap-list">
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Turn raw enterprise data into model-ready training data</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Run self-serve labeling operations with role-based workflows</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Use RLAIF to accelerate pre-labeling and preference generation</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Maintain dataset versions for full reproducibility</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Track lineage and data provenance across the full lifecycle</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Monitor drift and quality changes over time in production</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Reuse certified datasets internally or across teams</div>
+      </div>
+      <div class="cap-item">
+        <div class="cap-check"></div>
+        <div class="cap-text">Support governance, access control, and full auditability</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     5. END-TO-END WORKFLOW
+════════════════════════════ -->
+<section class="workflow" id="workflow">
+  <span class="sec-eyebrow">End-to-End Workflow</span>
+  <h2 class="sec-title">How the system <em>works</em></h2>
+
+  <!-- Steps row 1: 1–4 -->
+  <div class="workflow-steps">
+    <div class="workflow-step">
+      <div class="wf-num" style="background:#5ecba1;color:#0a0a0a;box-shadow:0 0 0 6px rgba(94,203,161,0.12)">01</div>
+      <div class="wf-label">Ingestion</div>
+      <div class="wf-title">Raw data enters the platform</div>
+      <div class="wf-body">Data is ingested from APIs, file storage, or enterprise systems with encrypted, schema-validated intake.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="wf-num" style="background:var(--accent2);color:#0a0a0a;box-shadow:0 0 0 6px rgba(200,169,110,0.12)">02</div>
+      <div class="wf-label">Preparation</div>
+      <div class="wf-title">Data is prepared</div>
+      <div class="wf-body">The system validates, cleans, and structures the input. Task schemas and annotation guidelines are applied.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="wf-num" style="background:#a29bfe;color:#0a0a0a;box-shadow:0 0 0 6px rgba(162,155,254,0.12)">03</div>
+      <div class="wf-label">RLAIF Layer</div>
+      <div class="wf-title">RLAIF pre-labeling runs</div>
+      <div class="wf-body">AI generates initial labels or preference signals, reducing manual workload and flagging uncertainty.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="wf-num" style="background:#fdcb6e;color:#0a0a0a;box-shadow:0 0 0 6px rgba(253,203,110,0.12)">04</div>
+      <div class="wf-label">Human QA</div>
+      <div class="wf-title">Humans validate edge cases</div>
+      <div class="wf-body">Domain experts review uncertain or high-risk items. Cohen's kappa tracked live. Errors trigger recalibration.</div>
+    </div>
+  </div>
+
+  <!-- Steps row 2: 5–8 -->
+  <div class="workflow-steps workflow-row2" style="margin-top:2px">
+    <div class="workflow-step">
+      <div class="wf-num" style="background:#00b894;color:#0a0a0a;box-shadow:0 0 0 6px rgba(0,184,148,0.12)">05</div>
+      <div class="wf-label">Curation</div>
+      <div class="wf-title">Dataset is curated and versioned</div>
+      <div class="wf-body">A release snapshot is created with full traceability, version number, and quality gate confirmation.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="wf-num" style="background:var(--accent);color:var(--paper);box-shadow:0 0 0 6px rgba(188,81,19,0.12)">06</div>
+      <div class="wf-label">Lineage</div>
+      <div class="wf-title">Lineage is attached</div>
+      <div class="wf-body">Source origin, reviewer names, transformation steps, and approval history are recorded on every dataset.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="wf-num" style="background:rgba(245,242,236,0.12);color:rgba(245,242,236,0.5);box-shadow:0 0 0 6px rgba(245,242,236,0.04);font-family:'Space Mono',monospace">07</div>
+      <div class="wf-label">Observability · Roadmap</div>
+      <div class="wf-title">Observability monitors drift</div>
+      <div class="wf-body">Quality and performance degradation automatically trigger re-labeling loops — keeping training data current.</div>
+    </div>
+    <div class="workflow-step">
+      <div class="wf-num" style="background:rgba(245,242,236,0.12);color:rgba(245,242,236,0.5);box-shadow:0 0 0 6px rgba(245,242,236,0.04);font-family:'Space Mono',monospace">08</div>
+      <div class="wf-label">Distribution · Roadmap</div>
+      <div class="wf-title">Certified datasets are published</div>
+      <div class="wf-body">Trusted outputs can be reused across teams or distributed through the governed marketplace layer.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     6. WHAT TO EXPECT
+════════════════════════════ -->
+<section class="expect">
+  <div class="expect-inner">
+    <div class="expect-box">
+      <div class="expect-eyebrow">What to expect</div>
+      <div class="expect-title">A structured data workflow,<br>published metrics, faster iteration</div>
+      <p class="expect-body">Customers should expect a structured data workflow with published quality metrics on every delivery, faster iteration through AI-assisted labeling, human validation where quality matters, and traceable dataset releases that can grow into a self-serve platform as the product matures.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     7. ROADMAP
+════════════════════════════ -->
+<section class="prod-roadmap" id="roadmap">
+  <span class="sec-eyebrow">Roadmap</span>
+  <h2 class="sec-title" style="color:var(--paper)">Current state and<br><em>what comes next</em></h2>
+
+  <div class="rm-grid">
+    <div class="rm-card rm-now">
+      <span class="rm-badge">Now · Active</span>
+      <div class="rm-title">Verified Training Data Services</div>
+      <div class="rm-body">Training data delivery, QA, evaluation, and RLAIF workflows. Managed service across RLHF, NLP, image, video, and evaluation data types. Published quality metrics and benchmark follow-up on every project.</div>
+    </div>
+    <div class="rm-card rm-next">
+      <span class="rm-badge">Next · Building</span>
+      <div class="rm-title">Self-Serve Platform MVP</div>
+      <div class="rm-body">Self-serve dataset operations, versioning, lineage, and API access. Teams will be able to launch labeling projects, track versions, and integrate with MLOps systems directly — without going through a managed workflow.</div>
+    </div>
+    <div class="rm-card rm-later">
+      <span class="rm-badge">Later · Vision</span>
+      <div class="rm-title">Governed Dataset Marketplace</div>
+      <div class="rm-body">Certified dataset marketplace and reusable enterprise data products. Organisations will be able to publish, access-control, and distribute verified training datasets internally or across teams at scale.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     8. PRODUCT POSITIONING
+════════════════════════════ -->
+<section class="positioning">
+  <span class="sec-eyebrow">Why this matters</span>
+  <h2 class="sec-title">AI teams do not just<br>need labeling — they need<br>a <em>data operating system</em></h2>
+  <p class="pos-body">AI teams do not just need labeling. They need a repeatable, auditable data operating system that turns raw data into production-ready model data and keeps improving it as models and users change. That is the system Concave AI is building.</p>
+  <div class="pos-actions">
+    <a href="/contact" class="btn-white">Talk to us about the platform →</a>
+    <a href="/contact" class="btn-outline-white">Request free audit</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     9. FINAL CTA
+════════════════════════════ -->
+<section class="prod-cta">
+  <div class="prod-cta-inner">
+    <h2>Start with a <em>free</em> model audit</h2>
+    <p>Send us 50 model outputs or RLHF pairs. We will return a quality finding — sycophancy susceptibility or hallucination detection report — in 5 working days. No cost, no commitment.</p>
+    <div class="prod-cta-actions">
+      <a href="/contact" class="btn-primary">Request audit →</a>
+      <a href="/" class="btn-ghost">See homepage</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════
+     FOOTER
+════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo" style="text-decoration:none">
+        <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gf" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#gf)"/></g></svg>
+        <span class="logo-text" style="color:rgba(245,242,236,0.8)">Concave <span style="color:rgba(245,242,236,0.5)">AI</span></span>
+      </a>
+      <p>AI data infrastructure for model training. Building the unified platform for dataset operations, versioning, lineage, and governance.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Solutions</div>
+      <div class="footer-links">
+        <a href="/services/rlhf">RLHF Preference Data</a>
+        <a href="/services/nlp">NLP Annotation</a>
+        <a href="/services/sft">SFT Instruction Data</a>
+        <a href="/services/image">Image Annotation</a>
+        <a href="/services/video">Video Annotation</a>
+        <a href="/services/red-teaming">Red-Teaming</a>
+        <a href="/services/hallucination">Hallucination Detection</a>
+        <a href="/services/retainer">Model Quality Retainer</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Industries</div>
+      <div class="footer-links">
+        <a href="/industries/legal">Legal</a>
+        <a href="/industries/finance">Finance & BFSI</a>
+        <a href="/industries/automotive">Automotive & AV</a>
+        <a href="/industries/agriculture">Agriculture</a>
+        <a href="/industries/genai">Enterprise GenAI</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="/">Homepage</a>
+        <a href="/company/about">About</a>
+        <a href="/company/quality">Quality Standards</a>
+        <a href="/contact">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Concave AI. All rights reserved. Bengaluru, India.</div>
+    <div class="footer-badges">
+      <div class="footer-badge">DPDP Compliant</div>
+      <div class="footer-badge">GDPR Ready</div>
+      <div class="footer-badge">AWS Secured</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll shadow
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.boxShadow=window.scrollY>20?'0 1px 32px rgba(0,0,0,0.08)':'none';
+});
+// Smooth anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+  });
+});
+// Fade-in on scroll
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}
+  });
+},{threshold:0.08});
+document.querySelectorAll('.layer-card,.rm-card,.cap-item,.workflow-step,.arch-layer').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='opacity 0.45s ease,transform 0.45s ease';
+  obs.observe(el);
+});
+</script>
+</body>
+</html>
