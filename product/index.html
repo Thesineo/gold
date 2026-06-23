@@ -153,11 +153,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
 /* ── 6. WHAT TO EXPECT ── */
 .expect{padding:120px 60px;background:var(--paper)}
-.expect-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.expect-inner{max-width:760px}
 .expect-box{padding:86px 100px;background:var(--ink);position:relative;overflow:hidden}
 .expect-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent2),var(--accent),transparent)}
 .expect-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
-.expect-title{font-family:'DM Serif Display',serif;font-size:44px;color:var(--ink)}
+.expect-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,3.5vw,44px);color:var(--ink);letter-spacing:-1px;line-height:1.1;margin-bottom:20px}
 .expect-body{font-size:22px;color:var(--muted);line-height:1.75;font-weight:300;max-width:680px}
 
 /* ── 7. ROADMAP ── */
@@ -229,7 +229,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   .nav-links{display:none}
   .prod-hero{padding:120px 24px 80px}
   .platform-summary,.capabilities,.expect,.prod-roadmap,.positioning,.prod-cta,.six-layers,.workflow{padding-left:24px;padding-right:24px}
-  .expect-inner{grid-template-columns:1fr}
   .cap-list{grid-template-columns:1fr}
   .cap-item:nth-child(odd){border-right:none;padding-right:0}
   .cap-item:nth-child(even){padding-left:0}
@@ -363,7 +362,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div style="display:grid;grid-template-columns:1fr 1fr;min-height:580px">
     <!-- Image left -->
     <div style="position:relative;overflow:hidden;background:var(--ink)">
-      <img src="/images/image%20demo2%20.jpg" alt="AI data infrastructure" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.80) saturate(1.05)">
+      <img src="/images/image%20demo2%20.jpg" alt="AI data infrastructure" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
       <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.55),rgba(10,10,10,0.2));pointer-events:none"></div>
       <div style="position:absolute;top:20px;left:20px;right:20px;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none">
         <div style="font-family:'Space Mono',monospace;font-size:9px;background:var(--accent2);color:#0a0a0a;padding:3px 10px;border-radius:2px;letter-spacing:0.07em">● L1–L3 · Active</div>
@@ -560,10 +559,8 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 ════════════════════════════ -->
 <section class="expect">
   <div class="expect-inner">
-    <div>
-      <div class="expect-eyebrow">What to expect</div>
-      <div class="expect-title">A structured data workflow, published metrics, faster iteration</div>
-    </div>
+    <div class="expect-eyebrow">What to expect</div>
+    <div class="expect-title">A structured data workflow, published metrics, faster iteration</div>
     <p class="expect-body">Customers should expect a structured data workflow with published quality metrics on every delivery, faster iteration through AI-assisted labeling, human validation where quality matters, and traceable dataset releases that can grow into a self-serve platform as the product matures.</p>
   </div>
 </section>
