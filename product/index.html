@@ -37,10 +37,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .sec-title{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,52px);letter-spacing:-1.5px;line-height:1.05}
 .sec-title em{font-style:italic;color:var(--accent)}
 .sec-desc{font-size:17px;color:var(--muted);max-width:560px;margin-top:16px;font-weight:300;line-height:1.65}
-.btn-primary{background:var(--accent2);color:var(--ink);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
-.btn-primary:hover{background:var(--white);color:var(--ink)}
+.btn-primary{background:var(--paper);color:var(--accent);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
+.btn-primary:hover{background:var(--accent);color:var(--paper)}
 .btn-ghost{border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.8);padding:13px 28px;font-size:14px;font-weight:500;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
-.btn-ghost:hover{border-color:var(--accent2);color:var(--accent2)}
+.btn-ghost:hover{border-color:var(--paper);color:var(--paper)}
 .btn-ink{background:var(--ink);color:var(--paper);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
 .btn-ink:hover{background:var(--accent)}
 
@@ -100,10 +100,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .ps-stat-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.1em;text-transform:uppercase}
 
 /* ── 3. SIX-LAYER ARCHITECTURE ── */
-.six-layers{padding:120px 60px;background:var(--ink)}
+.six-layers{padding:120px 60px;background:var(--paper)}
 .six-layers .sec-eyebrow{color:var(--accent2)}
-.six-layers .sec-title{color:var(--paper)}
-.six-layers .sec-title em{color:var(--accent2)}
+.six-layers .sec-title{color:var(--ink)}
+.six-layers .sec-title em{color:var(--accent)}
 .six-layers-intro{font-size:15px;color:rgba(245,242,236,0.55);margin-top:16px;max-width:560px;line-height:1.65}
 .layer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
 .layer-card{padding:44px 36px;position:relative;border-top:2px solid;background-size:cover;background-position:center;overflow:hidden}
@@ -138,35 +138,35 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .cap-text{font-size:14px;color:var(--ink);line-height:1.55}
 
 /* ── 5. WORKFLOW ── */
-.workflow{padding:120px 60px;background:var(--ink)}
-.workflow .sec-eyebrow{color:var(--accent2)}
-.workflow .sec-title{color:var(--paper)}
-.workflow .sec-title em{color:var(--accent2)}
+.workflow{padding:120px 60px;background:var(--paper)}
+.workflow .sec-eyebrow{color:var(--accent)}
+.workflow .sec-title{color:var(--ink)}
+.workflow .sec-title em{color:var(--accent)}
 .workflow-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px}
 .workflow-step{padding:36px 28px;position:relative;border-top:1px solid rgba(245,242,236,0.08)}
 .workflow-step:not(:last-child)::after{content:'→';position:absolute;right:-12px;top:44px;color:rgba(245,242,236,0.2);font-size:16px;z-index:1}
 .wf-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;margin-bottom:20px;position:relative;z-index:1}
 .wf-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;color:rgba(245,242,236,0.35)}
-.wf-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--paper);margin-bottom:8px;line-height:1.2}
-.wf-body{font-size:12px;color:rgba(245,242,236,0.45);line-height:1.6}
+.wf-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.wf-body{font-size:12px;color:rgba(27, 26, 24, 0.852);line-height:1.6}
 .workflow-row2{grid-template-columns:repeat(4,1fr);margin-top:2px}
 
 /* ── 6. WHAT TO EXPECT ── */
-.expect{padding:100px 60px;background:var(--paper);border-top:1px solid var(--border)}
-.expect-inner{max-width:900px;margin:0 auto}
-.expect-box{padding:56px 60px;background:var(--ink);position:relative;overflow:hidden}
+.expect{padding:120px 60px;background:var(--paper)}
+.expect-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.expect-box{padding:86px 100px;background:var(--ink);position:relative;overflow:hidden}
 .expect-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent2),var(--accent),transparent)}
-.expect-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent2);text-transform:uppercase;margin-bottom:20px}
-.expect-title{font-family:'DM Serif Display',serif;font-size:clamp(24px,3vw,36px);color:var(--paper);margin-bottom:24px;letter-spacing:-1px;line-height:1.1}
-.expect-body{font-size:16px;color:rgba(245,242,236,0.7);line-height:1.75;font-weight:300;max-width:680px}
+.expect-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
+.expect-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,3vw,36px);color:var(--ink);margin-bottom:24px;letter-spacing:-1px;line-height:1.1}
+.expect-body{font-size:22px;color:var(--muted);line-height:1.75;font-weight:300;max-width:680px}
 
 /* ── 7. ROADMAP ── */
-.prod-roadmap{padding:120px 60px;background:var(--ink);border-top:1px solid rgba(245,242,236,0.06)}
-.prod-roadmap .sec-eyebrow{color:var(--accent2)}
-.prod-roadmap .sec-title{color:var(--paper)}
-.prod-roadmap .sec-title em{color:var(--accent2)}
+.prod-roadmap{padding:120px 60px;background:var(--paper);border-top:1px solid rgba(245,242,236,0.06)}
+.prod-roadmap .sec-eyebrow{color:var(--accent)}
+.prod-roadmap .sec-title{color:var(--ink)}
+.prod-roadmap .sec-title em{color:var(--accent)}
 .rm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.rm-card{padding:48px 40px;border-top:2px solid;position:relative;overflow:hidden;background-size:cover;background-position:center}
+.rm-card{padding:48px 40px;overflow:hidden;background-size:cover;background-position:center}
 .rm-card::before{content:'';position:absolute;inset:0;background:rgba(10,10,10,0.85);z-index:0;pointer-events:none}
 .rm-card>*{position:relative;z-index:1}
 .rm-card.rm-now{border-color:var(--accent2)}
@@ -174,7 +174,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .rm-card.rm-later{border-color:rgba(200,169,110,0.18)}
 .rm-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px;display:inline-block;padding:3px 10px;border-radius:2px}
 .rm-card.rm-now .rm-badge{background:rgba(200,169,110,0.12);color:var(--accent2)}
-.rm-card.rm-next .rm-badge{background:rgba(200,169,110,0.06);color:rgba(200,169,110,0.65)}
+.rm-card.rm-next .rm-badge{background:rgba(88, 78, 57, 0.06);color:rgba(200,169,110,0.65)}
 .rm-card.rm-later .rm-badge{background:rgba(200,169,110,0.03);color:rgba(200,169,110,0.35)}
 .rm-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--paper);margin-bottom:12px;letter-spacing:-0.3px;line-height:1.1}
 .rm-body{font-size:13px;color:rgba(245,242,236,0.5);line-height:1.65}
@@ -193,10 +193,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .btn-outline-white:hover{border-color:var(--paper);color:var(--paper)}
 
 /* ── 9. FINAL CTA ── */
-.prod-cta{padding:140px 60px;background:var(--ink);text-align:center}
+.prod-cta{padding:140px 60px;background:var(--accent);text-align:center}
 .prod-cta-inner{max-width:620px;margin:0 auto}
 .prod-cta h2{font-family:'DM Serif Display',serif;font-size:clamp(36px,4vw,52px);color:var(--paper);letter-spacing:-1.5px;line-height:1.05;margin-bottom:20px}
-.prod-cta h2 em{color:var(--accent2);font-style:italic}
+.prod-cta h2 em{color:var(--paper);font-style:italic}
 .prod-cta p{font-size:16px;color:rgba(245,242,236,0.65);line-height:1.7;margin-bottom:40px;font-weight:300}
 .prod-cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
@@ -204,7 +204,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
 .footer-brand p{font-size:13px;color:rgba(245,242,236,0.55);margin-top:16px;line-height:1.65;max-width:260px}
-.footer-col-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent2);margin-bottom:20px}
+.footer-col-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--paper);margin-bottom:20px}
 .footer-links{display:flex;flex-direction:column;gap:10px}
 .footer-links a{font-size:13px;color:rgba(245,242,236,0.65);text-decoration:none;transition:color 0.2s}
 .footer-links a:hover{color:var(--paper)}
@@ -229,6 +229,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   .nav-links{display:none}
   .prod-hero{padding:120px 24px 80px}
   .platform-summary,.capabilities,.expect,.prod-roadmap,.positioning,.prod-cta,.six-layers,.workflow{padding-left:24px;padding-right:24px}
+  .expect-inner{grid-template-columns:1fr}
   .cap-list{grid-template-columns:1fr}
   .cap-item:nth-child(odd){border-right:none;padding-right:0}
   .cap-item:nth-child(even){padding-left:0}
@@ -362,7 +363,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div style="display:grid;grid-template-columns:1fr 1fr;min-height:580px">
     <!-- Image left -->
     <div style="position:relative;overflow:hidden;background:var(--ink)">
-      <img src="/images/imagedemo1.jpg" alt="AI data infrastructure" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.72) saturate(1.05)">
+      <img src="/images/image%20demo2%20.jpg" alt="AI data infrastructure" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;filter:brightness(0.80) saturate(1.05)">
       <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,10,10,0.55),rgba(10,10,10,0.2));pointer-events:none"></div>
       <div style="position:absolute;top:20px;left:20px;right:20px;display:flex;gap:8px;flex-wrap:wrap;pointer-events:none">
         <div style="font-family:'Space Mono',monospace;font-size:9px;background:var(--accent2);color:#0a0a0a;padding:3px 10px;border-radius:2px;letter-spacing:0.07em">● L1–L3 · Active</div>
@@ -374,7 +375,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <span class="sec-eyebrow">What we are building</span>
       <h2 class="sec-title" style="margin-top:12px">The unified AI data<br>infrastructure <em>platform</em></h2>
       <p class="platform-summary-body" style="margin-top:16px">Concave AI is evolving from verified training-data delivery into a self-serve AI data infrastructure platform. The system is designed for teams that need recurring dataset operations, traceable versions, quality enforcement, and a consistent path from raw data to model-ready data.</p>
-      <p class="platform-summary-body" style="margin-top:14px">Today we deliver the first three layers as a managed service. Layers four through six — versioning, observability, and governed distribution — are being productized so teams can run them directly.</p>
+      <p class="platform-summary-body" style="margin-top:14px">Today we deliver the first three layers as a managed service. Layers four through six will be versioning, observability, and governed distribution which are being productized so teams can run them directly.</p>
       <div class="platform-summary-stat" style="margin-top:32px">
         <div class="ps-stat"><div class="ps-stat-num">3</div><div class="ps-stat-label">Layers active</div></div>
         <div class="ps-stat"><div class="ps-stat-num">6</div><div class="ps-stat-label">Total layers</div></div>
@@ -559,11 +560,9 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 ════════════════════════════ -->
 <section class="expect">
   <div class="expect-inner">
-    <div class="expect-box">
       <div class="expect-eyebrow">What to expect</div>
-      <div class="expect-title">A structured data workflow,<br>published metrics, faster iteration</div>
-      <p class="expect-body">Customers should expect a structured data workflow with published quality metrics on every delivery, faster iteration through AI-assisted labeling, human validation where quality matters, and traceable dataset releases that can grow into a self-serve platform as the product matures.</p>
-    </div>
+      <div class="expect-title">A structured data workflow, published metrics, faster iteration</div>
+      <p class="expect-body">Customers should expect a structured data workflow with published quality metrics on every delivery, faster iteration through AI-assisted labeling, human validation where quality matters, and traceable dataset releases that can grow into a self-serve platform as the product matures.</p>   
   </div>
 </section>
 
@@ -573,7 +572,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 ════════════════════════════ -->
 <section class="prod-roadmap" id="roadmap">
   <span class="sec-eyebrow">Roadmap</span>
-  <h2 class="sec-title" style="color:var(--paper)">Current state and<br><em>what comes next</em></h2>
+  <h2 class="sec-title" style="color:var(--ink)">Current state and<em> what comes next</em></h2>
 
   <div class="rm-grid">
     <div class="rm-card rm-now" style="background-image:url('/images/AV1.png')">
@@ -632,7 +631,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="footer-brand">
       <a href="/" class="nav-logo" style="text-decoration:none">
         <svg width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gf" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF4500"/><stop offset="100%" style="stop-color:#FF8C00"/></linearGradient></defs><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(0)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke="url(#gf)" stroke-width="8" fill="none" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="url(#gf)"/></g></svg>
-        <span class="logo-text" style="color:rgba(245,242,236,0.8)">Concave <span style="color:rgba(245,242,236,0.5)">AI</span></span>
+        <span class="logo-text" style="color:rgba(245,242,236,0.8)">Concave <span style="color:rgba(245, 242, 236, 0.967)">AI</span></span>
       </a>
       <p>AI data infrastructure for model training. Building the unified platform for dataset operations, versioning, lineage, and governance.</p>
     </div>
