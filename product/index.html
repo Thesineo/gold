@@ -127,7 +127,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .layer-sep{width:24px;height:1px;background:rgba(245,242,236,0.15);margin:20px 0}
 
 /* ── 4. CAPABILITIES ── */
-.capabilities{padding:120px 60px;background:var(--paper);border-top:1px solid var(--border)}
+.capabilities{padding:120px 60px;background:var(--paper)}
 .cap-inner{display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:start}
 .cap-list{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:0}
 .cap-item{padding:22px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start}
@@ -148,12 +148,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .wf-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;margin-bottom:20px;position:relative;z-index:1}
 .wf-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;color:rgba(245,242,236,0.35)}
 .wf-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:8px;line-height:1.2}
-.wf-body{font-size:12px;color:rgba(27, 26, 24, 0.852);line-height:1.6}
+.wf-body{font-size:12px;color:var(--muted);line-height:1.6}
 .workflow-row2{grid-template-columns:repeat(4,1fr);margin-top:2px}
 
 /* ── 6. WHAT TO EXPECT ── */
 .expect{padding:120px 60px;background:var(--paper)}
-.expect-inner{max-width:760px}
+.expect-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
 .expect-box{padding:86px 100px;background:var(--ink);position:relative;overflow:hidden}
 .expect-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--accent2),var(--accent),transparent)}
 .expect-eyebrow{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--accent);text-transform:uppercase;margin-bottom:20px}
@@ -180,11 +180,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 .rm-body{font-size:13px;color:rgba(245,242,236,0.5);line-height:1.65}
 
 /* ── 8. PRODUCT POSITIONING ── */
-.positioning{padding:120px 60px;background:var(--accent);position:relative;overflow:hidden;background-size:cover;background-position:center}
+.positioning{padding:120px 60px;background:var(--accent);position:relative;overflow:hidden;background-size:cover;background-position:center;text-align:center}
 .positioning::before{content:'';position:absolute;inset:0;background:rgba(188,81,19,0.88);z-index:0;pointer-events:none}
 .positioning>*{position:relative;z-index:1}
-.positioning .sec-eyebrow{color:rgba(245,242,236,0.65)}
-.positioning .sec-title{color:var(--paper);max-width:700px}
+.positioning .sec-eyebrow{color:var(--paper)}
+.positioning .sec-title{color:var(--paper);max-width:780px;margin-left:auto;margin-right:auto}
 .pos-body{font-size:18px;color:rgba(245,242,236,0.85);line-height:1.75;max-width:680px;margin-top:24px;font-weight:300}
 .pos-actions{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
 .btn-white{background:var(--paper);color:var(--ink);padding:14px 28px;font-size:14px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s;display:inline-block}
@@ -217,6 +217,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 @media(max-width:1100px){
   .prod-hero{grid-template-columns:1fr;gap:60px;min-height:auto;padding-bottom:80px}
   .prod-hero-right{display:none}
+  .expect-inner{grid-template-columns:1fr}
   .platform-summary [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr}
   .platform-summary [style*="min-height:580px"]{min-height:auto}
   .cap-inner{grid-template-columns:1fr}
@@ -559,9 +560,50 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 ════════════════════════════ -->
 <section class="expect">
   <div class="expect-inner">
-    <div class="expect-eyebrow">What to expect</div>
-    <div class="expect-title">A structured data workflow, published metrics, faster iteration</div>
-    <p class="expect-body">Customers should expect a structured data workflow with published quality metrics on every delivery, faster iteration through AI-assisted labeling, human validation where quality matters, and traceable dataset releases that can grow into a self-serve platform as the product matures.</p>
+    <!-- Left: heading stack -->
+    <div>
+      <div class="expect-eyebrow">What to expect</div>
+      <div class="expect-title">A structured data workflow, published metrics, faster iteration</div>
+      <p class="expect-body" style="margin-top:20px">Customers should expect a structured data workflow with published quality metrics on every delivery, faster iteration through AI-assisted labeling, human validation where quality matters, and traceable dataset releases that can grow into a self-serve platform as the product matures.</p>
+    </div>
+    <!-- Right: deliverables checklist -->
+    <div style="display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)">
+      <div style="padding:20px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);flex-shrink:0;padding-top:3px">01</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:4px">Published kappa score on every delivery</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Inter-annotator agreement reported alongside every dataset batch — not on request, by default.</div>
+        </div>
+      </div>
+      <div style="padding:20px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);flex-shrink:0;padding-top:3px">02</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:4px">Version-tagged, reproducible dataset releases</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Every output is versioned so you can roll back, compare, or branch without losing history.</div>
+        </div>
+      </div>
+      <div style="padding:20px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);flex-shrink:0;padding-top:3px">03</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:4px">AI-assisted labeling, human QA on every task</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Model-assisted pre-labeling accelerates throughput; trained reviewers catch edge cases before delivery.</div>
+        </div>
+      </div>
+      <div style="padding:20px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);flex-shrink:0;padding-top:3px">04</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:4px">Full lineage from raw input to model-ready output</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Traceable audit trail linking source files, annotator actions, and QA decisions to each exported label.</div>
+        </div>
+      </div>
+      <div style="padding:20px 0;display:flex;gap:16px;align-items:flex-start">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent);flex-shrink:0;padding-top:3px">05</span>
+        <div>
+          <div style="font-family:'DM Serif Display',serif;font-size:16px;color:var(--ink);margin-bottom:4px">Iteration loop as the platform matures</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.6">Self-serve controls unlock progressively — versioning, observability dashboards, and governed sharing as each layer productizes.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -598,7 +640,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 ════════════════════════════ -->
 <section class="positioning" style="background-image:url('/images/ADAS-image.png')">
   <span class="sec-eyebrow">Why this matters</span>
-  <h2 class="sec-title">AI teams do not just<br>need labeling — they need<br>a <em>data operating system</em></h2>
+  <h2 class="sec-title">AI teams do not just need labeling system they need data operating system</h2>
   <p class="pos-body">AI teams do not just need labeling. They need a repeatable, auditable data operating system that turns raw data into production-ready model data and keeps improving it as models and users change. That is the system Concave AI is building.</p>
   <div class="pos-actions">
     <a href="/contact" class="btn-white">Talk to us about the platform →</a>
@@ -607,19 +649,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 </section>
 
 
-<!-- ═══════════════════════════
-     9. FINAL CTA
-════════════════════════════ -->
-<section class="prod-cta">
-  <div class="prod-cta-inner">
-    <h2>Start with a <em>free</em> model audit</h2>
-    <p>Send us 50 model outputs or RLHF pairs. We will return a quality finding — sycophancy susceptibility or hallucination detection report — in 5 working days. No cost, no commitment.</p>
-    <div class="prod-cta-actions">
-      <a href="/contact" class="btn-primary">Request audit →</a>
-      <a href="/" class="btn-ghost">See homepage</a>
-    </div>
-  </div>
-</section>
+
 
 
 <!-- ═══════════════════════════
