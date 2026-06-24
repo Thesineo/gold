@@ -397,9 +397,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   .how-step{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08)}
   .metrics-layout{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
-  .module-grid{grid-template-columns:repeat(3,1fr)}
-  .roadmap-rows{grid-template-columns:1fr 1fr}
-  .why-now-points{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
   nav{padding:16px 24px}
@@ -412,10 +409,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   .vis-split{grid-template-columns:1fr}
   .vis-split-img{height:280px}
   .vis-split-body{padding:48px 28px}
-  .module-grid{grid-template-columns:1fr}
-  .why-now-points{grid-template-columns:1fr}
-  .roadmap-rows{grid-template-columns:1fr}
-  .platform-vision,.product-modules,.why-now,.roadmap{padding-left:24px;padding-right:24px}
   .img-strip{height:320px}
   .img-strip-overlay{padding:0 28px}
   .img-trio{grid-template-columns:1fr;height:auto}
@@ -443,51 +436,18 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 .why-box:hover .why-body{color:var(--muted)!important}
 .why-box-accent:hover{background:var(--paper)!important;border-left-color:var(--accent)!important}
 
-/* PLATFORM VISION */
-.platform-vision{padding:120px 60px;background:var(--ink);border-top:1px solid rgba(245,242,236,0.06)}
-.platform-vision .sec-eyebrow{color:var(--accent2)}
-.platform-vision .sec-title{color:var(--paper)}
-.platform-vision .sec-title em{color:var(--accent2);font-style:italic}
-.platform-vision .sec-desc{color:rgba(245,242,236,0.65)}
+/* PLATFORM-VISION */
+.platform-vision{padding:120px 60px;background:var(--paper);border-top:1px solid rgba(245,242,236,0.06)}
+.platform-vision .sec-eyebrow{color:var(--accent)}
+.platform-vision .sec-title{color:var(--ink)}
+.platform-vision .sec-title em{color:var(--accent);font-style:italic}
+.platform-vision .sec-desc{color:var(--muted)}
 
-/* PRODUCT MODULES */
-.product-modules{padding:120px 60px;background:var(--paper);border-top:1px solid var(--border)}
-.module-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:64px}
-.module-card{padding:40px 28px;background:var(--ink);border-top:2px solid var(--accent2)}
-.module-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
-.module-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--paper);margin-bottom:12px;line-height:1.2;letter-spacing:-0.3px}
-.module-body{font-size:12px;color:rgba(245,242,236,0.5);line-height:1.65}
-
-/* WHY NOW */
-.why-now{padding:120px 60px;background:var(--accent)}
-.why-now .sec-eyebrow{color:rgba(245,242,236,0.65)}
-.why-now .sec-title{color:var(--paper)}
-.why-now .sec-title em{color:var(--paper);font-style:italic;text-decoration:underline;text-decoration-color:rgba(245,242,236,0.35);text-underline-offset:4px}
-.why-now-body{font-size:17px;color:rgba(245,242,236,0.82);max-width:680px;margin-top:20px;line-height:1.7;font-weight:300}
-.why-now-points{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.why-now-point{padding:40px 36px;background:rgba(10,10,10,0.18)}
-.why-now-point-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--paper);margin-bottom:12px;letter-spacing:-0.3px}
-.why-now-point-body{font-size:13px;color:rgba(245,242,236,0.72);line-height:1.65}
-
-/* ROADMAP */
-.roadmap{padding:120px 60px;background:var(--ink);border-top:1px solid rgba(245,242,236,0.06)}
-.roadmap .sec-eyebrow{color:var(--accent2)}
-.roadmap .sec-title{color:var(--paper)}
-.roadmap .sec-title em{color:var(--accent2);font-style:italic}
-.roadmap-rows{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:64px}
-.roadmap-row{padding:44px 40px;background:rgba(245,242,236,0.03);border-top:2px solid}
-.roadmap-row.row-now{border-color:var(--accent2)}
-.roadmap-row.row-next{border-color:rgba(200,169,110,0.45)}
-.roadmap-row.row-later{border-color:rgba(200,169,110,0.18)}
-.roadmap-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
-.roadmap-row.row-now .roadmap-label{color:var(--accent2)}
-.roadmap-row.row-next .roadmap-label{color:rgba(200,169,110,0.65)}
-.roadmap-row.row-later .roadmap-label{color:rgba(200,169,110,0.35)}
-.roadmap-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--paper);margin-bottom:12px;letter-spacing:-0.3px;line-height:1.1}
-.roadmap-body{font-size:13px;color:rgba(245,242,236,0.5);line-height:1.65}
 </style>
 </head>
 <body>
+
+
 
 <nav>
   <a href="/" class="nav-logo">
@@ -533,7 +493,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
     <div class="nav-item">
       <a href="#">Company</a>
       <div class="nav-dropdown">
-        <a href="/company/about">About Us</a>
+        <a href="/product">Data Platform — Coming Soon</a><a href="/company/about">About Us</a>
         <a href="/company/quality">Quality Standards</a>
         <a href="/company/how-it-works">How It Works</a>
         <a href="/contact">Contact</a>
@@ -557,10 +517,10 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="hero-left">
     <div class="hero-eyebrow">Data infrastructure for AI model training</div>
     <h1>Training data that <em>actually</em> improves your model</h1>
-    <p class="hero-sub">Concave AI is building the AI data infrastructure layer for model training — verified data, RLAIF workflows, human QA, and the roadmap to self-serve dataset operations, versioning, and lineage.</p>
+    <p class="hero-sub">Production-grade RLHF, NLP, image, and evaluation data built for the model training pipeline, not checked off a labelling spreadsheet. AI+human hybrid pipeline with published quality metrics you can verify.</p>
     <div class="hero-actions">
       <a href="/contact" class="btn-primary">Start Free Audit →</a>
-      <a href="#platform" class="btn-secondary">See the platform vision ↓</a>
+      <a href="#services" class="btn-secondary">Explore solutions ↓</a>
     </div>
   </div>
   <div class="hero-stats">
@@ -730,7 +690,7 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="vis-split-body">
     <span class="sec-eyebrow">Why Concave AI</span>
     <h2 class="sec-title" style="margin-top:12px">Data Infrastructure for<br><em>AI Model Training</em></h2>
-    <p style="font-size:14px;color:var(--muted);margin-top:14px;line-height:1.65;max-width:420px">We build the AI data infrastructure layer that turns raw data into model-ready data — and the unified platform for dataset operations tomorrow. <a href="/company/about" style="color:var(--muted)">Learn more</a></p>
+    <p style="font-size:14px;color:var(--muted);margin-top:14px;line-height:1.65;max-width:420px">We build the data layer your model trains on, not just labelled files. ML-engineered pipelines, published quality metrics, and a feedback loop baked into every contract. <a href="/company/about" style="color:var(--muted)">Learn more</a></p>
     <!-- Compact reason boxes — all dark -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px">
       <div class="why-box" style="background:var(--ink);padding:16px">
@@ -759,53 +719,11 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 
 
 
-<section class="platform-vision" id="platform">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Platform Vision</span>
-    <h2 class="sec-title">The unified platform<br>we are <em>building</em></h2>
-    <p class="sec-desc">Concave AI is evolving from verified training-data delivery into a self-serve AI data infrastructure platform. The product will unify dataset curation, labeling operations, RLAIF, versioning, lineage, governance, and reusable dataset distribution in one workflow.</p>
-  </div>
-</section>
-
-<section class="product-modules">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Product Modules</span>
-    <h2 class="sec-title">What the platform<br>will <em>include</em></h2>
-  </div>
-  <div class="module-grid">
-    <div class="module-card">
-      <div class="module-num">01 · Building</div>
-      <div class="module-title">Self-serve labeling operations</div>
-      <div class="module-body">Launch and manage labeling projects with role-based workflows, automated QA, and live progress dashboards.</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">02 · Building</div>
-      <div class="module-title">RLAIF-assisted data creation</div>
-      <div class="module-body">Generate preference data and pre-labeling with AI assistance, validated by human annotators on every batch.</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">03 · Roadmap</div>
-      <div class="module-title">Dataset curation and versioning</div>
-      <div class="module-body">Create reproducible dataset snapshots with clear release history, diff tracking, and rollback capability.</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">04 · Roadmap</div>
-      <div class="module-title">Lineage and governance</div>
-      <div class="module-body">Track source, review, transformation, and approval history for every data asset — audit-ready by default.</div>
-    </div>
-    <div class="module-card">
-      <div class="module-num">05 · Roadmap</div>
-      <div class="module-title">API and marketplace layer</div>
-      <div class="module-body">Integrate with ML workflows via API and publish certified, reusable datasets for enterprise distribution.</div>
-    </div>
-  </div>
-</section>
-
 <section class="services" id="services">
   <div class="sec-header">
     <span class="sec-eyebrow">Solutions</span>
-    <h2 class="sec-title">Every data operation your model<br>training pipeline <em>needs</em></h2>
-    <p class="sec-desc">Concave AI supports the full data lifecycle for LLMs, multimodal AI, and ongoing model quality. Every service links to a dedicated page with full detail.</p>
+    <h2 class="sec-title">Every layer your model<br>training pipeline <em>needs</em></h2>
+    <p class="sec-desc">Four capability buckets every service links to a dedicated page with full detail.</p>
   </div>
 
   <!-- 4 category cards in 2x2 grid — all dark, hover → paper -->
@@ -993,13 +911,13 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   <div class="sec-header">
     <span class="sec-eyebrow">Industry Verticals</span>
     <h2 class="sec-title">Deep expertise in <em>five</em> domains</h2>
-    <p class="sec-desc">These are the domains where we are proving the workflow and building the productized platform.</p>
+    <p class="sec-desc">Providing data infrastructual layer across this domains.</p>
   </div>
   <div class="ind-grid" style="grid-template-columns:repeat(5,1fr);gap:8px">
 
-    <a class="ind-card" href="/industries/legal" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
-      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Legal</div>
-      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">Lawyer-annotated contracts, legal NER, RLHF, and red-teaming.</div>
+    <a class="ind-card" href="/industries/genai" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Enterprise GenAI</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">RAG eval, hallucination monitoring, red-teaming for production AI.</div>
     </a>
 
     <a class="ind-card" href="/industries/finance" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
@@ -1016,38 +934,16 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
       <div class="ind-name" style="color:#f5f2ec;font-size:20px">Agriculture</div>
       <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">Satellite crop classification, disease detection, PMFBY insurance labeling.</div>
     </a>
-
-    <a class="ind-card" href="/industries/genai" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
-      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Enterprise GenAI</div>
-      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">RAG eval, hallucination monitoring, red-teaming for production AI.</div>
+    
+    <a class="ind-card" href="/industries/legal" style="background:linear-gradient(to top,rgba(10,10,10,0.82) 0%,rgba(10,10,10,0.38) 60%,rgba(10,10,10,0.18) 100%),url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80&auto=format&fit=crop') center/cover no-repeat;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px">
+      <div class="ind-name" style="color:#f5f2ec;font-size:20px">Legal</div>
+      <div class="ind-desc" style="color:rgba(245,242,236,0.72);font-size:13px;margin-bottom:0">Lawyer-annotated contracts, legal NER, RLHF, and red-teaming.</div>
     </a>
 
   </div>
 </section>
 
 
-
-<section class="why-now" id="why-now">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Market Context</span>
-    <h2 class="sec-title">Why the market<br>needs this <em>now</em></h2>
-    <p class="why-now-body">AI teams are spending more on training data, but production AI still fails when data is fragmented, unversioned, and hard to trust. The market needs one workflow for labeling, curation, quality, lineage, and governance.</p>
-  </div>
-  <div class="why-now-points">
-    <div class="why-now-point">
-      <div class="why-now-point-title">Fragmented tools</div>
-      <div class="why-now-point-body">Teams stitch together labeling tools, QA pipelines, versioning systems, and MLOps integrations — with no unified data lineage across any of them.</div>
-    </div>
-    <div class="why-now-point">
-      <div class="why-now-point-title">Unversioned data</div>
-      <div class="why-now-point-body">Training datasets are rarely versioned or governed. When models degrade, teams cannot trace which data caused the regression or reproduce a prior state.</div>
-    </div>
-    <div class="why-now-point">
-      <div class="why-now-point-title">Data readiness gap</div>
-      <div class="why-now-point-body">Enterprises need repeatable, governed, versioned training data. There is no unified system between expensive labeling vendors and costly internal tooling.</div>
-    </div>
-  </div>
-</section>
 
 <section class="metrics" id="quality">
   <!-- Header + stats side by side -->
@@ -1128,7 +1024,33 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
 </section>
 
 
-<div style="background:var(--ink);padding:20px 60px;border-top:1px solid rgba(245,242,236,0.06)"><p style="font-family:'Space Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:0.1em;text-align:center;text-transform:uppercase;margin:0">Our current service layer funds the platform we are building</p></div>
+<section class="platform-vision" id="platform">
+  <span class="sec-eyebrow">Coming Soon</span>
+  <h2 class="sec-title" style="margin-top:12px;margin-bottom:56px">The Unified Data Platform with Infrastructural Layers to <em>Train AI Models</em></h2>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start">
+    <!-- Description: wider, split into two readable paragraphs -->
+    <div>
+      <p style="font-size:17px;color:var(--muted);line-height:1.8;font-weight:300;margin-bottom:22px">AI teams are spending heavily on training data in time and capital, yet 85% of AI models still fail in production when data is fragmented, unversioned, and hard to trust. The market needs one workflow for labeling, curation, quality, lineage, and governance.</p>
+      <p style="font-size:17px;color:var(--muted);line-height:1.8;font-weight:300">Concave AI is evolving from verified training-data delivery into a unified data platform embedding multiple infrastructural levels for ML and data operations. THe platform combines data ingestion and preparation layer, followed by an automated data labelling layer with RLAIF engine, curating and versioning layer for providing data lineage, alongwith an observability layer to monitor model performance for any drifts and a governed layer of data marketplace for reproducibility. One platform that transforms raw data into production-ready model data by replacing the fragmanted tool chain, manual pipeline and unmeasered quailty systems.</p>
+    </div>
+    <!-- Three impact stats using the empty right space -->
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div style="background:var(--ink);padding:28px 32px;display:flex;gap:24px;align-items:center">
+        <div style="font-family:'DM Serif Display',serif;font-size:44px;letter-spacing:-2px;color:var(--paper);line-height:1;flex-shrink:0">85%</div>
+        <div style="font-size:13px;color:rgba(245,242,236,0.65);line-height:1.65">of AI models fail in production due to fragmented, unversioned training data</div>
+      </div>
+      <div style="background:var(--ink);padding:28px 32px;display:flex;gap:24px;align-items:center">
+        <div style="font-family:'DM Serif Display',serif;font-size:44px;letter-spacing:-2px;color:var(--paper);line-height:1;flex-shrink:0">6</div>
+        <div style="font-size:13px;color:rgba(245,242,236,0.65);line-height:1.65">infrastructure layers from raw ingestion to governed, versioned dataset distribution</div>
+      </div>
+      <div style="background:var(--ink);padding:28px 32px;display:flex;gap:24px;align-items:center">
+        <div style="font-family:'DM Serif Display',serif;font-size:44px;letter-spacing:-2px;color:var(--paper);line-height:1;flex-shrink:0">1</div>
+        <div style="font-size:13px;color:rgba(245,242,236,0.65);line-height:1.65">unified workflow replacing fragmented labeling tools, QA pipelines, and MLOps integrations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="pricing" id="pricing">
   <div class="sec-header">
     <span class="sec-eyebrow">Pricing</span>
@@ -1176,30 +1098,6 @@ footer{background:var(--accent);color:var(--paper);padding:80px 60px 40px}
   </div>
 </section>
 
-
-<section class="roadmap" id="roadmap">
-  <div class="sec-header">
-    <span class="sec-eyebrow">Roadmap</span>
-    <h2 class="sec-title">Where we are<br>going from <em>here</em></h2>
-  </div>
-  <div class="roadmap-rows">
-    <div class="roadmap-row row-now">
-      <div class="roadmap-label">Now · Active</div>
-      <div class="roadmap-title">Verified Training Data Services</div>
-      <div class="roadmap-body">Training data, QA, evaluation, and RLAIF services — delivered with published quality metrics and a benchmark follow-up on every project.</div>
-    </div>
-    <div class="roadmap-row row-next">
-      <div class="roadmap-label">Next · Building</div>
-      <div class="roadmap-title">Self-Serve Platform MVP</div>
-      <div class="roadmap-body">Self-serve dataset operations, versioning, lineage, and API access — turning our operational workflow into a product teams can run directly.</div>
-    </div>
-    <div class="roadmap-row row-later">
-      <div class="roadmap-label">Later · Vision</div>
-      <div class="roadmap-title">Dataset Marketplace</div>
-      <div class="roadmap-body">Certified dataset marketplace and reusable enterprise data products — governed, versioned, and ready for model training at scale.</div>
-    </div>
-  </div>
-</section>
 
 <section class="cta-section" id="contact">
   <div class="cta-inner">
