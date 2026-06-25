@@ -439,7 +439,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
   <p>Curate prompt-response pairs representing your target task distribution. For SFT: domain experts write or verify responses claim-level verification of every factual statement prevents hallucination from entering training data. For RLHF/DPO: trained evaluators compare pairs with written reasoning, calibrated on sycophancy resistance and factual accuracy priority. Inter-annotator agreement (kappa ≥ 0.70) must be measured. DPO is simpler and increasingly preferred over full RLHF; RLHF provides more control over the optimisation process.</p>
 
   <h3>Speech / audio models</h3>
-  <p>Audio must be segmented into utterances with accurate time-aligned transcriptions. Normalise volume, ensure consistent sampling rate (16kHz for ASR). For Indian language ASR, this includes handling code-switching between English and regional languages (extremely common in professional contexts), regional accent variation, and domain vocabulary. Fine-tune Whisper on your domain-specific audio even 5–10 hours of high-quality domain audio can dramatically improve recognition accuracy on your target vocabulary.</p>
+  <p>Audio must be segmented into utterances with accurate time-aligned transcriptions. Normalise volume, ensure consistent sampling rate (16kHz for ASR). For language ASR, this includes handling code-switching between English and regional languages (extremely common in professional contexts), regional accent variation, and domain vocabulary. Fine-tune Whisper on your domain-specific audio even 5–10 hours of high-quality domain audio can dramatically improve recognition accuracy on your target vocabulary.</p>
 
   <h3>Multimodal models</h3>
   <p>The training data challenge is alignment: ensuring text descriptions accurately correspond to visual or audio content. A mislabeled image-text pair teaches the model an incorrect association. At scale, even a 5% mislabeling rate produces models that hallucinate visual descriptions claiming to see objects not present in the image. Annotation for multimodal data requires annotators who can evaluate both modalities simultaneously and verify alignment between them.</p>
@@ -484,7 +484,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <span class="comment">-- A100 80GB spot: $1.50–2.50/hr  |  H100 spot: $2.50–4.00/hr --</span></pre>
   </div>
 
-  <div class="dt-label">Annotation costs by type Indian market 2026</div>
+  <div class="dt-label">Annotation costs by market 2026</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -528,12 +528,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="dt-cell">₹100–200/pair</div>
       <div class="dt-cell">2,000 pairs</div>
       <div class="dt-cell">₹2L–4L</div>
-    </div>
-    <div class="dt-row sep">
-      <div class="dt-cell wide label">Domain-expert annotation (legal, medical, financial)</div>
-      <div class="dt-cell dt-warn">+30–50% premium</div>
-      <div class="dt-cell">-</div>
-      <div class="dt-cell dt-imp">Justified by model quality</div>
     </div>
   </div>
   </div>

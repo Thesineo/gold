@@ -382,7 +382,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p>Real data has one property that synthetic data can never fully replicate: it captures the actual complexity, noise, and edge cases of the real world.</p>
 
-  <p>A real-world driving dataset includes the specific pattern of rain on a windshield at 4:47 PM in Bengaluru monsoon traffic with a cracked road surface and a hand-cart vendor partially visible behind a parked auto-rickshaw. No simulation generates this combination because no simulator has been programmed with the specific probability distribution of hand-cart vendor positions relative to auto-rickshaws in Indian monsoon conditions.</p>
+  <p>A real-world driving dataset includes the specific pattern of rain on a windshield at 4:47 PM in Bengaluru monsoon traffic with a cracked road surface and a hand-cart vendor partially visible behind a parked auto-rickshaw. No simulation generates this combination because no simulator has been programmed with the specific probability distribution of hand-cart vendor positions relative to various conditions.</p>
 
   <p>A real-world financial document dataset includes the specific way a third-generation photocopy of a salary slip from a small Tier 3 employer smudges the digit "7" so it looks like "1." No synthetic document generator creates this specific degradation pattern because no generator has been trained on the specific combination of photocopier age, paper quality, and scan angle that produced it.</p>
 
@@ -410,7 +410,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <ul>
         <li>Model makes decisions with real-world consequences (medical, financial, legal)</li>
         <li>Domain expertise is required for accurate labeling</li>
-        <li>Cultural or regional specificity matters (Indian languages, Indian roads)</li>
+        <li>Cultural or regional specificity matters </li>
         <li>You need to validate whether synthetic data is good enough</li>
         <li>Annotation quality must match consequence severity</li>
       </ul>
@@ -454,14 +454,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
         <div class="dt-cell dt-ok">Quality baseline</div>
         <div class="dt-cell dt-ok">Best results</div>
       </div>
-      <div class="dt-row">
-        <div class="dt-cell wide label">Medical imaging AI</div>
-        <div class="dt-cell dt-bad">High rare-case failure</div>
-        <div class="dt-cell dt-ok">Required for safety</div>
-        <div class="dt-cell dt-ok">Synthetic for augmentation only</div>
-      </div>
       <div class="dt-row alt">
-        <div class="dt-cell wide label">Indian language NLP</div>
+        <div class="dt-cell wide label">Natural Language Processing</div>
         <div class="dt-cell dt-bad">Missing code-switching</div>
         <div class="dt-cell dt-ok">Cultural accuracy</div>
         <div class="dt-cell dt-ok">Real dominant</div>
@@ -492,8 +486,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>The domain gap between synthetic and real data has narrowed but not closed. Models trained exclusively on synthetic data typically show 5–20% performance degradation on real-world inputs. For safety-critical and high-stakes applications, this gap is unacceptable.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Model collapse is a real risk in synthetic data pipelines. Each generation of synthetic data produced from the previous generation loses diversity and amplifies biases. Real data must be injected regularly to maintain distribution quality.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Synthetic data does not eliminate the need for annotation it redistributes it. The cost of generating synthetic data is low. The cost of validating that it is realistic, accurate, and artefact-free approaches the cost of annotating real data with less certainty about quality.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Real data captures the long tail of complexity that synthetic data cannot replicate. Indian monsoon driving conditions, handwritten financial documents from Tier 3 towns, code-switched Hindi-English calls these require data from the actual context, annotated by people who understand that context.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>For every use case where annotation quality determines model performance RLHF alignment, medical imaging, financial document processing, legal AI, agricultural crop identification real, expert-annotated data remains the quality baseline that synthetic data is measured against.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>Real data captures the long tail of complexity that synthetic data cannot replicate. Such as monsoon driving conditions, handwritten financial documents, code-switched calls these require data from the actual context, annotated by people who understand that context.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>For every use case where annotation quality determines model performance RLHF alignment, financial document processing, legal AI, agricultural crop identification real, expert-annotated data remains the quality baseline that synthetic data is measured against.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span>The question is not "synthetic or real?" but "how much of each, validated how?" The teams that answer this question well build models that work in production. The teams that treat synthetic data as a shortcut build models that work in demos but fail when it matters.</span></div>
     </div>
   </div>

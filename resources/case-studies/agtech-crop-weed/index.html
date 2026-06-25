@@ -296,7 +296,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>Why standard image labeling fails in <em>precision agriculture</em></h2>
 
-  <p>Agricultural computer vision has a class similarity problem that is unlike anything in autonomous driving, retail, or medical imaging. In autonomous driving, a car looks fundamentally different from a pedestrian distinct shape, size, texture, motion pattern. In medical imaging, a tumour looks different from healthy tissue in structure, density, and contrast.</p>
+  <p>Agricultural computer vision has a class similarity problem that is unlike anything in autonomous driving, retail, imaging. In autonomous driving, a car looks fundamentally different from a pedestrian distinct shape, size, texture, motion pattern.</p>
 
   <p>In agriculture, the visual difference between a crop seedling and a weed seedling at the 2–4 leaf stage can be as subtle as the <strong>angle of leaf venation, the shade of green at the leaf margin, or the growth pattern of the first true leaves</strong>. To a non-expert annotator or to an AI model trained on annotations by non-experts a pigweed seedling and a cotton seedling at the 3-leaf stage are visually indistinguishable.</p>
 
@@ -313,7 +313,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="confusion-card">
       <div class="confusion-tag">Rice Paddies · All zones</div>
       <div class="confusion-pair">Rice vs Barnyard Grass (Echinochloa)</div>
-      <div class="confusion-note">The most common weed in Indian rice paddies. At tillering stage, barnyard grass is visually similar to rice tillers. Distinction requires examining the leaf auricle rice has a prominent ligule and auricle at the leaf collar; barnyard grass does not.</div>
+      <div class="confusion-note">The most common weed in rice paddies. At tillering stage, barnyard grass is visually similar to rice tillers. Distinction requires examining the leaf auricle rice has a prominent ligule and auricle at the leaf collar; barnyard grass does not.</div>
     </div>
     <div class="confusion-card">
       <div class="confusion-tag">Wheat Belt · Punjab, Haryana</div>
@@ -333,7 +333,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <p><strong>Crop-as-weed:</strong> In a cotton field at ₹65 per plant (mature yield value), a 5% misclassification rate across 50,000 plants per hectare destroys 2,500 plants × ₹65 = <strong>₹1.625 lakhs per hectare</strong> in lost crop value.</p>
 
-  <p><strong>Weed-as-crop:</strong> Research from ICAR shows uncontrolled weed growth reduces Indian crop yields by 15–30%. In a rice field yielding ₹1.2 lakhs per hectare, a 20% yield loss costs ₹24,000 per hectare from missed weeds alone.</p>
+  <p><strong>Weed-as-crop:</strong> Research from ICAR shows uncontrolled weed growth reduces crop yields by 15–30%. In a rice field yielding ₹1.2 lakhs per hectare, a 20% yield loss costs ₹24,000 per hectare from missed weeds alone.</p>
 
   <p>Both error types are caused by the same root problem: annotation data where class labels were assigned by people who could not reliably distinguish the species.</p>
 
@@ -347,7 +347,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>Dataset construction 2,500 field images across four agro-climatic zones</h2>
 
-  <p>We assembled a dataset representing the full crop-weed identification challenge in Indian agriculture. Images were sourced from publicly available agricultural datasets (PlantDoc, Crop/Weed Field Image on Kaggle, ICAR image banks) augmented with field photographs from Indian farms across Maharashtra, Karnataka, Punjab, and Tamil Nadu.</p>
+  <p>We assembled a dataset representing the full crop-weed identification challenge in agriculture. Images were sourced from publicly available agricultural datasets (PlantDoc, Crop/Weed Field Image on Kaggle, ICAR image banks) augmented with field photographs.</p>
 
   <div class="dt-label">Dataset composition 2,500 images, 17 classes</div>
   <div class="table-scroll">
@@ -467,7 +467,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 <span class="label-k">  3-leaf stage):              </span><span class="val-bad">0.31   ← near random chance</span></pre>
   </div>
 
-  <p>A standard team kappa of 0.31 on the cotton-pigweed pair means their labels are only slightly better than random chance for binary classification. Any model trained on this data for cotton-pigweed discrimination would be essentially guessing on the most commercially important weed pair in Indian cotton farming.</p>
+  <p>A standard team kappa of 0.31 on the cotton-pigweed pair means their labels are only slightly better than random chance for binary classification. Any model trained on this data for cotton-pigweed discrimination would be essentially guessing on the most commercially important weed pair in cotton farming.</p>
 
   <h2>Classification accurac standard vs expert annotation</h2>
 
@@ -605,7 +605,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h2>Economic impact - ₹5.13 lakhs per hectare from annotation quality</h2>
 
-  <div class="dt-label">Economic impact modelling precision spraying on Indian cotton farm</div>
+  <div class="dt-label">Economic impact modelling precision spraying on cotton farm</div>
   <div class="table-scroll">
   <div class="data-table">
     <div class="dt-head">
@@ -722,7 +722,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="key-takeaway-title">Key learnings</div>
     <div class="key-takeaway-list">
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Annotation accuracy in agricultural AI is determined by annotator expertise, not annotator diligence.</strong> The standard annotators were experienced, careful image labelers who drew accurate bounding boxes and masks. The labels were wrong because they could not tell the species apart. No calibration, QA, or guideline improvement fixes a fundamental species identification knowledge gap.</span></div>
-      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The hardest classification pairs are the most important ones.</strong> Cotton vs pigweed at the 3-leaf stage is the most commercially important weed identification task in Indian cotton farming and the one where standard annotators perform at near-chance accuracy (54%). Any agricultural AI company that does not evaluate annotation quality on its hardest crop-weed pairs is building a model that fails exactly where accuracy matters most.</span></div>
+      <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The hardest classification pairs are the most important ones.</strong> Cotton vs pigweed at the 3-leaf stage is the most commercially important weed identification task in cotton farming and the one where standard annotators perform at near-chance accuracy (54%). Any agricultural AI company that does not evaluate annotation quality on its hardest crop-weed pairs is building a model that fails exactly where accuracy matters most.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Lighting variation is a force multiplier on the expertise gap.</strong> Under controlled or overcast lighting, the accuracy difference is 20%. Under harsh midday lighting, it widens to 31%. Real agricultural deployments operate under variable lighting and the underperformance is worst during the brightest part of the day when most spraying operations occur.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>Zone-matched annotators are not a luxury.</strong> A plant pathologist from Tamil Nadu rice paddies should annotate Tamil Nadu rice images, not Punjab cotton images. Weed species composition, soil background colour, growth stage timing, and lighting patterns all differ by region. Zone matching is what produces the 91.8% species-level accuracy.</span></div>
       <div class="key-takeaway-item"><div class="key-takeaway-dot"></div><span><strong>The ROI on expert annotation is extraordinary for agricultural AI.</strong> The incremental cost of expert over standard annotation was ₹45,000 for 2,500 images. The economic value delivered is ₹5.13 lakhs per hectare. For any agritech company deploying at scale, the annotation cost is a rounding error. The question is not "can we afford expert annotation?" but "can we afford not to use it?"</span></div>
@@ -732,7 +732,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <div class="article-cta-banner">
     <h3>Building agricultural AI with <em>expert-quality training data?</em></h3>
-    <p>We field zone-matched agronomists and plant scientists for crop-weed annotation, phenotype identification, and disease detection labeling across Indian agro-climatic zones. Free pilot: 100 images annotated with kappa report.</p>
+    <p>We field zone-matched agronomists and plant scientists for crop-weed annotation, phenotype identification, and disease detection labeling across agro-climatic zones. Free pilot: 100 images annotated with kappa report.</p>
     <a href="/contact" class="article-cta-btn">Request Free Pilot →</a>
   </div>
 

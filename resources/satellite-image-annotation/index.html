@@ -388,12 +388,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
     <div class="mistake-box">
       <div class="mistake-tag">Edge Case 3</div>
       <h4>Geographic domain shift</h4>
-      <p>Models trained on European annotated data deployed in Africa show accuracy drops from 90% to below 50% for identical land cover features because the spectral signatures, vegetation species, building materials, and agricultural patterns differ between regions. This geographic domain shift is one of the most common causes of production failures in geospatial AI. It cannot be fixed by augmentation or fine-tuning alone it requires annotation data from the actual deployment region. Indian agricultural AI trained on USDA or European farming datasets fails on Indian varietals, cropping patterns, and field sizes.</p>
+      <p>Models trained on European annotated data deployed in Africa show accuracy drops from 90% to below 50% for identical land cover features because the spectral signatures, vegetation species, building materials, and agricultural patterns differ between regions. This geographic domain shift is one of the most common causes of production failures in geospatial AI. It cannot be fixed by augmentation or fine-tuning alone it requires annotation data from the actual deployment region. Agricultural AI trained on USDA or European farming datasets fails on Asian varietals, cropping patterns, and field sizes.</p>
     </div>
     <div class="mistake-box">
       <div class="mistake-tag">Edge Case 4</div>
       <h4>Seasonal spectral variation</h4>
-      <p>Winter and summer imagery of the same agricultural field differ dramatically in every spectral band. A model trained on monsoon-season imagery of Indian paddy fields will misclassify the same fields during the rabi (winter) season when they are fallow or planted with a different crop. Temporal annotation programs must explicitly capture seasonal variation labeling the same geographic areas across multiple seasons or accept that the model's accuracy will degrade significantly in seasons not represented in the training data.</p>
+      <p>Winter and summer imagery of the same agricultural field differ dramatically in every spectral band. A model trained on monsoon-season imagery of paddy fields will misclassify the same fields during the rabi (winter) season when they are fallow or planted with a different crop. Temporal annotation programs must explicitly capture seasonal variation labeling the same geographic areas across multiple seasons or accept that the model's accuracy will degrade significantly in seasons not represented in the training data.</p>
     </div>
   </div>
 

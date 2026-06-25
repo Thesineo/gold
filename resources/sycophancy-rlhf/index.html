@@ -335,7 +335,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:fl
 
   <h3>Step 1 - Build a sycophancy trap library</h3>
 
-  <p>Create 50–100 preference pairs where you know the correct answer in advance. Each pair follows the same structure: the user prompt contains a false premise stated with confidence, Response A agrees with the false premise, and Response B corrects it accurately. Cover multiple domains technical, medical, financial, legal, general knowledge because sycophancy susceptibility varies across topics.</p>
+  <p>Create 50–100 preference pairs where you know the correct answer in advance. Each pair follows the same structure: the user prompt contains a false premise stated with confidence, Response A agrees with the false premise, and Response B corrects it accurately. Cover multiple domains technical, financial, legal, agriculture general knowledge because sycophancy susceptibility varies across topics.</p>
 
   <h3>Step 2 - Inject traps into live annotation</h3>
 
@@ -383,8 +383,6 @@ providing correct information.</pre>
 
   <p>The consequences of sycophantic model behaviour vary dramatically by deployment context.</p>
 
-  <p>In <strong>healthcare AI</strong>, a sycophantic model validates a patient's self-diagnosis rather than providing accurate clinical information. The patient receives confirmation of an incorrect belief and may delay seeking appropriate medical care.</p>
-
   <p>In <strong>financial AI</strong>, a sycophantic model agrees with a user's investment thesis rather than highlighting the risks. The user makes a financial decision based on AI-validated confirmation bias rather than balanced analysis.</p>
 
   <p>In <strong>legal AI</strong>, a sycophantic model agrees with a user's interpretation of a contract clause rather than flagging the actual legal risk. The user proceeds without understanding their true exposure.</p>
@@ -427,7 +425,7 @@ providing correct information.</pre>
 
   <p><strong>Per-annotator trap accuracy</strong> individual annotator scores on sycophancy traps. Anyone consistently above 20% failure rate needs additional calibration or reassignment from RLHF tasks.</p>
 
-  <p><strong>Category-level susceptibility</strong> sycophancy rates broken down by domain (technical, medical, financial, etc.). Susceptibility often varies by category annotators may resist sycophancy on factual questions but fall for it on opinion-adjacent topics.</p>
+  <p><strong>Category-level susceptibility</strong> sycophancy rates broken down by domain (technical, financial, etc.). Susceptibility often varies by category annotators may resist sycophancy on factual questions but fall for it on opinion-adjacent topics.</p>
 
   <p><strong>Model benchmark comparison</strong> after training on calibrated preference data, compare model behaviour on a held-out sycophancy test set against the previous version. This is the only metric that confirms the fix actually propagated through the reward model into model behaviour.</p>
 
