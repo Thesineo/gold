@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Label — Datalier | Concave AI</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="The Label layer routes each data point to the right AI model, auto-labels above a confidence threshold, and routes everything else to human reviewers — 25 annotation types across text, image, video, and audio.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="stylesheet" href="/assets/css/platform.css">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform" class="is-current">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero">
+  <div class="bg-media"><canvas id="hero-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <a href="/platform" class="layer-back-btn" aria-label="Back to Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="sec-inner layer-hero-inner">
+    <div class="layer-hero-content" data-reveal="slide-left">
+      <span class="layer-hero-label">Data Layer</span>
+      <h1>Label</h1>
+      <p class="layer-hero-sub">AI annotates. Humans verify. Quality is measured, not assumed.</p>
+    </div>
+    <div class="layer-hero-media has-media" data-reveal="slide-right" aria-hidden="true">
+      <video src="/imgbgm/labelling.mp4" autoplay loop muted playsinline></video>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <div class="intro-center" data-reveal>
+      <span class="sec-eyebrow">What It Does</span>
+      <p class="lead-text">Label is the layer where raw signal acquires meaning. A multi-engine orchestration system dispatches every data point to the model best suited to its modality and task, while a calibrated confidence threshold discerns which annotations the machine may certify outright and which demand human judgment. Nothing leaves unverified — each label carries either the AI's high-confidence assertion or a reviewer's explicit sign-off, the twin foundations of data a model can actually be trained on.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <div class="sec-inner">
+    <div data-reveal>
+      <span class="sec-eyebrow">How Routing Works</span>
+      <p class="lead-text">Every item is scored — a confidence value between 0.00 and 0.99, issued by the engine that labeled it. Cross the configured threshold (0.85, by default) and the label stands on its own; fall short, and the item is queued for a human eye. That threshold bends to the dataset: loosen it for throughput, tighten it for precision. Three numbers tell you how the balance is holding — the auto-label rate, the human review rate, and the correction rate, the share of AI labels a reviewer chose to overrule.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <!-- Desktop: sticky diagram + text, driven by scroll position. Intro
+       slide, then one slide per AI engine — canvas starts as a 4-ring
+       "basketball" sphere and flattens into a rotating ring of that
+       engine's task chips. Same mechanics as the platform page's Five
+       Layers section; see initEngineScroll in platform-motion.js. -->
+  <div class="layer-scroll" id="engineScroll">
+    <div class="layer-sticky">
+      <div class="sec-inner layer-sticky-inner">
+        <div class="layer-copy-col">
+          <div class="layer-slide-tagline" id="engineTagline"></div>
+          <h3 class="layer-slide-heading" id="engineHeading">The AI Engines</h3>
+          <p class="layer-slide-desc" id="engineDesc">Four specialised model families route each item to the right kind of intelligence — text, vision, video, and audio — each producing its own confidence score.</p>
+
+          <div class="layer-progress-row" id="engineProgressRow">
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+          </div>
+
+          <div class="layer-nav">
+            <button class="layer-arrow-btn engine-prev" type="button" aria-label="Previous engine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button class="layer-arrow-btn engine-next" type="button" aria-label="Next engine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="layer-diagram-col">
+          <div class="layer-diagram-wrap">
+            <canvas id="engineSphere" aria-hidden="true"></canvas>
+          </div>
+          <div class="layer-scroll-hint" id="engineScrollHint">Scroll to continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile: plain stacked list, no sticky/scroll-driven behavior -->
+  <div class="sec-inner layer-mobile">
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">AI Engine</div>
+      <div class="layer-mobile-name">Text</div>
+      <p class="layer-mobile-desc">GPT-4o and GPT-4o-mini read language the way training demands it be read — ranking preferences, recognising entities, classifying, summarising, answering, and tracing relations between them.</p>
+      <div class="pill-row"><span class="pill">RLHF Preference</span><span class="pill">Named Entity Recognition</span><span class="pill">Classification</span><span class="pill">Summarisation</span><span class="pill">Extractive QA</span><span class="pill">Relation Extraction</span></div>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">AI Engine</div>
+      <div class="layer-mobile-name">Image / Vision</div>
+      <p class="layer-mobile-desc">GPT-4o Vision sees and names what it finds, framed in bounding boxes; SAM2 traces pixel-exact segmentation masks; MediaPipe follows pose and face mesh with anatomical precision.</p>
+      <div class="pill-row"><span class="pill">Classification</span><span class="pill">Object Detection</span><span class="pill">Instance Segmentation</span><span class="pill">Semantic Segmentation</span><span class="pill">Keypoint Estimation</span><span class="pill">Image Captioning</span><span class="pill">OCR</span></div>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">AI Engine</div>
+      <div class="layer-mobile-name">Video</div>
+      <p class="layer-mobile-desc">FFmpeg extracts every frame; GPT-4o classifies and detects what moves through them; SAM2 Video carries segmentation masks forward frame to frame, so nothing once found is lost.</p>
+      <div class="pill-row"><span class="pill">Classification</span><span class="pill">Object Tracking</span><span class="pill">Instance Segmentation</span><span class="pill">Temporal Segmentation</span><span class="pill">Per-Frame Annotation</span><span class="pill">Pose Tracking</span></div>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">AI Engine</div>
+      <div class="layer-mobile-name">Audio</div>
+      <p class="layer-mobile-desc">Whisper transcribes speech down to the word, timestamped; GPT-4o reads what Whisper hears — speaker identity, emotional register, and the sound events between the words.</p>
+      <div class="pill-row"><span class="pill">Transcription</span><span class="pill">Speaker Diarisation</span><span class="pill">Sound Event Detection</span><span class="pill">Classification</span><span class="pill">Emotion Detection</span><span class="pill">Audio Segmentation</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <div class="sec-inner">
+    <div class="recipe-grid cols-2">
+      <div class="recipe-card" data-reveal="slide-left">
+        <div class="recipe-card-title">Human Review Interface</div>
+        <div class="recipe-card-body">Human judgment finishes what confidence can't: a keyboard-driven review stream surfaces the AI's suggestion, and a reviewer accepts, corrects, or rejects it in three to five seconds — a fraction of conventional tools' fifteen to thirty. Error tags apply with a single keystroke.</div>
+      </div>
+      <div class="recipe-card" data-reveal="slide-right">
+        <div class="recipe-card-title">Quality Measurement</div>
+        <div class="recipe-card-body">Quality is measured, not asserted. Every run yields a verified agreement rate, confidence calibration, label distribution, and a composite readiness score — one number worth trusting. Each metric travels with the dataset into the version's lineage report.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <div class="sec-inner">
+    <div class="layer-hero-media has-media full-bleed-media" data-reveal="zoom" aria-hidden="true">
+      <video src="/imgbgm/annotation.mp4" autoplay loop muted playsinline></video>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Infrastructure your training data has been missing.</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>The data infrastructure platform for AI model training. Five layers, one closed loop.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/company#founder">Founder</a>
+          <a href="/company#vision">Vision</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-links">
+          <a href="mailto:hello@theconcaveai.com">hello@theconcaveai.com</a>
+          <a href="https://www.linkedin.com/company/theconcaveai/">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI · theconcaveai.com</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js" defer></script>
+<script src="/assets/js/platform-motion.js" defer></script>
+</body>
+</html>

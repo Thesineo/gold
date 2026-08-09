@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Datalier — The Platform | Concave AI</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="Datalier is Concave AI's data infrastructure platform. Five layers between raw data and production models — transform, label, version, observe, and govern training data across text, image, video, and audio, in one closed loop.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="icon" href="/logo.png" type="image/png" sizes="48x48">
+<link rel="shortcut icon" href="/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png">
+<link rel="stylesheet" href="/assets/css/platform.css">
+<style>
+/* ── HERO (theme-following, same as homepage) ── */
+.p-hero-wrap{padding:130px 24px 0}
+.p-hero{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;background:var(--bg);min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 24px}
+@media(max-width:768px){.p-hero{border-radius:20px;min-height:60vh}}
+/* Loads in like light hitting the page: starts small and overexposed,
+   settles to full size and normal brightness — plays once on page load
+   (hero is already in view, so this isn't scroll-gated). Ends at exactly
+   scale(1) with no overshoot, so the resting layout never overflows. */
+.p-hero-content{position:relative;z-index:2;animation:heroFlashIn 1.1s cubic-bezier(.16,.9,.3,1) both}
+@keyframes heroFlashIn{
+  0%{opacity:0;transform:scale(.8);filter:brightness(2.4) blur(2px)}
+  45%{opacity:1;filter:brightness(1.5) blur(0)}
+  100%{opacity:1;transform:scale(1);filter:brightness(1)}
+}
+@media(prefers-reduced-motion:reduce){.p-hero-content{animation:none}}
+.p-hero-eyebrow{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:24px}
+.p-hero h1{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(32px,4.6vw,54px);line-height:1.18;letter-spacing:-0.02em;color:var(--text);max-width:920px;margin:0 auto 26px}
+.p-hero-sub{font-size:clamp(16px,1.5vw,18px);color:var(--text-dim);max-width:640px;margin:0 auto 40px;line-height:1.6}
+/* This hero sits on a real photographic video, not the theme-adaptive
+   particle canvas the shared .hero-overlay/var(--text) pattern was tuned
+   for — that pattern tints toward the theme's bg color, which bleaches
+   the footage white in light mode. Pin this one instance to a fixed dark
+   gradient + white text so the video reads the same in both themes. */
+.p-hero .hero-overlay{background:linear-gradient(180deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.42) 60%,rgba(0,0,0,0.66) 100%)}
+.p-hero .p-hero-eyebrow{color:rgba(255,255,255,0.75)}
+.p-hero h1{color:#fff}
+.p-hero .p-hero-sub{color:rgba(255,255,255,0.8)}
+
+/* ── FIVE LAYERS wrapper (page-specific spacing after the hero) — the
+   .layer-scroll/.layer-sticky/etc. structural family it contains now
+   lives in the shared platform.css, reused by the Label page's AI
+   Engines section too. ── */
+.p-layers{background:var(--bg);padding-bottom:70px}
+.p-layers>.sec-inner:first-child{padding-top:110px;padding-bottom:0}
+@media(max-width:768px){.p-layers>.sec-inner:first-child{padding-top:72px}}
+
+/* ── UPLOAD (replaces the old Data Modalities grid) ── */
+.p-upload{background:var(--bg)}
+.upload-panel{display:grid;grid-template-columns:560px 1fr;gap:64px;align-items:center;margin-top:56px}
+.upload-visual{
+  position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
+  background-color:var(--elevated);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px;border:1px solid var(--border)
+}
+.upload-svg{position:absolute;inset:0;width:100%;height:100%}
+.upload-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
+/* Dots ride the exact same <path> the line is drawn from via SMIL
+   animateMotion/mpath — guaranteed to trace the curve exactly (not an
+   approximated CSS keyframe), and stays correct at any container size
+   since both line and dot live in the same viewBox coordinate space. */
+.flow-dot-svg{fill:var(--text)}
+@media(prefers-reduced-motion:reduce){.flow-dot-svg{display:none}}
+
+.upload-sources{position:absolute;top:4%;bottom:4%;left:6%;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;z-index:2}
+.source-chip{display:flex;flex-direction:row;align-items:center;gap:12px;color:var(--text)}
+
+/* Uniform fixed-size icon box for every source mark — logos with different
+   native aspect ratios (square icons vs. wide wordmarks) all land on the
+   same left edge and vertical center via object-fit:contain, which is what
+   keeps the whole stack reading as one straight aligned line. */
+.source-logo{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0}
+.source-logo svg{width:100%;height:100%}
+.source-logo img{display:none;width:100%;height:100%;object-fit:contain}
+:root:not([data-theme="dark"]) .source-logo img.logo-bright{display:block}
+:root[data-theme="dark"] .source-logo img.logo-dark{display:block}
+.source-word{font-size:15px;font-weight:700;letter-spacing:-0.005em;white-space:nowrap}
+
+.upload-formats{position:absolute;inset:0;z-index:2}
+.format-chip{position:absolute;font-size:11.5px;font-weight:700;letter-spacing:0.02em;color:var(--text-dim);background:var(--bg);border:1px solid var(--border);padding:6px 11px;border-radius:6px}
+.format-chip.f1{top:6%;left:38%}
+.format-chip.f2{top:24%;left:50%}
+.format-chip.f3{top:45%;left:58%}
+.format-chip.f4{top:66%;left:48%}
+.format-chip.f5{top:84%;left:38%}
+
+.upload-mark{
+  position:absolute;top:50%;right:6%;transform:translateY(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
+  background:var(--text);color:var(--bg);padding:22px 26px;border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15)
+}
+.upload-mark svg{width:30px;height:30px}
+.upload-mark span{font-family:'Inter',sans-serif;font-size:19px;font-weight:800;letter-spacing:-0.01em}
+
+.upload-copy .btn-ghost{margin-top:28px}
+
+@media(max-width:900px){
+  .upload-panel{grid-template-columns:1fr;gap:32px}
+  .upload-visual{aspect-ratio:16/13}
+}
+@media(max-width:560px){
+  .source-chip{gap:8px}
+  .source-word{font-size:11.5px}
+  .source-logo{width:26px;height:26px}
+  .format-chip{font-size:9.5px;padding:4px 7px}
+  .upload-mark{padding:14px 16px}
+  .upload-mark svg{width:22px;height:22px}
+  .upload-mark span{font-size:14px}
+}
+
+/* ── EXPORT / LOOP (theme-following, plain page background like every
+   other section) — mirrors the Upload diagram in "outlet" form: Datalier
+   fans out toward training-platform connectors (the actual endpoints —
+   same role AWS/Azure/GCS play on the Import side), stacked as one
+   continuous bordered column instead of scattered floating chips. The
+   export FORMAT is a plain dot + label riding partway along each line, not
+   a boxed endpoint. A darker dashed sweep carries the drift-correction
+   path from that platform stack back to Datalier, closing the loop. Every
+   moving dot (outbound + loop) rides its line via SMIL animateMotion/mpath
+   against the exact same <path> the line is drawn from. */
+.p-export{background:var(--bg)}
+.export-panel{display:grid;grid-template-columns:1fr 560px;gap:64px;align-items:center;margin-top:56px}
+.export-visual{
+  position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
+  background-color:var(--bg);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px;border:1px solid var(--border)
+}
+.export-svg{position:absolute;inset:0;width:100%;height:100%}
+.export-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
+.export-svg .loop-path{stroke:var(--text-dim);stroke-width:2;stroke-dasharray:4 5}
+.export-svg .wp-dot{fill:var(--text-dim)}
+.export-svg .wp-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;fill:var(--text-dim)}
+.flow-dot-svg{fill:var(--text)}
+.loop-dot-svg{fill:var(--bg);stroke:var(--text);stroke-width:1.5}
+@media(prefers-reduced-motion:reduce){.flow-dot-svg,.loop-dot-svg{display:none}}
+
+.export-mark{
+  position:absolute;top:50%;left:6%;transform:translateY(-50%);z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
+  background:var(--text);color:var(--bg);padding:20px 24px;border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15)
+}
+.export-mark svg{width:28px;height:28px}
+.export-mark span{font-family:'Inter',sans-serif;font-size:17px;font-weight:800;letter-spacing:-0.01em}
+
+/* Endpoints: training-platform connectors (text-only — no logo files for
+   these, same fallback approach as Azure/AWS before we had their marks),
+   stacked into one continuous "box below box" column via merged borders,
+   vertically centered on the right so it reads as a single unit. */
+.export-platforms{position:absolute;top:50%;right:5%;transform:translateY(-50%);display:flex;flex-direction:column;z-index:2}
+.platform-chip{font-size:12px;font-weight:700;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:8px 15px;white-space:nowrap;text-align:right;margin-top:-1px}
+.platform-chip:first-child{margin-top:0;border-top-left-radius:8px;border-top-right-radius:8px}
+.platform-chip:last-child{border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+
+.export-loop-label{position:absolute;bottom:3%;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;color:var(--text-dimmer);white-space:nowrap;z-index:2;text-align:center}
+
+@media(max-width:900px){
+  .export-panel{grid-template-columns:1fr;gap:32px}
+  .export-visual{aspect-ratio:16/13}
+}
+@media(max-width:560px){
+  .export-mark{padding:14px 16px}
+  .export-mark svg{width:22px;height:22px}
+  .export-mark span{font-size:14px}
+  .platform-chip{font-size:9.5px;padding:6px 10px}
+  .export-svg .wp-label{font-size:7.5px}
+}
+
+/* ── AUTOMATED PIPELINES (theme-following, plain page background) —
+   Not a flow diagram — a concrete configuration-panel mockup, styled after
+   the actual product's "New Recipe" builder: real Transform step chips
+   (3 of the 9 marked selected) and real Label Engine fields (task type,
+   model, confidence). A "clear picture" of what gets configured, not an
+   abstraction of how data moves. Observe is deliberately absent — per the
+   brief, that's a separate model-training connection, not part of this. */
+.p-pipeline{background:var(--bg)}
+.pipeline-panel{display:grid;grid-template-columns:1fr 560px;gap:64px;align-items:center;margin-top:56px}
+
+.pipeline-visual{
+  position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
+  background-color:var(--elevated);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px;border:1px solid var(--border)
+}
+.pipeline-mock{position:absolute;inset:16px;border-radius:14px;background:var(--bg);border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,0.08);padding:24px 26px;display:flex;flex-direction:column;gap:22px}
+.pipeline-mock-header{display:flex;align-items:center;gap:6px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.pipeline-mock-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
+.pipeline-mock-title{margin-left:8px;font-size:11.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim)}
+
+.pipeline-mock-label{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);margin-bottom:11px}
+.pipeline-mock-label em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-dimmer)}
+.pipeline-mock-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pipeline-mock-chip{font-size:11px;font-weight:600;color:var(--text-dim);background:var(--elevated);border:1px solid var(--border);padding:7px 12px;border-radius:16px}
+.pipeline-mock-chip.is-on{background:var(--text);color:var(--bg);border-color:var(--text);animation:pipelineChipPulse 2.4s ease-in-out infinite}
+@keyframes pipelineChipPulse{0%,100%{box-shadow:0 0 0 0 rgba(var(--text-rgb),0.18)}50%{box-shadow:0 0 0 5px rgba(var(--text-rgb),0)}}
+@media(prefers-reduced-motion:reduce){.pipeline-mock-chip.is-on{animation:none}}
+
+.pipeline-mock-fields{display:flex;flex-wrap:wrap;gap:10px}
+.pipeline-mock-field{display:flex;flex-direction:column;gap:4px;background:var(--elevated);border:1px solid var(--border);border-radius:10px;padding:9px 13px;min-width:110px}
+.pipeline-mock-field-label{font-size:9.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dimmer)}
+.pipeline-mock-field-value{font-size:12.5px;font-weight:700;color:var(--text)}
+
+.pipeline-mock-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--border)}
+.pipeline-mock-run{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--text);background:var(--elevated);border:1px solid var(--border);padding:8px 14px;border-radius:20px}
+
+@media(max-width:900px){
+  .pipeline-panel{grid-template-columns:1fr;gap:32px}
+  .pipeline-visual{aspect-ratio:16/13}
+}
+@media(max-width:560px){
+  .pipeline-mock{padding:18px 18px;gap:16px;inset:10px}
+  .pipeline-mock-chip{font-size:9.5px;padding:5px 9px}
+  .pipeline-mock-field{min-width:90px;padding:7px 10px}
+}
+
+/* ── WHY DATALIER ── */
+.p-best{background:var(--bg)}
+.best-panel{background:var(--elevated);border-radius:24px;padding:60px;display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:56px}
+.best-copy .sec-eyebrow{margin-bottom:14px}
+.best-copy .sec-title{font-size:clamp(26px,2.8vw,36px)}
+.best-copy .sec-desc{margin-top:14px;max-width:420px}
+
+/* Diagram-panel copy across this page (Upload/Export/Pipeline/Why
+   Datalier) runs smaller than the base .sec-title/.sec-desc default —
+   matching the more compact scale the homepage's equivalent two-column
+   "Solution" section (.platform-title/.platform-sub) already uses, rather
+   than the full-size heading/description meant for standalone sections. */
+.upload-copy .sec-title,.export-copy .sec-title,.pipeline-copy .sec-title{font-size:clamp(24px,2.6vw,34px)}
+.upload-copy .sec-desc,.export-copy .sec-desc,.pipeline-copy .sec-desc,.best-copy .sec-desc{font-size:15.5px;max-width:460px}
+/* Unboxed on purpose — no border/background/card framing, so the wireframe
+   just sits on the panel itself. Landscape ratio to suit the packet shape
+   (wide box, shallow depth) rather than a portrait figure. */
+.best-diagram{position:relative;aspect-ratio:5/4;max-width:460px;margin:44px auto 0}
+#bestCanvas{width:100%;height:100%;display:block}
+
+.best-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.best-card{background:var(--bg);border-radius:16px;padding:26px;position:relative;overflow:hidden;border:1px solid var(--border);transition:transform .3s ease,box-shadow .3s ease}
+.best-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,0.09)}
+.best-card-corner{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 22px 22px 0;border-color:transparent var(--border) transparent transparent;transition:border-color .3s ease}
+.best-card:hover .best-card-corner{border-color:transparent var(--text) transparent transparent}
+.best-card-title{font-size:18px;font-weight:400;color:var(--text);letter-spacing:-0.005em}
+.best-card-body{font-size:14px;color:var(--text-dim);line-height:1.65;margin-top:34px}
+
+@media(max-width:900px){
+  .best-panel{grid-template-columns:1fr;padding:40px 28px}
+  .best-grid{grid-template-columns:1fr}
+}
+@media(max-width:560px){.best-panel{padding:32px 22px}}
+</style>
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform" class="is-current">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="p-hero-wrap">
+  <div class="p-hero">
+    <div class="bg-media"><video src="/imgbgm/platform.mp4" autoplay loop muted playsinline></video></div>
+    <div class="hero-overlay"></div>
+    <div class="p-hero-content">
+      <span class="p-hero-eyebrow">Data Infrastructure Platform</span>
+      <h1>Datalier</h1>
+      <p class="p-hero-sub">Concave AI's unified data infrastructure platform — turning raw data into AI-ready data that streamlines model training and improves accuracy.</p>
+      <a href="/contact" class="btn-primary large">Book a Demo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- UPLOAD -->
+<section class="p-upload pad">
+  <div class="sec-inner">
+    <div class="upload-panel">
+      <div class="upload-visual" data-reveal="slide-left">
+        <svg class="upload-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <path id="upPath1" d="M100,24 C200,24 230,150 340,150"/>
+          <path id="upPath2" d="M100,84 C200,84 230,150 340,150"/>
+          <path id="upPath3" d="M100,150 L340,150"/>
+          <path id="upPath4" d="M100,216 C200,216 230,150 340,150"/>
+          <path id="upPath5" d="M100,276 C200,276 230,150 340,150"/>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0s"><mpath href="#upPath1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0.9s"><mpath href="#upPath2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0.9s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="1.8s"><mpath href="#upPath3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="1.8s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="2.7s"><mpath href="#upPath4"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="2.7s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="3.6s"><mpath href="#upPath5"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="3.6s"/>
+          </circle>
+        </svg>
+
+        <div class="upload-sources">
+          <span class="source-chip">
+            <span class="source-logo">
+              <img src="/imgbgm/azure_bright_theme.webp" alt="" class="logo-bright">
+              <img src="/imgbgm/azure_dark_theme.png" alt="" class="logo-dark">
+            </span>
+            <span class="source-word">Azure</span>
+          </span>
+          <span class="source-chip">
+            <span class="source-logo">
+              <img src="/imgbgm/aws_bright_theme.png" alt="" class="logo-bright">
+              <img src="/imgbgm/aws_dark_theme.png" alt="" class="logo-dark">
+            </span>
+            <span class="source-word">AWS</span>
+          </span>
+          <span class="source-chip">
+            <span class="source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-2.821-4.552l-.043.043.006-.05A9.344 9.344 0 0 0 12.19 2.38zm-.358 4.146c1.244-.04 2.518.368 3.486 1.15a5.186 5.186 0 0 1 1.862 4.078v.518c3.53-.07 3.53 5.262 0 5.193h-5.193l-.008.009v-.04H6.785a2.59 2.59 0 0 1-1.067-.23h.001a2.597 2.597 0 1 1 3.437-3.437l3.013-3.012A6.747 6.747 0 0 0 8.11 8.24c.018-.01.04-.026.054-.023a5.186 5.186 0 0 1 3.67-1.69z"/></svg></span>
+            <span class="source-word">Google Cloud</span>
+          </span>
+          <span class="source-chip">
+            <span class="source-logo">
+              <img src="/imgbgm/postgres-bright.png" alt="" class="logo-bright">
+              <img src="/imgbgm/postgres-dark.jpeg" alt="" class="logo-dark">
+            </span>
+            <span class="source-word">PostgreSQL</span>
+          </span>
+          <span class="source-chip">
+            <span class="source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="3" y="12" width="17" height="7" rx="3.5"/><circle cx="8" cy="11" r="5"/><circle cx="13.5" cy="8.5" r="6"/><circle cx="18" cy="12" r="4"/></svg></span>
+            <span class="source-word">Any Open Source</span>
+          </span>
+        </div>
+
+        <div class="upload-formats">
+          <span class="format-chip f1">.jsonl</span>
+          <span class="format-chip f2">.jpeg</span>
+          <span class="format-chip f3">.parquet</span>
+          <span class="format-chip f4">.mp4</span>
+          <span class="format-chip f5">.wav</span>
+        </div>
+
+        <div class="upload-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span>Datalier</span>
+        </div>
+      </div>
+      <div class="upload-copy" data-reveal="slide-right">
+        <span class="sec-eyebrow">Import</span>
+        <h2 class="sec-title">Upload large multimodal datasets in minutes.</h2>
+        <p class="sec-desc">Connect Amazon S3, Google Cloud Storage, Azure Blob Storage, Hugging Face Hub, PostgreSQL, or Snowflake — or drag in files directly. Datalier validates structure, normalises fields, and registers every dataset with schema metadata and source provenance before anything else touches it.</p>
+        <a href="/platform/transform" class="btn-ghost">See how data enters →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIVE LAYERS -->
+<section class="p-layers">
+
+  <!-- Desktop: sticky diagram + text, driven by scroll position. Intro slide
+       (no badge/progress), then one slide per layer, each highlighting and
+       rotating the pentagon diagram to bring that layer's node forward. -->
+  <div class="layer-scroll" id="layerScroll">
+    <div class="layer-sticky">
+      <div class="sec-inner layer-sticky-inner">
+        <div class="layer-copy-col">
+          <div class="layer-badge" id="layerBadge"><span class="layer-badge-dot"></span><span id="layerBadgeText">Layer 1 of 5</span></div>
+          <div class="layer-slide-tagline" id="layerTagline"></div>
+          <h3 class="layer-slide-heading" id="layerHeading">Five layers, in sequence.</h3>
+          <p class="layer-slide-desc" id="layerDesc">Raw data becomes training-ready data through five sequential layers — each one adding structure, accuracy, and traceability before the next begins. Scroll to step through them.</p>
+          <a href="/platform" class="layer-link" id="layerLink">Explore →</a>
+
+          <div class="layer-progress-row" id="layerProgressRow">
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+          </div>
+
+          <div class="layer-nav">
+            <button class="layer-arrow-btn layer-prev" type="button" aria-label="Previous layer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button class="layer-arrow-btn layer-next" type="button" aria-label="Next layer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="layer-diagram-col">
+          <div class="layer-diagram-wrap">
+            <canvas id="layerSphere" aria-hidden="true"></canvas>
+          </div>
+          <div class="layer-scroll-hint" id="layerScrollHint">Scroll to continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile: plain stacked list, no sticky/scroll-driven behavior -->
+  <div class="sec-inner layer-mobile">
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Clean. Validate. Prepare.</div>
+      <div class="layer-mobile-name">Transform</div>
+      <p class="layer-mobile-desc">Remove duplicates, detect personally identifiable information, validate field integrity, and score data quality — programmatically, before any labeling begins.</p>
+      <a href="/platform/transform" class="layer-link">Explore Transform →</a>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Annotate. Verify. Certify.</div>
+      <div class="layer-mobile-name">Label</div>
+      <p class="layer-mobile-desc">A multi-engine orchestration layer routes each data point to the appropriate AI model. Items below the confidence threshold go to human reviewers. 25 annotation types across four data modalities.</p>
+      <a href="/platform/label" class="layer-link">Explore Label →</a>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Snapshot. Trace. Export.</div>
+      <div class="layer-mobile-name">Version</div>
+      <p class="layer-mobile-desc">Every processed dataset is frozen into an immutable, hash-verified snapshot, with a full lineage report and training-ready export.</p>
+      <a href="/platform/version" class="layer-link">Explore Version →</a>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Monitor. Detect. Correct.</div>
+      <div class="layer-mobile-name">Observe</div>
+      <p class="layer-mobile-desc">Prediction logs from deployed models flow back into the platform. Three drift checks identify when and where performance is degrading, and route a correction dataset back through labeling.</p>
+      <a href="/platform/observe" class="layer-link">Explore Observe →</a>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Control. Audit. Comply.</div>
+      <div class="layer-mobile-name">Govern</div>
+      <p class="layer-mobile-desc">Role-based permissions, an immutable audit log, and regulatory tags that travel with the data wherever it moves.</p>
+      <a href="/platform/govern" class="layer-link">Explore Govern →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPORT / LOOP -->
+<section class="p-export pad">
+  <div class="sec-inner">
+    <div class="export-panel">
+      <div class="export-copy" data-reveal="slide-left">
+        <span class="sec-eyebrow">The Feedback Loop</span>
+        <h2 class="sec-title">A flow loop that streamlines training and improves model accuracy.</h2>
+        <p class="sec-desc">Datalier exports training-ready data straight to your storage, in the format your framework expects. Your training platform trains and evaluates the model; Observe watches its predictions in production for drift. Data behind any degradation routes straight back to Datalier for re-labeling — closing the loop without manual intervention.</p>
+        <a href="/platform/observe" class="btn-ghost">See how Observe closes the loop →</a>
+      </div>
+
+      <div class="export-visual" data-reveal="slide-right">
+        <svg class="export-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <path id="exPath1" d="M100,150 C200,150 230,78 340,78"/>
+          <path id="exPath2" d="M100,150 C200,150 230,102 340,102"/>
+          <path id="exPath3" d="M100,150 C200,150 230,126 340,126"/>
+          <path id="exPath4" d="M100,150 L340,150"/>
+          <path id="exPath5" d="M100,150 C200,150 230,174 340,174"/>
+          <path id="exPath6" d="M100,150 C200,150 230,198 340,198"/>
+          <path id="exPath7" d="M100,150 C200,150 230,222 340,222"/>
+          <path id="exLoopPath" class="loop-path" d="M340,236 C266,270 156,262 100,180"/>
+
+          <!-- Export format: a small dot riding partway along the line, not a boxed endpoint -->
+          <circle class="wp-dot" cx="216" cy="96" r="2.6"/>
+          <text class="wp-label" x="222" y="93">.coco</text>
+          <circle class="wp-dot" cx="216" cy="123" r="2.6"/>
+          <text class="wp-label" x="222" y="120">.yolo</text>
+          <circle class="wp-dot" cx="220" cy="150" r="2.6"/>
+          <text class="wp-label" x="226" y="147">.jsonl</text>
+          <circle class="wp-dot" cx="216" cy="177" r="2.6"/>
+          <text class="wp-label" x="222" y="174">imgfolder</text>
+          <circle class="wp-dot" cx="216" cy="204" r="2.6"/>
+          <text class="wp-label" x="222" y="201">.parquet</text>
+
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="0s"><mpath href="#exPath1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="0.75s"><mpath href="#exPath2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="0.75s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="1.5s"><mpath href="#exPath3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="1.5s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="2.25s"><mpath href="#exPath4"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="2.25s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="3s"><mpath href="#exPath5"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="3s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="3.75s"><mpath href="#exPath6"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="3.75s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5.6s" repeatCount="indefinite" begin="4.5s"><mpath href="#exPath7"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="4.5s"/>
+          </circle>
+          <circle class="loop-dot-svg" r="3.6">
+            <animateMotion dur="6.5s" repeatCount="indefinite" begin="0s"><mpath href="#exLoopPath"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.9;1" dur="6.5s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+        </svg>
+
+        <div class="export-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span>Datalier</span>
+        </div>
+
+        <div class="export-platforms">
+          <span class="platform-chip">SageMaker</span>
+          <span class="platform-chip">Vertex AI</span>
+          <span class="platform-chip">Azure ML</span>
+          <span class="platform-chip">HuggingFace</span>
+          <span class="platform-chip">LangSmith</span>
+          <span class="platform-chip">Webhook</span>
+          <span class="platform-chip">REST API</span>
+        </div>
+
+        <div class="export-loop-label">Train → Predict → Detect drift → Re-label</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTOMATED PIPELINES -->
+<section class="p-pipeline pad">
+  <div class="sec-inner">
+    <div class="pipeline-panel">
+      <div class="pipeline-copy" data-reveal="slide-left">
+        <span class="sec-eyebrow">Automated Pipelines</span>
+        <h2 class="sec-title">Automate your data pipeline, with Datalier.</h2>
+        <p class="sec-desc">Integrate the right data layers to automate data workflows enabling accurate data preparation, data labeling, routing by reasoning, evaluation and more. Orchestrate bulk data operations without increasing headcounts, while maintaing progress visiblity across teams. Saving 1000s of hours on manual data tasks.</p>
+      </div>
+
+      <div class="pipeline-visual" data-reveal="slide-right">
+        <div class="pipeline-mock">
+          <div class="pipeline-mock-header">
+            <span class="pipeline-mock-dot"></span><span class="pipeline-mock-dot"></span><span class="pipeline-mock-dot"></span>
+            <span class="pipeline-mock-title">New Pipeline</span>
+          </div>
+
+          <div class="pipeline-mock-section">
+            <div class="pipeline-mock-label">Transform Steps <em>— pick any of 9</em></div>
+            <div class="pipeline-mock-chips">
+              <span class="pipeline-mock-chip is-on">Validate</span>
+              <span class="pipeline-mock-chip is-on">Deduplicate</span>
+              <span class="pipeline-mock-chip is-on">PII Detection</span>
+              <span class="pipeline-mock-chip">Schema Normalize</span>
+              <span class="pipeline-mock-chip">Semantic Cluster</span>
+              <span class="pipeline-mock-chip">Confidence Route</span>
+              <span class="pipeline-mock-chip">OCR Extract</span>
+              <span class="pipeline-mock-chip">Speech-to-Text</span>
+              <span class="pipeline-mock-chip">Cross-Modal Align</span>
+            </div>
+          </div>
+
+          <div class="pipeline-mock-section">
+            <div class="pipeline-mock-label">Label Engine</div>
+            <div class="pipeline-mock-fields">
+              <div class="pipeline-mock-field"><span class="pipeline-mock-field-label">Task Type</span><span class="pipeline-mock-field-value">Classification ▾</span></div>
+              <div class="pipeline-mock-field"><span class="pipeline-mock-field-label">Model</span><span class="pipeline-mock-field-value">gpt-4o-mini ▾</span></div>
+              <div class="pipeline-mock-field"><span class="pipeline-mock-field-label">Confidence</span><span class="pipeline-mock-field-value">0.85</span></div>
+            </div>
+          </div>
+
+          <div class="pipeline-mock-footer">
+            <span class="pipeline-mock-run">▶ Run continuously</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY DATALIER -->
+<section class="p-best pad">
+  <div class="sec-inner">
+    
+
+    <div class="best-panel">
+      <div class="best-copy" data-reveal="slide-left">
+        <h3 class="sec-title"> Why Datalier ?</h3>
+        <p class="sec-desc">Datalier's Data layers and AI Engines are emborded to endorse the trust from ML and AI teams to fine-tune their data to be training ready while accelerating the development of their AI models.</p>
+        <div class="best-diagram"><canvas id="bestCanvas" aria-hidden="true"></canvas></div>
+      </div>
+
+      <div class="best-grid" data-reveal="slide-right">
+        <div class="best-card" data-reveal="zoom">
+          <span class="best-card-corner"></span>
+          <div class="best-card-title">Quality</div>
+          <p class="best-card-body">Datalier can provide the core  to any datasets making it AI ready with high level quality metric fom AI assitance and HUman review system.</p>
+                    </div>
+        <div class="best-card" data-reveal="zoom" data-reveal-delay="1">
+          <span class="best-card-corner"></span>
+          <div class="best-card-title">Cost Effective</div>
+          <p class="best-card-body">Build lucrative AI Models training data, while  being able to easily find, categorize, and fix AI model failures with our Data layers and AI engines. Then, optimize operational spend for creating high-value curated data for AI model training until attaining required level of model accuracies.</p>
+        </div>
+        <div class="best-card" data-reveal="zoom" data-reveal-delay="2">
+          <span class="best-card-corner"></span>
+          <div class="best-card-title">Scalability</div>
+          <p class="best-card-body">Datalier can support any ML project from lower-volume experiments to high-volume AI-ready data production projects, being flexivle according to the engineering needs.</p>
+        </div>
+        <div class="best-card" data-reveal="zoom" data-reveal-delay="3">
+          <span class="best-card-corner"></span>
+          <div class="best-card-title">Diversity</div>
+          <p class="best-card-body">Datalier is capable of working with the greatest variety and diversity of data to help deliver the greatest value to your model training performance through delivery of AI-ready data.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Infrastructure your training data has been missing.</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>The data infrastructure platform for AI model training. Five layers, one closed loop.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/company#founder">Founder</a>
+          <a href="/company#vision">Vision</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-links">
+          <a href="mailto:hello@theconcaveai.com">hello@theconcaveai.com</a>
+          <a href="https://www.linkedin.com/company/theconcaveai/">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI · theconcaveai.com</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js" defer></script>
+<script src="/assets/js/platform-motion.js" defer></script>
+</body>
+</html>
