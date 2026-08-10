@@ -96,7 +96,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 /* Wide variant — a two-group mega-menu (e.g. Solutions → Infrastructure
    Layers / Modalities), used when a dropdown needs more than one column
    of longer labels instead of a short single-column list. */
-.nav-dropdown-panel.wide{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;min-width:520px;padding:14px}
+.nav-dropdown-panel.wide{display:grid;grid-template-columns:repeat(3,max-content);gap:8px 36px;padding:14px}
 .nav-dropdown-panel.wide a{white-space:normal;line-height:1.4}
 .nav-dropdown-group-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dimmer);padding:8px 14px 6px}
 @media(max-width:768px){
@@ -384,7 +384,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 
 /* ── CTA (shared component, identical to homepage) ── */
 .cta-final{position:relative;min-height:60vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:100px 24px}
-.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(28px,4vw,44px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:720px}
+.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:920px}
 .cta-final-sub{position:relative;z-index:2;font-size:14px;color:var(--text-dimmer);margin-top:22px}
 .cta-final .btn-primary{position:relative;z-index:2;margin-top:36px}
 .bg-media{position:absolute;inset:0;z-index:0}
@@ -436,12 +436,18 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 
 /* ── FOOTER ── */
 footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px solid var(--border)}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+.footer-grid{display:grid;grid-template-columns:1.7fr 1fr 1.3fr 1fr 0.9fr;gap:40px;margin-bottom:56px}
 .footer-brand p{font-size:14px;color:var(--text-dim);line-height:1.65;max-width:300px;margin-top:16px}
 .footer-col-title{font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--text-dimmer);text-transform:uppercase;margin-bottom:18px}
+.footer-sub-title{font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--text-dimmer);text-transform:uppercase;margin:20px 0 10px;opacity:0.75}
+.footer-sub-title:first-of-type{margin-top:0}
 .footer-links{display:flex;flex-direction:column;gap:12px}
 .footer-links a{font-size:14px;color:var(--text-dim);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--text)}
+.footer-icon-row{display:flex;gap:12px}
+.footer-icon-link{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);color:var(--text-dim);flex-shrink:0;transition:color .2s,border-color .2s}
+.footer-icon-link:hover{color:var(--text);border-color:var(--text)}
+.footer-icon-link svg{width:16px;height:16px}
 .footer-bottom{border-top:1px solid var(--border);padding-top:28px;font-size:13px;color:var(--text-dimmer)}
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:36px}}
 
@@ -510,6 +516,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 .task-switch-media-item.is-active{opacity:1;pointer-events:auto}
 .task-switch-media-item.has-media{border-style:solid}
 .task-switch-media-item img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:12px;display:block}
+.task-switch-media-item video{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
 .task-switch-media-hint{font-size:11.5px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.06em;text-transform:uppercase}
 @media(max-width:800px){
   .task-switch{grid-template-columns:1fr;gap:28px}
@@ -553,7 +560,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 .who-canvas{position:absolute;inset:0;width:100%;height:100%}
 .who-block::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 40%,rgba(var(--text-rgb),0.06) 100%);
+  background:linear-gradient(180deg,transparent 35%,rgba(var(--bg-rgb),0.55) 65%,rgba(var(--bg-rgb),0.92) 100%);
   pointer-events:none;
 }
 
@@ -571,7 +578,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 }
 .who-block.is-active .who-block-expanded{opacity:1;pointer-events:auto;transition:opacity .35s ease .18s}
 .who-block-name{font-size:22px;font-weight:400;color:var(--text);letter-spacing:-0.01em;white-space:normal;line-height:1.25}
-.who-block-desc{font-size:14px;line-height:1.6;color:var(--text-dim);max-width:360px;margin-top:12px}
+.who-block-desc{font-size:14px;line-height:1.6;color:rgba(var(--text-rgb),0.82);max-width:360px;margin-top:12px}
 .who-block-link{margin-top:18px;font-size:13px;font-weight:600;color:var(--text)}
 
 @media(max-width:900px){
@@ -588,11 +595,79 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
    sidebar task-switcher where the reference called for cards, not tabs. */
 .task-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
 .task-card{background:var(--elevated);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.task-card-media{position:relative;aspect-ratio:16/10;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center}
-.task-card-media img{width:100%;height:100%;object-fit:cover;display:block}
+.task-card-media{position:relative;aspect-ratio:16/10;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px}
+/* Wide variant — for panels whose real screenshots run much wider than
+   tall (e.g. ~2.5:1 UI captures), so the box doesn't leave large empty
+   margins above/below a comparatively short image. Same dotted-field
+   background language as the platform diagrams elsewhere on the site. */
+.task-card-media.wide{aspect-ratio:12/5;padding:14px;background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px}
+.task-card-media img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:8px;display:block}
 .task-card-hint{font-size:11px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.06em;text-transform:uppercase}
 .task-card-body{padding:22px 24px 26px}
 .task-card-title{font-family:'Inter',sans-serif;font-weight:600;font-size:16.5px;color:var(--text);margin-bottom:8px;letter-spacing:-0.005em}
 .task-card-desc{font-size:13.5px;color:var(--text-dim);line-height:1.65}
 @media(max-width:900px){.task-card-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.task-card-grid{grid-template-columns:1fr}}
+.task-card-grid.cols-2{grid-template-columns:1fr 1fr}
+@media(max-width:700px){.task-card-grid.cols-2{grid-template-columns:1fr}}
+
+/* ── Cloud Integration diagram panel — an elongated, single bordered box
+   (unlike the platform page's compact two-column Upload panel) holding the
+   same source→format→Datalier diagram language plus a copy block, side by
+   side, matching a "flexibility" style reference layout. Percentage-based
+   positioning (not fixed px) so it stays correct at any panel width. */
+.cloud-panel{background:var(--elevated);border:1px solid var(--border);border-radius:24px;padding:44px;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center;margin-top:56px}
+.cloud-diagram{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background-color:var(--bg);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px;border:1px solid var(--border)}
+.cloud-diagram-svg{position:absolute;inset:0;width:100%;height:100%}
+.cloud-diagram-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
+.cloud-flow-dot{fill:var(--text)}
+@media(prefers-reduced-motion:reduce){.cloud-flow-dot{display:none}}
+.cloud-sources{position:absolute;top:6%;bottom:6%;left:5%;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;z-index:2}
+.cloud-source-chip{display:flex;flex-direction:row;align-items:center;gap:10px;color:var(--text)}
+.cloud-source-logo{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0}
+.cloud-source-logo svg{width:100%;height:100%}
+.cloud-source-logo img{display:none;width:100%;height:100%;object-fit:contain}
+:root:not([data-theme="dark"]) .cloud-source-logo img.logo-bright{display:block}
+:root[data-theme="dark"] .cloud-source-logo img.logo-dark{display:block}
+.cloud-source-word{font-size:13.5px;font-weight:700;letter-spacing:-0.005em;white-space:nowrap}
+.cloud-formats{position:absolute;inset:0;z-index:2}
+.cloud-format-chip{position:absolute;font-size:11px;font-weight:700;letter-spacing:0.02em;color:var(--text-dim);background:var(--bg);border:1px solid var(--border);padding:6px 10px;border-radius:6px}
+.cloud-mark{position:absolute;top:50%;right:5%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;background:var(--text);color:var(--bg);padding:18px 22px;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.cloud-mark svg{width:26px;height:26px}
+.cloud-mark span{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;letter-spacing:-0.01em}
+.cloud-copy h3{font-family:'Inter',sans-serif;font-weight:600;font-size:22px;color:var(--text);letter-spacing:-0.01em;margin-bottom:12px}
+.cloud-copy p{font-size:14.5px;color:var(--text-dim);line-height:1.7}
+@media(max-width:900px){
+  .cloud-panel{grid-template-columns:1fr;padding:28px;gap:32px}
+  .cloud-diagram{aspect-ratio:16/13}
+}
+@media(max-width:560px){
+  .cloud-source-chip{gap:7px}
+  .cloud-source-word{font-size:11px}
+  .cloud-source-logo{width:24px;height:24px}
+  .cloud-format-chip{font-size:9px;padding:4px 7px}
+  .cloud-mark{padding:12px 15px}
+  .cloud-mark svg{width:20px;height:20px}
+  .cloud-mark span{font-size:13px}
+}
+
+/* MLOps Integration diagram — same .cloud-panel/.cloud-diagram/.cloud-mark/
+   .cloud-copy shell as Cloud Integration (kept visually identical per the
+   "same format, same colours" instruction), extended with the "outlet"
+   half: Datalier fans out to training platforms, and a dashed path carries
+   the drift-correction loop back — mirrors the platform page's Export/Loop
+   section, just elongated the same way Upload was for Cloud Integration. */
+.cloud-mark.left{left:5%;right:auto}
+.mlops-diagram-svg .loop-path{stroke:var(--text-dim);stroke-width:2;stroke-dasharray:4 5}
+.mlops-loop-dot{fill:var(--bg);stroke:var(--text);stroke-width:1.5}
+.mlops-wp-dot{fill:var(--text-dim)}
+.mlops-wp-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;fill:var(--text-dim)}
+.mlops-platforms{position:absolute;top:50%;right:5%;transform:translateY(-50%);display:flex;flex-direction:column;z-index:2}
+.mlops-platform-chip{font-size:11.5px;font-weight:700;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:7px 13px;white-space:nowrap;text-align:right;margin-top:-1px}
+.mlops-platform-chip:first-child{margin-top:0;border-top-left-radius:8px;border-top-right-radius:8px}
+.mlops-platform-chip:last-child{border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+.mlops-loop-label{position:absolute;bottom:4%;left:50%;transform:translateX(-50%);font-size:10px;font-weight:600;color:var(--text-dimmer);white-space:nowrap;z-index:2;text-align:center}
+@media(max-width:560px){
+  .mlops-platform-chip{font-size:9.5px;padding:5px 9px}
+  .mlops-loop-label{font-size:8.5px}
+}

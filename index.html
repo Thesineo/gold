@@ -81,6 +81,10 @@ img{max-width:100%}
 .sec-eyebrow{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;display:block}
 .sec-title{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(28px,3.6vw,42px);letter-spacing:-0.02em;line-height:1.25}
 .sec-desc{font-size:18px;color:var(--text-dim);max-width:620px;margin-top:18px;font-weight:400;line-height:1.65}
+.center-head{text-align:center;max-width:900px;margin:0 auto 56px}
+.center-head .sec-eyebrow{display:block}
+.center-head .sec-title{margin-top:2px;font-size:clamp(24px,2.9vw,34px)}
+.center-head .sec-desc{margin:18px auto 0;max-width:620px}
 section.pad{padding:110px 0}
 @media(max-width:768px){section.pad{padding:72px 0}.sec-inner{padding:0 24px}}
 
@@ -149,7 +153,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .nav-dropdown-panel{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:8px;min-width:180px;box-shadow:0 12px 30px rgba(0,0,0,0.12)}
 .nav-dropdown a{display:block;padding:9px 14px;font-size:14px;color:var(--text-dim);text-decoration:none;border-radius:6px;white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown a:hover{background:var(--elevated);color:var(--text)}
-.nav-dropdown-panel.wide{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;min-width:520px;padding:14px}
+.nav-dropdown-panel.wide{display:grid;grid-template-columns:repeat(3,max-content);gap:8px 36px;padding:14px}
 .nav-dropdown-panel.wide a{white-space:normal;line-height:1.4}
 .nav-dropdown-group-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dimmer);padding:8px 14px 6px}
 @media(max-width:768px){
@@ -311,7 +315,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .before-after{background:var(--bg)}
 .shift-track-wrap{margin-top:48px}
 .shift-track-wrap+.shift-track-wrap{margin-top:20px}
-.shift-track-label{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dimmer);margin-bottom:18px}
+.shift-track-label{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dimmer);margin-bottom:18px;text-align:center}
 
 .shift-track{
   overflow:hidden;width:100%;
@@ -392,7 +396,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .who-canvas{position:absolute;inset:0;width:100%;height:100%}
 .who-block::after{
   content:'';position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 40%,rgba(var(--text-rgb),0.06) 100%);
+  background:linear-gradient(180deg,transparent 35%,rgba(var(--bg-rgb),0.55) 65%,rgba(var(--bg-rgb),0.92) 100%);
   pointer-events:none;
 }
 
@@ -410,7 +414,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 }
 .who-block.is-active .who-block-expanded{opacity:1;pointer-events:auto;transition:opacity .35s ease .18s}
 .who-block-name{font-size:24px;font-weight:400;color:var(--text);letter-spacing:-0.01em;white-space:nowrap}
-.who-block-desc{font-size:14px;line-height:1.6;color:var(--text-dim);max-width:340px;margin-top:12px}
+.who-block-desc{font-size:14px;line-height:1.6;color:rgba(var(--text-rgb),0.82);max-width:340px;margin-top:12px}
 .who-block-link{margin-top:18px;font-size:13px;font-weight:600;color:var(--text)}
 
 @media(max-width:900px){
@@ -424,18 +428,24 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 
 /* ── 7. CTA ── */
 .cta-final{position:relative;min-height:60vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:100px 24px}
-.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(28px,4vw,44px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:720px}
+.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:920px}
 .cta-final-sub{position:relative;z-index:2;font-size:14px;color:var(--text-dimmer);margin-top:22px}
 .cta-final .btn-primary{position:relative;z-index:2;margin-top:36px}
 
 /* ── FOOTER ── */
 footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px solid var(--border)}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
+.footer-grid{display:grid;grid-template-columns:1.7fr 1fr 1.3fr 1fr 0.9fr;gap:40px;margin-bottom:56px}
 .footer-brand p{font-size:14px;color:var(--text-dim);line-height:1.65;max-width:300px;margin-top:16px}
 .footer-col-title{font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--text-dimmer);text-transform:uppercase;margin-bottom:18px}
+.footer-sub-title{font-size:10px;font-weight:700;letter-spacing:0.08em;color:var(--text-dimmer);text-transform:uppercase;margin:20px 0 10px;opacity:0.75}
+.footer-sub-title:first-of-type{margin-top:0}
 .footer-links{display:flex;flex-direction:column;gap:12px}
 .footer-links a{font-size:14px;color:var(--text-dim);text-decoration:none;transition:color .2s}
 .footer-links a:hover{color:var(--text)}
+.footer-icon-row{display:flex;gap:12px}
+.footer-icon-link{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);color:var(--text-dim);flex-shrink:0;transition:color .2s,border-color .2s}
+.footer-icon-link:hover{color:var(--text);border-color:var(--text)}
+.footer-icon-link svg{width:16px;height:16px}
 .footer-bottom{border-top:1px solid var(--border);padding-top:28px;font-size:13px;color:var(--text-dimmer)}
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;gap:36px}}
 </style>
@@ -468,6 +478,11 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
             <a href="/solutions/videos">Videos</a>
             <a href="/solutions/audio">Audio</a>
             <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
           </div>
         </div>
       </div>
@@ -519,7 +534,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
       <div class="num-item" data-reveal="zoom" data-reveal-delay="2"><div class="stat-num"> 1 </div><div class="stat-label">tool replacing numerous fragmented toolchains for preparation of AI training data</div></div>
     </div>
 
-    <div class="modality-divider" data-reveal><span>Multimodal by design — 25 annotation types</span></div>
+    <div class="modality-divider" data-reveal><span>Curate Multimodal Training Data</span></div>
 
     <div class="modality-row">
       <div class="modality-item" data-reveal="zoom" tabindex="0">
@@ -531,19 +546,19 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         </div>
       </div>
       <div class="modality-item" data-reveal="zoom" data-reveal-delay="1" tabindex="0">
-        <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5-4 4-3-3-6 6"/></svg></span>
+        <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
         <span class="modality-name">Image</span>
-        <span class="modality-count">7 types</span>
+        <span class="modality-count">6 types</span>
         <div class="modality-branches">
-          <span class="branch-tag">Detection</span><span class="branch-tag">Segmentation</span><span class="branch-tag">Keypoint</span><span class="branch-tag">OCR</span><span class="branch-tag">Captioning</span><span class="branch-tag">Classification</span><span class="branch-tag">Document</span>
+          <span class="branch-tag">Object Detection</span><span class="branch-tag">Instance Segmentation</span><span class="branch-tag">Keypoint Estimation</span><span class="branch-tag">Semantic Segmentation</span><span class="branch-tag">Image Classification</span><span class="branch-tag">Document</span>
         </div>
       </div>
       <div class="modality-item" data-reveal="zoom" data-reveal-delay="2" tabindex="0">
         <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg></span>
         <span class="modality-name">Video</span>
-        <span class="modality-count">5 types</span>
+        <span class="modality-count">6 types</span>
         <div class="modality-branches">
-          <span class="branch-tag">Tracking</span><span class="branch-tag">Classification</span><span class="branch-tag">Pose</span><span class="branch-tag">Temporal</span><span class="branch-tag">Annotation</span>
+          <span class="branch-tag">Object Tracking</span><span class="branch-tag">Video Classification</span><span class="branch-tag">Pose Tracking</span><span class="branch-tag">Temporal Segmentation</span><span class="branch-tag">Frame Annotation</span>
         </div>
       </div>
       <div class="modality-item" data-reveal="zoom" data-reveal-delay="3" tabindex="0">
@@ -551,7 +566,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         <span class="modality-name">Audio</span>
         <span class="modality-count">6 types</span>
         <div class="modality-branches">
-          <span class="branch-tag">Transcription</span><span class="branch-tag">Diarization</span><span class="branch-tag">Emotion</span><span class="branch-tag">Events</span><span class="branch-tag">Classification</span><span class="branch-tag">Segmentation</span>
+          <span class="branch-tag">Transcription</span><span class="branch-tag">Diarization</span><span class="branch-tag">Emotion Detection</span><span class="branch-tag">Events Detection</span><span class="branch-tag">Audio Classification</span><span class="branch-tag">Audio Segmentation</span>
         </div>
       </div>
     </div>
@@ -587,10 +602,9 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 <!-- 4. BEFORE / AFTER -->
 <section class="before-after pad">
   <div class="sec-inner">
-    <div data-reveal>
-      <span class="sec-eyebrow">The Shift</span>
-      <h2 class="sec-title">Fix the data layer, and every downstream process compounds.</h2>
-      <p class="sec-desc">The difference between ad-hoc data wrangling and a production-grade pipeline — from raw signal to training-ready datasets, at the scale AI and data teams actually operate at.</p>
+    <div class="center-head" data-reveal>
+      <h2 class="sec-title">Fix the data layer, and every downstream process fixes automatically.</h2>
+      <p class="sec-desc">The difference between data wrangling and a production-grade AI ready data pipeline is Concave AI's data infrastructure bridging the gap between raw signal to training-ready datasets, giving freedom to AI and ML teams to operate and innovate flawlessly.</p>
     </div>
   </div>
 
@@ -604,23 +618,23 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         </div>
         <div class="shift-card">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>Weeks of manual labeling before a dataset is model-ready</p>
+          <p>Weeks of manual processing before a dataset is model-ready</p>
         </div>
         <div class="shift-card">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>No version history — every change silently overwrites the last</p>
+          <p>No versioned data history, every change silently overwrites the last</p>
         </div>
         <div class="shift-card">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>No lineage — provenance is untraceable once data moves downstream</p>
+          <p>No lineage,provenance is untraceable once data moves downstream</p>
         </div>
         <div class="shift-card">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>Regressions traced by hand, dataset by dataset, model by model</p>
+          <p>Regressions traced manually, from dataset till model</p>
         </div>
         <div class="shift-card">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>80% of engineering time lost to data prep, not modeling</p>
+          <p>80% of engineering time lost on data prep, not modeling</p>
         </div>
         <div class="shift-card" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
@@ -628,23 +642,23 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         </div>
         <div class="shift-card" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>Weeks of manual labeling before a dataset is model-ready</p>
+          <p>Weeks of manual processing before a dataset is model-ready</p>
         </div>
         <div class="shift-card" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>No version history — every change silently overwrites the last</p>
+          <p>No versioned data history, every change silently overwrites the last</p>
         </div>
         <div class="shift-card" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>No lineage — provenance is untraceable once data moves downstream</p>
+          <p>No lineage, provenance is untraceable once data moves downstream</p>
         </div>
         <div class="shift-card" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>Regressions traced by hand, dataset by dataset, model by model</p>
+          <p>Regressions traced by hand, from dataset till model</p>
         </div>
         <div class="shift-card" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg></span>
-          <p>80% of engineering time lost to data prep, not modeling</p>
+          <p>80% of engineering time lost on data prep, not modeling</p>
         </div>
       </div>
     </div>
@@ -656,11 +670,11 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
       <div class="shift-marquee reverse">
         <div class="shift-card is-after">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>One infrastructure layer spanning ingest to production</p>
+          <p>One infrastructure to make data AI-ready replacing fragmented toolchain</p>
         </div>
         <div class="shift-card is-after">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>AI-assisted annotation — training-ready data in hours, not weeks</p>
+          <p>AI-driven operative engines producing AI-ready training data in hours, not weeks</p>
         </div>
         <div class="shift-card is-after">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
@@ -672,19 +686,19 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         </div>
         <div class="shift-card is-after">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>Regressions detected and root-caused automatically, closing the loop</p>
+          <p>Detect regressional drifts and fixing them to streamline training automatically, closing the loop</p>
         </div>
         <div class="shift-card is-after">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>80% of time reinvested into model iteration, not data wrangling</p>
+          <p>80% of time reinvested into model development, not data wrangling</p>
         </div>
         <div class="shift-card is-after" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>One infrastructure layer spanning ingest to production</p>
+          <p>One infrastructure to make data AI-ready replacing fragmented toolchain</p>
         </div>
         <div class="shift-card is-after" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>AI-assisted annotation — training-ready data in hours, not weeks</p>
+          <p>AI-driven operative engines producing AI-ready training data in hours, not weeks</p>
         </div>
         <div class="shift-card is-after" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
@@ -696,11 +710,11 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         </div>
         <div class="shift-card is-after" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>Regressions detected and root-caused automatically, closing the loop</p>
+          <p>Detect regressional drifts and fixing them to streamline training automatically, closing the loop</p>
         </div>
         <div class="shift-card is-after" aria-hidden="true">
           <span class="shift-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></span>
-          <p>80% of time reinvested into model iteration, not data wrangling</p>
+          <p>80% of time reinvested into model development, not data wrangling</p>
         </div>
       </div>
     </div>
@@ -712,9 +726,8 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 <section class="closed-loop pad">
   <div class="sec-inner">
     <div class="loop-head" data-reveal>
-      <span class="sec-eyebrow">The Difference</span>
-      <h2 class="loop-heading">Most tools stop at export. Concave AI closes the loop.</h2>
-      <p class="loop-sub">A continuous, automated feedback cycle — not a one-way export into the void.</p>
+      <h2 class="loop-heading">Most tools stop after data export. We go further and close the loop.</h2>
+      <p class="loop-sub">A continuous, automated feedback cycle to ensure streamlining model training and enhancing model accuracy.</p>
     </div>
     <div class="loop-layout">
       <div class="loop-diagram" data-reveal="slide-left">
@@ -729,8 +742,8 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
         <div class="loop-node accent" style="top:50%;left:12%"><div class="loop-node-box">Observe</div></div>
       </div>
       <div class="loop-copy" data-reveal="slide-right" data-reveal-delay="1">
-        <p>When a production model regresses, Concave AI traces the failure to the exact data responsible, corrects it, and feeds the fix back into training — automatically.</p>
-        <p>No manual investigation. No weeks of rework. A system that gets more reliable every time it's wrong.</p>
+        <p>When a production-grade AI model regresses, Concave AI traces the failure to the exact data points responsible, identifies it, rectifies it, and feeds the fix back into training runs automatically.</p>
+        <p>No manual investigation. No weeks of rework. A system that gets more reliable every time there is drift.</p>
         <a href="/platform" class="btn-ghost loop-link">See how it works →</a>
       </div>
     </div>
@@ -741,9 +754,8 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 <section class="who pad">
   <div class="sec-inner">
     <div class="who-head" data-reveal>
-      <span class="sec-eyebrow">Built For</span>
-      <h2 class="who-heading">Built for the teams shipping production AI.</h2>
-      <p class="who-sub">3–5× faster annotation, one platform instead of seven disconnected tools — for the ML engineering, data operations, and AI product teams running AI at enterprise scale.</p>
+      <h2 class="who-heading">Built for the teams shipping world class production AI.</h2>
+      <p class="who-sub">3–5× faster data and ML Ops, one platform instead of seven disconnected tools for the ML engineering, data operations, and AI product teams running AI at enterprise scale.</p>
     </div>
   </div>
 
@@ -753,8 +765,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
       <span class="who-block-vertical">ML Engineering Teams</span>
       <div class="who-block-expanded">
         <span class="who-block-name">ML Engineering Teams</span>
-        <p class="who-block-desc">Training models on custom datasets. Need versioned, quality-assured data they can trust at every checkpoint.</p>
-        <span class="who-block-link">Read more →</span>
+        <p class="who-block-desc">Training models on custom datasets. Need versioned, quality-assured AI-ready data they can trust at every checkpoint.</p>
       </div>
     </a>
     <a href="/solutions/data-operations" class="who-block" data-reveal="zoom" data-reveal-delay="1">
@@ -763,7 +774,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
       <div class="who-block-expanded">
         <span class="who-block-name">Data Operations Teams</span>
         <p class="who-block-desc">Managing data pipelines across multiple teams. Need one platform instead of seven disconnected tools.</p>
-        <span class="who-block-link">Read more →</span>
+      
       </div>
     </a>
     <a href="/solutions/ai-product" class="who-block" data-reveal="zoom" data-reveal-delay="2">
@@ -772,7 +783,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
       <div class="who-block-expanded">
         <span class="who-block-name">AI Product Teams</span>
         <p class="who-block-desc">Shipping AI features to customers. Need fast iteration cycles and continuous data quality improvement.</p>
-        <span class="who-block-link">Read more →</span>
+
       </div>
     </a>
   </div>
@@ -782,7 +793,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 <section class="cta-final">
   <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
   <div class="hero-overlay"></div>
-  <h2>Stop wrestling with data. Start building AI that works.</h2>
+  <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
   <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
@@ -795,29 +806,48 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
           <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
           <span class="logo-text">Concave AI</span>
         </a>
-        <p>The data infrastructure platform for AI model training. Five layers, one closed loop.</p>
+        <p>Data Infrastructure for training AI models</p>
       </div>
       <div>
         <div class="footer-col-title">Platform</div>
         <div class="footer-links">
           <a href="/platform">Overview</a>
-          <a href="/platform#layers">Features</a>
-          <a href="/contact">Contact</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
         </div>
       </div>
       <div>
         <div class="footer-col-title">Company</div>
         <div class="footer-links">
           <a href="/company/about">About</a>
-          <a href="/company#founder">Founder</a>
-          <a href="/company#vision">Vision</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact</a>
         </div>
       </div>
       <div>
         <div class="footer-col-title">Connect</div>
-        <div class="footer-links">
-          <a href="mailto:hello@theconcaveai.com">hello@theconcaveai.com</a>
-          <a href="https://www.linkedin.com/company/theconcaveai/">LinkedIn</a>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
         </div>
       </div>
     </div>

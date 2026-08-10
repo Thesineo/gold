@@ -12,9 +12,9 @@
   } catch (e) {}
 })();
 </script>
-<title>Audio Annotation — Datalier | Concave AI</title>
+<title>Cloud Integration — Datalier | Concave AI</title>
 <meta property="og:site_name" content="Concave AI" />
-<meta name="description" content="AI-assisted audio annotation — transcription, classification, speaker diarization, emotion detection, sound event detection, and segmentation, with human review where it matters.">
+<meta name="description" content="Connect Datalier directly to your cloud storage — Amazon S3, Google Cloud Storage, Azure Blob Storage, PostgreSQL, or any open-source source — no migration required.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="/logo.png" type="image/png" sizes="48x48">
 <link rel="shortcut icon" href="/logo.png" type="image/png">
@@ -83,123 +83,133 @@
   <div class="bg-media"><canvas id="hero-canvas" aria-hidden="true"></canvas></div>
   <div class="hero-overlay"></div>
   <div class="modality-hero-content">
-    <div class="modality-hero-eyebrow" data-reveal>Audio Modalities</div>
-    <h1 data-reveal>Get accurate audio data for AI model training through AI labelling engines</h1>
-    <p class="modality-hero-sub" data-reveal data-reveal-delay="1">Transcribe speech, diarize speakers, tag events and segment audios with AI-assited engine to consolidate audio data at 10x pace </p>
+    <div class="modality-hero-eyebrow" data-reveal>Cloud Integration</div>
+    <h1 data-reveal>Connect your data stack seamlessly</h1>
+    <p class="modality-hero-sub" data-reveal data-reveal-delay="1">Connect your cloud storage and data stack through dedicated integration system. Access any form of datasets and files through seamless APIs.</p>
     <div class="modality-hero-actions" data-reveal data-reveal-delay="2">
-      <a href="/platform/label" class="btn-ghost">Explore the Platform</a>
+      <a href="/platform" class="btn-ghost">Explore the Platform</a>
       <a href="/contact" class="btn-primary">Book a Demo</a>
     </div>
   </div>
 </section>
 
-<!-- 2. WHAT IT IS — centered intro -->
+<!-- 2. COMPACT IMPACT DESCRIPTION -->
 <section class="pad">
   <div class="sec-inner">
     <div class="center-head" data-reveal>
-      <h2 class="sec-title">One layer for every type of audio labelling</h2>
-      <p class="sec-desc">From word-level transcription to speaker diarization, the data labelling layer routes every clip to the right audio modelities, auto-labelling engines s provide results with confidence, while those above threeshold are passed automatically others are directly sent to a human reviewer so nothing gets shipped unverified.</p>
+      <span class="sec-eyebrow">Why It Matters</span>
+      <h2 class="sec-title">Bring your data as-is — no migration, no pipeline rewrite</h2>
+      <p class="sec-desc">Datalier connects directly to where your data already lives. Point it at a bucket or a database, and every file is validated, normalised, and versioned automatically — with nothing to move and nothing to rebuild.</p>
     </div>
   </div>
 </section>
 
-<!-- 3. TASK CARDS — image placeholders only, real clips to follow -->
+<!-- 3. ELONGATED DIAGRAM — extends the platform page's Import section -->
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="center-head" data-reveal>
-      <span class="sec-eyebrow">Task Types</span>
-      <h2 class="sec-title">A complete toolkit for automated audio labelling</h2>
-    </div>
+    <div class="cloud-panel" data-reveal="zoom">
+      <div class="cloud-diagram">
+        <svg class="cloud-diagram-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <path id="cloudPath1" d="M100,24 C200,24 230,150 340,150"/>
+          <path id="cloudPath2" d="M100,84 C200,84 230,150 340,150"/>
+          <path id="cloudPath3" d="M100,150 L340,150"/>
+          <path id="cloudPath4" d="M100,216 C200,216 230,150 340,150"/>
+          <path id="cloudPath5" d="M100,276 C200,276 230,150 340,150"/>
+          <circle class="cloud-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0s"><mpath href="#cloudPath1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+          <circle class="cloud-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0.9s"><mpath href="#cloudPath2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0.9s"/>
+          </circle>
+          <circle class="cloud-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="1.8s"><mpath href="#cloudPath3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="1.8s"/>
+          </circle>
+          <circle class="cloud-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="2.7s"><mpath href="#cloudPath4"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="2.7s"/>
+          </circle>
+          <circle class="cloud-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="3.6s"><mpath href="#cloudPath5"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="3.6s"/>
+          </circle>
+        </svg>
 
-    <div class="task-card-grid">
-      <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media"><img src="/imgbgm/transcription.png" alt="Transcription — AI-generated timestamped transcript with confidence score" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Transcription</div>
-          <div class="task-card-desc">Convert speech to accurate, timestamped text, ready to train or fine-tune speech models.</div>
+        <div class="cloud-sources">
+          <span class="cloud-source-chip">
+            <span class="cloud-source-logo">
+              <img src="/imgbgm/azure_bright_theme.webp" alt="" class="logo-bright">
+              <img src="/imgbgm/azure_dark_theme.png" alt="" class="logo-dark">
+            </span>
+            <span class="cloud-source-word">Azure</span>
+          </span>
+          <span class="cloud-source-chip">
+            <span class="cloud-source-logo">
+              <img src="/imgbgm/aws_bright_theme.png" alt="" class="logo-bright">
+              <img src="/imgbgm/aws_dark_theme.png" alt="" class="logo-dark">
+            </span>
+            <span class="cloud-source-word">AWS</span>
+          </span>
+          <span class="cloud-source-chip">
+            <span class="cloud-source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-2.821-4.552l-.043.043.006-.05A9.344 9.344 0 0 0 12.19 2.38zm-.358 4.146c1.244-.04 2.518.368 3.486 1.15a5.186 5.186 0 0 1 1.862 4.078v.518c3.53-.07 3.53 5.262 0 5.193h-5.193l-.008.009v-.04H6.785a2.59 2.59 0 0 1-1.067-.23h.001a2.597 2.597 0 1 1 3.437-3.437l3.013-3.012A6.747 6.747 0 0 0 8.11 8.24c.018-.01.04-.026.054-.023a5.186 5.186 0 0 1 3.67-1.69z"/></svg></span>
+            <span class="cloud-source-word">Google Cloud</span>
+          </span>
+          <span class="cloud-source-chip">
+            <span class="cloud-source-logo">
+              <img src="/imgbgm/postgres-bright.png" alt="" class="logo-bright">
+              <img src="/imgbgm/postgres-dark.jpeg" alt="" class="logo-dark">
+            </span>
+            <span class="cloud-source-word">PostgreSQL</span>
+          </span>
+          <span class="cloud-source-chip">
+            <span class="cloud-source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="3" y="12" width="17" height="7" rx="3.5"/><circle cx="8" cy="11" r="5"/><circle cx="13.5" cy="8.5" r="6"/><circle cx="18" cy="12" r="4"/></svg></span>
+            <span class="cloud-source-word">Any Open Source</span>
+          </span>
+        </div>
+
+        <div class="cloud-formats">
+          <span class="cloud-format-chip" style="top:6%;left:38%">.jsonl</span>
+          <span class="cloud-format-chip" style="top:24%;left:50%">.jpeg</span>
+          <span class="cloud-format-chip" style="top:45%;left:58%">.parquet</span>
+          <span class="cloud-format-chip" style="top:66%;left:48%">.mp4</span>
+          <span class="cloud-format-chip" style="top:84%;left:38%">.wav</span>
+        </div>
+
+        <div class="cloud-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span>Datalier</span>
         </div>
       </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media"><img src="/imgbgm/audioclassification.png" alt="Audio classification — AI-assigned category label with confidence score" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Audio Classification</div>
-          <div class="task-card-desc">Categorize entire audio files by content, source, or context with a single global label.</div>
-        </div>
-      </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="2">
-        <div class="task-card-media"><img src="/imgbgm/speakerdiazartion.png" alt="Speaker diarization — per-speaker timeline with transcript turns" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Speaker Diarization</div>
-          <div class="task-card-desc">Identify and separate individual speakers across a recording, segment by segment.</div>
-        </div>
-      </div>
-      <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media"><img src="/imgbgm/Emotiondetection.png" alt="Emotion detection — detected emotion, sentiment, and intensity with transcript" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Emotion Detection</div>
-          <div class="task-card-desc">Detect emotional tone and sentiment shifts across speech segments, timestamp by timestamp.</div>
-        </div>
-      </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media"><img src="/imgbgm/soundeventdetection.png" alt="Sound event detection — polyphonic event timeline with detected events" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Sound Event Detection</div>
-          <div class="task-card-desc">Flag specific sound events — alarms, glass breaking, applause — wherever they occur in the file.</div>
-        </div>
-      </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="2">
-        <div class="task-card-media"><img src="/imgbgm/audiosegmentation.png" alt="Audio segmentation — labeled temporal sections across a recording" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Audio Segmentation</div>
-          <div class="task-card-desc">Break long recordings into labeled temporal segments for structured downstream training.</div>
-        </div>
+
+      <div class="cloud-copy">
+        <h3> Flawless Data Integration</h3>
+        <p>Connect Amazon S3, Google Cloud Storage, Azure Blob Storage, PostgreSQL, or any open-source. Datalier will allow you to validate structure, normalises fields, and registers every dataset with schema metadata and source provenance.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 4. BUILT-IN AUTOMATION — 4-box hover-elongate accordion -->
-<section class="who pad" style="padding-top:0">
+<!-- 4. TWO FEATURE BOXES -->
+<section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="who-head" data-reveal>
-      <span class="sec-eyebrow">Built-In Automation</span>
-      <h2 class="who-heading">Everything you need to scale audio labeling</h2>
+    <div class="task-card-grid cols-2">
+      <div class="task-card" data-reveal="zoom">
+        <div class="task-card-media wide"><img src="/imgbgm/source1.png" alt="Connect a new source — AWS S3, Google GCS, Azure Blob, Hugging Face, PostgreSQL, Snowflake, MongoDB, REST API, or Webhook" loading="lazy"></div>
+        <div class="task-card-body">
+          <div class="task-card-title">Every modality, one pipeline</div>
+          <div class="task-card-desc">Images, video, audio, text, and documents all land in the same pipeline, validated and normalised the same way regardless of source or format.</div>
+        </div>
       </div>
-  </div>
-
-  <div class="who-blocks">
-    <a href="/platform/label" class="who-block" data-reveal="zoom">
-      <canvas class="who-canvas" aria-hidden="true"></canvas>
-      <span class="who-block-vertical">Ontologies</span>
-      <div class="who-block-expanded">
-        <span class="who-block-name">Customizable ontologies for every audio project</span>
-        <p class="who-block-desc">Build nested classification schemas specific to your domain, from simple tags to multi-level attribute hierarchies.</p>
+      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
+        <div class="task-card-media wide"><img src="/imgbgm/source2.png" alt="Connection setup form — host, port, database, username, and password, with test and connect" loading="lazy"></div>
+        <div class="task-card-body">
+          <div class="task-card-title">Governed from the first byte</div>
+          <div class="task-card-desc">Every dataset inherits access rules, audit logging, and retention policy the moment it's connected — compliance isn't a separate step.</div>
+        </div>
       </div>
-    </a>
-    <a href="/platform/label" class="who-block" data-reveal="zoom" data-reveal-delay="1">
-      <canvas class="who-canvas" aria-hidden="true"></canvas>
-      <span class="who-block-vertical">AI Assistance</span>
-      <div class="who-block-expanded">
-        <span class="who-block-name">Native AI assistance with Whisper &amp; pyannote</span>
-        <p class="who-block-desc">Access Whisper for transcription and pyannote for speaker diarization natively — faster, more accurate first-pass labels before human review.</p>
-      </div>
-    </a>
-    <a href="/platform/label" class="who-block" data-reveal="zoom" data-reveal-delay="2">
-      <canvas class="who-canvas" aria-hidden="true"></canvas>
-      <span class="who-block-vertical">Analytics</span>
-      <div class="who-block-expanded">
-        <span class="who-block-name">In-depth performance analytics</span>
-        <p class="who-block-desc">Uncover insights on label quality and annotator performance to optimize throughput, quality, and workforce efficiency.</p>
-      </div>
-    </a>
-    <a href="/platform/label" class="who-block" data-reveal="zoom" data-reveal-delay="3">
-      <canvas class="who-canvas" aria-hidden="true"></canvas>
-      <span class="who-block-vertical">Workflows</span>
-      <div class="who-block-expanded">
-        <span class="who-block-name">Configurable workflows for quality control</span>
-        <p class="who-block-desc">Guarantee quality throughout labeling pipelines with customizable review stages, consensus routing, and approval gates.</p>
-      </div>
-    </a>
+    </div>
   </div>
 </section>
 
@@ -212,24 +222,24 @@
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <button class="faq-question" type="button"><span>What audio annotation types are supported?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Transcription, audio classification, speaker diarization, emotion detection, sound event detection, and audio segmentation — all routed through the same Label layer.</p></div>
+        <button class="faq-question" type="button"><span>Which cloud storage providers are supported?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Amazon S3, Google Cloud Storage, Azure Blob Storage, PostgreSQL, and any open-source or self-hosted source — connected directly, without a migration step.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-question" type="button"><span>How does AI-assisted transcription work?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Every clip is transcribed and scored by the engine best suited to its task. Segments above the configured confidence threshold are accepted automatically; everything else is queued for a human reviewer.</p></div>
+        <button class="faq-question" type="button"><span>Does my data get copied out of my own storage?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>No. Datalier connects to your storage in place — it reads, validates, and registers datasets without requiring you to move raw data into a separate system first.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-question" type="button"><span>Can I bring my own ontology?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Yes. Ontologies are configured per project, from flat tag lists to nested, multi-level classification schemas.</p></div>
+        <button class="faq-question" type="button"><span>What happens when a dataset is connected?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Every file is validated, normalised, and registered with schema metadata and source provenance before it moves on to Transform, Label, or any other layer.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-question" type="button"><span>How is label quality measured?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Every delivery includes annotator-level and task-level quality metrics, plus a full audit trail of who labeled or reviewed what, and when.</p></div>
+        <button class="faq-question" type="button"><span>Which file formats are supported?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Structured formats like .jsonl and .parquet, media formats like .jpeg, .mp4, and .wav, and more — across image, video, audio, text, and document data.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-question" type="button"><span>Does this connect to the rest of the platform?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Labeled audio data flows directly into Version for lineage tracking and Observe for production drift monitoring — no separate export step.</p></div>
+        <button class="faq-question" type="button"><span>Is access control applied automatically?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Yes. Access rules, audit logging, and retention policy attach to a dataset the moment it's connected, inherited from the Govern layer — not configured separately per integration.</p></div>
       </div>
     </div>
   </div>
