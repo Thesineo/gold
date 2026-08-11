@@ -60,7 +60,7 @@
 
 /* ── UPLOAD (replaces the old Data Modalities grid) ── */
 .p-upload{background:var(--bg)}
-.upload-panel{display:grid;grid-template-columns:560px 1fr;gap:64px;align-items:center;margin-top:56px}
+.upload-panel{display:grid;grid-template-columns:680px 1fr;gap:64px;align-items:center;margin-top:56px}
 .upload-visual{
   position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
   background-color:var(--elevated);
@@ -92,11 +92,11 @@
 
 .upload-formats{position:absolute;inset:0;z-index:2}
 .format-chip{position:absolute;font-size:11.5px;font-weight:700;letter-spacing:0.02em;color:var(--text-dim);background:var(--bg);border:1px solid var(--border);padding:6px 11px;border-radius:6px}
-.format-chip.f1{top:6%;left:38%}
-.format-chip.f2{top:24%;left:50%}
-.format-chip.f3{top:45%;left:58%}
-.format-chip.f4{top:66%;left:48%}
-.format-chip.f5{top:84%;left:38%}
+.format-chip.f1{top:29%;left:65%;transform:translate(-50%,-50%)}
+.format-chip.f2{top:39%;left:65%;transform:translate(-50%,-50%)}
+.format-chip.f3{top:50%;left:65%;transform:translate(-50%,-50%)}
+.format-chip.f4{top:61%;left:65%;transform:translate(-50%,-50%)}
+.format-chip.f5{top:71%;left:65%;transform:translate(-50%,-50%)}
 
 .upload-mark{
   position:absolute;top:50%;right:6%;transform:translateY(-50%);z-index:2;
@@ -107,7 +107,7 @@
 .upload-mark svg{width:30px;height:30px}
 .upload-mark span{font-family:'Inter',sans-serif;font-size:19px;font-weight:800;letter-spacing:-0.01em}
 
-.upload-copy .btn-ghost{margin-top:28px}
+.upload-copy .btn-ghost,.export-copy .btn-ghost,.pipeline-copy .btn-ghost{margin-top:28px}
 
 @media(max-width:900px){
   .upload-panel{grid-template-columns:1fr;gap:32px}
@@ -193,12 +193,12 @@
 .pipeline-panel{display:grid;grid-template-columns:1fr 560px;gap:64px;align-items:center;margin-top:56px}
 
 .pipeline-visual{
-  position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
+  position:relative;border-radius:20px;overflow:hidden;
   background-color:var(--elevated);
   background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
   background-size:10px 10px;border:1px solid var(--border)
 }
-.pipeline-mock{position:absolute;inset:16px;border-radius:14px;background:var(--bg);border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,0.08);padding:24px 26px;display:flex;flex-direction:column;gap:22px}
+.pipeline-mock{margin:16px;border-radius:14px;background:var(--bg);border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,0.08);padding:24px 26px;display:flex;flex-direction:column;gap:22px}
 .pipeline-mock-header{display:flex;align-items:center;gap:6px;padding-bottom:14px;border-bottom:1px solid var(--border)}
 .pipeline-mock-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
 .pipeline-mock-title{margin-left:8px;font-size:11.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim)}
@@ -216,15 +216,14 @@
 .pipeline-mock-field-label{font-size:9.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dimmer)}
 .pipeline-mock-field-value{font-size:12.5px;font-weight:700;color:var(--text)}
 
-.pipeline-mock-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--border)}
+.pipeline-mock-footer{padding-top:14px;border-top:1px solid var(--border)}
 .pipeline-mock-run{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--text);background:var(--elevated);border:1px solid var(--border);padding:8px 14px;border-radius:20px}
 
 @media(max-width:900px){
   .pipeline-panel{grid-template-columns:1fr;gap:32px}
-  .pipeline-visual{aspect-ratio:16/13}
 }
 @media(max-width:560px){
-  .pipeline-mock{padding:18px 18px;gap:16px;inset:10px}
+  .pipeline-mock{padding:18px 18px;gap:16px;margin:10px}
   .pipeline-mock-chip{font-size:9.5px;padding:5px 9px}
   .pipeline-mock-field{min-width:90px;padding:7px 10px}
 }
@@ -243,6 +242,10 @@
    than the full-size heading/description meant for standalone sections. */
 .upload-copy .sec-title,.export-copy .sec-title,.pipeline-copy .sec-title{font-size:clamp(24px,2.6vw,34px)}
 .upload-copy .sec-desc,.export-copy .sec-desc,.pipeline-copy .sec-desc,.best-copy .sec-desc{font-size:15.5px;max-width:460px}
+/* Upload's diagram runs wider than the others (680px, see .upload-panel),
+   so its copy column has more room too — let the description use it
+   instead of wrapping tight at the same 460px cap. */
+.upload-copy .sec-desc{max-width:560px}
 /* Unboxed on purpose — no border/background/card framing, so the wireframe
    just sits on the panel itself. Landscape ratio to suit the packet shape
    (wide box, shallow depth) rather than a portrait figure. */
@@ -281,7 +284,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/platform/transform">Data Transformation</a>
-            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
             <a href="/platform/version">Data Versioning &amp; Lineage</a>
             <a href="/platform/observe">Data Observability</a>
             <a href="/platform/govern">Data Governance</a>
@@ -341,11 +344,11 @@
     <div class="upload-panel">
       <div class="upload-visual" data-reveal="slide-left">
         <svg class="upload-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-          <path id="upPath1" d="M100,24 C200,24 230,150 340,150"/>
-          <path id="upPath2" d="M100,84 C200,84 230,150 340,150"/>
-          <path id="upPath3" d="M100,150 L340,150"/>
-          <path id="upPath4" d="M100,216 C200,216 230,150 340,150"/>
-          <path id="upPath5" d="M100,276 C200,276 230,150 340,150"/>
+          <path id="upPath1" d="M180,24 C250,24 270,150 340,150"/>
+          <path id="upPath2" d="M180,84 C250,84 270,150 340,150"/>
+          <path id="upPath3" d="M180,150 L340,150"/>
+          <path id="upPath4" d="M180,216 C250,216 270,150 340,150"/>
+          <path id="upPath5" d="M180,276 C250,276 270,150 340,150"/>
           <circle class="flow-dot-svg" r="3.2">
             <animateMotion dur="5s" repeatCount="indefinite" begin="0s"><mpath href="#upPath1"/></animateMotion>
             <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0s"/>
@@ -417,7 +420,7 @@
         <span class="sec-eyebrow">Integrate</span>
         <h2 class="sec-title">Upload large multimodal datasets in minutes.</h2>
         <p class="sec-desc">Connect Amazon S3, Google Cloud Storage, Azure Blob Storage, Hugging Face Hub, PostgreSQL, Snowflake or from any other open sources directly. Datalier validates structure, normalises fields, and registers every dataset with schema metadata and source provenance before getting into any layer.</p>
-        <a href="/platform/transform" class="btn-ghost">See Cloud Integration →</a>
+        <a href="/solutions/cloud-integration/" class="btn-ghost">See Cloud Integration →</a>
       </div>
     </div>
   </div>
@@ -506,7 +509,7 @@
         <span class="sec-eyebrow">The Feedback Loop</span>
         <h2 class="sec-title">Loop that streamlines training and improves model accuracy.</h2>
         <p class="sec-desc">After exporting training-ready data straight into your required storage entity, in the format your framework expects. We do not stop there, we connect to your training platform, to ensure trains are streamlined and evaluates the model for any drifts. Observability layer measures prediction logs in production for any kind of drift. Data behind any degradation routes straight back to Datalier for re-labeling loop without manual intervention dimensing every drift to ensure complete model accuracy.</p>
-        <a href="/platform/observe" class="btn-ghost">See how Observe closes the loop →</a>
+        <a href="/solutions/mlops-integration/" class="btn-ghost">See how the loop works →</a>
       </div>
 
       <div class="export-visual" data-reveal="slide-right">
@@ -681,7 +684,6 @@
   <div class="hero-overlay"></div>
   <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
-  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
 
 <footer>

@@ -753,7 +753,16 @@
     { type: 'video', src: '/imgbgm/video-annotated-03.mp4' },
     { type: 'video', src: '/imgbgm/video-annotated-04.mp4' },
     { type: 'video', src: '/imgbgm/video-annotated-05.mp4' },
-    { type: 'video', src: '/imgbgm/video-annotated-06.mp4' }
+    { type: 'video', src: '/imgbgm/video-annotated-06.mp4' },
+    { type: 'image', src: '/imgbgm/screen1.png' },
+    { type: 'image', src: '/imgbgm/screen2.png' },
+    { type: 'image', src: '/imgbgm/screen3.png' },
+    { type: 'image', src: '/imgbgm/screen4.png' },
+    { type: 'image', src: '/imgbgm/screen5.png' },
+    { type: 'image', src: '/imgbgm/screen6.png' },
+    { type: 'image', src: '/imgbgm/screen7.png' },
+    { type: 'image', src: '/imgbgm/screen8.png' },
+    { type: 'video', src: '/imgbgm/lscreenvideo.mp4' }
   ];
 
   /* Slots are generated on load, not hand-placed — an ellipse/ring of fixed

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://theconcaveai.com/sitemap.xml

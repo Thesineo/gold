@@ -38,7 +38,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/platform/transform">Data Transformation</a>
-            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
             <a href="/platform/version">Data Versioning &amp; Lineage</a>
             <a href="/platform/observe">Data Observability</a>
             <a href="/platform/govern">Data Governance</a>
@@ -78,18 +78,17 @@
   </div>
 </nav>
 
-<section class="layer-hero">
-  <div class="bg-media"><canvas id="hero-canvas" aria-hidden="true"></canvas></div>
-  <div class="hero-overlay"></div>
+<section class="layer-hero video-bg">
   <a href="/platform" class="layer-back-btn" aria-label="Back to Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
-  <div class="sec-inner layer-hero-inner">
-    <div class="layer-hero-content" data-reveal="slide-left">
-      <span class="layer-hero-label">Data Layer</span>
-      <h1>Versioning &amp; Lineage</h1>
-      <p class="layer-hero-sub">Immutable snapshots. Full lineage. Training-ready export.</p>
-    </div>
-    <div class="layer-hero-media has-media" data-reveal="slide-right" aria-hidden="true">
-      <video src="/imgbgm/version-lineage.mp4" autoplay loop muted playsinline></video>
+  <div class="layer-hero-card">
+    <div class="bg-media"><video src="/imgbgm/version-lineage.mp4" autoplay loop muted playsinline></video></div>
+    <div class="hero-overlay"></div>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="layer-hero-label">Data Layer</span>
+        <h1>Versioning &amp; Lineage</h1>
+        <p class="layer-hero-sub">Immutable snapshots. Full lineage. Training-ready export.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -98,7 +97,7 @@
   <div class="sec-inner">
     <div class="intro-center" data-reveal>
       <span class="sec-eyebrow">What It Does</span>
-      <p class="lead-text">The versioning layer freezes a labeled dataset into an immutable snapshot — a point-in-time record of the data, its labels, its quality metrics, and the complete history of operations that produced it. Once frozen, a version cannot be modified. It can only be exported, compared to other versions, or used as the basis for a new version.</p>
+      <p class="lead-text">The versioning engine captures labelled datasets into immutable state snapshots, establishing a deterministic, point-in-time record of source data, labels, validation metrics, and upstream transformations. By embedding end-to-end data lineage directly into each version, every artifact remains permanently audit-ready and tamper-proof. Once committed, versions are read-only and can exclusively be exported, diffed against historical baselines, or referenced as the foundational branch for new dataset iterations.</p>
     </div>
   </div>
 </section>
@@ -108,9 +107,9 @@
     <div class="version-model-panel">
       <div class="version-flow compact" data-reveal="slide-left">
         <svg class="version-flow-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-          <path id="vfPath1" d="M100,150 C200,150 230,54 340,54"/>
-          <path id="vfPath2" d="M100,150 L340,150"/>
-          <path id="vfPath3" d="M100,150 C200,150 230,246 340,246"/>
+          <path id="vfPath1" d="M100,150 C180,150 200,54 250,54"/>
+          <path id="vfPath2" d="M100,150 L250,150"/>
+          <path id="vfPath3" d="M100,150 C180,150 200,246 250,246"/>
           <circle class="version-flow-dot" r="3.4">
             <animateMotion dur="4.5s" repeatCount="indefinite" begin="0s"><mpath href="#vfPath1"/></animateMotion>
             <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0s"/>
@@ -148,7 +147,7 @@
 
       <div class="version-model-copy" data-reveal="slide-right">
         <span class="sec-eyebrow">Versioning Model</span>
-        <p class="lead-text">Versions follow semantic numbering: major.minor.patch.</p>
+        <p class="lead-text">Versions follow semantic numbering: major, minor, patch.</p>
         <p class="lead-text">Each version records its parent version, the changes made, and the reason for the bump. Versions can branch to explore different labeling strategies on the same base data without touching the main line.</p>
       </div>
     </div>
@@ -157,9 +156,9 @@
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div data-reveal>
+    <div class="center-head" data-reveal>
       <span class="sec-eyebrow">Lineage</span>
-      <p class="lead-text">Every version generates a lineage report — one structured document, nine sections, auto-included with every export.</p>
+      <p class="lead-text">Every version generates a lineage report one structured document, nine sections, auto-included with every export.</p>
     </div>
     <div class="recipe-grid">
       <div class="recipe-card" data-reveal="zoom">
@@ -185,7 +184,7 @@
       <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
         <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.3"/><circle cx="6" cy="18" r="2.3"/><circle cx="18" cy="12" r="2.3"/><path d="M6 8.3V15.7M6 12h6a4 4 0 0 0 4-4"/></svg></div>
         <div class="recipe-card-title">Version Changes</div>
-        <div class="recipe-card-body">What differs from the previous version — rows added, removed, labels changed.</div>
+        <div class="recipe-card-body">What differs from the previous version rows added, removed, labels changed.</div>
       </div>
       <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
         <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
@@ -213,20 +212,20 @@
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div data-reveal>
+    <div class="center-head" data-reveal>
       <span class="sec-eyebrow">Resolutions</span>
-      <p class="lead-text">What versioning actually resolves — six problems eliminated by making every dataset a permanent, addressable record.</p>
+      <p class="lead-text">What versioning actually resolves, six problems eliminated by making every dataset a permanent, addressable record.</p>
     </div>
     <div class="resolution-grid">
       <div class="resolution-card" data-reveal="slide-left">
         <span class="resolution-card-num">01</span>
         <div class="resolution-card-title">Reproducibility</div>
-        <div class="resolution-card-body">Rerun any experiment against the exact dataset version that produced it — bit-for-bit, every time.</div>
+        <div class="resolution-card-body">Rerun any experiment against the exact dataset version that produced it bit-for-bit, every time.</div>
       </div>
       <div class="resolution-card" data-reveal="slide-right">
         <span class="resolution-card-num">02</span>
         <div class="resolution-card-title">Traceability</div>
-        <div class="resolution-card-body">See exactly how the data was collected, cleaned, and annotated — the full path from raw signal to label.</div>
+        <div class="resolution-card-body">See exactly how the data was collected, cleaned, and labelled, the full path from raw signal to label.</div>
       </div>
       <div class="resolution-card" data-reveal="slide-left">
         <span class="resolution-card-num">03</span>
@@ -241,7 +240,7 @@
       <div class="resolution-card" data-reveal="slide-left">
         <span class="resolution-card-num">05</span>
         <div class="resolution-card-title">Resolvability</div>
-        <div class="resolution-card-body">Trace how a change ripples forward — see every downstream dataset, model, and report a single upstream edit would touch before it happens.</div>
+        <div class="resolution-card-body">Trace how a change ripples forward to see every downstream dataset, model, and report a single upstream edit would touch before it happens.</div>
       </div>
       <div class="resolution-card" data-reveal="slide-right">
         <span class="resolution-card-num">06</span>
@@ -257,7 +256,6 @@
   <div class="hero-overlay"></div>
   <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
-  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
 
 <footer>

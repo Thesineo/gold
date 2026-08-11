@@ -38,7 +38,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/platform/transform">Data Transformation</a>
-            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
             <a href="/platform/version">Data Versioning &amp; Lineage</a>
             <a href="/platform/observe">Data Observability</a>
             <a href="/platform/govern">Data Governance</a>
@@ -104,7 +104,7 @@
   </div>
 </section>
 
-<!-- 3. TASK SWITCHER — placeholders only, real examples to follow -->
+<!-- 3. TASK SWITCHER -->
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
     <div class="center-head" data-reveal>
@@ -121,11 +121,11 @@
         <button class="task-switch-item" type="button">Question Answering</button>
       </div>
       <div class="task-switch-media">
-        <div class="task-switch-media-item is-active"><span class="task-switch-media-hint">Preview coming soon</span></div>
-        <div class="task-switch-media-item"><span class="task-switch-media-hint">Preview coming soon</span></div>
-        <div class="task-switch-media-item"><span class="task-switch-media-hint">Preview coming soon</span></div>
-        <div class="task-switch-media-item"><span class="task-switch-media-hint">Preview coming soon</span></div>
-        <div class="task-switch-media-item"><span class="task-switch-media-hint">Preview coming soon</span></div>
+        <div class="task-switch-media-item has-media is-active"><img src="/imgbgm/RLHF.png" alt="RLHF preference ranking — AI decision with confidence score comparing two responses" loading="lazy"></div>
+        <div class="task-switch-media-item has-media"><img src="/imgbgm/NER.png" alt="Named entity recognition — detected entities highlighted in text" loading="lazy"></div>
+        <div class="task-switch-media-item has-media"><img src="/imgbgm/textclassification.png" alt="Text classification — spam/non-spam label distribution and AI predictions" loading="lazy"></div>
+        <div class="task-switch-media-item has-media"><img src="/imgbgm/Summarization.png" alt="Summarization — original text with AI-generated summary and confidence score" loading="lazy"></div>
+        <div class="task-switch-media-item has-media"><img src="/imgbgm/QA.png" alt="Question answering — extracted answer with confidence score" loading="lazy"></div>
       </div>
     </div>
   </div>
@@ -153,8 +153,8 @@
       <canvas class="who-canvas" aria-hidden="true"></canvas>
       <span class="who-block-vertical">AI Assistance</span>
       <div class="who-block-expanded">
-        <span class="who-block-name">Native AI assistance with GPT-4o &amp; spaCy</span>
-        <p class="who-block-desc">Access GPT-4o for judgment-heavy tasks and spaCy for high-throughput entity extraction natively — faster, more consistent first-pass labels before human review.</p>
+        <span class="who-block-name">Native AI integration with GPT-4o &amp; spaCy</span>
+        <p class="who-block-desc">Access text engines integrated with GPT-4o for judgment-heavy tasks and spaCy for high-impactful entity extraction natively, faster, more consistent first-pass labels before any reviewing.</p>
       </div>
     </a>
     <a href="/platform/label" class="who-block" data-reveal="zoom" data-reveal-delay="2">
@@ -162,7 +162,7 @@
       <span class="who-block-vertical">Analytics</span>
       <div class="who-block-expanded">
         <span class="who-block-name">In-depth performance analytics</span>
-        <p class="who-block-desc">Uncover insights on label quality and annotator performance to optimize throughput, quality, and workforce efficiency.</p>
+        <p class="who-block-desc">Uncover insights on label quality and engine performance to optimize efficency, quality, and workforce efficiency.</p>
       </div>
     </a>
     <a href="/platform/label" class="who-block" data-reveal="zoom" data-reveal-delay="3">
@@ -186,11 +186,11 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-question" type="button"><span>What text annotation types are supported?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>RLHF preference ranking, named entity recognition, text classification, summarization, and question answering — all routed through the same Label layer.</p></div>
+        <div class="faq-answer"><p>RLHF preference ranking, named entity recognition, text classification, summarization, and question answering, all routed through the same Label layer.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>How does AI-assisted labeling work?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Every document is scored by the engine best suited to its task. Labels above the configured confidence threshold are accepted automatically; everything else is queued for a human reviewer.</p></div>
+        <div class="faq-answer"><p>Every document is scored by the engine best suited to its task. Labels above the configured confidence threshold are accepted automatically everything else is queued for a review.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>Can I bring my own ontology?</span><span class="faq-icon"></span></button>
@@ -198,11 +198,11 @@
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>How is label quality measured?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Every delivery includes annotator-level and task-level quality metrics, plus a full audit trail of who labeled or reviewed what, and when.</p></div>
+        <div class="faq-answer"><p>Every delivery includes data-level and task-level quality metrics, plus a full audit trail suppourted by lineage report.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>Does this connect to the rest of the platform?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Labeled text data flows directly into Version for lineage tracking and Observe for production drift monitoring — no separate export step.</p></div>
+        <div class="faq-answer"><p>Labeled text data flows directly into Version for lineage tracking and Observability for production drift monitoring with no extra export intervention.</p></div>
       </div>
     </div>
   </div>
@@ -214,7 +214,6 @@
   <div class="hero-overlay"></div>
   <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
-  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
 
 <footer>

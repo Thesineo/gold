@@ -38,7 +38,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/platform/transform">Data Transformation</a>
-            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
             <a href="/platform/version">Data Versioning &amp; Lineage</a>
             <a href="/platform/observe">Data Observability</a>
             <a href="/platform/govern">Data Governance</a>
@@ -78,18 +78,17 @@
   </div>
 </nav>
 
-<section class="layer-hero">
-  <div class="bg-media"><canvas id="hero-canvas" aria-hidden="true"></canvas></div>
-  <div class="hero-overlay"></div>
+<section class="layer-hero video-bg">
   <a href="/platform" class="layer-back-btn" aria-label="Back to Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
-  <div class="sec-inner layer-hero-inner">
-    <div class="layer-hero-content" data-reveal="slide-left">
-      <span class="layer-hero-label">Data Layer</span>
-      <h1>Govern</h1>
-      <p class="layer-hero-sub">Control. Audit. Comply — by default, not as an afterthought.</p>
-    </div>
-    <div class="layer-hero-media" data-reveal="slide-right" aria-hidden="true">
-      <span class="layer-hero-media-hint">Image / video</span>
+  <div class="layer-hero-card">
+    <div class="bg-media"><video src="/imgbgm/govern.mp4" autoplay loop muted playsinline></video></div>
+    <div class="hero-overlay"></div>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="layer-hero-label">Data Layer</span>
+        <h1>Govern</h1>
+        <p class="layer-hero-sub">Traceability, accountability, and reliability built into every layer.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -98,42 +97,142 @@
   <div class="sec-inner">
     <div class="intro-center" data-reveal>
       <span class="sec-eyebrow">What It Does</span>
-      <p class="lead-text">The governance layer controls who can access, modify, or export data at every stage of the pipeline, and records every action taken against it. Access rules, retention policies, and regulatory tags attach to the dataset itself — not a separate spreadsheet — so compliance status travels with the data instead of needing a separate lookup.</p>
+      <p class="lead-text">The governance layer is an architectural fundamental rather than an isolated module operating continuously across all five platform layers. Every operation interacting with a dataset is automatically logged, cryptographically attributed, and indexed for instant retrieval. This produces an uninterrupted, machine-generated audit trail capturing the complete data lifecycle from transformation and cleaning to labelling, verification, versioning, export, and active remediation, eliminating manual compliance overhead entirely.</p>
+      <p class="lead-text">As enterprise AI faces increasing regulatory scrutiny, organizations must address a critical imperative "How was this model trained, and can you prove it?" Concave AI guarantees that the evidence is continuously available, verified, and generated without human intervention.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <!-- Desktop: sticky diagram + text, driven by scroll position. Intro
+       slide, then one slide per governance control — canvas is a
+       pixel-dot wireframe cube that tumbles in 3D and, on each control
+       slide, revolves and settles with that control's face toward the
+       viewer. Same mechanics as the Label page's AI Engines section; see
+       initGovernScroll in platform-motion.js. -->
+  <div class="layer-scroll" id="governScroll">
+    <div class="layer-sticky">
+      <div class="sec-inner layer-sticky-inner">
+        <div class="layer-copy-col">
+          <div class="layer-slide-tagline" id="governTagline"></div>
+          <h3 class="layer-slide-heading" id="governHeading">Six Controls, Continuous Governance</h3>
+          <p class="layer-slide-desc" id="governDesc">Six automated controls run on every dataset, on every layer, every time — provenance, logging, lineage, integrity, quality, and access, with no manual audit required.</p>
+
+          <div class="layer-progress-row" id="governProgressRow">
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
+          </div>
+
+          <div class="layer-nav">
+            <button class="layer-arrow-btn govern-prev" type="button" aria-label="Previous control"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button class="layer-arrow-btn govern-next" type="button" aria-label="Next control"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="layer-diagram-col">
+          <div class="layer-diagram-wrap">
+            <canvas id="governCube" aria-hidden="true"></canvas>
+          </div>
+          <div class="layer-scroll-hint" id="governScrollHint">Scroll to continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile: plain stacked list, no sticky/scroll-driven behavior -->
+  <div class="sec-inner layer-mobile">
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Provenance Tracking</div>
+      <p class="layer-mobile-desc">Every dataset records its origin — storage backend, file, query, or upload — and that provenance persists through every operation into the final lineage report.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Operation Logging</div>
+      <p class="layer-mobile-desc">Every transformation, labeling decision, review, and export is logged as an immutable, timestamped event tied to its actor — AI engine or human reviewer.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Lineage Reports</div>
+      <p class="layer-mobile-desc">Every version auto-generates a structured lineage document — identity, provenance, transformations, and risk — included with every export.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Version Integrity</div>
+      <p class="layer-mobile-desc">Every frozen version is SHA-256 hash-verified across data, labels, and metadata — cryptographic proof the export matches what was approved.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Quality Gates</div>
+      <p class="layer-mobile-desc">Datasets must clear configurable thresholds — agreement rate, error rate, class balance — before export. Failing versions are flagged with blocking issues.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Access Control</div>
+      <p class="layer-mobile-desc">Role-based permissions scope every dataset, connection, and operation — annotators see only their tasks, teams see only their own data.</p>
     </div>
   </div>
 </section>
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div data-reveal>
-      <span class="sec-eyebrow">Access Control</span>
-    </div>
-    <div class="card-grid cols-3" data-reveal>
-      <div class="info-card"><div class="info-card-title">Role-based permissions</div><div class="info-card-body">Reviewers, approvers, and admins see only the datasets and actions their role permits. Permissions are set per project and inherited by every version derived from it.</div></div>
-      <div class="info-card"><div class="info-card-title">Approval workflows</div><div class="info-card-body">Datasets above a configurable sensitivity level require sign-off from a designated approver before they can be exported or pushed to storage.</div></div>
-      <div class="info-card"><div class="info-card-title">Single sign-on</div><div class="info-card-body">Authentication integrates with your existing identity provider — no separate credentials to manage or lose track of.</div></div>
+    <div class="cloud-panel" data-reveal="zoom">
+      <div class="cloud-diagram">
+        <svg class="govern-diagram-svg" viewBox="0 0 500 280" preserveAspectRatio="none">
+          <rect class="govern-wrap-rect" x="40" y="50" width="420" height="124" rx="16"/>
+          <path id="governLinkPath" class="govern-link" d="M80,112 L400,112"/>
+          <path id="governOutPath1" class="govern-link" d="M250,174 C250,205 180,205 150,238"/>
+          <path id="governOutPath2" class="govern-link" d="M250,174 L250,238"/>
+          <path id="governOutPath3" class="govern-link" d="M250,174 C250,205 320,205 350,238"/>
+
+          <circle class="govern-flow-dot" r="3">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0s"><mpath href="#governLinkPath"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+          <circle class="govern-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0.5s"><mpath href="#governOutPath1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" repeatCount="indefinite" begin="0.5s"/>
+          </circle>
+          <circle class="govern-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="1.2s"><mpath href="#governOutPath2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" repeatCount="indefinite" begin="1.2s"/>
+          </circle>
+          <circle class="govern-flow-dot" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="1.9s"><mpath href="#governOutPath3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" repeatCount="indefinite" begin="1.9s"/>
+          </circle>
+        </svg>
+
+        <span class="govern-wrap-label">Govern</span>
+        <span class="govern-layer-chip" style="left:16%">Ingest</span>
+        <span class="govern-layer-chip" style="left:32%">Transform</span>
+        <span class="govern-layer-chip" style="left:48%">Label</span>
+        <span class="govern-layer-chip" style="left:64%">Version</span>
+        <span class="govern-layer-chip" style="left:80%">Observe</span>
+
+        <span class="govern-output-chip" style="left:30%">Data Files</span>
+        <span class="govern-output-chip" style="left:50%">Manifest<br>(JSON)</span>
+        <span class="govern-output-chip" style="left:70%">Lineage<br>Report</span>
+      </div>
+
+      <div class="cloud-copy">
+        <h3>What It Produces</h3>
+        <p>Every export delivers three core artifacts, the dataset structured is precisely for your target framework. A machine-verifiable manifest detailing file integrity, row counts, and cryptographic checksums. And a comprehensive lineage report documenting complete provenance and quality benchmark validation. Together, they resolve every critical governance requirement—establishing exactly what the data contains, how it was engineered, and why it is enterprise-trusted.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div data-reveal>
-      <span class="sec-eyebrow">Audit Trail</span>
-      <p class="lead-text">Every label, edit, export, and deletion is written to an immutable log — who made the change, when, and what the record looked like before and after. The audit trail is queryable and exportable on its own, independent of the dataset it describes.</p>
-    </div>
-  </div>
-</section>
-
-<section class="pad" style="padding-top:0">
-  <div class="sec-inner">
-    <div data-reveal>
-      <span class="sec-eyebrow">Data Classification &amp; Retention</span>
-    </div>
-    <div class="card-grid cols-3" data-reveal>
-      <div class="info-card"><div class="info-card-title">Regulatory tags</div><div class="info-card-body">Records can be tagged GDPR, HIPAA, PCI, or a custom classification. Tagged data is automatically access-restricted and excluded from exports that don't explicitly permit it.</div></div>
-      <div class="info-card"><div class="info-card-title">Retention policies</div><div class="info-card-body">Set a maximum retention period per dataset or per tag. Expired records are flagged for review or deleted automatically, and the deletion itself is logged.</div></div>
-      <div class="info-card"><div class="info-card-title">Consent tracking</div><div class="info-card-body">Where records carry consent or licensing terms, those terms are stored alongside the data and checked before export.</div></div>
+    <div class="center-head" data-reveal>
+      <span class="sec-eyebrow">Why It Matters</span>
+      <h2 class="sec-title">Governance that strengthens your AI</h2>
+      <p class="sec-desc">AI teams face growing demands from enterprise clients, procurement leads, and risk committees to prove that training datasets are meticulously documented, reproducible, and rigorously quality assured. Compiling this audit trail manually creates unsustainable operational friction as dataset volume and release velocity scale. Concave AI transforms governance into an automated byproduct of the data pipeline generating continuous, audit-ready documentation without manual overhead.</p>
     </div>
   </div>
 </section>
@@ -143,7 +242,6 @@
   <div class="hero-overlay"></div>
   <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
-  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
 
 <footer>
@@ -204,5 +302,6 @@
 </footer>
 
 <script src="/assets/js/concave-motion.js" defer></script>
+<script src="/assets/js/platform-motion.js" defer></script>
 </body>
 </html>

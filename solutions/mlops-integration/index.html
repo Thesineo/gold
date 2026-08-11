@@ -38,7 +38,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/platform/transform">Data Transformation</a>
-            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
             <a href="/platform/version">Data Versioning &amp; Lineage</a>
             <a href="/platform/observe">Data Observability</a>
             <a href="/platform/govern">Data Governance</a>
@@ -84,8 +84,8 @@
   <div class="hero-overlay"></div>
   <div class="modality-hero-content">
     <div class="modality-hero-eyebrow" data-reveal>MLOps Integration</div>
-    <h1 data-reveal>Close the loop between training and production</h1>
-    <p class="modality-hero-sub" data-reveal data-reveal-delay="1">Export training-ready data to the platform where your model trains, then route production drift straight back for correction — a continuous feedback loop, not a one-way handoff.</p>
+    <h1 data-reveal>Get the iteration loop connected with MLOps to improve AI model accuracy  </h1>
+    <p class="modality-hero-sub" data-reveal data-reveal-delay="1">Get the model and training platform registered, for calculating production drift due to data, to route the rectified version back into the training process , improving model accuracy, creating a continuous feedback loop.</p>
     <div class="modality-hero-actions" data-reveal data-reveal-delay="2">
       <a href="/platform" class="btn-ghost">Explore the Platform</a>
       <a href="/contact" class="btn-primary">Book a Demo</a>
@@ -98,8 +98,8 @@
   <div class="sec-inner">
     <div class="center-head" data-reveal>
       <span class="sec-eyebrow">Why It Matters</span>
-      <h2 class="sec-title">Training doesn't end at export — it loops back</h2>
-      <p class="sec-desc">Datalier exports data in the format your framework expects, your platform trains and evaluates the model, and production predictions flow back the moment accuracy slips. Root cause gets traced to the data, corrected, and re-versioned — closing the loop without a manual handoff between teams.</p>
+      <h2 class="sec-title">Rationalize model training and Enhance model accuracy</h2>
+      <p class="sec-desc">Datalier formats your framework to get Model and training platform registered to monitor model inaccuracy, by getting the prediction logs back into the observability layer to identify any drift. Root cause for the drift gets traced to the data, which is rectified, and re-versioned closing the loop without a manual handoff between teams.</p>
     </div>
   </div>
 </section>
@@ -184,7 +184,7 @@
 
       <div class="cloud-copy">
         <h3>Feedback Loop</h3>
-        <p>Datalier exports training-ready data straight to your platform, in the format your framework expects. Once trained, production predictions flow back — drift gets traced to its root cause in the data, corrected, and re-versioned, closing the loop without a manual handoff.</p>
+        <p>Datalier exports training-ready data straight into your platform, in the format your framework expects. Once training runs are completed, predictions logs are flown back into the platform for identifying drifts impacting the model accuracy. Furthermore, the root cause data for the drifts get traced, which are then rectified using the relabelling feedback loop, and are re-versioned to be pushed back into the training platform creating a model monitoring and performance loop without a manual handoff.</p>
       </div>
     </div>
   </div>
@@ -195,30 +195,17 @@
   <div class="sec-inner">
     <div class="task-card-grid cols-2">
       <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media">
-          <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:320px">
-            <span class="pill">Prediction Logs</span>
-            <span class="pill">Accuracy Monitoring</span>
-            <span class="pill">Root Cause</span>
-          </div>
-        </div>
+        <div class="task-card-media compact"><img src="/imgbgm/drfitleft.png" alt="Connect Training Platform — SageMaker, Vertex AI, Azure ML, HuggingFace, LangSmith, Webhook, and REST API" loading="lazy"></div>
         <div class="task-card-body">
           <div class="task-card-title">Drift caught before it compounds</div>
-          <div class="task-card-desc">Every production prediction is logged and compared against ground truth. The moment accuracy drops below threshold, the affected data is flagged automatically — not discovered weeks later in a retro.</div>
+          <div class="task-card-desc">Every prediction cycles are logged and compared against ground truth. The moment accuracy drops below threshold, the affected data is flagged automatically, reducing the fix time from days into minutes.</div>
         </div>
       </div>
       <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media">
-          <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:320px">
-            <span class="pill">.coco</span>
-            <span class="pill">.yolo</span>
-            <span class="pill">.jsonl</span>
-            <span class="pill">.parquet</span>
-          </div>
-        </div>
+        <div class="task-card-media compact"><img src="/imgbgm/drift.png" alt="Predictions tab — upload/paste, import from storage, or stream predictions in via webhook" loading="lazy"></div>
         <div class="task-card-body">
-          <div class="task-card-title">Every format your framework needs</div>
-          <div class="task-card-desc">Export in COCO, YOLO, JSONL, or Parquet — whatever your training pipeline already expects. No custom export scripts to write or maintain.</div>
+          <div class="task-card-title">Get multiple training platforms integrated.</div>
+          <div class="task-card-desc">Effortlessly connect multiple training and ML platform with datalier to automate the feedback loop and improve model accuracy, with frictional manual intervention.</div>
         </div>
       </div>
     </div>
@@ -238,20 +225,20 @@
         <div class="faq-answer"><p>Amazon SageMaker, Google Vertex AI, Azure ML, HuggingFace, LangSmith, and any custom platform via webhook or REST API.</p></div>
       </div>
       <div class="faq-item">
-        <button class="faq-question" type="button"><span>How does the feedback loop actually close?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Once your model is trained and deployed, its production predictions are logged and compared against expected outcomes. When accuracy drifts, the underlying data is traced, flagged, and routed back into Datalier for re-labeling — automatically, not as a separate manual project.</p></div>
+        <button class="faq-question" type="button"><span>How does the feedback loop actually work?</span><span class="faq-icon"></span></button>
+        <div class="faq-answer"><p>Once your model has finished  a training run, its predictions are logged back into our  platform and compared against expected ground outcomes. When accuracy drifts, the underlying data is traced, flagged, and routed back into Datalier for re-labeling, automatically, not as a separate manual process.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>What triggers a re-labeling cycle?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>A measurable drop in prediction confidence or accuracy against ground truth, tracked continuously by the Observe layer. When it crosses a configured threshold, the specific underlying records are flagged for correction — not the whole dataset.</p></div>
+        <div class="faq-answer"><p>A measurable drop in prediction confidence or accuracy against ground truth, tracked continuously by the Observe layer. When it crosses a configured threshold, the specific underlying records are flagged for correction not the whole dataset.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>Which export formats are available?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>COCO, YOLO, JSONL, image-folder layouts, and Parquet — whatever your training framework already expects, with no custom export scripts to maintain.</p></div>
+        <div class="faq-answer"><p>COCO, YOLO, JSONL, image-folder layouts, and Parquet, whatever your training framework already expects, with no custom export scripts to maintain.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-question" type="button"><span>Is this a one-time export, or an ongoing connection?</span><span class="faq-icon"></span></button>
-        <div class="faq-answer"><p>Ongoing. The connection stays live for the life of the project — every retraining cycle pulls the latest corrected version, and every production signal routes back the same way.</p></div>
+        <div class="faq-answer"><p>Ongoing. The connection stays live for the life of the project, every retraining cycle pulls the latest corrected version, and every production signal routes back the same way.</p></div>
       </div>
     </div>
   </div>
@@ -263,7 +250,6 @@
   <div class="hero-overlay"></div>
   <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
-  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
 
 <footer>

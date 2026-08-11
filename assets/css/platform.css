@@ -124,6 +124,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    in platform-motion.js. Desktop only (≥900px); .layer-mobile below is the
    stacked-list fallback. */
 .layer-scroll{position:relative;height:620vh;margin-top:40px}
+#governScroll{height:860vh}
 .layer-sticky{position:sticky;top:88px;height:calc(100vh - 88px);display:flex;align-items:center;overflow:hidden}
 .layer-sticky-inner{display:grid;grid-template-columns:0.8fr 1.2fr;gap:60px;align-items:center;width:100%}
 
@@ -176,6 +177,26 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    or video (currently a placeholder — swap the inner markup for an
    <img>/<video> per page when that asset is ready). */
 .layer-hero{position:relative;min-height:64vh;background:var(--bg);display:flex;align-items:center;padding:170px 24px 80px;overflow:hidden}
+/* Opt-in boxed-video variant: the page-specific video becomes a rounded,
+   margined card (same treatment as the Platform page's .p-hero) instead
+   of a full-bleed background or a small side-slot. .layer-hero-card is
+   the thing that actually clips to the curved corners; .layer-hero itself
+   just provides outer page padding, matching .p-hero-wrap/.p-hero's two-
+   level split. Pinned dark gradient + white text, same reasoning as
+   .p-hero's override — a real video reads the same in both themes only
+   if we stop following the theme-adaptive text colors. */
+.layer-hero.video-bg{display:block;min-height:0;padding:130px 24px 0;overflow:visible}
+.layer-hero-card{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:70vh;background:var(--bg);display:flex;align-items:flex-end}
+.layer-hero.video-bg .hero-overlay{background:linear-gradient(180deg,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.35) 55%,rgba(0,0,0,0.72) 100%)}
+.layer-hero.video-bg .layer-hero-label{color:rgba(255,255,255,0.75)}
+.layer-hero.video-bg h1{color:#fff}
+.layer-hero.video-bg .layer-hero-sub{color:rgba(255,255,255,0.85)}
+.layer-hero.video-bg .layer-hero-inner{display:block;position:relative;z-index:2;width:100%;padding:48px 56px}
+@media(max-width:768px){
+  .layer-hero.video-bg{padding:100px 16px 0}
+  .layer-hero-card{border-radius:20px;min-height:58vh}
+  .layer-hero.video-bg .layer-hero-inner{padding:28px 24px}
+}
 /* Arrow-only back button, top-left of the hero (below the fixed nav) —
    replaces the old text "← Back to Platform" link that used to sit at the
    very bottom of the page. */
@@ -184,13 +205,16 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .layer-back-btn svg{width:20px;height:20px}
 @media(max-width:768px){.layer-back-btn{top:84px;left:20px;width:40px;height:40px}.layer-back-btn svg{width:18px;height:18px}}
 .layer-hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;width:100%}
+/* Opt-in: once a hero's media slot holds a real video/image instead of the
+   placeholder hint, give it more visual weight than the empty box did. */
+.layer-hero-inner.has-video{grid-template-columns:0.82fr 1.18fr}
 .layer-hero-content{text-align:left}
 .layer-hero-label{font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:22px}
 .layer-hero h1{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(38px,5vw,58px);line-height:1.1;letter-spacing:-0.02em;color:var(--text);margin-bottom:20px}
 .layer-hero-sub{font-size:clamp(15px,1.3vw,17px);color:var(--text-dim);max-width:480px;line-height:1.6}
 
 .layer-hero-media{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px dashed var(--border);background:var(--elevated);display:flex;align-items:center;justify-content:center}
-.layer-hero-media.has-media{border-style:solid}
+.layer-hero-media.has-media{border-style:solid;aspect-ratio:16/10}
 .layer-hero-media img,.layer-hero-media video{width:100%;height:100%;object-fit:cover;display:block}
 .layer-hero-media-hint{font-size:11.5px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.06em;text-transform:uppercase}
 
@@ -202,7 +226,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 
 @media(max-width:900px){
   .layer-hero{min-height:auto}
-  .layer-hero-inner{grid-template-columns:1fr;gap:36px}
+  .layer-hero-inner,.layer-hero-inner.has-video{grid-template-columns:1fr;gap:36px}
   .layer-hero-content{text-align:center}
   .layer-hero-sub{margin:0 auto}
 }
@@ -214,7 +238,8 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 /* Centered intro — used only for the "What It Does" section at the top of
    each layer page, to sit as a focused centered statement rather than a
    full-width paragraph like every section below it. */
-.intro-center{text-align:center}
+.intro-center{text-align:center;min-height:52vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+@media(max-width:768px){.intro-center{min-height:0}}
 .intro-center .sec-eyebrow{display:block}
 .intro-center .lead-text{max-width:700px;margin-left:auto;margin-right:auto}
 
@@ -232,7 +257,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    grouped under a category label. Used first on Transform's "Recipe"
    block; reusable anywhere a process reads better as cards than prose. */
 .recipe-group{margin-top:40px}
-.recipe-group-label{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px}
+.recipe-group-label{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;text-align:center}
 .recipe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .recipe-grid.cols-2{grid-template-columns:1fr 1fr;gap:20px}
 .recipe-card{background:var(--elevated);border:1px solid var(--border);border-radius:16px;padding:24px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
@@ -269,19 +294,20 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
   box-shadow:0 8px 20px rgba(0,0,0,0.15)
 }
 .version-flow-endpoints{position:absolute;inset:0;z-index:2}
-.version-flow-endpoint{position:absolute;right:4%;transform:translateY(-50%);max-width:230px}
+/* left+right (not a fixed width) so the box always starts just past
+   where its connecting thread ends, whatever the container's size. */
+.version-flow-endpoint{position:absolute;left:66%;right:4%;transform:translateY(-50%)}
 .version-flow-endpoint-tag{font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim)}
 .version-flow-endpoint-ver{font-family:'Inter',sans-serif;font-size:19px;font-weight:800;color:var(--text);margin:2px 0 5px;letter-spacing:-0.01em}
 .version-flow-endpoint-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
 /* Compact variant — diagram sits in one column of a two-up layout
    (.version-model-panel) instead of spanning the full section width. */
-.version-model-panel{display:grid;grid-template-columns:0.85fr 1fr;gap:56px;align-items:center;margin-top:40px}
-.version-flow.compact{margin-top:0;aspect-ratio:1.15/1;max-width:440px}
-.version-flow.compact .version-flow-source{font-size:13px;padding:10px 14px;border-radius:9px}
-.version-flow.compact .version-flow-endpoint{max-width:135px}
-.version-flow.compact .version-flow-endpoint-tag{font-size:8.5px}
-.version-flow.compact .version-flow-endpoint-ver{font-size:14px;margin:1px 0 3px}
-.version-flow.compact .version-flow-endpoint-desc{font-size:9.5px;line-height:1.4}
+.version-model-panel{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;margin-top:40px}
+.version-flow.compact{margin-top:0;aspect-ratio:1.25/1;max-width:540px}
+.version-flow.compact .version-flow-source{font-size:14px;padding:11px 15px;border-radius:9px}
+.version-flow.compact .version-flow-endpoint-tag{font-size:9.5px}
+.version-flow.compact .version-flow-endpoint-ver{font-size:16px;margin:2px 0 4px}
+.version-flow.compact .version-flow-endpoint-desc{font-size:11px;line-height:1.45}
 @media(max-width:900px){
   .version-model-panel{grid-template-columns:1fr}
   .version-flow.compact{max-width:100%;aspect-ratio:1.8/1;margin:0 auto}
@@ -511,18 +537,30 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 .task-switch-item{text-align:left;background:none;border:none;padding:13px 16px;font-family:'Inter',sans-serif;font-size:15px;color:var(--text-dimmer);cursor:pointer;border-radius:8px;transition:color .2s ease,background .2s ease;font-weight:400}
 .task-switch-item:hover{color:var(--text-dim)}
 .task-switch-item.is-active{color:var(--text);font-weight:600;background:var(--elevated)}
-.task-switch-media{position:relative;border-radius:20px;min-height:440px}
-.task-switch-media-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:20px;border:1px dashed var(--border);border-radius:20px;background:var(--elevated);opacity:0;transition:opacity .6s ease;pointer-events:none}
+.task-switch-media{position:relative;border-radius:20px;min-height:620px}
+.task-switch-media-item{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:20px;
+  border:1px dashed var(--border);border-radius:20px;
+  background-color:var(--elevated);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px;
+  opacity:0;transition:opacity .6s ease;pointer-events:none
+}
 .task-switch-media-item.is-active{opacity:1;pointer-events:auto}
 .task-switch-media-item.has-media{border-style:solid}
 .task-switch-media-item img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:12px;display:block}
-.task-switch-media-item video{width:100%;height:100%;object-fit:cover;border-radius:12px;display:block}
+.task-switch-media-item video{
+  width:100%;height:100%;object-fit:contain;border-radius:12px;display:block;
+  background-color:var(--bg);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px
+}
 .task-switch-media-hint{font-size:11.5px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.06em;text-transform:uppercase}
 @media(max-width:800px){
   .task-switch{grid-template-columns:1fr;gap:28px}
   .task-switch-list{position:static;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:8px}
   .task-switch-item{padding:9px 14px;font-size:14px}
-  .task-switch-media{min-height:320px}
+  .task-switch-media{min-height:460px}
 }
 
 /* FAQ — single-open accordion (initFaq in platform-motion.js). */
@@ -595,12 +633,21 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
    sidebar task-switcher where the reference called for cards, not tabs. */
 .task-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
 .task-card{background:var(--elevated);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.task-card-media{position:relative;aspect-ratio:16/10;border-bottom:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px}
+.task-card-media{
+  position:relative;aspect-ratio:16/10;border-bottom:1px solid var(--border);
+  background-color:var(--bg);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px;
+  display:flex;align-items:center;justify-content:center;padding:16px
+}
 /* Wide variant — for panels whose real screenshots run much wider than
    tall (e.g. ~2.5:1 UI captures), so the box doesn't leave large empty
    margins above/below a comparatively short image. Same dotted-field
    background language as the platform diagrams elsewhere on the site. */
 .task-card-media.wide{aspect-ratio:12/5;padding:14px;background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px}
+/* Shorter variant — for real screenshots closer to a standard 16:9-ish
+   shape than the extra-wide UI captures .wide was built for. */
+.task-card-media.compact{aspect-ratio:16/9;padding:14px;background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px}
 .task-card-media img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:8px;display:block}
 .task-card-hint{font-size:11px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.06em;text-transform:uppercase}
 .task-card-body{padding:22px 24px 26px}
@@ -670,4 +717,25 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 @media(max-width:560px){
   .mlops-platform-chip{font-size:9.5px;padding:5px 9px}
   .mlops-loop-label{font-size:8.5px}
+}
+
+/* Govern diagram — same .cloud-panel/.cloud-diagram shell as the two
+   Integration pages, showing the governance layer as a dashed boundary
+   wrapping the five pipeline layers, fanning out to the three deliverables
+   every export produces. Coordinates below are chosen against a 500×280
+   reference so the SVG's own units line up with the percentage-positioned
+   HTML chips sitting on top of it — same trick as the Upload/Export
+   diagrams, just with a taller wrap instead of a single fan-out. */
+.govern-diagram-svg{position:absolute;inset:0;width:100%;height:100%}
+.govern-diagram-svg .govern-wrap-rect{fill:none;stroke:var(--border);stroke-width:1.5;stroke-dasharray:5 4}
+.govern-diagram-svg .govern-link{fill:none;stroke:var(--border);stroke-width:1.5}
+.govern-flow-dot{fill:var(--text)}
+@media(prefers-reduced-motion:reduce){.govern-flow-dot{display:none}}
+.govern-wrap-label{position:absolute;top:11%;left:9%;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);z-index:2;background:var(--bg);padding:0 6px}
+.govern-layer-chip{position:absolute;transform:translate(-50%,-50%);top:40%;font-size:10.5px;font-weight:700;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:7px 11px;border-radius:16px;white-space:nowrap;z-index:2}
+.govern-output-chip{position:absolute;top:85%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--text);color:var(--bg);padding:10px 14px;border-radius:10px;font-size:10px;font-weight:700;white-space:nowrap;box-shadow:0 6px 16px rgba(0,0,0,0.12);z-index:2}
+@media(max-width:560px){
+  .govern-wrap-label{font-size:9px;left:7%}
+  .govern-layer-chip{font-size:8.5px;padding:5px 8px}
+  .govern-output-chip{font-size:8.5px;padding:7px 10px}
 }

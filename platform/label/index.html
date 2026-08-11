@@ -38,7 +38,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/platform/transform">Data Transformation</a>
-            <a href="/platform/label">Automated Data Labelling &amp; Annotation Review</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
             <a href="/platform/version">Data Versioning &amp; Lineage</a>
             <a href="/platform/observe">Data Observability</a>
             <a href="/platform/govern">Data Governance</a>
@@ -78,18 +78,17 @@
   </div>
 </nav>
 
-<section class="layer-hero">
-  <div class="bg-media"><canvas id="hero-canvas" aria-hidden="true"></canvas></div>
-  <div class="hero-overlay"></div>
+<section class="layer-hero video-bg">
   <a href="/platform" class="layer-back-btn" aria-label="Back to Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
-  <div class="sec-inner layer-hero-inner">
-    <div class="layer-hero-content" data-reveal="slide-left">
-      <span class="layer-hero-label">Data Layer</span>
-      <h1>Label</h1>
-      <p class="layer-hero-sub">AI annotates. Humans verify. Quality is measured, not assumed.</p>
-    </div>
-    <div class="layer-hero-media has-media" data-reveal="slide-right" aria-hidden="true">
-      <video src="/imgbgm/labelling.mp4" autoplay loop muted playsinline></video>
+  <div class="layer-hero-card">
+    <div class="bg-media"><video src="/imgbgm/labelling.mp4" autoplay loop muted playsinline></video></div>
+    <div class="hero-overlay"></div>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="layer-hero-label">Data Layer</span>
+        <h1>Label</h1>
+        <p class="layer-hero-sub">AI annotates. Humans verify. Quality is measured, not assumed.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -98,16 +97,16 @@
   <div class="sec-inner">
     <div class="intro-center" data-reveal>
       <span class="sec-eyebrow">What It Does</span>
-      <p class="lead-text">Label is the layer where raw signal acquires meaning. A multi-engine orchestration system dispatches every data point to the model best suited to its modality and task, while a calibrated confidence threshold discerns which annotations the machine may certify outright and which demand human judgment. Nothing leaves unverified — each label carries either the AI's high-confidence assertion or a reviewer's explicit sign-off, the twin foundations of data a model can actually be trained on.</p>
+      <p class="lead-text">A multi-engine orchestration system that dispatches every data point to the AI engine that suites best to its modality and task, while a calibrated confidence threshold discerns which labelling engine may certify outright and which requires human judgment. Nothing leaves the system unverified, each label carries either the AI's high-confidence assertion or a reviewer's explicit signing, the twin foundations makes data AI-ready that can train more futuristic AI models.</p>
     </div>
   </div>
 </section>
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div data-reveal>
+    <div class="intro-center" data-reveal>
       <span class="sec-eyebrow">How Routing Works</span>
-      <p class="lead-text">Every item is scored — a confidence value between 0.00 and 0.99, issued by the engine that labeled it. Cross the configured threshold (0.85, by default) and the label stands on its own; fall short, and the item is queued for a human eye. That threshold bends to the dataset: loosen it for throughput, tighten it for precision. Three numbers tell you how the balance is holding — the auto-label rate, the human review rate, and the correction rate, the share of AI labels a reviewer chose to overrule.</p>
+      <p class="lead-text">Every item is scored with a confidence value between 0.00 and 0.99, issued by the engine that labeled it. Once the task crosses the configured threshold, the label stands on its own falling short, and the item is queued for a human eye. That threshold bends to the dataset loosen it for tasks that are complicated, tighten it for precision. Three numbers tell you how the balance is holding the auto-label rate, the human review rate, and the correction rate, the share of AI labels a reviewer choice to overrule.</p>
     </div>
   </div>
 </section>
@@ -124,7 +123,7 @@
         <div class="layer-copy-col">
           <div class="layer-slide-tagline" id="engineTagline"></div>
           <h3 class="layer-slide-heading" id="engineHeading">The AI Engines</h3>
-          <p class="layer-slide-desc" id="engineDesc">Four specialised model families route each item to the right kind of intelligence — text, vision, video, and audio — each producing its own confidence score.</p>
+          <p class="layer-slide-desc" id="engineDesc">Four specialised modality families routing each item to the right kind of intelligence labelling engine text, vision, video, and audio, each producing its own labelling confidence score.</p>
 
           <div class="layer-progress-row" id="engineProgressRow">
             <span class="layer-progress-seg"><span></span></span>
@@ -154,25 +153,25 @@
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">AI Engine</div>
       <div class="layer-mobile-name">Text</div>
-      <p class="layer-mobile-desc">GPT-4o and GPT-4o-mini read language the way training demands it be read — ranking preferences, recognising entities, classifying, summarising, answering, and tracing relations between them.</p>
+      <p class="layer-mobile-desc">Advanced NLP understanding optimized for complex labelling tasks performing entity recognition, preference ranking, document summarization, question answering, and relational mapping.</p>
       <div class="pill-row"><span class="pill">RLHF Preference</span><span class="pill">Named Entity Recognition</span><span class="pill">Classification</span><span class="pill">Summarisation</span><span class="pill">Extractive QA</span><span class="pill">Relation Extraction</span></div>
     </div>
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">AI Engine</div>
       <div class="layer-mobile-name">Image / Vision</div>
-      <p class="layer-mobile-desc">GPT-4o Vision sees and names what it finds, framed in bounding boxes; SAM2 traces pixel-exact segmentation masks; MediaPipe follows pose and face mesh with anatomical precision.</p>
+      <p class="layer-mobile-desc">Spatial object detection and multi-class recognition paired with pixel-exact segmentation masks, followed by high-density landmark mapping, along with isolating facial, structural, and anatomical pose features with geometric precision.</p>
       <div class="pill-row"><span class="pill">Classification</span><span class="pill">Object Detection</span><span class="pill">Instance Segmentation</span><span class="pill">Semantic Segmentation</span><span class="pill">Keypoint Estimation</span><span class="pill">Image Captioning</span><span class="pill">OCR</span></div>
     </div>
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">AI Engine</div>
       <div class="layer-mobile-name">Video</div>
-      <p class="layer-mobile-desc">FFmpeg extracts every frame; GPT-4o classifies and detects what moves through them; SAM2 Video carries segmentation masks forward frame to frame, so nothing once found is lost.</p>
+      <p class="layer-mobile-desc">High-resolution frame extraction combined with motion tracking and temporal segmentation with pixel-level instance masks are persistently tracked across consecutive frames to maintain complete target continuity.</p>
       <div class="pill-row"><span class="pill">Classification</span><span class="pill">Object Tracking</span><span class="pill">Instance Segmentation</span><span class="pill">Temporal Segmentation</span><span class="pill">Per-Frame Annotation</span><span class="pill">Pose Tracking</span></div>
     </div>
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">AI Engine</div>
       <div class="layer-mobile-name">Audio</div>
-      <p class="layer-mobile-desc">Whisper transcribes speech down to the word, timestamped; GPT-4o reads what Whisper hears — speaker identity, emotional register, and the sound events between the words.</p>
+      <p class="layer-mobile-desc">Precise, word-level speech transcription with exact timestamps along with advanced acoustic analysis decoding speaker diarization, emotional registery, dynamic tones, and subtle background event sounds.</p>
       <div class="pill-row"><span class="pill">Transcription</span><span class="pill">Speaker Diarisation</span><span class="pill">Sound Event Detection</span><span class="pill">Classification</span><span class="pill">Emotion Detection</span><span class="pill">Audio Segmentation</span></div>
     </div>
   </div>
@@ -180,14 +179,17 @@
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
+    <div class="center-head" data-reveal>
+      <h2 class="sec-title">Annotation - Review</h2>
+    </div>
     <div class="recipe-grid cols-2">
       <div class="recipe-card" data-reveal="slide-left">
         <div class="recipe-card-title">Human Review Interface</div>
-        <div class="recipe-card-body">Human judgment finishes what confidence can't: a keyboard-driven review stream surfaces the AI's suggestion, and a reviewer accepts, corrects, or rejects it in three to five seconds — a fraction of conventional tools' fifteen to thirty. Error tags apply with a single keystroke.</div>
+        <div class="recipe-card-body">Human expertise completes what algorithmic confidence cannot. A keyboard-native review stream surfaces model predictions instantly, enabling reviewers to validate, adjust, or discard outputs in under five seconds, up to six times faster than legacy platforms while applying precise error taxonomy with a single keystroke.</div>
       </div>
       <div class="recipe-card" data-reveal="slide-right">
         <div class="recipe-card-title">Quality Measurement</div>
-        <div class="recipe-card-body">Quality is measured, not asserted. Every run yields a verified agreement rate, confidence calibration, label distribution, and a composite readiness score — one number worth trusting. Each metric travels with the dataset into the version's lineage report.</div>
+        <div class="recipe-card-body">Quality is empirically verified, not assumed. Every processing cycle generates an auditor-grade readiness score built on inter-annotator agreement, calibrated confidence intervals, and label distribution metrics, all fully traceable back through the dataset’s versioning & lineage.</div>
       </div>
     </div>
   </div>
@@ -206,7 +208,6 @@
   <div class="hero-overlay"></div>
   <h2>Get data infrastructure for training AI models</h2>
   <a href="/contact" class="btn-primary large">Book a Demo</a>
-  <div class="cta-final-sub">30-minute walkthrough. No commitment.</div>
 </section>
 
 <footer>
