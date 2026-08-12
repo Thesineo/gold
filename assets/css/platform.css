@@ -551,6 +551,12 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 .task-switch-item:hover{color:var(--text-dim)}
 .task-switch-item.is-active{color:var(--text);font-weight:600;background:var(--elevated)}
 .task-switch-media{position:relative;border-radius:20px;min-height:620px}
+/* Opt-in, shorter variant for pages whose task-switch media is a set of
+   still screenshots rather than video — 620px was tuned for the Videos
+   page's letterboxed clips, but that's far taller than these images'
+   own ~2:1 average aspect ratio need, leaving a lot of dead vertical
+   space around them. Scoped so it doesn't undo that video fix. */
+.task-switch-media.fits-image{min-height:460px}
 .task-switch-media-item{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:20px;
   border:1px dashed var(--border);border-radius:20px;
@@ -574,6 +580,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   .task-switch-list{position:static;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;gap:8px}
   .task-switch-item{padding:9px 14px;font-size:14px}
   .task-switch-media{min-height:460px}
+  .task-switch-media.fits-image{min-height:370px}
 }
 
 /* FAQ — single-open accordion (initFaq in platform-motion.js). */
