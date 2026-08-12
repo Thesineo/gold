@@ -418,13 +418,19 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .bg-media video{width:100%;height:100%;object-fit:cover;display:block}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(var(--bg-rgb),0.1) 0%,rgba(var(--bg-rgb),0.55) 65%,rgba(var(--bg-rgb),0.88) 100%);pointer-events:none}
 
-/* ── About page ── */
+/* ── About page (reused as-is by the Careers hero — same rounded, contained,
+   centered-text treatment) ── */
 .about-hero{padding:130px 24px 0}
 .about-hero-media{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center}
 .about-hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+/* Placeholder state — no media asset yet, same dashed-box hint used for
+   every other still-empty hero slot on the site (swap for a <video> once
+   the asset exists, same as Observe/Govern/Transform were before). */
+.about-hero-media.is-placeholder{border:1px dashed var(--border);background:var(--elevated)}
 .about-hero-content{position:relative;z-index:2;padding:56px 60px;text-align:center}
 .about-hero-eyebrow{font-size:13px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px;display:block}
 .about-hero-content h1{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(44px,6.4vw,76px);color:var(--text);letter-spacing:-0.02em;line-height:1}
+.about-hero-content p{font-size:clamp(15px,1.3vw,17px);color:var(--text-dim);max-width:560px;margin:20px auto 0;line-height:1.6}
 @media(max-width:768px){.about-hero-media{min-height:420px;border-radius:20px}.about-hero-content{padding:32px 28px}}
 
 /* Centered heading block — reused by every content section on this page
@@ -575,6 +581,74 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
 .faq-answer p{font-size:14.5px;color:var(--text-dim);line-height:1.7;padding:0 4px 24px;max-width:680px}
 .faq-item.is-open .faq-answer{max-height:300px}
+
+/* ── Careers: Open Positions — toolbar + department-grouped, filterable
+   list (driven by CAREERS_JOBS in careers/index.html's own inline script;
+   .jobs-dept-group markup is only rendered once that array is non-empty).
+   Reuses .faq-icon for the expand/collapse toggles. ── */
+.jobs-toolbar{display:grid;grid-template-columns:1fr 200px 200px;gap:14px;margin-top:48px}
+.jobs-search{font-family:'Inter',sans-serif;font-size:15px;color:var(--text);background:var(--elevated);border:1px solid var(--border);border-radius:8px;padding:13px 16px;outline:none;transition:border-color .2s,background .2s;width:100%}
+.jobs-search:focus{border-color:var(--text);background:var(--bg)}
+.jobs-search::placeholder{color:var(--text-dimmer)}
+.jobs-filter{font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:var(--elevated);border:1px solid var(--border);border-radius:8px;padding:13px 40px 13px 14px;outline:none;cursor:pointer;width:100%;
+  appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;background-size:16px}
+.jobs-meta{margin-top:22px;padding-bottom:10px;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dimmer)}
+
+.jobs-dept-group{border-top:1px solid var(--border)}
+.jobs-dept-group:last-child{border-bottom:1px solid var(--border)}
+.jobs-dept-header{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;padding:22px 4px;text-align:left;font-family:'Inter',sans-serif;font-size:17px;font-weight:500;color:var(--text);cursor:pointer}
+.jobs-dept-count{font-size:12.5px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.02em;white-space:nowrap}
+.jobs-dept-roles{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.jobs-dept-group.is-open .jobs-dept-roles{max-height:1400px}
+.jobs-role-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 4px;text-decoration:none;color:var(--text);border-top:1px solid var(--border);transition:background .2s}
+.jobs-role-row:hover{background:var(--elevated)}
+.jobs-role-title{font-size:15px;font-weight:500}
+.jobs-role-loc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-dim);white-space:nowrap}
+.jobs-role-loc svg{width:14px;height:14px}
+.jobs-no-results{padding:40px 4px;text-align:center;font-size:14.5px;color:var(--text-dim)}
+
+/* Empty state (no roles yet) + register-interest accordion, reusing
+   .contact-form's field styling as-is. */
+.jobs-empty{max-width:640px;margin:56px auto 0;text-align:center}
+.jobs-empty-text{font-size:16px;color:var(--text-dim);line-height:1.7;margin-bottom:28px}
+.jobs-register-toggle{display:inline-flex;align-items:center;gap:14px;background:none;border:1px solid var(--border);border-radius:30px;padding:14px 24px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--text);cursor:pointer;transition:border-color .2s,background .2s}
+.jobs-register-toggle:hover{border-color:var(--text);background:var(--elevated)}
+.jobs-register-toggle.is-open .faq-icon::after{opacity:0}
+.jobs-register-panel{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.jobs-register-panel.is-open{max-height:1200px}
+.jobs-register-panel-inner{max-width:600px;margin:0 auto;padding-top:40px;text-align:left}
+
+@media(max-width:700px){
+  .jobs-toolbar{grid-template-columns:1fr}
+}
+
+/* ── Careers: individual job posting template — see careers/example-role
+   for a fully worked example to duplicate per new role. Left column:
+   department, title, location, tagline, apply link. Right column: body
+   sections (Overview / What You'll Do / etc.), each separated by a rule. */
+.job-detail{padding:130px 24px 100px}
+.job-detail-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:340px 1fr;gap:80px}
+.job-detail-dept-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:var(--elevated);border:1px solid var(--border);color:var(--text-dim);margin-bottom:16px}
+.job-detail-dept-icon svg{width:20px;height:20px}
+.job-detail-dept-label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
+.job-detail-title{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(28px,3.2vw,38px);letter-spacing:-0.01em;line-height:1.2;color:var(--text);margin-bottom:14px}
+.job-detail-location{font-size:14px;color:var(--text-dim);margin-bottom:24px}
+.job-detail-left-rule{border-top:1px solid var(--border);padding-top:24px}
+.job-detail-tagline{font-size:14px;color:var(--text-dim);margin-bottom:18px}
+.job-detail-right h3{font-family:'Inter',sans-serif;font-weight:500;font-size:19px;color:var(--text);margin:0 0 16px}
+.job-detail-section{padding-top:32px;border-top:1px solid var(--border);margin-top:32px}
+.job-detail-section:first-child{border-top:none;margin-top:0;padding-top:0}
+.job-detail-right p{font-size:15px;color:var(--text-dim);line-height:1.75;margin-bottom:14px}
+.job-detail-right p:last-child{margin-bottom:0}
+.job-detail-right ul{margin:0;padding-left:20px}
+.job-detail-right li{font-size:15px;color:var(--text-dim);line-height:1.75;margin-bottom:10px}
+.job-detail-salary{font-size:16px;font-weight:600;color:var(--text);margin-bottom:14px}
+@media(max-width:900px){
+  .job-detail{padding-top:100px}
+  .job-detail-inner{grid-template-columns:1fr;gap:40px}
+}
 
 /* ── Hover-elongate accordion blocks (homepage "Built For" section) — same
    component reused on modality pages for "Built-In Automation". Lived only
