@@ -439,6 +439,13 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .center-head .sec-eyebrow{display:block}
 .center-head .sec-title{margin-top:2px;font-size:clamp(24px,2.9vw,34px)}
 .center-head .sec-desc{margin:18px auto 0;max-width:620px}
+/* Opt-in: for long-form body copy (several full paragraphs) under a
+   centered heading, where center-aligning every line starts looking
+   ragged — widen the column and left-align the paragraph text while the
+   block itself stays centered on the page. Heading/eyebrow stay centered
+   as normal; only .sec-desc children switch. */
+.center-head.wide-body{max-width:820px}
+.center-head.wide-body .sec-desc{text-align:left;max-width:none}
 
 /* Same light/dark theme behavior as every other section on the site —
    no inversion here, unlike a dramatic-contrast section elsewhere. */
