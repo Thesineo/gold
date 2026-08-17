@@ -83,8 +83,9 @@
      hero, centered eyebrow + heading like About/Careers. No cover image
      yet, so it's a dashed placeholder for now. -->
 <section class="about-hero">
-  <div class="about-hero-media is-placeholder" data-reveal="dissolve">
-    <span class="layer-hero-media-hint">Image / video</span>
+  <div class="about-hero-media" data-reveal="dissolve">
+    <video src="/imgbgm/blog.mp4" autoplay loop muted playsinline></video>
+    <div class="hero-overlay"></div>
     <div class="about-hero-content">
       <span class="about-hero-eyebrow">Insights for AI Builders</span>
       <h1>Blog</h1>
@@ -202,7 +203,7 @@
      copy /resources/ai-ready-data as a starting point for the page
      itself (hero + .blog-body article layout). */
   var BLOG_POSTS = [
-    { title: 'Why Modern AI Models Require Complete Data Readiness', excerpt: 'AI-ready data is a governed, traceable, continuously verified state — not a one-time cleaning step. Here is what readiness actually requires, and why most enterprise data fails the test.', category: 'Data Readiness', date: '2026-08-10', readTime: '8 min', url: '/resources/ai-ready-data', featured: true },
+    { title: 'Why Modern AI Models Require Complete Data Readiness', excerpt: 'AI-ready data is a governed, traceable, continuously verified state — not a one-time cleaning step. Here is what readiness actually requires, and why most enterprise data fails the test.', category: 'Data Readiness', date: '2026-08-10', readTime: '8 min', url: '/resources/ai-ready-data', image: '/imgbgm/WhymodernAImodels.jpg', featured: true },
     { title: 'What Is Automated Data Labeling — And Why Human Review Still Decides the Outcome', excerpt: 'Automated labeling is now standard. The differentiator is what happens to the uncertain cases — and whether the confidence scores driving that decision can be trusted.', category: 'Data Labeling', date: '2026-08-03', readTime: '9 min', url: '/resources/automated-data-labeling' },
     { title: 'What Is Data Observability — And How It Protects Model Accuracy in Production', excerpt: 'Detecting drift is the easy half. Knowing which data caused it is the half that matters. Here is what observability must measure.', category: 'Observability', date: '2026-07-27', readTime: '9 min', url: '/resources/data-observability' },
     { title: 'Why Data Lineage Decides Whether an AI Model Can Be Deployed', excerpt: 'Data lineage for AI is not a compliance artifact. It is the mechanism that makes training runs reproducible and model failures diagnosable.', category: 'Lineage & Governance', date: '2026-07-20', readTime: '8 min', url: '/resources/data-lineage' },
@@ -236,6 +237,10 @@
     document.getElementById('blogFeaturedTitle').textContent = featured.title;
     document.getElementById('blogFeaturedDesc').textContent = featured.excerpt;
     document.getElementById('blogFeaturedCategory').textContent = featured.category;
+    var mediaEl = document.querySelector('.blog-featured-media');
+    if (mediaEl && featured.image) {
+      mediaEl.innerHTML = '<img src="' + featured.image + '" alt="' + escapeHtml(featured.title) + '" loading="lazy">';
+    }
   }
 
   function initGrid() {
@@ -272,8 +277,11 @@
       }
 
       wrap.innerHTML = '<div class="blog-grid">' + shown.map(function (p) {
+        var media = p.image
+          ? '<img src="' + p.image + '" alt="' + escapeHtml(p.title) + '" loading="lazy">'
+          : '<span class="task-switch-media-hint">Image / video</span>';
         return '<a class="blog-card" href="' + escapeHtml(p.url) + '">' +
-          '<div class="blog-card-media"><span class="task-switch-media-hint">Image / video</span></div>' +
+          '<div class="blog-card-media">' + media + '</div>' +
           '<div class="blog-card-body">' +
           '<span class="pill">' + escapeHtml(p.category) + '</span>' +
           '<h3 class="blog-card-title">' + escapeHtml(p.title) + '</h3>' +

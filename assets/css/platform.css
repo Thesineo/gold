@@ -187,6 +187,11 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    if we stop following the theme-adaptive text colors. */
 .layer-hero.video-bg{display:block;min-height:0;padding:130px 24px 0;overflow:visible}
 .layer-hero-card{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:70vh;background:var(--bg);display:flex;align-items:flex-end}
+/* Blog posts: a bit taller than the product hero videos — with a full
+   photo/video cover behind it the extra height reads as a proper
+   editorial cover, not empty space. */
+.layer-hero-card.blog-cover{min-height:84vh}
+@media(max-width:768px){.layer-hero-card.blog-cover{min-height:64vh}}
 /* Placeholder state — no cover asset yet (used by the blog post heroes
    until each post gets a real image). Same dashed-box hint as every
    other still-empty media slot on the site. */
@@ -216,7 +221,11 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    padding since these pages don't use that variant (no forced white
    text over a still-empty placeholder). */
 .layer-hero-inner.single-col{display:block;padding:48px 56px 72px}
-@media(max-width:768px){.layer-hero-inner.single-col{padding:32px 28px 48px}}
+.layer-hero.video-bg .layer-hero-inner.single-col{padding:48px 56px 72px}
+@media(max-width:768px){
+  .layer-hero-inner.single-col{padding:32px 28px 48px}
+  .layer-hero.video-bg .layer-hero-inner.single-col{padding:32px 28px 48px}
+}
 /* Opt-in: once a hero's media slot holds a real video/image instead of the
    placeholder hint, give it more visual weight than the empty box did. */
 .layer-hero-inner.has-video{grid-template-columns:0.82fr 1.18fr}
@@ -427,7 +436,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .cta-final .btn-primary{position:relative;z-index:2;margin-top:36px}
 .bg-media{position:absolute;inset:0;z-index:0}
 .bg-media canvas{width:100%;height:100%;display:block}
-.bg-media video{width:100%;height:100%;object-fit:cover;display:block}
+.bg-media video,.bg-media img{width:100%;height:100%;object-fit:cover;display:block}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(var(--bg-rgb),0.1) 0%,rgba(var(--bg-rgb),0.55) 65%,rgba(var(--bg-rgb),0.88) 100%);pointer-events:none}
 
 /* ── About page (reused as-is by the Careers hero — same rounded, contained,
@@ -692,9 +701,10 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 
 /* ── Blog: index page — featured card, article grid, toolbar (reuses
    .jobs-toolbar/.jobs-search/.jobs-filter and .pill as-is). ── */
-.blog-featured{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:48px;text-decoration:none;color:inherit}
-.blog-featured-media{position:relative;aspect-ratio:4/3;overflow:hidden;background-color:var(--elevated);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px;display:flex;align-items:center;justify-content:center}
+.blog-featured{display:grid;grid-template-columns:1.15fr 1fr;gap:52px;align-items:stretch;border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:48px;text-decoration:none;color:inherit}
+.blog-featured-media{position:relative;min-height:460px;overflow:hidden;background-color:var(--elevated);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px;display:flex;align-items:center;justify-content:center}
 .blog-featured-media img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:900px){.blog-featured-media{min-height:320px}}
 .blog-featured-body{padding:16px 44px 16px 0}
 .blog-featured-eyebrow{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dimmer);margin-bottom:16px;display:block}
 .blog-featured-title{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(24px,2.6vw,32px);letter-spacing:-0.015em;line-height:1.25;color:var(--text);margin-bottom:16px}
