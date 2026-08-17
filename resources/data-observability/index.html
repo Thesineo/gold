@@ -83,7 +83,7 @@
   <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
   <div class="layer-hero-card is-placeholder">
     <span class="layer-hero-media-hint">Image / video</span>
-    <div class="sec-inner layer-hero-inner">
+    <div class="sec-inner layer-hero-inner single-col">
       <div class="layer-hero-content" data-reveal="slide-left">
         <span class="blog-hero-category">Observability</span>
         <h1 class="blog-hero-title">What Is Data Observability — And How It Protects Model Accuracy in Production</h1>
@@ -175,6 +175,9 @@
       <p><strong>Automated re-labeling with strategy selection.</strong> Once failing slices are identified, the platform assembles a targeted correction dataset — failing slices, low confidence, recent errors, or drift-affected records. The output is not a random sample; it is the specific records most likely to improve model performance when corrected.</p>
       <p><strong>Return to the pipeline.</strong> The correction dataset routes through the labeling layer, receives AI annotation and human verification, is frozen as a new version with a full lineage report, and exports in the training format the customer's framework expects.</p>
       <p>Detection identifies the problem. The loop is what fixes it.</p>
+
+      <h2>Conclusion</h2>
+      <p>Ninety-one percent of models degrading in production is not a statistic teams can dashboard their way out of. It requires observability that goes past the alert — one that can name the specific slice failing, trace it back to the training records responsible, and route a correction back into the pipeline without three weeks of manual archaeology in between. Detection without that loop is just a more sophisticated way of watching things break.</p>
     </article>
   </div>
 </section>

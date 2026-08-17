@@ -83,7 +83,7 @@
   <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
   <div class="layer-hero-card is-placeholder">
     <span class="layer-hero-media-hint">Image / video</span>
-    <div class="sec-inner layer-hero-inner">
+    <div class="sec-inner layer-hero-inner single-col">
       <div class="layer-hero-content" data-reveal="slide-left">
         <span class="blog-hero-category">Lineage &amp; Governance</span>
         <h1 class="blog-hero-title">Why Data Lineage Decides Whether an AI Model Can Be Deployed</h1>
@@ -161,6 +161,9 @@
       <p><strong>Included with every export.</strong> Data files, manifest, and lineage report ship together. The training pipeline consumes the data. The experiment tracker consumes the manifest. The governance function reads the lineage.</p>
       <p><strong>Quality gates enforced before export.</strong> Versions failing configured thresholds — verified agreement, error rate, class balance, calibration — are flagged with a blocking verdict. Undertested data does not silently reach a training pipeline.</p>
       <p>The question that opened this article stops requiring an investigation. It becomes a document that already exists.</p>
+
+      <h2>Conclusion</h2>
+      <p>Lineage is often treated as the least urgent layer to build — right up until an auditor, a customer, or an engineer asks a question that nobody can answer without days of reconstruction. Reproducibility, diagnosis, and accountability are not three separate features; they are three consequences of the same underlying discipline, which is capturing what produced a dataset at the moment it happens, not after someone asks.</p>
     </article>
   </div>
 </section>

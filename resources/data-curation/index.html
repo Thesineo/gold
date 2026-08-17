@@ -83,7 +83,7 @@
   <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
   <div class="layer-hero-card is-placeholder">
     <span class="layer-hero-media-hint">Image / video</span>
-    <div class="sec-inner layer-hero-inner">
+    <div class="sec-inner layer-hero-inner single-col">
       <div class="layer-hero-content" data-reveal="slide-left">
         <span class="blog-hero-category">Data Curation</span>
         <h1 class="blog-hero-title">Why Data Curation Is the Bottleneck for LLM and Multimodal Teams</h1>
@@ -166,6 +166,9 @@
       <p><strong>Coverage informed by production.</strong> The observability layer identifies which production slices are underperforming and whether the corresponding training coverage is thin. Curation decisions are made against observed production behaviour rather than assumed distribution.</p>
       <p><strong>Continuous correction.</strong> Failing slices generate targeted correction datasets through four selection strategies — failing slices, low confidence, recent errors, or drift-affected records. Corrections route through labeling and human verification, are frozen as a new version with full lineage, and export for retraining.</p>
       <p>Curation stops being a decision made once at the beginning and becomes a property of the pipeline that is maintained.</p>
+
+      <h2>Conclusion</h2>
+      <p>More data was never really the strategy — it was a proxy for it, and one that stopped working once redundancy, marginal value, and compute cost caught up with it. What actually moves model quality now is the discipline of deciding, continuously and with production feedback, what belongs in the training set and what does not. Teams that treat curation as a one-time preprocessing step will keep re-learning that lesson on every retrain.</p>
     </article>
   </div>
 </section>
