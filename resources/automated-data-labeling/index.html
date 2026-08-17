@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>What Is Automated Data Labeling — Concave AI Blog</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="Automated labeling is now standard. The differentiator is what happens to the uncertain cases — and whether the confidence scores driving that decision can be trusted.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
+<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero">
+  <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card is-placeholder">
+    <span class="layer-hero-media-hint">Image / video</span>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="blog-hero-category">Data Labeling</span>
+        <h1 class="blog-hero-title">What Is Automated Data Labeling — And Why Human Review Still Decides the Outcome</h1>
+        <p class="blog-hero-sub">Automation determines throughput. Verification determines whether the throughput is worth anything.</p>
+        <div class="blog-hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Aug 3, 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>9 min read</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Aniket Nerali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <article class="blog-body" data-reveal>
+      <h2>Where automation actually sits</h2>
+      <p>Automated data labeling uses a model to produce annotations that a human would otherwise create by hand. In its current form it operates in three modes.</p>
+      <p><strong>Pre-labeling.</strong> A model generates a proposed annotation for every item. Humans review and correct rather than annotate from scratch. This is the highest-leverage mode, because correcting a proposed bounding box takes a fraction of the time required to draw one.</p>
+      <p><strong>Confidence-based routing.</strong> The model produces both an annotation and a confidence score. Items above a threshold are accepted without review. Items below are routed to a human. This is where the economics of the pipeline are decided.</p>
+      <p><strong>Active learning.</strong> The model identifies which unlabeled items would be most informative to label next, prioritising uncertainty over volume. Useful for allocating a fixed annotation budget efficiently.</p>
+      <p>Model-in-the-loop labeling is table stakes across the category now. Every serious platform offers some form of it. The differentiation is not whether automation exists — it is whether the confidence scores driving the routing decision are trustworthy, and what happens to the items that fall below the line.</p>
+
+      <h2>The confidence problem</h2>
+      <p>A confidence score is only useful if it is calibrated. Calibration means that among all items labeled at 90% confidence, approximately 90% are correct.</p>
+      <p>Uncalibrated confidence is worse than no confidence, because it produces false safety. A model that reports 0.95 on items that are correct 70% of the time will push a large volume of errors into the auto-accepted pool, where nobody looks at them again. The errors then enter the training set, the model trains on them, and the resulting degradation is attributed to architecture rather than data.</p>
+      <p>Two failure modes are common in practice.</p>
+    </article>
+
+    <div class="blog-breakout">
+      <div class="recipe-grid cols-2">
+        <div class="recipe-card" data-reveal="slide-left">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+          <div class="recipe-card-title">String-mapped confidence</div>
+          <div class="recipe-card-body">Some pipelines ask a model to return a qualitative confidence — "high," "medium," "low" — then map those to fixed numbers. Every "high" becomes 0.92. The result is a distribution with three values, no gradation, and no relationship to actual accuracy. This is not a confidence score; it is a label with extra steps.</div>
+        </div>
+        <div class="recipe-card" data-reveal="slide-right">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+          <div class="recipe-card-title">Uniform overconfidence</div>
+          <div class="recipe-card-body">Large language and vision models are systematically overconfident when asked to self-report certainty, particularly on out-of-distribution input. Without recalibration against a verified sample, the reported number drifts away from the truth in exactly the situations where accuracy matters most.</div>
+        </div>
+      </div>
+    </div>
+
+    <article class="blog-body" data-reveal>
+      <p>The correct approach is to elicit a genuine numeric confidence, then measure calibration empirically against a gold standard sample and report the expected calibration error alongside the annotations. If the calibration is poor, the threshold must move — or the confidence must be recalibrated before routing depends on it.</p>
+
+      <h2>Where automation reliably fails</h2>
+      <p>Automation handles the centre of the distribution well and the edges poorly. Specifically:</p>
+      <ul>
+        <li><strong>Genuine ambiguity.</strong> Cases where two annotators would reasonably disagree. A model will produce an answer with apparent confidence, but the underlying task has no single correct label. These require human adjudication and an explicit guideline decision, not a model output.</li>
+        <li><strong>Domain-specific convention.</strong> What counts as a defect, a violation, or a positive case is often defined by an internal standard rather than a universal one. A general-purpose model does not know your organisation's threshold for "unacceptable surface scratch."</li>
+        <li><strong>Rare classes.</strong> Categories that appear infrequently in the source data are exactly the categories a model has least experience with, and exactly the categories where errors are most consequential.</li>
+        <li><strong>Distribution shift.</strong> New product lines, new sites, new lighting conditions, new phrasing. The model has not seen the pattern, and its confidence does not reliably fall when it should.</li>
+        <li><strong>Compounding annotations.</strong> In segmentation, tracking, and relation extraction, a single early error propagates. A misidentified object in frame one corrupts the entire track. Human verification at the initiation point is far cheaper than correction downstream.</li>
+      </ul>
+
+      <h2>Why human review is an economic decision, not a quality ritual</h2>
+      <p>The common framing — automation for speed, humans for quality — is imprecise. The real decision is where to place the threshold, and that decision has measurable consequences on both sides.</p>
+      <p>Set the threshold too high and human review volume climbs, throughput falls, and cost rises without a corresponding accuracy gain, because humans are being asked to confirm items the model already had right.</p>
+      <p>Set it too low and errors enter the training set unverified. The cost surfaces later — as degraded model performance, as a failing slice in production, as weeks of root-cause investigation.</p>
+      <p>The threshold is therefore a tunable parameter that should be set empirically per dataset and per annotation type, informed by measured calibration rather than a default. Detection tasks tolerate a lower threshold than segmentation. Text classification tolerates a lower threshold than relation extraction. A single global setting is almost always wrong for most of the pipeline.</p>
+      <p>And the review itself must be fast enough to be economically viable. If verifying an AI suggestion takes as long as annotating from scratch, the automation has produced no leverage.</p>
+
+      <h2>Measuring whether it worked</h2>
+      <p>An automated labeling pipeline should produce these numbers as standard output:</p>
+      <ul>
+        <li><strong>Automation rate</strong> — proportion accepted without human review</li>
+        <li><strong>Correction rate</strong> — proportion of AI labels a human changed on review</li>
+        <li><strong>Verified agreement</strong> — human-AI consistency on a held-out verification sample</li>
+        <li><strong>Gold standard accuracy</strong> — performance against known-correct benchmark items</li>
+        <li><strong>Expected calibration error</strong> — the gap between stated and actual confidence, bucketed</li>
+        <li><strong>Label distribution</strong> — class balance, and how it shifted from the source data</li>
+      </ul>
+      <p>Without these, "we used automated labeling" is a statement about process, not about quality. With them, the quality of the dataset is a measurement rather than an assertion.</p>
+
+      <h2>How Concave AI approaches this</h2>
+      <p>Datalier routes every item through a task-specific engine and a calibrated confidence gate.</p>
+      <p><strong>Engine routing by task, not one model for everything.</strong> Text tasks, image identification, pixel-level segmentation, pose and landmark estimation, video object tracking, and audio transcription each route to the engine built for that modality — dozens of annotation types in total, across four modalities.</p>
+      <p><strong>Genuine numeric confidence.</strong> Engines return a decimal confidence, not a mapped category, and the value is clamped and validated on ingestion. Confidence is then measured against gold-standard items, and the expected calibration error is reported per dataset — bucketed, so overconfidence in a specific range is visible rather than averaged away.</p>
+      <p><strong>Configurable routing threshold.</strong> Set per dataset and per annotation type. The platform reports automation rate, human review rate, and correction rate for each run, so the threshold can be tuned against observed outcomes rather than guessed.</p>
+      <p><strong>Review built for speed.</strong> Low-confidence items enter a keyboard-driven annotation stream where the AI suggestion is pre-loaded and the reviewer accepts, corrects, or rejects — typically in three to five seconds per item, against fifteen to thirty in conventional annotation interfaces. Error taxonomy tags are applied with single keystrokes.</p>
+      <p><strong>Quality reported, not claimed.</strong> Every labeling run produces verified agreement, gold accuracy, calibration error, class distribution, and a composite readiness verdict. These travel with the dataset version and appear in its lineage report.</p>
+      <p>Automation sets the throughput. The verification layer determines whether the throughput was worth having.</p>
+    </article>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Get data infrastructure for training AI models</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure for training AI models</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI · theconcaveai.com</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
+</body>
+</html>

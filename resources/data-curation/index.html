@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Why Data Curation Is the Bottleneck for LLM and Multimodal Teams — Concave AI Blog</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="Curation is the decision about what belongs in a training set and what does not. For multimodal and LLM teams it is now the highest-leverage operation in the pipeline.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
+<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero">
+  <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card is-placeholder">
+    <span class="layer-hero-media-hint">Image / video</span>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="blog-hero-category">Data Curation</span>
+        <h1 class="blog-hero-title">Why Data Curation Is the Bottleneck for LLM and Multimodal Teams</h1>
+        <p class="blog-hero-sub">More data stopped being the answer some time ago. Better-selected data is.</p>
+        <div class="blog-hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Jul 13, 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>9 min read</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Aniket Nerali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <article class="blog-body" data-reveal>
+      <h2>Curation is not cleaning and it is not labeling</h2>
+      <p>The three are routinely conflated, and the conflation obscures where the leverage actually sits.</p>
+      <p>A perfectly cleaned, perfectly labeled dataset can still produce a poor model, because the composition was wrong: the tails were underrepresented, one class dominated, the same scenario appeared in ten thousand near-identical variations, or the distribution failed to match production.</p>
+      <p>Cleaning and labeling are necessary. Curation is what determines the ceiling.</p>
+    </article>
+
+    <div class="blog-breakout">
+      <div class="recipe-grid">
+        <div class="recipe-card" data-reveal="zoom">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></div>
+          <div class="recipe-card-title">Cleaning</div>
+          <div class="recipe-card-body">Removes what is broken — malformed records, corrupt files, missing fields, duplicates. A processing problem, record by record.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 9-9 9-9-9 4-4h5z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div>
+          <div class="recipe-card-title">Labeling</div>
+          <div class="recipe-card-body">Assigns meaning — what this image contains, which response is preferred, where the entities are. Also a per-record operation.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+          <div class="recipe-card-title">Curation</div>
+          <div class="recipe-card-body">Decides what belongs in the training set at all — which records to include, exclude, weight, or acquire more of. A selection problem over the dataset as a whole.</div>
+        </div>
+      </div>
+    </div>
+
+    <article class="blog-body" data-reveal>
+      <h2>Why scale stopped solving this</h2>
+      <p>For a period, the reliable path to a better model was more data. That relationship has weakened substantially, for reasons that are structural rather than temporary.</p>
+      <p><strong>Redundancy dominates large corpora.</strong> In video, consecutive frames are near-identical — a thirty-second clip at thirty frames per second contains nine hundred frames and perhaps forty genuinely distinct moments. In text, common phrasings recur at enormous multiples. Adding redundant records increases training cost and dataset size without adding information.</p>
+      <p><strong>Marginal value declines sharply.</strong> The ten-thousandth typical example teaches a model almost nothing. The first example from an underrepresented tail can meaningfully change behaviour on an entire segment of production traffic.</p>
+      <p><strong>Errors scale with volume.</strong> A 3% label error rate on 100,000 records is 3,000 wrong labels. At scale, error volume grows faster than the capacity to find it, and errors concentrated in a specific slice are functionally invisible in aggregate metrics.</p>
+      <p><strong>Compute is not free.</strong> Training cost scales with dataset size. Spending it on redundant records is a direct transfer from budget to no outcome.</p>
+      <p>The consequence is that the composition question — what should be in this dataset — has become more important than the volume question.</p>
+
+      <h2>The curation decisions that matter</h2>
+      <ul>
+        <li><strong>Coverage against production distribution.</strong> The training set should represent what the model will encounter, including the tails. This requires knowing the production distribution, which requires observability. Curation performed without production feedback is guesswork.</li>
+        <li><strong>Deduplication beyond exact match.</strong> Near-duplicates — the same scene at a slightly different angle, the same question phrased differently, consecutive video frames — are where the volume is. Semantic deduplication is materially harder and materially more valuable.</li>
+        <li><strong>Class balance, deliberately chosen.</strong> Natural distributions are usually imbalanced, and the imbalance usually favours the class that matters least. Whether to rebalance must be a decision rather than an accident.</li>
+        <li><strong>Edge case identification and retention.</strong> The rare, ambiguous, and difficult records are the most informative per unit of annotation cost, and the most likely to be discarded by naive filtering because they look like noise.</li>
+        <li><strong>Quality-weighted inclusion.</strong> Not every record deserves equal weight. Verified labels, gold-standard items, and high-agreement records carry more signal than unverified automation output.</li>
+      </ul>
+
+      <h2>What multimodal adds</h2>
+      <p>Multimodal training compounds every curation problem and introduces several that are specific to it.</p>
+      <p><strong>Cross-modal alignment.</strong> An image-caption pair requires the caption to correspond to the image. Misalignment is common in scraped data, hard to detect automatically, and directly harmful — the model learns an incorrect association rather than simply failing to learn a correct one.</p>
+      <p><strong>Divergent quality standards by modality.</strong> Image quality is resolution and composition. Audio quality is signal-to-noise and speaker separation. Video adds temporal consistency. Text adds coherence and factuality. A single quality score across modalities is not meaningful.</p>
+      <p><strong>Volume asymmetry.</strong> One minute of video at thirty frames per second is eighteen hundred frames. One minute of audio is a few hundred words of transcript. Naive combination produces a dataset where one modality overwhelms the others by orders of magnitude.</p>
+      <p><strong>Preference and evaluation data.</strong> For LLM alignment, curation extends to the selection of prompts, the diversity of response pairs, and the coverage of failure modes the model is expected to handle. Preference datasets that oversample easy comparisons produce alignment that fails on the hard ones.</p>
+
+      <h2>Curation is continuous, not initial</h2>
+      <p>The most consequential structural point: curation is usually treated as a one-time step before the first training run, and it is not.</p>
+      <p>Production distribution shifts. New categories appear. Edge cases that were rare become common. A dataset curated correctly for the world of twelve months ago is miscurated for today, and nothing in a static pipeline will surface that.</p>
+      <p>Continuous curation requires a feedback path from production back to the dataset — a way to observe which slices are failing, determine whether the failure reflects a coverage gap or a labeling error, and adjust composition accordingly. Without that path, curation decays from the moment it is made.</p>
+
+      <h2>How Concave AI approaches this</h2>
+      <p>Datalier treats curation as an ongoing operation informed by production behaviour rather than a preprocessing step.</p>
+      <p><strong>Composition measured at every version.</strong> Class distribution, coverage metrics, duplicate rate, and edge-case representation are computed and reported for each frozen version. Distribution changes appear explicitly in the version delta, so composition drift across iterations is visible rather than accumulating unnoticed.</p>
+      <p><strong>Deduplication with near-match detection.</strong> Exact and near-duplicate identification during transformation, with counts and examples reported rather than records silently removed.</p>
+      <p><strong>Modality-aware handling.</strong> Dozens of annotation types across text, image, video, and audio, each with its own quality criteria and processing path. Video uses keyframe propagation rather than treating every frame as an independent image, addressing temporal redundancy at the architectural level.</p>
+      <p><strong>Uncertainty-first task ordering.</strong> The human review queue prioritises low-confidence and high-disagreement items, concentrating annotation effort where it produces the most information per unit of cost.</p>
+      <p><strong>Coverage informed by production.</strong> The observability layer identifies which production slices are underperforming and whether the corresponding training coverage is thin. Curation decisions are made against observed production behaviour rather than assumed distribution.</p>
+      <p><strong>Continuous correction.</strong> Failing slices generate targeted correction datasets through four selection strategies — failing slices, low confidence, recent errors, or drift-affected records. Corrections route through labeling and human verification, are frozen as a new version with full lineage, and export for retraining.</p>
+      <p>Curation stops being a decision made once at the beginning and becomes a property of the pipeline that is maintained.</p>
+    </article>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Get data infrastructure for training AI models</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure for training AI models</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI · theconcaveai.com</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Why Data Lineage Decides Whether an AI Model Can Be Deployed — Concave AI Blog</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="Data lineage for AI is not a compliance artifact. It is the mechanism that makes training runs reproducible and model failures diagnosable.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
+<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero">
+  <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card is-placeholder">
+    <span class="layer-hero-media-hint">Image / video</span>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="blog-hero-category">Lineage &amp; Governance</span>
+        <h1 class="blog-hero-title">Why Data Lineage Decides Whether an AI Model Can Be Deployed</h1>
+        <p class="blog-hero-sub">Reproducibility, diagnosis, and accountability all reduce to the same question: what produced this dataset?</p>
+        <div class="blog-hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Jul 20, 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>8 min read</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Aniket Nerali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <article class="blog-body" data-reveal>
+      <h2>The question nobody can answer</h2>
+      <p>At some point after a model reaches production, someone asks a version of this question: how was this model trained? What data was used? What quality checks were applied? Can you reproduce the training run?</p>
+      <p>The asker may be an auditor, a customer's procurement team, an internal risk function, a regulator, or an engineer trying to diagnose a failure. The question is the same, and in most organisations the answer is assembled retroactively from a combination of memory, Slack history, and a notebook someone still has.</p>
+      <p>This is not a documentation problem. It is a structural one. The information required to answer the question is generated during the pipeline's operation and then discarded, because nothing was designed to capture it.</p>
+
+      <h2>Lineage for AI is not lineage for analytics</h2>
+      <p>Traditional data lineage tracks how a value moved between systems — this column came from that table, which was populated by this job. It answers a plumbing question.</p>
+      <p>AI training data lineage must answer a substantially harder set of questions, because a training dataset is not a passive artifact. It is the accumulated result of a sequence of decisions, most of them consequential and most of them irreversible.</p>
+      <p>A complete lineage record for a training dataset must include:</p>
+      <ul>
+        <li><strong>Source provenance.</strong> Which storage backend, which file or query, which time window, and who initiated the import. Multi-source datasets need this per source, with the merge logic recorded.</li>
+        <li><strong>Transformation chain.</strong> Every cleaning, validation, deduplication, and normalisation step, in order, with rows affected at each step. A dataset that entered with 50,000 records and exited with 47,300 needs the 2,700 accounted for.</li>
+        <li><strong>Labeling history.</strong> Which engine, which model version, which confidence threshold, how many items were auto-labeled versus human-reviewed, and what the correction rate was. Annotation guidelines in force at the time.</li>
+        <li><strong>Quality measurements.</strong> Verified agreement, gold standard accuracy, calibration error, class distribution, coverage gaps — measured at the time of freezing, not asserted afterwards.</li>
+        <li><strong>Version delta.</strong> What differs from the parent version. Rows added, rows removed, labels changed, schema modified, and the stated reason for the change.</li>
+        <li><strong>Integrity proof.</strong> A content hash covering the data, the labels, and the metadata, so the exported artifact can be verified as identical to the version that passed quality review.</li>
+        <li><strong>Export record.</strong> Where the dataset was sent, in which format, when, by whom, and with which checksum.</li>
+      </ul>
+      <p>Analytics lineage answers where did this number come from. AI lineage answers why should anyone trust this dataset.</p>
+
+      <h2>Three things lineage makes possible</h2>
+    </article>
+
+    <div class="blog-breakout">
+      <div class="recipe-grid">
+        <div class="recipe-card" data-reveal="zoom">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6"/></svg></div>
+          <div class="recipe-card-title">Reproducibility</div>
+          <div class="recipe-card-body">A training run is reproducible only if the exact dataset state can be reconstructed. Irreproducible runs make every subsequent experiment uninterpretable — you cannot distinguish an architecture change from a data change.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
+          <div class="recipe-card-title">Diagnosis</div>
+          <div class="recipe-card-body">When a model fails on a segment, the diagnostic path runs backwards through lineage: which records cover it, what were their labels, who assigned them, were they verified. Without lineage, this is archaeology. With it, it is a query.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5.5c0 4.5-3 7.7-8 9-5-1.3-8-4.5-8-9V6.5z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="recipe-card-title">Accountability</div>
+          <div class="recipe-card-body">Governance functions, customers, and regulators increasingly ask suppliers to demonstrate that training data was sourced legitimately and quality-controlled. Organisations that can produce this on request win contracts others lose.</div>
+        </div>
+      </div>
+    </div>
+
+    <article class="blog-body" data-reveal>
+      <p>Of the three, reproducibility is the one engineering teams underrate most and suffer from most.</p>
+
+      <h2>Why manual lineage does not hold</h2>
+      <p>Most attempts at lineage documentation are manual: a spreadsheet, a wiki page, a README in the dataset directory.</p>
+      <p>This fails predictably for three reasons. It is written after the fact, so it records what someone remembers rather than what occurred. It falls out of sync the first time someone makes an undocumented amendment under time pressure. And it scales linearly with dataset count and version frequency, which means it degrades exactly as the organisation's AI programme succeeds.</p>
+      <p>Lineage is only reliable when it is a by-product of the operations themselves — generated automatically because the platform performing the operation records it, with no separate documentation step that can be skipped.</p>
+
+      <h2>How Concave AI approaches this</h2>
+      <p>In Datalier, lineage is produced by the pipeline rather than written about it.</p>
+      <p><strong>Provenance captured at ingestion.</strong> Source backend, path or query, format, original row count, and import method are recorded when data enters and persist through every subsequent layer.</p>
+      <p><strong>Operations logged as structured events.</strong> Every transformation, labeling decision, human review action, version freeze, and export is recorded with a timestamp, an actor — AI engine or named reviewer — and a before-and-after state. These records are immutable.</p>
+      <p><strong>Immutable, hash-verified versions.</strong> Freezing a dataset produces a SHA-256 hash covering data, labels, and metadata. A single changed row changes the hash, which provides cryptographic proof that an exported artifact matches the version that passed quality review.</p>
+      <p><strong>Auto-generated lineage reports.</strong> Every version produces a structured report across nine sections: identity, source provenance, transformation chain, labeling history, version changes, quality summary, lineage path, export evidence, and risk assessment. Written in three registers — an executive summary with a readiness verdict, a technical section for engineers, and export evidence for audit — so a single document serves the three audiences that ask for it.</p>
+      <p><strong>Included with every export.</strong> Data files, manifest, and lineage report ship together. The training pipeline consumes the data. The experiment tracker consumes the manifest. The governance function reads the lineage.</p>
+      <p><strong>Quality gates enforced before export.</strong> Versions failing configured thresholds — verified agreement, error rate, class balance, calibration — are flagged with a blocking verdict. Undertested data does not silently reach a training pipeline.</p>
+      <p>The question that opened this article stops requiring an investigation. It becomes a document that already exists.</p>
+    </article>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Get data infrastructure for training AI models</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure for training AI models</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI · theconcaveai.com</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
+</body>
+</html>

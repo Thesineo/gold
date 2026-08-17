@@ -12,9 +12,9 @@
   } catch (e) {}
 })();
 </script>
-<title>Label — Datalier | Concave AI</title>
+<title>Blog — Concave AI</title>
 <meta property="og:site_name" content="Concave AI" />
-<meta name="description" content="The Label layer routes each data point to the right AI model, auto-labels above a confidence threshold, and routes everything else to human reviewers — 25 annotation types across text, image, video, and audio.">
+<meta name="description" content="Insights on data readiness, labeling, observability, lineage, and curation for teams training AI models — from the team building the infrastructure layer underneath it.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
 <link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
@@ -30,7 +30,7 @@
   </a>
   <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navLinks">
-    <a href="/platform" class="is-current">Platform</a>
+    <a href="/platform">Platform</a>
     <div class="nav-item">
       <a href="/platform">Solutions</a>
       <div class="nav-dropdown">
@@ -58,7 +58,7 @@
         </div>
       </div>
     </div>
-    <a href="/resources">Resources</a>
+    <a href="/resources" class="is-current">Resources</a>
     <div class="nav-item">
       <a href="/company/about">Company</a>
       <div class="nav-dropdown">
@@ -79,127 +79,50 @@
   </div>
 </nav>
 
-<section class="layer-hero video-bg">
-  <a href="/platform" class="layer-back-btn" aria-label="Back to Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
-  <div class="layer-hero-card">
-    <div class="bg-media"><video src="/imgbgm/labelling.mp4" autoplay loop muted playsinline></video></div>
-    <div class="hero-overlay"></div>
-    <div class="sec-inner layer-hero-inner">
-      <div class="layer-hero-content" data-reveal="slide-left">
-        <span class="layer-hero-label">Data Layer</span>
-        <h1>Label</h1>
-        <p class="layer-hero-sub">AI annotates. Humans verify. Quality is measured, not assumed.</p>
-      </div>
+<!-- Section 1: hero — same rounded/contained treatment as every other
+     hero, centered eyebrow + heading like About/Careers. No cover image
+     yet, so it's a dashed placeholder for now. -->
+<section class="about-hero">
+  <div class="about-hero-media is-placeholder" data-reveal="dissolve">
+    <span class="layer-hero-media-hint">Image / video</span>
+    <div class="about-hero-content">
+      <span class="about-hero-eyebrow">Insights for AI Builders</span>
+      <h1>Blog</h1>
+      <p>Notes on data readiness, labeling, observability, lineage, and curation, from the team building the infrastructure layer underneath every model.</p>
     </div>
   </div>
 </section>
 
-<section class="pad">
-  <div class="sec-inner">
-    <div class="intro-center" data-reveal>
-      <span class="sec-eyebrow">What It Does</span>
-      <p class="lead-text">A multi-engine orchestration system that dispatches every data point to the AI engine that suites best to its modality and task, while a calibrated confidence threshold discerns which labelling engine may certify outright and which requires human judgment. Nothing leaves the system unverified, each label carries either the AI's high-confidence assertion or a reviewer's explicit signing, the twin foundations makes data AI-ready that can train more futuristic AI models.</p>
-    </div>
-  </div>
-</section>
-
+<!-- Section 2: Featured article -->
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="intro-center" data-reveal>
-      <span class="sec-eyebrow">How Routing Works</span>
-      <p class="lead-text">Every item is scored with a confidence value between 0.00 and 0.99, issued by the engine that labeled it. Once the task crosses the configured threshold, the label stands on its own falling short, and the item is queued for a human eye. That threshold bends to the dataset loosen it for tasks that are complicated, tighten it for precision. Three numbers tell you how the balance is holding the auto-label rate, the human review rate, and the correction rate, the share of AI labels a reviewer choice to overrule.</p>
-    </div>
-  </div>
-</section>
-
-<section class="pad" style="padding-top:0">
-  <!-- Desktop: sticky diagram + text, driven by scroll position. Intro
-       slide, then one slide per AI engine — canvas starts as a 4-ring
-       "basketball" sphere and flattens into a rotating ring of that
-       engine's task chips. Same mechanics as the platform page's Five
-       Layers section; see initEngineScroll in platform-motion.js. -->
-  <div class="layer-scroll" id="engineScroll">
-    <div class="layer-sticky">
-      <div class="sec-inner layer-sticky-inner">
-        <div class="layer-copy-col">
-          <div class="layer-slide-tagline" id="engineTagline"></div>
-          <h3 class="layer-slide-heading" id="engineHeading">The AI Engines</h3>
-          <p class="layer-slide-desc" id="engineDesc">Four specialised modality families routing each item to the right kind of intelligence labelling engine text, vision, video, and audio, each producing its own labelling confidence score.</p>
-
-          <div class="layer-progress-row" id="engineProgressRow">
-            <span class="layer-progress-seg"><span></span></span>
-            <span class="layer-progress-seg"><span></span></span>
-            <span class="layer-progress-seg"><span></span></span>
-            <span class="layer-progress-seg"><span></span></span>
-          </div>
-
-          <div class="layer-nav">
-            <button class="layer-arrow-btn engine-prev" type="button" aria-label="Previous engine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-            <button class="layer-arrow-btn engine-next" type="button" aria-label="Next engine"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
-          </div>
-        </div>
-
-        <div class="layer-diagram-col">
-          <div class="layer-diagram-wrap">
-            <canvas id="engineSphere" aria-hidden="true"></canvas>
-          </div>
-          <div class="layer-scroll-hint" id="engineScrollHint">Scroll to continue</div>
-        </div>
+    <a class="blog-featured" id="blogFeatured" href="#" data-reveal="zoom">
+      <div class="blog-featured-media"><span class="task-switch-media-hint">Image / video</span></div>
+      <div class="blog-featured-body">
+        <span class="blog-featured-eyebrow">Featured Article</span>
+        <h2 class="blog-featured-title" id="blogFeaturedTitle"></h2>
+        <p class="blog-featured-desc" id="blogFeaturedDesc"></p>
+        <span class="pill" id="blogFeaturedCategory"></span>
       </div>
-    </div>
-  </div>
-
-  <!-- Mobile: plain stacked list, no sticky/scroll-driven behavior -->
-  <div class="sec-inner layer-mobile">
-    <div class="layer-mobile-item">
-      <div class="layer-mobile-tagline">AI Engine</div>
-      <div class="layer-mobile-name">Text</div>
-      <p class="layer-mobile-desc">Advanced NLP understanding optimized for complex labelling tasks performing entity recognition, preference ranking, document summarization, question answering, and relational mapping.</p>
-      <div class="pill-row"><span class="pill">RLHF Preference</span><span class="pill">Named Entity Recognition</span><span class="pill">Classification</span><span class="pill">Summarisation</span><span class="pill">Extractive QA</span><span class="pill">Relation Extraction</span></div>
-    </div>
-    <div class="layer-mobile-item">
-      <div class="layer-mobile-tagline">AI Engine</div>
-      <div class="layer-mobile-name">Image / Vision</div>
-      <p class="layer-mobile-desc">Spatial object detection and multi-class recognition paired with pixel-exact segmentation masks, followed by high-density landmark mapping, along with isolating facial, structural, and anatomical pose features with geometric precision.</p>
-      <div class="pill-row"><span class="pill">Classification</span><span class="pill">Object Detection</span><span class="pill">Instance Segmentation</span><span class="pill">Semantic Segmentation</span><span class="pill">Keypoint Estimation</span><span class="pill">Image Captioning</span><span class="pill">OCR</span></div>
-    </div>
-    <div class="layer-mobile-item">
-      <div class="layer-mobile-tagline">AI Engine</div>
-      <div class="layer-mobile-name">Video</div>
-      <p class="layer-mobile-desc">High-resolution frame extraction combined with motion tracking and temporal segmentation with pixel-level instance masks are persistently tracked across consecutive frames to maintain complete target continuity.</p>
-      <div class="pill-row"><span class="pill">Classification</span><span class="pill">Object Tracking</span><span class="pill">Instance Segmentation</span><span class="pill">Temporal Segmentation</span><span class="pill">Per-Frame Annotation</span><span class="pill">Pose Tracking</span></div>
-    </div>
-    <div class="layer-mobile-item">
-      <div class="layer-mobile-tagline">AI Engine</div>
-      <div class="layer-mobile-name">Audio</div>
-      <p class="layer-mobile-desc">Precise, word-level speech transcription with exact timestamps along with advanced acoustic analysis decoding speaker diarization, emotional registery, dynamic tones, and subtle background event sounds.</p>
-      <div class="pill-row"><span class="pill">Transcription</span><span class="pill">Speaker Diarisation</span><span class="pill">Sound Event Detection</span><span class="pill">Classification</span><span class="pill">Emotion Detection</span><span class="pill">Audio Segmentation</span></div>
-    </div>
+    </a>
   </div>
 </section>
 
+<!-- Section 3: All Articles -->
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
     <div class="center-head" data-reveal>
-      <h2 class="sec-title">Annotation - Review</h2>
+      <h2 class="sec-title">All Articles</h2>
     </div>
-    <div class="recipe-grid cols-2">
-      <div class="recipe-card" data-reveal="slide-left">
-        <div class="recipe-card-title">Human Review Interface</div>
-        <div class="recipe-card-body">Human expertise completes what algorithmic confidence cannot. A keyboard-native review stream surfaces model predictions instantly, enabling reviewers to validate, adjust, or discard outputs in under five seconds, up to six times faster than legacy platforms while applying precise error taxonomy with a single keystroke.</div>
-      </div>
-      <div class="recipe-card" data-reveal="slide-right">
-        <div class="recipe-card-title">Quality Measurement</div>
-        <div class="recipe-card-body">Quality is empirically verified, not assumed. Every processing cycle generates an auditor-grade readiness score built on inter-annotator agreement, calibrated confidence intervals, and label distribution metrics, all fully traceable back through the dataset’s versioning & lineage.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="pad" style="padding-top:0">
-  <div class="sec-inner">
-    <div class="layer-hero-media has-media full-bleed-media" data-reveal="zoom" aria-hidden="true">
-      <video src="/imgbgm/annotation.mp4" autoplay loop muted playsinline></video>
+    <div class="jobs-toolbar">
+      <input type="text" class="jobs-search" id="blogSearch" placeholder="Search articles...">
+      <select class="jobs-filter" id="blogCategoryFilter"><option value="">All Categories</option></select>
+    </div>
+
+    <div id="blogGridWrap"></div>
+    <div class="blog-show-more" id="blogShowMoreWrap" style="display:none">
+      <button class="btn-ghost" id="blogShowMore" type="button">Show More →</button>
     </div>
   </div>
 </section>
@@ -270,6 +193,115 @@
 </footer>
 
 <script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
-<script src="/assets/js/platform-motion.js?v=6fbc065" defer></script>
+<script>
+(function(){
+  /* Add a new post here and it appears automatically — in the grid, in
+     search, and in the category filter. Set featured:true on exactly one
+     post to control the big card above; the newest one you flag wins if
+     more than one is set. url should point at that post's own page —
+     copy /resources/ai-ready-data as a starting point for the page
+     itself (hero + .blog-body article layout). */
+  var BLOG_POSTS = [
+    { title: 'Why Modern AI Models Require Complete Data Readiness', excerpt: 'AI-ready data is a governed, traceable, continuously verified state — not a one-time cleaning step. Here is what readiness actually requires, and why most enterprise data fails the test.', category: 'Data Readiness', date: '2026-08-10', readTime: '8 min', url: '/resources/ai-ready-data', featured: true },
+    { title: 'What Is Automated Data Labeling — And Why Human Review Still Decides the Outcome', excerpt: 'Automated labeling is now standard. The differentiator is what happens to the uncertain cases — and whether the confidence scores driving that decision can be trusted.', category: 'Data Labeling', date: '2026-08-03', readTime: '9 min', url: '/resources/automated-data-labeling' },
+    { title: 'What Is Data Observability — And How It Protects Model Accuracy in Production', excerpt: 'Detecting drift is the easy half. Knowing which data caused it is the half that matters. Here is what observability must measure.', category: 'Observability', date: '2026-07-27', readTime: '9 min', url: '/resources/data-observability' },
+    { title: 'Why Data Lineage Decides Whether an AI Model Can Be Deployed', excerpt: 'Data lineage for AI is not a compliance artifact. It is the mechanism that makes training runs reproducible and model failures diagnosable.', category: 'Lineage & Governance', date: '2026-07-20', readTime: '8 min', url: '/resources/data-lineage' },
+    { title: 'Why Data Curation Is the Bottleneck for LLM and Multimodal Teams', excerpt: 'Curation is the decision about what belongs in a training set and what does not. For multimodal and LLM teams it is now the highest-leverage operation in the pipeline.', category: 'Data Curation', date: '2026-07-13', readTime: '9 min', url: '/resources/data-curation' }
+  ];
+
+  var PAGE_SIZE = 9;
+  var visibleCount = PAGE_SIZE;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function formatDate(iso) {
+    var d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function uniqueValues(items, key) {
+    var seen = {}, out = [];
+    items.forEach(function (j) { if (!seen[j[key]]) { seen[j[key]] = 1; out.push(j[key]); } });
+    return out;
+  }
+
+  function initFeatured() {
+    var featured = BLOG_POSTS.filter(function (p) { return p.featured; })[0] || BLOG_POSTS[0];
+    if (!featured) return;
+    document.getElementById('blogFeatured').href = featured.url;
+    document.getElementById('blogFeaturedTitle').textContent = featured.title;
+    document.getElementById('blogFeaturedDesc').textContent = featured.excerpt;
+    document.getElementById('blogFeaturedCategory').textContent = featured.category;
+  }
+
+  function initGrid() {
+    var wrap = document.getElementById('blogGridWrap');
+    var searchInput = document.getElementById('blogSearch');
+    var catFilter = document.getElementById('blogCategoryFilter');
+    var showMoreWrap = document.getElementById('blogShowMoreWrap');
+    var showMoreBtn = document.getElementById('blogShowMore');
+
+    uniqueValues(BLOG_POSTS, 'category').forEach(function (c) {
+      var opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      catFilter.appendChild(opt);
+    });
+
+    function applyFilters() {
+      var q = (searchInput.value || '').toLowerCase();
+      var cat = catFilter.value;
+      return BLOG_POSTS.filter(function (p) {
+        if (cat && p.category !== cat) return false;
+        if (q && p.title.toLowerCase().indexOf(q) === -1 && p.excerpt.toLowerCase().indexOf(q) === -1) return false;
+        return true;
+      });
+    }
+
+    function render() {
+      var filtered = applyFilters();
+      var shown = filtered.slice(0, visibleCount);
+
+      if (!filtered.length) {
+        wrap.innerHTML = '<div class="blog-no-results">No articles match your search right now.</div>';
+        showMoreWrap.style.display = 'none';
+        return;
+      }
+
+      wrap.innerHTML = '<div class="blog-grid">' + shown.map(function (p) {
+        return '<a class="blog-card" href="' + escapeHtml(p.url) + '">' +
+          '<div class="blog-card-media"><span class="task-switch-media-hint">Image / video</span></div>' +
+          '<div class="blog-card-body">' +
+          '<span class="pill">' + escapeHtml(p.category) + '</span>' +
+          '<h3 class="blog-card-title">' + escapeHtml(p.title) + '</h3>' +
+          '<p class="blog-card-excerpt">' + escapeHtml(p.excerpt) + '</p>' +
+          '<div class="blog-card-meta"><span>' + formatDate(p.date) + '</span><span>·</span><span>' + escapeHtml(p.readTime) + ' read</span></div>' +
+          '</div></a>';
+      }).join('') + '</div>';
+
+      showMoreWrap.style.display = (filtered.length > shown.length) ? 'flex' : 'none';
+    }
+
+    searchInput.addEventListener('input', function () { visibleCount = PAGE_SIZE; render(); });
+    catFilter.addEventListener('change', function () { visibleCount = PAGE_SIZE; render(); });
+    showMoreBtn.addEventListener('click', function () { visibleCount += PAGE_SIZE; render(); });
+    render();
+  }
+
+  function init() {
+    initFeatured();
+    initGrid();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
