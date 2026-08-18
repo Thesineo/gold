@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Why Feedback Loops and Monitoring Systems Should Run Continuously to Enhance Model Accuracy — Concave AI Blog</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="Continuous monitoring and feedback are not maintenance activities. They are the mechanism by which a production model retains the accuracy it launched with.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
+<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero — no cover asset yet, dashed placeholder (see /resources/ai-ready-data
+     for how this looks once .video-bg + a real image is added). -->
+<section class="layer-hero">
+  <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card blog-cover is-placeholder">
+    <span class="layer-hero-media-hint">Image / video</span>
+    <div class="sec-inner layer-hero-inner single-col">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="blog-hero-category">Observability</span>
+        <h1 class="blog-hero-title">Why Feedback Loops and Monitoring Systems Should Run Continuously to Enhance Model Accuracy</h1>
+        <p class="blog-hero-sub">A model deployed once is a model decaying from that moment. The loop is the only thing that holds it.</p>
+        <div class="blog-hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Jul 6, 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>9 min read</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Aniket Nerali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <article class="blog-body" data-reveal>
+      <h2>The assumption that breaks every deployment</h2>
+      <p>Most ML systems are built on an implicit assumption: that the world the model was trained on will continue to resemble the world it is deployed into.</p>
+      <p>It will not. Roughly 91% of ML models degrade over time, and the root cause is almost always a data mismatch. The model has not changed. Everything around it has.</p>
+      <p>What makes this expensive is not the decay itself — decay is predictable and manageable. It is that most organisations discover it reactively, weeks after it began, through a business metric rather than a system alert. By the time a revenue number moves, the model has been quietly wrong for a month.</p>
+
+      <h2>Three clocks that fall out of sync</h2>
+      <p>Production ML runs on three clocks that often fall out of sync. User behaviour changes on one clock. Labels arrive on another. Deployment and approval cycles move on a third. When those clocks drift apart, the model starts learning from a world that has already expired.</p>
+      <p>This framing is more useful than the usual one, because it explains failures that look like drift but are not.</p>
+      <p>A team may retrain daily and still serve stale features. A feature pipeline may stay fresh while labels lag long enough to poison feedback loops. An inference service may promote a candidate that passed offline checks but fails on live traffic slices because the request mix changed between evaluation and release.</p>
+      <p>Each of those failures looks like model drift on the surface. In practice, each one starts as a coordination failure inside the pipeline.</p>
+      <p>The implication for engineering leaders is direct: <strong>the pipeline is the adaptive asset and the model is one component inside it.</strong> Budget and attention should favour observability, feedback plumbing, and release control before another round of model tuning.</p>
+
+      <h2>Why periodic checking is not a feedback loop</h2>
+      <p>There is a meaningful difference between checking on a model and operating a feedback loop.</p>
+      <p>Periodic checking is a scheduled review — someone opens a dashboard monthly, looks at aggregate accuracy, and decides whether to act. It fails for three reasons.</p>
+      <p><strong>Aggregate metrics hide slice failures.</strong> A model at 94% overall can be at 61% on a segment representing 4% of volume — usually the rare, high-consequence segment the system exists to catch. Monthly review of a single number will never surface this.</p>
+      <p><strong>Detection lags the cause by weeks.</strong> By the time enough labeled outcomes have accumulated to move an accuracy metric, the underlying distribution shift may be two months old and several thousand bad predictions deep.</p>
+      <p><strong>Human review does not scale with model count.</strong> An organisation with five models can review them manually. An organisation with fifty cannot, and manual drift management becomes unsustainable as model inventories grow.</p>
+      <p>A continuous feedback loop instead runs as infrastructure: predictions are ingested as they occur, drift is computed on a fixed cadence, slices are decomposed automatically, and thresholds trigger action without waiting for someone to notice.</p>
+
+      <h2>Detecting before ground truth arrives</h2>
+      <p>One practical technique deserves specific mention, because it changes the economics of monitoring.</p>
+      <p><strong>Do not wait for labeled data to detect model degradation.</strong> Proxy metrics like prediction distribution shift and feature drift can surface problems days or weeks before you have enough labeled feedback to measure accuracy directly.</p>
+      <p>In most production settings, ground truth is delayed. A fraud prediction may not be confirmed for thirty days. A defect classification may not be verified until a downstream inspection. If your only degradation signal requires labels, you are structurally blind for the length of your label delay.</p>
+      <p>Input drift and prediction drift require no labels at all. They are computed entirely from what the model receives and what it emits. They are weaker signals — drift without evaluation impact is a false alarm and burns on-call attention — but they are early, and combining them with accuracy once labels arrive gives you both timeliness and confidence.</p>
+      <p>The correct posture is a tiered response: automate remediation on small drifts, human review for moderate ones, emergency intervention for severe shifts.</p>
+
+      <h2>The trap inside feedback loops</h2>
+      <p>Feedback loops have a specific failure mode worth naming, because it is subtle and self-reinforcing.</p>
+      <p><strong>Feedback loops occur when a model's predictions influence the data it will be trained on in the next cycle.</strong> A recommendation model that only shows popular items will generate training data that reinforces that bias.</p>
+      <p>The same dynamic applies anywhere the model's output shapes what data gets collected or reviewed. If low-confidence predictions are routed for human review and high-confidence ones are not, the corrected data over-represents cases the model already found hard — useful for targeted improvement, but skewed if used naively for full retraining.</p>
+      <p>The mitigation is deliberate composition control: track what proportion of a retraining set came from correction cycles versus fresh sampling, and maintain explicit coverage of cases the model currently handles well. Correction data improves weak slices. It should not be allowed to silently become the entire dataset.</p>
+
+      <h2>What a complete loop contains</h2>
+      <p>Six components, and the loop is only as strong as the weakest.</p>
+    </article>
+
+    <div class="blog-breakout">
+      <div class="recipe-grid">
+        <div class="recipe-card" data-reveal="zoom">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></div>
+          <div class="recipe-card-title">Prediction capture</div>
+          <div class="recipe-card-body">Individual input-output pairs with timestamps and confidence, retained rather than aggregated.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></div>
+          <div class="recipe-card-title">Drift computation</div>
+          <div class="recipe-card-body">Input, prediction, and — where labels permit — concept drift, computed daily or weekly rather than on request.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l7 4"/></svg></div>
+          <div class="recipe-card-title">Slice decomposition</div>
+          <div class="recipe-card-body">Performance broken out by class, segment, and metadata dimension, with per-slice thresholds.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
+          <div class="recipe-card-title">Triggered response</div>
+          <div class="recipe-card-body">Drift signals connect directly to retraining triggers, so the system responds without requiring manual intervention.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+          <div class="recipe-card-title">Traceability</div>
+          <div class="recipe-card-body">The ability to move from a failing slice to the specific training data that shaped it.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5.5c0 4.5-3 7.7-8 9-5-1.3-8-4.5-8-9V6.5z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="recipe-card-title">Quality gates</div>
+          <div class="recipe-card-body">Data validation before training and model evaluation before deployment. If a check falls below threshold, nothing ships.</div>
+        </div>
+      </div>
+    </div>
+
+    <article class="blog-body" data-reveal>
+      <p>That last point is not optional. An automated loop without gates is an automated way to deploy a worse model.</p>
+
+      <h2>How Concave AI approaches this</h2>
+      <p>Datalier's observability layer is built as continuous infrastructure rather than a review tool, and it is connected directly to the labeling and versioning layers so that detection leads to correction without a manual handoff.</p>
+      <p><strong>Continuous prediction ingestion, three paths.</strong> Upload a prediction log with automatic format detection, import directly from a connected S3, GCS, or Azure backend using the same connection already configured for data import, or stream continuously via an SDK snippet in the inference path.</p>
+      <p><strong>Label-independent early signals.</strong> Data drift and prediction drift are computed without ground truth, surfacing distribution shift while labels are still in flight. Concept drift is computed against accuracy history as outcomes arrive.</p>
+      <p><strong>Automatic slice decomposition.</strong> Every evaluation breaks performance out by category with per-slice accuracy and a health verdict, sorted worst-first. The failing segment appears immediately rather than being averaged away.</p>
+      <p><strong>Strategy-driven correction, not blanket retraining.</strong> When slices fail, the platform assembles a targeted correction set using one of four strategies — failing slices, low confidence, recent errors, or drift-affected records. The output is the specific records most likely to improve performance when corrected, not a random sample.</p>
+      <p><strong>Correction routes back through the pipeline.</strong> The correction dataset passes through the labeling layer with AI annotation and human verification, is frozen as a new immutable version with a full lineage report, and exports in the training format the customer's framework expects.</p>
+      <p><strong>Quality gates enforced at the version boundary.</strong> Verified agreement, calibration error, class balance, and edge coverage are computed on every version, with a blocking verdict when thresholds fail. Undertested data does not reach a training pipeline.</p>
+      <p><strong>Composition visible across versions.</strong> Because every version records its delta from the parent, the proportion of a dataset originating from correction cycles is explicit — which makes the feedback-loop bias described earlier measurable rather than invisible.</p>
+
+      <h2>Conclusion</h2>
+      <p>A model in production is not a finished artifact. It is a system operating in an environment that will not hold still, and its accuracy is a function of how quickly the pipeline around it notices and responds.</p>
+      <p>Periodic review cannot do this. It detects late, it hides slice failures inside aggregates, and it does not scale past a handful of models. Continuous feedback can — but only if detection is wired to remediation, and remediation is wired back to the training data.</p>
+      <p>The organisations that sustain model accuracy over years are not the ones with better architectures. They are the ones that treated the loop as infrastructure and built it before they needed it.</p>
+    </article>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Get data infrastructure for training AI models</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure for training AI models</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
+</body>
+</html>

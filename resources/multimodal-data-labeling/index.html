@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Multimodal Data Labeling in One Workflow: Vision, Video, Audio, and Text — Concave AI Blog</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="Running separate single-modal projects and merging outputs is the most common mistake in multimodal AI. Here is why it fails and what a unified workflow requires.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
+<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/platform">Platform</a>
+    <div class="nav-item">
+      <a href="/platform">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/platform/transform">Data Transformation</a>
+            <a href="/platform/label">Data Labelling &amp; Review</a>
+            <a href="/platform/version">Data Versioning &amp; Lineage</a>
+            <a href="/platform/observe">Data Observability</a>
+            <a href="/platform/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero">
+  <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card blog-cover is-placeholder">
+    <span class="layer-hero-media-hint">Image / video</span>
+    <div class="sec-inner layer-hero-inner single-col">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="blog-hero-category">Data Labeling</span>
+        <h1 class="blog-hero-title">Multimodal Data Labeling in One Workflow: Vision, Video, Audio, and Text</h1>
+        <p class="blog-hero-sub">Format support is not multimodal. Consistency across formats is.</p>
+        <div class="blog-hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Jun 15, 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>10 min read</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Aniket Nerali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <article class="blog-body" data-reveal>
+      <h2>The definition that matters</h2>
+      <p><strong>Multimodal data labeling is the labeling of two or more data types in one workflow, with consistency across formats as the defining requirement, not just format support.</strong></p>
+      <p>That distinction carries the whole subject. A platform that accepts images, video, audio, and text is not multimodal if each is annotated in a separate project with its own taxonomy, its own reviewers, and its own quality process. It is four unimodal platforms sharing a login.</p>
+      <p>In a unimodal project, you label images or transcribe audio independently. In a multimodal project, labels must agree with each other — a bounding box in a camera frame has to correspond to the same object identified in a synchronised sensor stream at the same moment.</p>
+
+      <h2>Why the obvious approach fails</h2>
+      <p><strong>Running separate single-modal projects and merging outputs afterward is the most common mistake machine learning teams make.</strong> It produces multimodal datasets where labels are individually correct but broken across formats.</p>
+      <p>Three specific breakages, and they are the places multimodal pipelines break most often.</p>
+    </article>
+
+    <div class="blog-breakout">
+      <div class="recipe-grid">
+        <div class="recipe-card" data-reveal="zoom">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div class="recipe-card-title">Temporal misalignment</div>
+          <div class="recipe-card-body">Audio is annotated in continuous seconds, video in discrete frames, transcripts in token spans. Merging these after the fact requires reconciling three time representations, and small errors compound across a long sequence.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 9-9 9-9-9 4-4h5z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div>
+          <div class="recipe-card-title">Ontology drift</div>
+          <div class="recipe-card-body">When separate teams label different formats, interpretation drifts. Without a shared, enforced ontology, the same word means slightly different things in each modality — and the model learns the inconsistency as signal.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+          <div class="recipe-card-title">QA blind spots at boundaries</div>
+          <div class="recipe-card-body">Each modality's quality process validates its own output. Nothing validates the relationship between them — a caption can be well-formed and an image well-segmented while the caption describes a different image entirely.</div>
+        </div>
+      </div>
+    </div>
+
+    <article class="blog-body" data-reveal>
+      <h2>Cross-modal alignment is the actual product</h2>
+      <p>The reason multimodal labeling exists is that modern models learn from signals linked across modalities — images, text, audio, and time — which makes independent labeling increasingly insufficient.</p>
+      <p>Vision-language models learn the relationship between an image and its description. If that relationship is wrong in the training data, the model learns a wrong association — worse than learning nothing, because it produces confident incorrect output rather than uncertainty.</p>
+      <p>A unified workflow therefore has to support cross-modal alignment, such as linking transcripts to video timestamps or image regions; temporal consistency across sequences, sessions, and evolving datasets; auditability and traceability, particularly as AI governance requirements tighten; and human-in-the-loop correction for ambiguous, edge-case, or safety-critical items.</p>
+
+      <h2>Quality measurement across modalities</h2>
+      <p>Quality in multi-format datasets is established by annotation accuracy, consistency across modalities, completeness of coverage, and reproducibility of results. Three of those four are cross-cutting — they cannot be computed inside a single modality's project.</p>
+      <p>Inter-annotator agreement deserves particular attention. <strong>Label quality is now the primary bottleneck for tasks like object detection, which makes a platform's approach to measuring and surfacing annotator disagreement a genuine buying criterion, not a checkbox.</strong></p>
+      <p>In a multimodal setting, agreement must be measured twice: within a modality, and across the boundary. Two annotators agreeing that an image contains a pedestrian while disagreeing on whether the transcript references that pedestrian is a cross-modal disagreement that no single-modality metric will report.</p>
+
+      <h2>Where automation helps, and where it stops</h2>
+      <p>Model-assisted labeling is standard across the category. Segment Anything for vision tasks, CLIP-style models for image-text alignment, and open multimodal LLMs are all used to accelerate pre-labeling.</p>
+      <p>Automation handles the centre of each distribution well: identifying common objects, transcribing clear speech, classifying unambiguous text. It handles two things poorly.</p>
+      <p><strong>Cross-modal correspondence.</strong> A vision model segments the image. A speech model transcribes the audio. Neither is asked whether the two describe the same event, and neither can answer.</p>
+      <p><strong>Modality boundaries under ambiguity.</strong> When a speaker refers to something off-screen, or an object leaves frame mid-utterance, the correct annotation requires understanding both streams simultaneously. This is precisely where automation produces confident, incorrect output.</p>
+      <p>The result is a division of labour that should be designed rather than defaulted into: automation takes the routine and scalable portion, humans control detail, correction, and context where automation loses it.</p>
+
+      <h2>How Concave AI approaches this</h2>
+      <p>Datalier runs all four modalities through one pipeline, one taxonomy, and one quality system — with modality-appropriate engines behind a shared interface.</p>
+      <p><strong>Twenty-four annotation types across four modalities, one workflow.</strong> Text (6): preference ranking, named entity recognition, classification, summarisation, extractive question answering, relation extraction. Image (7): classification, object detection, instance segmentation, semantic segmentation, keypoint estimation, captioning, OCR. Video (5): classification, object tracking, temporal segmentation, frame annotation, pose tracking. Audio (6): transcription, speaker diarisation, sound event detection, classification, emotion detection, segmentation.</p>
+      <p><strong>Engines matched to task, not one model for everything.</strong> GPT-4o and GPT-4o-mini for text. GPT-4o Vision for image identification with SAM2 for pixel-level segmentation. SAM2 video propagation for object tracking across frames, which addresses temporal consistency at the architectural level rather than as post-processing. MediaPipe for pose, face mesh, and hand landmarks. Whisper for transcription with word-level timestamps, feeding GPT-4o for downstream audio analysis.</p>
+      <p><strong>A single label taxonomy across modalities.</strong> Categories are defined once at the dataset level and applied across every annotation type running against that data — the mechanism that prevents ontology drift, rather than a guideline asking annotators to avoid it.</p>
+      <p><strong>Unified confidence routing.</strong> Every item in every modality receives a numeric confidence and is routed against a configurable threshold. Automation rate, human review rate, and correction rate are reported per modality, so the boundary between automation and human judgement is visible and tunable rather than fixed.</p>
+      <p><strong>One review interface.</strong> Low-confidence items across all modalities enter the same keyboard-driven annotation stream, where the AI suggestion is pre-loaded and the reviewer accepts, corrects, or rejects — typically three to five seconds per item. The same error taxonomy applies across modalities.</p>
+      <p><strong>Quality measured across the whole dataset.</strong> Verified agreement, gold-standard accuracy, calibration error, class distribution, and coverage are computed for the dataset as a whole, not per modality project — which is what makes cross-modal consistency measurable.</p>
+      <p><strong>Export in each modality's native training format.</strong> COCO JSON and YOLO for vision, DPO JSONL and CoNLL and SQuAD for text, MOT CSV for tracking, SRT and RTTM for audio. Data files, manifest, and lineage report ship together.</p>
+
+      <h2>Conclusion</h2>
+      <p>The multimodal label is not the hard part. Every serious platform can draw a box, transcribe an utterance, and tag a span.</p>
+      <p>The hard part is that a bounding box, a transcript segment, and a text label describing the same moment must agree — in taxonomy, in timing, and in interpretation — and that agreement cannot be established by four separate projects reconciled afterwards.</p>
+      <p>A unified workflow is not a convenience feature. It is the only architecture where cross-modal consistency can be enforced during annotation rather than discovered as a defect after training.</p>
+    </article>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="hero-overlay"></div>
+  <h2>Get data infrastructure for training AI models</h2>
+  <a href="/contact" class="btn-primary large">Book a Demo</a>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure for training AI models</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/platform">Overview</a>
+          <a href="/platform/transform">Transform</a>
+          <a href="/platform/label">Label</a>
+          <a href="/platform/version">Version</a>
+          <a href="/platform/observe">Observe</a>
+          <a href="/platform/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
+</body>
+</html>
