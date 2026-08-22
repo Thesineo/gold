@@ -109,6 +109,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://theconcaveai.com/resources/hidden-tax-on-enterprise-ai</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/anatomy-of-a-silent-failure</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://theconcaveai.com/resources/stop-changing-models</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
     <loc>https://theconcaveai.com/resources/ai-ready-data</loc>
     <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>

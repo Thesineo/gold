@@ -43,6 +43,9 @@
     "logo": { "@type": "ImageObject", "url": "https://theconcaveai.com/logo.png" }
   },
   "blogPost": [
+    { "@type": "BlogPosting", "headline": "The Hidden Tax on Enterprise AI", "url": "https://theconcaveai.com/resources/hidden-tax-on-enterprise-ai", "datePublished": "2026-08-18" },
+    { "@type": "BlogPosting", "headline": "Anatomy of a Silent Failure", "url": "https://theconcaveai.com/resources/anatomy-of-a-silent-failure", "datePublished": "2026-08-15" },
+    { "@type": "BlogPosting", "headline": "Stop Changing Models", "url": "https://theconcaveai.com/resources/stop-changing-models", "datePublished": "2026-08-12" },
     { "@type": "BlogPosting", "headline": "Why Modern AI Models Require Data with Complete AI Readiness", "url": "https://theconcaveai.com/resources/ai-ready-data", "datePublished": "2026-08-10" },
     { "@type": "BlogPosting", "headline": "What Is Automated Data Labeling & Why Human Review Upon it is Still Required", "url": "https://theconcaveai.com/resources/automated-data-labeling", "datePublished": "2026-08-03" },
     { "@type": "BlogPosting", "headline": "What Is Data Observability & How It Protects Model Accuracy in Production", "url": "https://theconcaveai.com/resources/data-observability", "datePublished": "2026-07-27" },
@@ -238,6 +241,9 @@
      copy /resources/ai-ready-data as a starting point for the page
      itself (hero + .blog-body article layout). */
   var BLOG_POSTS = [
+    { title: 'The Hidden Tax on Enterprise AI', excerpt: 'Your ML engineers were hired to build models. Most of them are moving files. Here is where the 80% of lost time actually goes, and what it takes to get it back.', category: 'AI Infrastructure', date: '2026-08-18', readTime: '9 min', url: '/resources/hidden-tax-on-enterprise-ai' },
+    { title: 'Anatomy of a Silent Failure', excerpt: 'Your dashboards are green. Your model has been wrong for six weeks. Here is why APM cannot see ML failure, and what detection actually requires.', category: 'Observability', date: '2026-08-15', readTime: '10 min', url: '/resources/anatomy-of-a-silent-failure' },
+    { title: 'Stop Changing Models', excerpt: 'Your architecture is fine. Your data supply chain is the bottleneck. The evidence keeps pointing at the dataset, not the model.', category: 'Data Readiness', date: '2026-08-12', readTime: '9 min', url: '/resources/stop-changing-models' },
     { title: 'Why Modern AI Models Require Data with Complete AI Readiness', excerpt: 'AI-ready data is a governed, traceable, continuously verified state — not a one-time cleaning step. Here is what readiness actually requires, and why most enterprise data fails the test.', category: 'Data Readiness', date: '2026-08-10', readTime: '8 min', url: '/resources/ai-ready-data', image: '/imgbgm/WhymodernAImodels.jpg', featured: true },
     { title: 'What Is Automated Data Labeling & Why Human Review Upon it is Still Required ', excerpt: 'Automated labeling is now standard. The differentiator is what happens to the uncertain cases — and whether the confidence scores driving that decision can be trusted.', category: 'Data Labeling', date: '2026-08-03', readTime: '9 min', url: '/resources/automated-data-labeling', image: '/imgbgm/img-segment-street-runner.png' },
     { title: 'What Is Data Observability & How It Protects Model Accuracy in Production', excerpt: 'Detecting drift is the easy half. Knowing which data caused it is the half that matters. Here is what observability must measure.', category: 'Observability', date: '2026-07-27', readTime: '9 min', url: '/resources/data-observability', image: '/imgbgm/observvaability.jpg' },
@@ -249,6 +255,8 @@
     { title: 'Multimodal Data Labeling in One Workflow: Vision, Video, Audio, and Text', excerpt: 'Running separate single-modal projects and merging outputs is the most common mistake in multimodal AI. Here is why it fails and what a unified workflow requires.', category: 'Data Labeling', date: '2026-06-15', readTime: '10 min', url: '/resources/multimodal-data-labeling', image: '/imgbgm/datalabelling.jpeg' },
     { title: 'Multimodal Data Versioning', excerpt: 'Traditional data versioning tracks files. AI training data needs versioning that tracks annotation state across modalities, with quality and lineage attached to every snapshot.', category: 'Data Versioning', date: '2026-06-08', readTime: '10 min', url: '/resources/multimodal-data-versioning', image: '/imgbgm/dataversioning.jpeg' }
   ];
+
+  BLOG_POSTS.sort(function (a, b) { return b.date.localeCompare(a.date); });
 
   var PAGE_SIZE = 9;
   var visibleCount = PAGE_SIZE;
