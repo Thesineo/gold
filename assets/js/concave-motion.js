@@ -149,23 +149,6 @@
     }, { passive: true });
   }
 
-  /* ── Magnetic hover on primary buttons ── */
-  function initMagneticButtons() {
-    if (prefersReduced || window.innerWidth < 768) return;
-
-    document.querySelectorAll('.btn-primary, .nav-cta').forEach(function (btn) {
-      btn.addEventListener('mousemove', function (e) {
-        var rect = btn.getBoundingClientRect();
-        var x = e.clientX - rect.left - rect.width / 2;
-        var y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = 'translate(' + (x * 0.12) + 'px, ' + (y * 0.12 - 2) + 'px)';
-      });
-      btn.addEventListener('mouseleave', function () {
-        btn.style.transform = '';
-      });
-    });
-  }
-
   /* ── Pipeline visual: chaotic-to-structured pixel field for the platform panel ──
      Encodes "raw data in, AI-ready data out" as a dot-density gradient:
      sparse, scattered pixels on the left, settling into a dense, even grid
@@ -905,7 +888,6 @@
     initCounters();
     initSmoothAnchors();
     initBgParallax();
-    initMagneticButtons();
     initPipelineCanvas();
     initModalityBranches();
     initWhoBlocks();
