@@ -1039,6 +1039,99 @@
     tick();
   }
 
+  /* ── Platform Overview — scroll-driven, modeled directly on
+     initLayerScroll above: .ovScroll is a tall container, .ov-sticky pins
+     to the viewport while it scrolls past, and scroll position within the
+     container maps to a continuous 0..STAGES-1 progress value.
+     Two things ride on that one progress value:
+       - the three headings' active/dim state (discrete — snaps at each
+         stage boundary, same as Five Layers' badge/heading swap)
+       - the image reel's vertical offset (continuous — interpolated
+         between each stage's target position, so the reel visibly flows
+         rather than jumping), plus a per-group opacity fade keyed off
+         distance from the current progress so the active stage's images
+         stay full-strength while neighbouring stages fade like they're
+         peeking in/out of frame.
+     Desktop only (≥900px) — .ov-mobile below is the stacked-list
+     fallback, same convention as .layer-mobile. */
+  function initOverviewScroll() {
+    var container = document.getElementById('ovScroll');
+    if (!container || window.innerWidth < 900) return;
+
+    var headingItems = container.querySelectorAll('.ov-heading-item');
+    var groups = container.querySelectorAll('.ov-group');
+    var visual = document.getElementById('ovVisual');
+    var track = document.getElementById('ovTrack');
+    if (!headingItems.length || !groups.length || !visual || !track) return;
+
+    var STAGES = headingItems.length;
+    var current = -1;
+    var offsets = [];
+
+    function measure() {
+      offsets = Array.prototype.map.call(groups, function (g) {
+        return g.offsetTop + g.offsetHeight / 2;
+      });
+    }
+
+    function render(index) {
+      headingItems.forEach(function (h, i) { h.classList.toggle('is-active', i === index); });
+    }
+
+    function applyTrack(progress) {
+      var lo = Math.max(0, Math.min(STAGES - 1, Math.floor(progress)));
+      var hi = Math.min(STAGES - 1, lo + 1);
+      var blend = progress - lo;
+      var target = offsets[lo] + (offsets[hi] - offsets[lo]) * blend;
+      var y = visual.clientHeight / 2 - target;
+      track.style.transform = 'translateY(' + y + 'px)';
+
+      groups.forEach(function (g, i) {
+        var dist = Math.abs(i - progress);
+        g.style.opacity = Math.max(0.18, 1 - dist * 0.75);
+      });
+    }
+
+    function scrollProgress() {
+      var rect = container.getBoundingClientRect();
+      var total = rect.height - window.innerHeight;
+      if (total <= 0) return 0;
+      var scrolled = Math.min(total, Math.max(0, -rect.top));
+      return (scrolled / total) * (STAGES - 1);
+    }
+
+    function onScroll() {
+      var progress = scrollProgress();
+      applyTrack(progress);
+      var discrete = Math.max(0, Math.min(STAGES - 1, Math.round(progress)));
+      if (discrete !== current) {
+        current = discrete;
+        render(discrete);
+      }
+    }
+
+    function goToStage(i) {
+      i = Math.max(0, Math.min(STAGES - 1, i));
+      var rect = container.getBoundingClientRect();
+      var sectionTop = window.scrollY + rect.top;
+      var total = container.offsetHeight - window.innerHeight;
+      if (total <= 0) return;
+      var target = sectionTop + (i / (STAGES - 1)) * total + 10;
+      window.scrollTo({ top: target, behavior: prefersReduced ? 'auto' : 'smooth' });
+    }
+
+    headingItems.forEach(function (h, i) {
+      h.addEventListener('click', function () { goToStage(i); });
+    });
+
+    window.addEventListener('resize', function () { measure(); onScroll(); }, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    measure();
+    render(0);
+    onScroll();
+  }
+
   /* ── Task switcher (modality pages) — a vertical list of task names next
      to a stack of placeholder media panels. Hovering or clicking a task
      activates it (and only it) by matching list index to panel index, so
@@ -1103,6 +1196,7 @@
     initGovernScroll();
     initPacketWireframe(document.getElementById('bestCanvas'));
     initInfinityWireframe(document.getElementById('infinityCanvas'));
+    initOverviewScroll();
     initTaskSwitch();
     initFaq();
   }

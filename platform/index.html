@@ -228,6 +228,80 @@
   .pipeline-mock-field{min-width:90px;padding:7px 10px}
 }
 
+/* ── PLATFORM OVERVIEW — scroll-driven, same .layer-scroll/.layer-sticky
+   pin mechanics as the Five Layers section above (see initOverviewScroll
+   in platform-motion.js, modeled directly on initLayerScroll). Unlike Five
+   Layers, all three headings stay visible the whole time — only emphasis
+   (color/weight/opacity) shifts to the active one — while the image reel
+   on the right (.ov-track, one continuous column holding all 7 screenshots
+   grouped by stage) is translated in real time to match scroll position,
+   so it reads as one long strip flowing upward past a fixed window rather
+   than a slide swap. Reduced-motion gets the same behavior minus the CSS
+   transitions — the transform itself is a direct function of scroll
+   position either way, not a timed/autoplaying animation. */
+.p-overview{background:var(--bg)}
+.ov-scroll{position:relative;height:360vh;margin-top:40px}
+.ov-sticky{position:sticky;top:88px;height:calc(100vh - 88px);display:flex;align-items:center;overflow:hidden}
+.ov-sticky-inner{display:grid;grid-template-columns:0.8fr 1.2fr;gap:60px;width:100%;height:100%}
+
+.ov-headings-col{align-self:center;display:flex;flex-direction:column;gap:30px;padding:40px 0}
+.ov-heading-item{
+  display:block;width:100%;text-align:left;background:none;border:none;padding:0;margin:0;cursor:pointer;
+  font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(21px,2.3vw,30px);line-height:1.3;letter-spacing:-0.01em;
+  color:var(--text-dimmer);opacity:.45;
+  transition:color .5s ease,opacity .5s ease;
+}
+.ov-heading-item.is-active{color:var(--text);opacity:1}
+.ov-heading-item:not(.is-active):hover{opacity:.7}
+
+.ov-visual{position:relative;height:100%;overflow:hidden}
+.ov-track{position:absolute;left:0;right:0;top:0;display:flex;flex-direction:column;will-change:transform}
+.ov-group{display:flex;flex-direction:column;gap:28px;padding:36px 0;transition:opacity .15s linear}
+.ov-track-pad{padding:36px 0}
+
+.overview-card{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);
+  background-color:var(--elevated);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
+  background-size:10px 10px;
+}
+
+/* One aspect-ratio per screenshot, taken from the source PNG's real pixel
+   dimensions — update these any time the underlying image is swapped for
+   a different-shaped one, or contain will letterbox / crop unexpectedly. */
+.ov-inventory{aspect-ratio:1526/789}
+.ov-recipe{aspect-ratio:1525/789}
+.ov-engine{aspect-ratio:1525/768}
+.ov-evaluation{aspect-ratio:1294/722}
+.ov-drift{aspect-ratio:1313/617}
+.ov-lineage{aspect-ratio:1313/679}
+.ov-governance{aspect-ratio:1392/749}
+
+/* Each card ships one bright + one dark screenshot of the same panel;
+   only the one matching the live theme is shown (same toggle idiom as
+   .source-logo's per-theme cloud icons in the Upload section above).
+   object-fit:contain + a box already matched to the image's own aspect
+   ratio means the full screenshot renders with no crop and no letterbox. */
+.overview-card img{display:none;width:100%;height:100%;object-fit:contain}
+:root:not([data-theme="dark"]) .overview-card img.card-img-bright{display:block}
+:root[data-theme="dark"] .overview-card img.card-img-dark{display:block}
+
+.ov-mobile{display:none}
+
+@media(prefers-reduced-motion:reduce){
+  .ov-heading-item{transition:none}
+}
+@media(max-width:900px){
+  .ov-scroll{display:none}
+  .ov-mobile{display:block;margin-top:8px}
+  .ov-mobile-group{padding:40px 0;border-top:1px solid var(--border)}
+  .ov-mobile-group:last-child{border-bottom:1px solid var(--border)}
+  .ov-mobile-heading{font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(22px,4vw,28px);color:var(--text);margin-bottom:24px}
+  .ov-mobile-group .overview-card{margin-bottom:20px}
+  .ov-mobile-group .overview-card:last-child{margin-bottom:0}
+}
+
 /* ── WHY DATALIER ── */
 .p-best{background:var(--bg)}
 .best-panel{background:var(--elevated);border-radius:24px;padding:60px;display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;margin-top:56px}
@@ -333,7 +407,7 @@
     <div class="p-hero-content">
       <span class="p-hero-eyebrow">Data Infrastructure Platform</span>
       <h1>Datalier</h1>
-      <p class="p-hero-sub">Unified data infrastructure platform embedding multiple data layers to fine tune data to be AI-ready, rationalizing model training and enhancing model accuracy.</p>
+      <p class="p-hero-sub">Unified data infrastructure platform embedding data layers to fine tune data to be AI-ready, rationalizing model training and enhancing model accuracy</p>
       <div class="modality-hero-actions">
         <a href="https://app.theconcaveai.com/login" class="btn-primary large">Get Started →</a>
         <a href="/contact" class="btn-primary large">Book a Demo →</a>
@@ -505,6 +579,127 @@
   </div>
 </section>
 
+<!-- PLATFORM OVERVIEW -->
+<section class="p-overview">
+  <div class="sec-inner">
+
+    <!-- Desktop (≥900px): scroll-driven, same .layer-scroll/.layer-sticky
+         mechanics as the Five Layers section above — a tall container the
+         page scrolls through while the inner panel stays pinned. Unlike
+         Five Layers (one heading swapping text), all three headings stay
+         on screen; only their emphasis changes, and the image reel on the
+         right scrolls continuously in lockstep with scroll position. -->
+    <div class="ov-scroll" id="ovScroll">
+      <div class="ov-sticky">
+        <div class="ov-sticky-inner">
+          <div class="ov-headings-col">
+            <button class="ov-heading-item is-active" type="button" data-index="0">Unified 5-Layer Multi-modal Fabric</button>
+            <button class="ov-heading-item" type="button" data-index="1">Automated Closed-Loop Remediation</button>
+            <button class="ov-heading-item" type="button" data-index="2">Cryptographic Lineage &amp; Governance</button>
+          </div>
+
+          <div class="ov-visual" id="ovVisual">
+            <div class="ov-track" id="ovTrack">
+              <!-- Bookend padding: a duplicate of the last/first image on
+                   each end of the reel, so the real first and last images
+                   in the groups below never end up clipped against the
+                   track's own top/bottom edge when centered in view. -->
+              <div class="ov-track-pad" aria-hidden="true">
+                <div class="overview-card ov-governance">
+                  <img class="card-img-bright" src="/imgbgm/governencesecondbox-bright.png" alt="">
+                  <img class="card-img-dark" src="/imgbgm/Governancesecondbox-dark.png" alt="">
+                </div>
+              </div>
+              <div class="ov-group" data-index="0">
+                <div class="overview-card ov-inventory">
+                  <img class="card-img-bright" src="/imgbgm/firstbox-bright.png" alt="Dataset inventory, data volume, and pipeline worker health cards on the Datalier dashboard">
+                  <img class="card-img-dark" src="/imgbgm/firstbox-darkmode.png" alt="Dataset inventory, data volume, and pipeline worker health cards on the Datalier dashboard">
+                </div>
+                <div class="overview-card ov-engine">
+                  <img class="card-img-bright" src="/imgbgm/thirdbox-bright.png" alt="AI engine routing panel assigning Vision and Segmentation models to a data modality">
+                  <img class="card-img-dark" src="/imgbgm/thirdbox-dark.png" alt="AI engine routing panel assigning Vision and Segmentation models to a data modality">
+                </div>
+                <div class="overview-card ov-recipe">
+                  <img class="card-img-bright" src="/imgbgm/secondbox-bright.png" alt="Pipeline recipe builder showing a fixed execution order — Validate, Deduplicate, PII Detection, Speech-to-Text Cleanup">
+                  <img class="card-img-dark" src="/imgbgm/secondbox-dark.png" alt="Pipeline recipe builder showing a fixed execution order — Validate, Deduplicate, PII Detection, Speech-to-Text Cleanup">
+                </div>
+              </div>
+              <div class="ov-group" data-index="1">
+                <div class="overview-card ov-evaluation">
+                  <img class="card-img-bright" src="/imgbgm/observabilityfirstbox-bright.png" alt="Model evaluation metrics — accuracy, error distribution by type, and confidence calibration">
+                  <img class="card-img-dark" src="/imgbgm/observabilityfirstbox-dark.png" alt="Model evaluation metrics — accuracy, error distribution by type, and confidence calibration">
+                </div>
+                <div class="overview-card ov-drift">
+                  <img class="card-img-bright" src="/imgbgm/observabilitysecindbox-bright.png" alt="Historical PSI drift trend and inference volume, with a per-record drift history log">
+                  <img class="card-img-dark" src="/imgbgm/observabilitysseconndbox-dark.png" alt="Historical PSI drift trend and inference volume, with a per-record drift history log">
+                </div>
+              </div>
+              <div class="ov-group" data-index="2">
+                <div class="overview-card ov-lineage">
+                  <img class="card-img-bright" src="/imgbgm/lineagefirstbox-bright.png" alt="Dataset version history with correction rounds and before/after accuracy per round">
+                  <img class="card-img-dark" src="/imgbgm/Lineagefirstbox-dark.png" alt="Dataset version history with correction rounds and before/after accuracy per round">
+                </div>
+                <div class="overview-card ov-governance">
+                  <img class="card-img-bright" src="/imgbgm/governencesecondbox-bright.png" alt="Governance panel flagging PII scan and version-freeze issues, with a downloadable audit trail">
+                  <img class="card-img-dark" src="/imgbgm/Governancesecondbox-dark.png" alt="Governance panel flagging PII scan and version-freeze issues, with a downloadable audit trail">
+                </div>
+              </div>
+              <div class="ov-track-pad" aria-hidden="true">
+                <div class="overview-card ov-inventory">
+                  <img class="card-img-bright" src="/imgbgm/firstbox-bright.png" alt="">
+                  <img class="card-img-dark" src="/imgbgm/firstbox-darkmode.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile (<900px): plain stacked list, no scroll-jacking — same
+         fallback pattern as .layer-mobile above. -->
+    <div class="ov-mobile">
+      <div class="ov-mobile-group">
+        <h3 class="ov-mobile-heading">Unified 5-Layer Multi-modal Fabric</h3>
+        <div class="overview-card ov-inventory">
+          <img class="card-img-bright" src="/imgbgm/firstbox-bright.png" alt="Dataset inventory, data volume, and pipeline worker health cards on the Datalier dashboard">
+          <img class="card-img-dark" src="/imgbgm/firstbox-darkmode.png" alt="Dataset inventory, data volume, and pipeline worker health cards on the Datalier dashboard">
+        </div>
+        <div class="overview-card ov-engine">
+          <img class="card-img-bright" src="/imgbgm/thirdbox-bright.png" alt="AI engine routing panel assigning Vision and Segmentation models to a data modality">
+          <img class="card-img-dark" src="/imgbgm/thirdbox-dark.png" alt="AI engine routing panel assigning Vision and Segmentation models to a data modality">
+        </div>
+        <div class="overview-card ov-recipe">
+          <img class="card-img-bright" src="/imgbgm/secondbox-bright.png" alt="Pipeline recipe builder showing a fixed execution order — Validate, Deduplicate, PII Detection, Speech-to-Text Cleanup">
+          <img class="card-img-dark" src="/imgbgm/secondbox-dark.png" alt="Pipeline recipe builder showing a fixed execution order — Validate, Deduplicate, PII Detection, Speech-to-Text Cleanup">
+        </div>
+      </div>
+      <div class="ov-mobile-group">
+        <h3 class="ov-mobile-heading">Automated Closed-Loop Remediation</h3>
+        <div class="overview-card ov-evaluation">
+          <img class="card-img-bright" src="/imgbgm/observabilityfirstbox-bright.png" alt="Model evaluation metrics — accuracy, error distribution by type, and confidence calibration">
+          <img class="card-img-dark" src="/imgbgm/observabilityfirstbox-dark.png" alt="Model evaluation metrics — accuracy, error distribution by type, and confidence calibration">
+        </div>
+        <div class="overview-card ov-drift">
+          <img class="card-img-bright" src="/imgbgm/observabilitysecindbox-bright.png" alt="Historical PSI drift trend and inference volume, with a per-record drift history log">
+          <img class="card-img-dark" src="/imgbgm/observabilitysseconndbox-dark.png" alt="Historical PSI drift trend and inference volume, with a per-record drift history log">
+        </div>
+      </div>
+      <div class="ov-mobile-group">
+        <h3 class="ov-mobile-heading">Cryptographic Lineage &amp; Governance</h3>
+        <div class="overview-card ov-lineage">
+          <img class="card-img-bright" src="/imgbgm/lineagefirstbox-bright.png" alt="Dataset version history with correction rounds and before/after accuracy per round">
+          <img class="card-img-dark" src="/imgbgm/Lineagefirstbox-dark.png" alt="Dataset version history with correction rounds and before/after accuracy per round">
+        </div>
+        <div class="overview-card ov-governance">
+          <img class="card-img-bright" src="/imgbgm/governencesecondbox-bright.png" alt="Governance panel flagging PII scan and version-freeze issues, with a downloadable audit trail">
+          <img class="card-img-dark" src="/imgbgm/Governancesecondbox-dark.png" alt="Governance panel flagging PII scan and version-freeze issues, with a downloadable audit trail">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- EXPORT / LOOP -->
 <section class="p-export pad">
   <div class="sec-inner">
@@ -512,7 +707,7 @@
       <div class="export-copy" data-reveal="slide-left">
         <span class="sec-eyebrow">Automated Closed-Loop Remediation</span>
         <h2 class="sec-title">Loop that streamlines training and improves model accuracy.</h2>
-        <p class="sec-desc">We do not stop after exporting AI-ready data straight into your required storage entity, in the format your framework expects. We connect to your training infrastructure, to ensure every train run on AI models are streamlined and evaluate the model for any form of drifts. Observability layer measures prediction logs in production for any kind of drift. Data behind any degradation routes straight back to Datalier for re-labeling loop without manual intervention dimensing every drift to ensure complete model accuracy.</p>
+        <p class="sec-desc">We do not stop after exporting AI-ready data straight into your required storage entity. We connect to your training infrastructure, to ensure every train run on AI models are streamlined and evaluate the model for any form of drifts. Observability layer measures prediction logs in production for any kind of drift. Data behind any degradation routes straight back to Datalier for re-labeling loop without manual intervention dimensing every drift to ensure complete model accuracy.</p>
         <a href="/solutions/mlops-integration/" class="btn-ghost">See how the loop works →</a>
       </div>
 
