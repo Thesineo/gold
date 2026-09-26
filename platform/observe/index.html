@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="The Observe layer monitors deployed models, detects drift, and routes targeted corrections back through the labeling layer — closing the loop without manual investigation.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
-<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+<link rel="icon" href="/logo.png?v=20260926" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20260926" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20260926">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20260926">
 </head>
 <body>
 
@@ -106,31 +106,42 @@
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
     <div class="loop-panel" data-reveal="zoom">
-      <svg class="loop-panel-svg" viewBox="0 0 1200 700" preserveAspectRatio="none">
-        <path id="loopRectPath" d="M60,60 L1140,60 L1140,640 L60,640 Z" stroke-linejoin="round"/>
-        <circle class="loop-panel-dot" r="6">
-          <animateMotion dur="9s" repeatCount="indefinite" begin="0s"><mpath href="#loopRectPath"/></animateMotion>
-        </circle>
+      <svg class="loop-panel-svg" id="loopPanelSvg">
+        <path id="loopRectPath" stroke-linejoin="round"/>
+        <circle class="loop-panel-dot" id="loopPanelDot" r="6"></circle>
       </svg>
 
       <div class="loop-card-grid">
-        <div class="loop-card" style="grid-area:c1" data-reveal="zoom">
+        <div class="loop-card" style="grid-area:c1" data-loop-card="1" data-reveal="zoom">
           <span class="loop-card-corner"></span>
           <div class="loop-card-num">01</div>
           <div class="loop-card-title">Model Registry</div>
           <div class="loop-card-body">Where the AI-ready dataset and its trained model are registered together, the fixed reference point every prediction gets measured against.</div>
         </div>
-        <div class="loop-card" style="grid-area:c2" data-reveal="zoom" data-reveal-delay="1">
+        <div class="loop-card" style="grid-area:c2" data-loop-card="2" data-reveal="zoom" data-reveal-delay="1">
           <span class="loop-card-corner"></span>
           <div class="loop-card-num">02</div>
           <div class="loop-card-title">Prediction Logs</div>
           <div class="loop-card-body">Live predictions stream in from the platform actually running the model, captured as they happen in production.</div>
         </div>
-        <div class="loop-card" style="grid-area:c3" data-reveal="zoom" data-reveal-delay="2">
+        <div class="loop-card" style="grid-area:c3" data-loop-card="3" data-reveal="zoom" data-reveal-delay="2">
           <span class="loop-card-corner"></span>
           <div class="loop-card-num">03</div>
           <div class="loop-card-title">Run Lifecycle</div>
           <div class="loop-card-body">Each prediction is tested against ground truth provided manually, or derived through logical evaluation rules.</div>
+        </div>
+
+        <div class="loop-card loop-card-side" style="grid-area:c4" data-loop-card="4" data-reveal="zoom">
+          <span class="loop-card-corner"></span>
+          <div class="loop-card-num">04</div>
+          <div class="loop-card-title">Drift Detection</div>
+          <div class="loop-card-body">Measures how far, and how unevenly, the model has drifted from its at-registration performance.</div>
+        </div>
+        <div class="loop-card loop-card-side" style="grid-area:c5" data-loop-card="5" data-reveal="zoom" data-reveal-delay="1">
+          <span class="loop-card-corner"></span>
+          <div class="loop-card-num">05</div>
+          <div class="loop-card-title">Run Drift Analysis</div>
+          <div class="loop-card-body">Traces drift back to the specific data responsible, the records actively holding the model below its best accuracy.</div>
         </div>
 
         <div class="loop-center">
@@ -140,23 +151,36 @@
           </div>
         </div>
 
-        <div class="loop-card" style="grid-area:c6" data-reveal="zoom">
+        <div class="loop-card" style="grid-area:c6" data-loop-card="6" data-reveal="zoom">
           <span class="loop-card-corner"></span>
           <div class="loop-card-num">06</div>
           <div class="loop-card-title">Re-labelling Loop</div>
           <div class="loop-card-body">Flagged data re-enters labeling, review, and transformation in full, then lands back in the registry as a new version.</div>
         </div>
-        <div class="loop-card" style="grid-area:c5" data-reveal="zoom" data-reveal-delay="1">
+        <div class="loop-card" style="grid-area:c7" data-loop-card="7" data-reveal="zoom" data-reveal-delay="1">
           <span class="loop-card-corner"></span>
-          <div class="loop-card-num">05</div>
-          <div class="loop-card-title">Run Drift Analysis</div>
-          <div class="loop-card-body">Traces drift back to the specific data responsible, the records actively holding the model below its best accuracy.</div>
+          <div class="loop-card-num">07</div>
+          <div class="loop-card-title">Native Connections</div>
+          <div class="loop-card-body">Connects directly to SageMaker, Vertex AI, Azure ML, and HuggingFace — predictions pull in automatically on a schedule, no manual export required.</div>
         </div>
-        <div class="loop-card" style="grid-area:c4" data-reveal="zoom" data-reveal-delay="2">
+        <div class="loop-card" style="grid-area:c8" data-loop-card="8" data-reveal="zoom" data-reveal-delay="2">
           <span class="loop-card-corner"></span>
-          <div class="loop-card-num">04</div>
-          <div class="loop-card-title">Drift Detection</div>
-          <div class="loop-card-body">Measures how far, and how unevenly, the model has drifted from its at-registration performance.</div>
+          <div class="loop-card-num">08</div>
+          <div class="loop-card-title">Auto-Retrain Trigger</div>
+          <div class="loop-card-body">A flagged, relabeled dataset doesn't just wait for you — it can trigger retraining automatically on whichever platform the model already lives on.</div>
+        </div>
+
+        <div class="loop-card loop-card-side" style="grid-area:c9" data-loop-card="9" data-reveal="zoom">
+          <span class="loop-card-corner"></span>
+          <div class="loop-card-num">09</div>
+          <div class="loop-card-title">Verified Outcome</div>
+          <div class="loop-card-body">The retrained model is scored on the exact same held-out rows the old one was — so you know the fix worked, instead of assuming it did because a new version exists.</div>
+        </div>
+        <div class="loop-card loop-card-side" style="grid-area:c10" data-loop-card="10" data-reveal="zoom" data-reveal-delay="1">
+          <span class="loop-card-corner"></span>
+          <div class="loop-card-num">10</div>
+          <div class="loop-card-title">Model Update Tracking</div>
+          <div class="loop-card-body">Retrained outside the platform entirely? Report the update directly — drift and accuracy re-baseline to traffic since that update, still verified against the held-out score from before. The loop doesn't require you to stay inside it to keep proving itself.</div>
         </div>
       </div>
     </div>
@@ -175,8 +199,11 @@
 <section class="cta-final">
   <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
   <div class="hero-overlay"></div>
-  <h2>Get data infrastructure for training AI models</h2>
-  <a href="/contact" class="btn-primary large">Book a Demo</a>
+  <h2>Get data infrastructure to empower AI</h2>
+  <div class="cta-final-actions">
+    <a href="/platform" class="btn-ghost">Explore the Platform</a>
+    <a href="/contact" class="btn-primary large">Book a Demo</a>
+  </div>
 </section>
 
 <footer>
@@ -237,7 +264,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
-<script src="/assets/js/platform-motion.js?v=6fbc065" defer></script>
+<script src="/assets/js/concave-motion.js?v=20260926" defer></script>
+<script src="/assets/js/platform-motion.js?v=20260926" defer></script>
 </body>
 </html>

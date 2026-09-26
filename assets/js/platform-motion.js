@@ -483,47 +483,57 @@
     onScroll();
   }
 
-  /* ── Govern page: scroll-driven pixel-dot cube ──
+  /* ── Govern page: scroll-driven pixel-dot octagonal prism ──
      Same .layer-scroll/.layer-sticky mechanics as the Label page's AI
-     Engines section (see initEngineScroll above), reused for a 7-slide
-     sequence: an intro slide, then the 6 governance controls. The canvas
-     is a wireframe cube built from a "pixel" dot grid on each face (plus
-     faint edge lines), continuously tumbling across all three axes. Each
-     point's final position is a per-point linear blend (not an angle
-     blend, so there's no wraparound/gimbal risk — the same technique the
-     AI Engines sphere uses for its ring0 "unfurl") between its freely
-     tumbling position and its position under a fixed target rotation that
-     brings one face square onto the viewer. On the intro slide the blend
-     stays at 0 (pure free tumble, no face highlighted). Scrolling into a
-     control slide eases the blend to 1, so the cube "revolves and stops"
-     with that control's face centered and its heading faded in beside it;
-     scrolling back out eases the blend back to 0 and the tumble resumes
-     from wherever it currently is (no jump, since the free rotation never
-     stops accumulating in the background). Rotation/projection formulas
-     and full-cycle bounds (all 8 corners + every face's dot grid, across
-     the intro tumble, every settled face, and the transitions between)
-     verified numerically before shipping — see the scratch harness this
-     was built against. */
+     Engines section (see initEngineScroll above), reused for a 9-slide
+     sequence: an intro slide, then the 8 governance controls. The canvas
+     is a wireframe octagonal prism — 8 flat rectangular side faces
+     arranged radially around the Y axis, each built from the same "pixel"
+     dot grid + faint edge lines language the old 6-face cube used —
+     continuously spinning (dominant motion on Y, the prism's own axis,
+     with a slower wobble on X/Z for depth) so it genuinely reads as a
+     rotating 3D object, not a flat carousel. Each point's final position
+     is a per-point linear blend (not an angle blend, so there's no
+     wraparound/gimbal risk — the same technique the AI Engines sphere
+     uses for its ring0 "unfurl") between its freely spinning position and
+     its position under a fixed target Y-rotation that brings one side
+     square onto the viewer. On the intro slide the blend stays at 0 (pure
+     free spin, no face highlighted). Scrolling into a control slide eases
+     the blend to 1, so the prism "revolves and stops" with that control's
+     face centered and its heading faded in beside it; scrolling back out
+     eases the blend back to 0 and the spin resumes from wherever it
+     currently is (no jump, since free rotation never stops accumulating
+     in the background). Rotation/projection formulas and full-cycle
+     bounds (all 16 corners + every face's dot grid, across the intro
+     spin, every settled face, and the transitions between) verified
+     numerically before shipping — see the scratch harness this was built
+     against. */
   var GOVERN_SLIDES = [
-    { intro: true, tagline: 'Governance', heading: 'Six Controls, Continuous Governance', desc: 'Six automated controls run on every dataset, on every layer, every time — provenance, logging, lineage, integrity, quality, and access, with no manual audit required.', face: null },
-    { intro: false, tagline: 'Governance Control', heading: 'Provenance Tracking', desc: 'Every dataset records its origin — storage backend, file, query, or upload — and that provenance persists through every operation into the final lineage report.', face: '+Z' },
-    { intro: false, tagline: 'Governance Control', heading: 'Operation Logging', desc: 'Every transformation, labeling decision, review, and export is logged as an immutable, timestamped event tied to its actor — AI engine or human reviewer.', face: '+X' },
-    { intro: false, tagline: 'Governance Control', heading: 'Lineage Reports', desc: 'Every version auto-generates a structured lineage document — identity, provenance, transformations, and risk — included with every export.', face: '-Z' },
-    { intro: false, tagline: 'Governance Control', heading: 'Version Integrity', desc: 'Every frozen version is SHA-256 hash-verified across data, labels, and metadata — cryptographic proof the export matches what was approved.', face: '-X' },
-    { intro: false, tagline: 'Governance Control', heading: 'Quality Gates', desc: 'Datasets must clear configurable thresholds — agreement rate, error rate, class balance — before export. Failing versions are flagged with blocking issues.', face: '+Y' },
-    { intro: false, tagline: 'Governance Control', heading: 'Access Control', desc: 'Role-based permissions scope every dataset, connection, and operation — annotators see only their tasks, teams see only their own data.', face: '-Y' }
+    { intro: true, tagline: 'Governance', heading: 'Eight Controls, Continuous Governance', desc: 'Eight automated controls run on every dataset, on every layer, every time — provenance, logging, lineage, integrity, quality, export sign-off, compliance documentation, and retention, with no manual audit required.', face: null },
+    { intro: false, tagline: 'Governance Control', heading: 'Provenance Tracking', desc: 'Every dataset records its origin — storage backend, file, query, or upload — and that provenance persists through every operation into the final lineage report.', face: 'f0' },
+    { intro: false, tagline: 'Governance Control', heading: 'Operation Logging', desc: 'Every transformation, labeling decision, review, and export is logged and cryptographically sealed — SHA-256 hash-chained every five minutes, so tampering with the history isn’t just against policy, it’s mathematically detectable.', face: 'f1' },
+    { intro: false, tagline: 'Governance Control', heading: 'Lineage Reports', desc: 'Every version auto-generates a structured lineage document — identity, provenance, transformations, and risk — included with every export.', face: 'f2' },
+    { intro: false, tagline: 'Governance Control', heading: 'Version Integrity', desc: 'Every frozen version is SHA-256 hash-verified across data, labels, and metadata — cryptographic proof the export matches what was approved.', face: 'f3' },
+    { intro: false, tagline: 'Governance Control', heading: 'Quality Gates', desc: 'Datasets must clear configurable thresholds — detected PII, freeze status, lineage completeness, quality score — before export. Some gates block outright with no override; others warn and require an explicit, audited override. Nothing leaves silently.', face: 'f4' },
+    { intro: false, tagline: 'Governance Control', heading: 'Segregation of Duties', desc: 'Exporting a dataset classified “restricted” requires sign-off from a different admin than whoever requested it, enforced on the server. No single person can move your most sensitive data out alone.', face: 'f5' },
+    { intro: false, tagline: 'Governance Control', heading: 'Compliance Documentation', desc: 'Every version can generate a real Datasheet for Datasets and an EU AI Act Article 10 evidence pack — provenance, license, consent, and bias examination — assembled automatically, downloadable as a real PDF. Includes a GDPR erasure receipt, cryptographically hashed, for every row removed on request.', face: 'f6' },
+    { intro: false, tagline: 'Governance Control', heading: 'Retention Lifecycle', desc: 'Datasets warn before their retention window closes, auto-archive on expiry, and stay recoverable for 30 days before permanent deletion — no manual cleanup, nothing disappears without warning.', face: 'f7' }
   ];
 
-  var GOVERN_FACE_TARGET = {
-    '+Z': { rx: 0, ry: 0 },
-    '-Z': { rx: 0, ry: Math.PI },
-    '+X': { rx: 0, ry: -Math.PI / 2 },
-    '-X': { rx: 0, ry: Math.PI / 2 },
-    '+Y': { rx: Math.PI / 2, ry: 0 },
-    '-Y': { rx: -Math.PI / 2, ry: 0 }
-  };
+  // The prism lies on its side, drum-style — its own spin axis is
+  // horizontal (X), with the octagonal ring in the Y-Z plane. Face k's
+  // outward normal sits at angle k*(360/8)° around that ring; rotating by
+  // +that angle around X brings it to point at +Z (the "facing the
+  // viewer" convention this file already uses — see the old cube's '+Z'
+  // being rx:0,ry:0). Generated rather than hand-typed to keep the 8
+  // angles exact.
+  var GOVERN_FACE_TARGET = (function () {
+    var n = 8, out = {};
+    for (var k = 0; k < n; k++) out['f' + k] = { rx: (k * 2 * Math.PI / n), ry: 0 };
+    return out;
+  })();
 
-  function initGovernCube(canvas) {
+  function initGovernPrism(canvas) {
     if (!canvas) return null;
     var ctx = canvas.getContext('2d');
 
@@ -542,40 +552,100 @@
     function applyFree(p) { return rotateZ(rotateY(rotateX(p, freeRotX), freeRotY), freeRotZ); }
     function applyTarget(p, t) { return rotateY(rotateX(p, t.rx), t.ry); }
     function lerp3(a, b, t) { return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, z: a.z + (b.z - a.z) * t }; }
-    function project(p, cx, cy, R) { return { x: cx + p.x * R, y: cy - p.y * R, depth: p.z }; }
+    // Real perspective (same 1/(1-depth*K) house style as the packet and
+    // infinity wireframes elsewhere in this file), not the old flat
+    // orthographic version — with 8 faces only 45° apart, orthographic
+    // projection let a settled face's ±45° neighbors keep their full
+    // on-screen width instead of visibly receding, which is what made the
+    // "settled" view read as a flat overlapping grid instead of one clear
+    // face on a receding drum. K=0.35 verified to keep the denominator
+    // comfortably clear of 0 (stays ≥0.485) across a full simulated
+    // free-spin + settle cycle over every corner and face normal.
+    var PERSPECTIVE_K = 0.35;
+    function project(p, cx, cy, R) {
+      var persp = 1 / (1 - p.z * PERSPECTIVE_K);
+      return { x: cx + p.x * R * persp, y: cy - p.y * R * persp, depth: p.z };
+    }
     function depthAlpha(depth, mul) { return (0.14 + Math.max(0, (depth / 1.8 + 1) / 2) * 0.55) * mul; }
 
+    // Regular octagonal prism lying on its side, drum-style: the ring
+    // (octagon cross-section) sits in the Y-Z plane, and the prism's own
+    // length/spin axis is X — the axis a real drum or paper-towel roll
+    // spins on, not a lazy-susan's vertical one. Apothem (center-to-face
+    // distance) fixed at 1 to match the old cube's unit face distance;
+    // circumradius and half-side-length follow from the standard regular-
+    // polygon relations (apothem = circumradius*cos(π/n), side =
+    // 2*apothem*tan(π/n)). HALF_H (half the drum's length, along X) stays
+    // equal to the cube-derived unit too, but because it's now the axis
+    // running left-right on screen rather than up-down, each face reads
+    // as a wide/landscape rectangle instead of a tall/portrait one.
+    var N = 8, APOTHEM = 1, HALF_H = 1;
+    var CIRCUMRADIUS = APOTHEM / Math.cos(Math.PI / N);
+    var HALF_SIDE = APOTHEM * Math.tan(Math.PI / N);
+
+    var FACE_DEFS = [];
+    for (var fk = 0; fk < N; fk++) {
+      var theta = fk * (2 * Math.PI / N);
+      FACE_DEFS.push({
+        name: 'f' + fk,
+        normal: { x: 0, y: Math.sin(theta), z: Math.cos(theta) },
+        u: { x: 0, y: Math.cos(theta), z: -Math.sin(theta) },
+        v: { x: 1, y: 0, z: 0 }
+      });
+    }
+
+    // 16 corners: the ring at the right end of the drum (x=+HALF_H, 0-7),
+    // then the mirrored ring at the left end (x=-HALF_H, 8-15), each
+    // vertex offset by half a face-angle from the face normals so each
+    // face's flat side spans exactly between the two vertices flanking it.
     var CORNERS = [];
-    [-1, 1].forEach(function (x) { [-1, 1].forEach(function (y) { [-1, 1].forEach(function (z) {
-      CORNERS.push({ x: x, y: y, z: z });
-    }); }); });
-    var EDGES = [[0,1],[1,3],[3,2],[2,0],[4,5],[5,7],[7,6],[6,4],[0,4],[1,5],[2,6],[3,7]];
+    for (var vk = 0; vk < N; vk++) {
+      var vAngle = vk * (2 * Math.PI / N) + Math.PI / N;
+      CORNERS.push({ x: HALF_H, y: CIRCUMRADIUS * Math.sin(vAngle), z: CIRCUMRADIUS * Math.cos(vAngle) });
+    }
+    for (var vk2 = 0; vk2 < N; vk2++) {
+      CORNERS.push({ x: -HALF_H, y: CORNERS[vk2].y, z: CORNERS[vk2].z });
+    }
+    var EDGES = [];
+    for (var ek = 0; ek < N; ek++) {
+      EDGES.push([ek, (ek + 1) % N]);
+      EDGES.push([N + ek, N + ((ek + 1) % N)]);
+      EDGES.push([ek, N + ek]);
+    }
+    // Face k's flat side is bounded by vertex (k-1) and vertex k on both
+    // rings — used both for the dot grid below and for drawing a solid
+    // highlight border around the active face in draw() (verified against
+    // each other numerically: this exact quad is the same rectangle the
+    // dot grid below describes).
+    var FACE_CORNER_IDX = [];
+    for (var pk = 0; pk < N; pk++) {
+      var prevK = (pk - 1 + N) % N;
+      FACE_CORNER_IDX.push([prevK, pk, N + pk, N + prevK]);
+    }
 
     var G = 4, INSET = 0.78;
-    var FACE_DEFS = [
-      { name: '+Z', normal: { x: 0, y: 0, z: 1 }, u: { x: 1, y: 0, z: 0 }, v: { x: 0, y: 1, z: 0 } },
-      { name: '-Z', normal: { x: 0, y: 0, z: -1 }, u: { x: 1, y: 0, z: 0 }, v: { x: 0, y: 1, z: 0 } },
-      { name: '+X', normal: { x: 1, y: 0, z: 0 }, u: { x: 0, y: 1, z: 0 }, v: { x: 0, y: 0, z: 1 } },
-      { name: '-X', normal: { x: -1, y: 0, z: 0 }, u: { x: 0, y: 1, z: 0 }, v: { x: 0, y: 0, z: 1 } },
-      { name: '+Y', normal: { x: 0, y: 1, z: 0 }, u: { x: 1, y: 0, z: 0 }, v: { x: 0, y: 0, z: 1 } },
-      { name: '-Y', normal: { x: 0, y: -1, z: 0 }, u: { x: 1, y: 0, z: 0 }, v: { x: 0, y: 0, z: 1 } }
-    ];
     var DOTS = [];
     FACE_DEFS.forEach(function (f) {
       for (var i = 0; i < G; i++) {
         for (var j = 0; j < G; j++) {
           var s = (i / (G - 1)) * 2 - 1, t = (j / (G - 1)) * 2 - 1;
           DOTS.push({
-            x: f.normal.x + f.u.x * s * INSET + f.v.x * t * INSET,
-            y: f.normal.y + f.u.y * s * INSET + f.v.y * t * INSET,
-            z: f.normal.z + f.u.z * s * INSET + f.v.z * t * INSET,
+            x: f.normal.x * APOTHEM + f.u.x * s * HALF_SIDE * INSET + f.v.x * t * HALF_H * INSET,
+            y: f.normal.y * APOTHEM + f.u.y * s * HALF_SIDE * INSET + f.v.y * t * HALF_H * INSET,
+            z: f.normal.z * APOTHEM + f.u.z * s * HALF_SIDE * INSET + f.v.z * t * HALF_H * INSET,
             face: f.name
           });
         }
       }
     });
 
-    var freeRotX = 0.4, freeRotY = 0.7, freeRotZ = 0;
+    // X is the prism's own (drum) axis, so it carries the dominant,
+    // continuous spin (this is what makes each side arrive at the viewer
+    // in turn); Y/Z get a slower wobble purely for depth, same spirit as
+    // the cube's three-axis tumble but no longer required to average out
+    // to a clean face-on rest state on its own — the settle blend below
+    // handles that.
+    var freeRotX = 0.6, freeRotY = 0.25, freeRotZ = 0;
     var settle = 0, targetSettle = 0;
     var labelAlpha = 0, targetLabelAlpha = 0;
     var activeFace = null, activeLabel = '';
@@ -586,7 +656,7 @@
       if (W < 2 || H < 2) return;
       var rgb = fgRGB();
       var cx = W / 2, cy = H / 2;
-      var R = Math.min(W, H) * 0.19;
+      var R = Math.min(W, H) * 0.15;
       var target = activeFace ? GOVERN_FACE_TARGET[activeFace] : null;
 
       function finalOf(raw) {
@@ -625,6 +695,24 @@
         ctx.fill();
       });
 
+      // Solid border around the active face's real rectangle (its 4 exact
+      // 3D corners, projected) so it's unambiguous which side is "the
+      // one" — the dot boost + floating label alone left that ambiguous.
+      if (settle * labelAlpha > 0.01 && activeFace) {
+        var hIdx = parseInt(activeFace.slice(1), 10);
+        var hCorners = FACE_CORNER_IDX[hIdx].map(function (ci) { return project(finalOf(CORNERS[ci]), cx, cy, R); });
+        var hAlpha = settle * labelAlpha;
+        ctx.beginPath();
+        ctx.moveTo(hCorners[0].x, hCorners[0].y);
+        for (var hi = 1; hi < hCorners.length; hi++) ctx.lineTo(hCorners[hi].x, hCorners[hi].y);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + (hAlpha * 0.05).toFixed(2) + ')';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + (hAlpha * 0.85).toFixed(2) + ')';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
       if (labelAlpha > 0.01 && activeFace) {
         var facedef = FACE_DEFS.filter(function (f) { return f.name === activeFace; })[0];
         var centerP = finalOf(facedef.normal);
@@ -649,9 +737,9 @@
     function tick() {
       requestAnimationFrame(tick);
       if (!prefersReduced) {
-        freeRotX += 0.0031;
-        freeRotY += 0.0047;
-        freeRotZ += 0.0013;
+        freeRotX += 0.0052;
+        freeRotY += 0.0017;
+        freeRotZ += 0.0009;
       }
       var sDiff = targetSettle - settle;
       settle += sDiff * (prefersReduced ? 1 : 0.055);
@@ -700,7 +788,7 @@
     var nextBtn = container.querySelector('.govern-next');
     if (!heading || !desc) return;
 
-    var cube = initGovernCube(document.getElementById('governCube'));
+    var prism = initGovernPrism(document.getElementById('governOctagon'));
 
     var SLIDES = GOVERN_SLIDES.length;
     var current = -1;
@@ -715,7 +803,7 @@
         seg.classList.toggle('is-done', !slide.intro && idx < i);
       });
       if (scrollHint) scrollHint.classList.toggle('is-visible', slide.intro);
-      if (cube) cube.setActive(slide.face, slide.heading);
+      if (prism) prism.setActive(slide.face, slide.heading);
     }
 
     function slideIndexFromScroll() {
@@ -873,6 +961,147 @@
       draw(rotY, t);
     }
     tick();
+  }
+
+  /* ── Observe page: loop-panel rectangle dot + card highlighting ──
+     The dot used to be a pure SMIL animateMotion riding a path drawn in a
+     fixed 1200x700 viewBox with preserveAspectRatio="none" — fine while
+     the panel's real aspect ratio stayed close to 1200:700, but with 10
+     cards (vs. the original 6) the panel got much taller, so that fixed
+     viewBox got stretched far more vertically than horizontally. A circle
+     under non-uniform scaling renders as an ellipse (the "too big" dot),
+     and constant arc-length motion in the distorted coordinate space reads
+     as uneven speed on screen (fast along the axis stretched less, slow
+     along the one stretched more).
+     Fix: measure the panel's actual rendered pixel size and set the SVG's
+     viewBox to match exactly (1:1, no scaling in either axis), recomputed
+     on resize. The rectangle's four edges are then placed through the real
+     center of one representative card per edge (not a guessed inset) —
+     that guess is what left the side cards floating off the line while the
+     top/bottom ones happened to line up. The dot is driven directly from
+     JS every frame — arc-length-parameterized around that real rectangle,
+     so speed is genuinely constant — instead of SMIL, which also makes it
+     trivial to know which edge/card the dot is currently over and light
+     that card up (.is-loop-active) as it passes, like :hover on a timer. */
+  function initLoopPanel() {
+    var panel = document.querySelector('.loop-panel');
+    if (!panel) return;
+    var svg = document.getElementById('loopPanelSvg');
+    var path = document.getElementById('loopRectPath');
+    var dot = document.getElementById('loopPanelDot');
+    if (!svg || !path || !dot) return;
+
+    var cards = [];
+    for (var n = 1; n <= 10; n++) {
+      cards.push(panel.querySelector('.loop-card[data-loop-card="' + n + '"]'));
+    }
+
+    // Clockwise from the top-left corner: 3 cards along the top, 2 down
+    // the right, 3 along the bottom (encountered right-to-left), 2 up the
+    // left — matches the numbered 1→10 loop order and the grid-template-
+    // areas frame in platform.css.
+    var EDGE_CARDS = { top: [0, 1, 2], right: [3, 4], bottom: [5, 6, 7], left: [8, 9] };
+    var INSET = 40; // fallback only, used if a card is ever missing
+
+    // A grid column/row gives every card in it the same horizontal/
+    // vertical center regardless of which row/column it's paired with, so
+    // one representative card per edge is enough to place that whole edge
+    // exactly through the middle of every card sitting on it — top/bottom
+    // cards included, not just the ones that were visibly off before.
+    function centerOf(el) {
+      var r = el.getBoundingClientRect();
+      // The SVG's own box (not the panel's) is the exact coordinate space
+      // the path/dot are drawn in — using it instead of the panel avoids
+      // an off-by-the-border-width discrepancy (the panel's rect is its
+      // border box; the SVG sits at the padding box, inset by 1px).
+      var sr = svg.getBoundingClientRect();
+      return { x: r.left - sr.left + r.width / 2, y: r.top - sr.top + r.height / 2 };
+    }
+
+    var geo = {};
+
+    function measure() {
+      var w = panel.clientWidth, h = panel.clientHeight;
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+
+      var top = cards[0], bottom = cards[5], right = cards[3], left = cards[8];
+      var x0, y0, x1, y1;
+      if (top && bottom && right && left) {
+        x0 = centerOf(left).x; x1 = centerOf(right).x;
+        y0 = centerOf(top).y; y1 = centerOf(bottom).y;
+      } else {
+        x0 = INSET; y0 = INSET; x1 = w - INSET; y1 = h - INSET;
+      }
+
+      path.setAttribute('d', 'M' + x0 + ',' + y0 + ' L' + x1 + ',' + y0 + ' L' + x1 + ',' + y1 + ' L' + x0 + ',' + y1 + ' Z');
+      geo.x0 = x0; geo.y0 = y0; geo.rectW = x1 - x0; geo.rectH = y1 - y0;
+      geo.perimeter = 2 * (geo.rectW + geo.rectH);
+    }
+
+    // Position + which edge/local-fraction a given 0..1 lap progress lands
+    // on, walking top → right → bottom → left.
+    function pointAt(progress) {
+      var d = progress * geo.perimeter, w = geo.rectW, h = geo.rectH;
+      if (d < w) return { x: geo.x0 + d, y: geo.y0, edge: 'top', t: d / w };
+      d -= w;
+      if (d < h) return { x: geo.x0 + w, y: geo.y0 + d, edge: 'right', t: d / h };
+      d -= h;
+      if (d < w) return { x: geo.x0 + w - d, y: geo.y0 + h, edge: 'bottom', t: d / w };
+      d -= w;
+      return { x: geo.x0, y: geo.y0 + h - d, edge: 'left', t: d / h };
+    }
+
+    function cardIndexAt(progress) {
+      var p = pointAt(progress);
+      var list = EDGE_CARDS[p.edge];
+      return list[Math.min(list.length - 1, Math.floor(p.t * list.length))];
+    }
+
+    measure();
+    window.addEventListener('resize', measure, { passive: true });
+    // A one-time measure() at load isn't enough — anything that reflows
+    // the grid afterward (the Inter webfont swapping in for the fallback
+    // font and rewrapping card body text most likely; a reveal transition
+    // or late image can too) leaves the rectangle drawn from stale card
+    // positions with no way to notice. ResizeObserver watches the actual
+    // rendered boxes and re-measures on any real change, whatever the
+    // cause, instead of guessing which one-off events to listen for.
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { measure(); });
+      ro.observe(panel);
+      cards.forEach(function (c) { if (c) ro.observe(c); });
+    } else {
+      window.addEventListener('load', measure);
+      setTimeout(measure, 500);
+      setTimeout(measure, 1500);
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(measure);
+    }
+
+    var start = pointAt(0);
+    dot.setAttribute('cx', start.x);
+    dot.setAttribute('cy', start.y);
+
+    if (prefersReduced) return;
+
+    var DUR = 9000;
+    var current = -1;
+    function frame(ts) {
+      requestAnimationFrame(frame);
+      var progress = (ts % DUR) / DUR;
+      var pt = pointAt(progress);
+      dot.setAttribute('cx', pt.x);
+      dot.setAttribute('cy', pt.y);
+
+      var idx = cardIndexAt(progress);
+      if (idx !== current) {
+        if (cards[current]) cards[current].classList.remove('is-loop-active');
+        if (cards[idx]) cards[idx].classList.add('is-loop-active');
+        current = idx;
+      }
+    }
+    requestAnimationFrame(frame);
   }
 
   /* ── Observe page: rotating infinity-symbol wireframe ──
@@ -1196,6 +1425,7 @@
     initGovernScroll();
     initPacketWireframe(document.getElementById('bestCanvas'));
     initInfinityWireframe(document.getElementById('infinityCanvas'));
+    initLoopPanel();
     initOverviewScroll();
     initTaskSwitch();
     initFaq();

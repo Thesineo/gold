@@ -383,28 +383,50 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .step-label{font-size:15px;font-weight:400;color:var(--text);margin-bottom:4px}
 .step-body{font-size:14px;color:var(--text-dim);line-height:1.65}
 
-/* ── Loop panel (Observe page) — 6 cards arranged as a rectangle (3 over
-   3) via named grid-areas, a rotating infinity-symbol wireframe + heading
-   filling the middle, and a rectangular connecting path (with its own
-   continuously-running dot via animateMotion/mpath) drawn behind
+/* ── Loop panel (Observe page) — 10 cards arranged as a full rectangular
+   frame (3 across the top, 2 down the right, 3 across the bottom, 2 up the
+   left) via named grid-areas, a rotating infinity-symbol wireframe +
+   heading filling the middle, and a rectangular connecting path (with its
+   own continuously-running dot via animateMotion/mpath) drawn behind
    everything so the cards visually sit "on" the loop. Card styling reuses
    the same corner-fold + hover-lift language as the platform page's Why
    Datalier cards. grid-template-areas (not DOM order) is what keeps the
-   1→2→3→4→5→6→1 sequence correct in both the desktop rectangle and the
-   mobile single-column stack — the HTML can list cards in whatever order
-   is convenient for reading the source. */
+   1→2→3→4→5→6→7→8→9→10→1 sequence correct in both the desktop frame and
+   the mobile single-column stack — the HTML can list cards in whatever
+   order is convenient for reading the source. The four corner cells are
+   deliberately left empty (only the middle three columns carry top/bottom
+   cards) so the layout reads as a frame around the center, not a solid
+   grid — .loop-card-side card cells actually span two grid rows because
+   the center diagram needs that height; align-self:center keeps those
+   cards their normal compact size instead of stretching to fill it. */
 .loop-panel{position:relative;border-radius:24px;border:1px solid var(--border);background:var(--bg);padding:44px;overflow:hidden;margin-top:56px}
 .loop-panel-svg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .loop-panel-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
 .loop-panel-dot{fill:var(--text)}
 @media(prefers-reduced-motion:reduce){.loop-panel-dot{display:none}}
 
-.loop-card-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:"c1 c2 c3" "center center center" "c6 c5 c4";gap:24px;align-items:stretch}
+.loop-card-grid{
+  position:relative;z-index:1;display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    ".   c1     c2     c3     .  "
+    "c10 center center center c4"
+    "c9  center center center c5"
+    ".   c8     c7     c6     .  ";
+  gap:24px;align-items:stretch;
+}
+.loop-card-side{align-self:center}
 
-.loop-card{position:relative;background:var(--bg);border-radius:16px;padding:24px;overflow:hidden;border:1px solid var(--border);display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease}
+.loop-card{position:relative;background:var(--bg);border-radius:16px;padding:24px;overflow:hidden;border:1px solid var(--border);display:flex;flex-direction:column;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
 .loop-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,0.09)}
 .loop-card-corner{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:0 22px 22px 0;border-color:transparent var(--border) transparent transparent;transition:border-color .3s ease}
 .loop-card:hover .loop-card-corner{border-color:transparent var(--text) transparent transparent}
+/* Lit up as the traveling loop dot passes each card's stretch of the
+   rectangle border (see initLoopPanel in platform-motion.js) — same
+   corner-fold + border treatment as :hover, just triggered by the dot's
+   position instead of the cursor. */
+.loop-card.is-loop-active{border-color:var(--text);box-shadow:0 14px 30px rgba(0,0,0,0.09)}
+.loop-card.is-loop-active .loop-card-corner{border-color:transparent var(--text) transparent transparent}
 .loop-card-num{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;color:var(--text-dimmer);letter-spacing:0.05em}
 .loop-card-title{font-size:16.5px;font-weight:400;color:var(--text);letter-spacing:-0.005em;margin-top:6px}
 .loop-card-body{font-size:13px;color:var(--text-dim);line-height:1.6;margin-top:11px;flex:1}
@@ -426,7 +448,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 @media(max-width:900px){
   .loop-panel{padding:32px 22px}
   .loop-panel-svg{display:none}
-  .loop-card-grid{grid-template-columns:1fr;grid-template-areas:"c1" "c2" "c3" "center" "c4" "c5" "c6"}
+  .loop-card-grid{grid-template-columns:1fr;grid-template-areas:"c1" "c2" "c3" "c4" "c5" "center" "c6" "c7" "c8" "c9" "c10"}
 }
 
 /* ── CTA (shared component, identical to homepage) ── */
@@ -434,6 +456,8 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:920px}
 .cta-final-sub{position:relative;z-index:2;font-size:14px;color:var(--text-dimmer);margin-top:22px}
 .cta-final .btn-primary{position:relative;z-index:2;margin-top:36px}
+.cta-final-actions{position:relative;z-index:2;margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-final-actions .btn-primary{margin-top:0}
 .bg-media{position:absolute;inset:0;z-index:0}
 .bg-media canvas{width:100%;height:100%;display:block}
 .bg-media video,.bg-media img{width:100%;height:100%;object-fit:cover;display:block}

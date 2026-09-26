@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="The Govern layer controls who can access, modify, or export data, and logs every action taken against it, role-based permissions, an immutable audit trail, and regulatory tagging that travels with the data.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=6fbc065" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=6fbc065" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=6fbc065">
-<link rel="stylesheet" href="/assets/css/platform.css?v=6fbc065">
+<link rel="icon" href="/logo.png?v=20260926" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20260926" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20260926">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20260926">
 </head>
 <body>
 
@@ -107,19 +107,22 @@
 <section class="pad" style="padding-top:0">
   <!-- Desktop: sticky diagram + text, driven by scroll position. Intro
        slide, then one slide per governance control — canvas is a
-       pixel-dot wireframe cube that tumbles in 3D and, on each control
-       slide, revolves and settles with that control's face toward the
-       viewer. Same mechanics as the Label page's AI Engines section; see
+       pixel-dot wireframe octagonal prism (8 flat sides, one per control)
+       that spins continuously in 3D and, on each control slide, revolves
+       and settles with that control's face toward the viewer. Same
+       mechanics as the Label page's AI Engines section; see
        initGovernScroll in platform-motion.js. -->
   <div class="layer-scroll" id="governScroll">
     <div class="layer-sticky">
       <div class="sec-inner layer-sticky-inner">
         <div class="layer-copy-col">
           <div class="layer-slide-tagline" id="governTagline"></div>
-          <h3 class="layer-slide-heading" id="governHeading">Six Controls, Continuous Governance</h3>
-          <p class="layer-slide-desc" id="governDesc">Six automated controls run on every dataset, on every layer, every time — provenance, logging, lineage, integrity, quality, and access, with no manual audit required.</p>
+          <h3 class="layer-slide-heading" id="governHeading">Eight Controls, Continuous Governance</h3>
+          <p class="layer-slide-desc" id="governDesc">Eight automated controls run on every dataset, on every layer, every time — provenance, logging, lineage, integrity, quality, export sign-off, compliance documentation, and retention, with no manual audit required.</p>
 
           <div class="layer-progress-row" id="governProgressRow">
+            <span class="layer-progress-seg"><span></span></span>
+            <span class="layer-progress-seg"><span></span></span>
             <span class="layer-progress-seg"><span></span></span>
             <span class="layer-progress-seg"><span></span></span>
             <span class="layer-progress-seg"><span></span></span>
@@ -136,7 +139,7 @@
 
         <div class="layer-diagram-col">
           <div class="layer-diagram-wrap">
-            <canvas id="governCube" aria-hidden="true"></canvas>
+            <canvas id="governOctagon" aria-hidden="true"></canvas>
           </div>
           <div class="layer-scroll-hint" id="governScrollHint">Scroll to continue</div>
         </div>
@@ -154,7 +157,7 @@
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">Governance Control</div>
       <div class="layer-mobile-name">Operation Logging</div>
-      <p class="layer-mobile-desc">Every transformation, labeling decision, review, and export is logged as an immutable, timestamped event tied to its actor — AI engine or human reviewer.</p>
+      <p class="layer-mobile-desc">Every transformation, labeling decision, review, and export is logged and cryptographically sealed — SHA-256 hash-chained every five minutes, so tampering with the history isn&rsquo;t just against policy, it&rsquo;s mathematically detectable.</p>
     </div>
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">Governance Control</div>
@@ -169,12 +172,22 @@
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">Governance Control</div>
       <div class="layer-mobile-name">Quality Gates</div>
-      <p class="layer-mobile-desc">Datasets must clear configurable thresholds — agreement rate, error rate, class balance — before export. Failing versions are flagged with blocking issues.</p>
+      <p class="layer-mobile-desc">Datasets must clear configurable thresholds — detected PII, freeze status, lineage completeness, quality score — before export. Some gates block outright with no override; others warn and require an explicit, audited override. Nothing leaves silently.</p>
     </div>
     <div class="layer-mobile-item">
       <div class="layer-mobile-tagline">Governance Control</div>
-      <div class="layer-mobile-name">Access Control</div>
-      <p class="layer-mobile-desc">Role-based permissions scope every dataset, connection, and operation — annotators see only their tasks, teams see only their own data.</p>
+      <div class="layer-mobile-name">Segregation of Duties</div>
+      <p class="layer-mobile-desc">Exporting a dataset classified &ldquo;restricted&rdquo; requires sign-off from a different admin than whoever requested it, enforced on the server. No single person can move your most sensitive data out alone.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Compliance Documentation</div>
+      <p class="layer-mobile-desc">Every version can generate a real Datasheet for Datasets and an EU AI Act Article 10 evidence pack — provenance, license, consent, and bias examination — assembled automatically, downloadable as a real PDF. Includes a GDPR erasure receipt, cryptographically hashed, for every row removed on request.</p>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">Governance Control</div>
+      <div class="layer-mobile-name">Retention Lifecycle</div>
+      <p class="layer-mobile-desc">Datasets warn before their retention window closes, auto-archive on expiry, and stay recoverable for 30 days before permanent deletion — no manual cleanup, nothing disappears without warning.</p>
     </div>
   </div>
 </section>
@@ -241,8 +254,11 @@
 <section class="cta-final">
   <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
   <div class="hero-overlay"></div>
-  <h2>Get data infrastructure for training AI models</h2>
-  <a href="/contact" class="btn-primary large">Book a Demo</a>
+  <h2>Get data infrastructure to empower AI</h2>
+  <div class="cta-final-actions">
+    <a href="/platform" class="btn-ghost">Explore the Platform</a>
+    <a href="/contact" class="btn-primary large">Book a Demo</a>
+  </div>
 </section>
 
 <footer>
@@ -303,7 +319,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=6fbc065" defer></script>
-<script src="/assets/js/platform-motion.js?v=6fbc065" defer></script>
+<script src="/assets/js/concave-motion.js?v=20260926" defer></script>
+<script src="/assets/js/platform-motion.js?v=20260926" defer></script>
 </body>
 </html>
