@@ -1003,19 +1003,22 @@
     var EDGE_CARDS = { top: [0, 1, 2], right: [3, 4], bottom: [5, 6, 7], left: [8, 9] };
     var INSET = 40; // fallback only, used if a card is ever missing
 
-    // A grid column/row gives every card in it the same horizontal/
-    // vertical center regardless of which row/column it's paired with, so
-    // one representative card per edge is enough to place that whole edge
-    // exactly through the middle of every card sitting on it — top/bottom
-    // cards included, not just the ones that were visibly off before.
-    function centerOf(el) {
-      var r = el.getBoundingClientRect();
-      // The SVG's own box (not the panel's) is the exact coordinate space
-      // the path/dot are drawn in — using it instead of the panel avoids
-      // an off-by-the-border-width discrepancy (the panel's rect is its
-      // border box; the SVG sits at the padding box, inset by 1px).
-      var sr = svg.getBoundingClientRect();
-      return { x: r.left - sr.left + r.width / 2, y: r.top - sr.top + r.height / 2 };
+    // Measuring individual card boxes (the previous approach) can only
+    // ever be as fresh as the last time it happened to run — if the grid's
+    // internal row split shifts afterward for any reason, the cards move
+    // but nothing says so. The CSS Grid track sizes themselves don't have
+    // that problem: getComputedStyle().gridTemplateColumns/Rows returns
+    // the browser's own resolved (fr-units-already-solved) pixel sizes for
+    // the CURRENT layout, synchronously, every time it's read — it's the
+    // authoritative source layout is built from, not a derived snapshot
+    // that can go stale. Reading it directly instead of re-deriving it
+    // from child boxes removes the whole class of bug.
+    var grid = panel.querySelector('.loop-card-grid');
+
+    function trackCenter(sizes, gap, index) {
+      var pos = 0;
+      for (var i = 0; i < index; i++) pos += sizes[i] + gap;
+      return pos + sizes[index] / 2;
     }
 
     var geo = {};
@@ -1024,12 +1027,26 @@
       var w = panel.clientWidth, h = panel.clientHeight;
       svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
 
-      var top = cards[0], bottom = cards[5], right = cards[3], left = cards[8];
       var x0, y0, x1, y1;
-      if (top && bottom && right && left) {
-        x0 = centerOf(left).x; x1 = centerOf(right).x;
-        y0 = centerOf(top).y; y1 = centerOf(bottom).y;
+      var cs = grid && window.getComputedStyle(grid);
+      var cols = cs && cs.gridTemplateColumns.split(' ').filter(Boolean).map(parseFloat);
+      var rows = cs && cs.gridTemplateRows.split(' ').filter(Boolean).map(parseFloat);
+      var colGap = cs ? (parseFloat(cs.columnGap) || 0) : 0;
+      var rowGap = cs ? (parseFloat(cs.rowGap) || 0) : 0;
+
+      if (cols && rows && cols.length === 5 && rows.length === 4 &&
+          cols.every(isFinite) && rows.every(isFinite)) {
+        var gridRect = grid.getBoundingClientRect();
+        var svgRect = svg.getBoundingClientRect();
+        var gx = gridRect.left - svgRect.left, gy = gridRect.top - svgRect.top;
+        x0 = gx + trackCenter(cols, colGap, 0);
+        x1 = gx + trackCenter(cols, colGap, cols.length - 1);
+        y0 = gy + trackCenter(rows, rowGap, 0);
+        y1 = gy + trackCenter(rows, rowGap, rows.length - 1);
       } else {
+        // Mobile (<900px) collapses to a single column and hides this SVG
+        // entirely, so cols.length won't be 5 there — this fallback only
+        // ever draws into a hidden element in that case.
         x0 = INSET; y0 = INSET; x1 = w - INSET; y1 = h - INSET;
       }
 
@@ -1059,16 +1076,18 @@
 
     measure();
     window.addEventListener('resize', measure, { passive: true });
-    // A one-time measure() at load isn't enough — anything that reflows
-    // the grid afterward (the Inter webfont swapping in for the fallback
-    // font and rewrapping card body text most likely; a reveal transition
-    // or late image can too) leaves the rectangle drawn from stale card
-    // positions with no way to notice. ResizeObserver watches the actual
-    // rendered boxes and re-measures on any real change, whatever the
-    // cause, instead of guessing which one-off events to listen for.
+    // measure() now reads the grid's own resolved track sizes fresh every
+    // time it runs, so it's always correct at the moment it's called —
+    // but something still has to CALL it again whenever a reflow changes
+    // those track sizes (the Inter webfont swapping in for the fallback
+    // font and rewrapping card body text, most likely; a reveal transition
+    // or late image can too). ResizeObserver re-measures on any real
+    // layout change, whatever the cause, instead of guessing which
+    // one-off events to listen for.
     if (window.ResizeObserver) {
       var ro = new ResizeObserver(function () { measure(); });
       ro.observe(panel);
+      if (grid) ro.observe(grid);
       cards.forEach(function (c) { if (c) ro.observe(c); });
     } else {
       window.addEventListener('load', measure);
