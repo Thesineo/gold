@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="The Observe layer monitors deployed models, detects drift, and routes targeted corrections back through the labeling layer — closing the loop without manual investigation.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20260926b" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20260926b" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20260926b">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20260926b">
+<link rel="icon" href="/logo.png?v=20261009" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261009" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261009">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261009">
 </head>
 <body>
 
@@ -189,9 +189,46 @@
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="intro-center" data-reveal>
-      <span class="sec-eyebrow">Slice Analysis</span>
-      <p class="lead-text">Following evaluation, the platform disaggregates model performance across discrete feature attributes, taxonomy categories, and environmental subsets pinpointing localized performance regressions. While a model may exhibit 95% aggregate accuracy, granular slice analysis exposes localized drops down to 68%. This micro-level observability elevates vague performance alerts into targeted, actionable diagnostics shifting feedback from "the model is degrading" to "accuracy regresses on low-light motorcycle imagery."</p>
+    <div class="center-head" data-reveal>
+      <h2 class="sec-title">Capabilities that Define our Observability</h2>
+    </div>
+
+    <div class="depth-bento">
+      <div class="depth-tile" data-reveal="zoom">
+        <div class="depth-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="3" x2="7" y2="14"/><circle cx="18" cy="6" r="2.6"/><circle cx="7" cy="17" r="2.6"/><path d="M18 8.6A8 8 0 0 1 10 16.5"/></svg></div>
+        <div class="depth-tile-title">Root-Cause Attribution Ensemble</div>
+        <div class="depth-tile-body">Classifier AUC, real SHAP attribution, and embedding-space nearest-neighbor tracing run together to find exactly which feature shifted and which training rows caused it. Most platforms stop at "drift detected." This answers why.</div>
+      </div>
+
+      <div class="depth-tile" data-reveal="zoom" data-reveal-delay="1">
+        <div class="depth-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="21 12 17 12 14.5 19 9.5 5 7 12 3 12"/></svg></div>
+        <div class="depth-tile-title">Generative Drift Vocabulary</div>
+        <div class="depth-tile-body">A distinct drift model for LLMs — topic-cluster PSI, new-topic emergence, refusal-rate drift. Classic label PSI is meaningless for generative output; this measures what actually degrades.</div>
+      </div>
+
+      <div class="depth-tile" data-reveal="zoom" data-reveal-delay="2">
+        <div class="depth-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <div class="depth-tile-title">Multi-Modal Drift Engine</div>
+        <div class="depth-tile-body">Real, distinct feature extraction per modality — image, audio, video — feeding one shared statistical core: PSI, KS-test, Wasserstein distance, real KDE curves. Not one generic check pretending to cover every modality.</div>
+      </div>
+
+      <div class="depth-tile" data-reveal="zoom">
+        <div class="depth-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+        <div class="depth-tile-title">Multi-Axis Fix Validation</div>
+        <div class="depth-tile-body">The same held-out rows are checked for accuracy, calibration, and fairness. A win on one that regresses another is reported as a partial fix, never hidden behind one green number.</div>
+      </div>
+
+      <div class="depth-tile" data-reveal="zoom" data-reveal-delay="1">
+        <div class="depth-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M7.5 11V7a4.5 4.5 0 0 1 9 0v4"/></svg></div>
+        <div class="depth-tile-title">Compliance-Gated Autonomous Retrain</div>
+        <div class="depth-tile-body">PII and consent enforcement extends into the automated retrain handoff, not just manual exports. An unattended pipeline that would ship unredacted PII gets silently blocked at the one step that matters — no human needed to catch it.</div>
+      </div>
+
+      <div class="depth-tile" data-reveal="zoom" data-reveal-delay="2">
+        <div class="depth-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v6.5c0 1.66 3.8 3 8.5 3s8.5-1.34 8.5-3V5"/><path d="M3.5 11.5V18c0 1.66 3.8 3 8.5 3s8.5-1.34 8.5-3v-6.5"/></svg></div>
+        <div class="depth-tile-title">Guaranteed Stratified Hold-Out</div>
+        <div class="depth-tile-body">Held-out selection is deterministic per label — every class with enough rows contributes at least one, with a 20-row floor — so a rare class can't silently vanish the way a naive random split would let it.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -264,7 +301,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20260926b" defer></script>
-<script src="/assets/js/platform-motion.js?v=20260926b" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261009" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261009" defer></script>
 </body>
 </html>

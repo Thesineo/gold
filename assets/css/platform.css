@@ -451,6 +451,66 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
   .loop-card-grid{grid-template-columns:1fr;grid-template-areas:"c1" "c2" "c3" "c4" "c5" "center" "c6" "c7" "c8" "c9" "c10"}
 }
 
+/* ── Observe page: "Platform Capabilities" grid — 6 feature tiles, plain
+   uniform 3-column x 2-row grid, every tile the same size. (An earlier
+   asymmetric/bento version kept producing uneven tile heights whenever a
+   tile spanned multiple rows or columns — simplest fix was to stop trying
+   to vary tile size at all.) Reuses the same border/elevated/hover-lift
+   language as .loop-card and .recipe-card elsewhere on this page, plus
+   two "advanced" touches, both still strictly monochrome:
+     1. a dotted-texture background (the same radial-gradient dot pattern
+        used for placeholder/diagram panels elsewhere on the site) instead
+        of a flat fill, for surface depth;
+     2. a cursor-tracked spotlight (initSpotlightCards in platform-
+        motion.js sets --mx/--my from the mouse position) plus a top
+        accent hairline that brightens on hover — the glow is a radial-
+        gradient in var(--text) at very low alpha, so it reads as a
+        highlight, never as a new color. */
+.depth-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+
+.depth-tile{
+  position:relative;overflow:hidden;border-radius:20px;
+  background-color:var(--elevated);
+  background-image:radial-gradient(rgba(var(--text-rgb),0.08) 1px,transparent 1px);
+  background-size:14px 14px;
+  border:1px solid var(--border);
+  padding:32px;display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.16,.9,.3,1),box-shadow .3s ease,border-color .3s ease;
+}
+.depth-tile:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,0.12);border-color:var(--text-dimmer)}
+
+.depth-tile::before{
+  content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle 260px at var(--mx,50%) var(--my,50%),rgba(var(--text-rgb),0.07),transparent 70%);
+  opacity:0;transition:opacity .35s ease;
+}
+.depth-tile:hover::before{opacity:1}
+.depth-tile::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--text);
+  transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,.9,.3,1);
+}
+.depth-tile:hover::after{transform:scaleX(1)}
+
+.depth-tile-icon{
+  position:relative;z-index:1;
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);border:1px solid var(--border);color:var(--text);
+  transition:background .3s ease,color .3s ease,box-shadow .3s ease,transform .3s ease;margin-bottom:22px;
+}
+.depth-tile-icon svg{width:21px;height:21px}
+.depth-tile:hover .depth-tile-icon{background:var(--text);color:var(--bg);box-shadow:0 0 0 6px rgba(var(--text-rgb),0.08);transform:scale(1.06)}
+
+.depth-tile-title{position:relative;z-index:1;font-family:'Inter',sans-serif;font-weight:600;font-size:21px;letter-spacing:-0.01em;color:var(--text);line-height:1.25}
+.depth-tile-body{position:relative;z-index:1;font-size:14px;color:var(--text-dim);line-height:1.65;margin-top:12px}
+
+@media(prefers-reduced-motion:reduce){
+  .depth-tile::before{display:none}
+}
+@media(max-width:860px){
+  .depth-bento{grid-template-columns:1fr}
+}
+
 /* ── CTA (shared component, identical to homepage) ── */
 .cta-final{position:relative;min-height:60vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:100px 24px}
 .cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:920px}
@@ -626,6 +686,54 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   .task-switch-item{padding:9px 14px;font-size:14px}
   .task-switch-media{min-height:460px}
   .task-switch-media.fits-image{min-height:370px}
+}
+
+/* ── Task bento — asymmetric image-tile grid, an alternative to
+   .task-switch for pages that want every task visible at once instead of
+   one-at-a-time (currently used by the Images solutions page). 3 columns;
+   each row pairs one wide tile (span 2) with one narrow tile (span 1) —
+   2+1 sums to exactly 3 every row, so there's never a gap, same technique
+   as .depth-bento on the Observe page. The whole grid is height-capped
+   (min(88vh,860px)) rather than auto, so it still reads as one complete
+   picture without endless scrolling even with 3 rows.
+   Default is full-bleed cover (deliberate cropping, photo-gallery feel),
+   but .task-bento-tile-contain opts a tile OUT of that for images where
+   the full frame matters more than fill (Keypoints, Instance, Document) —
+   object-fit:contain so nothing is cropped or zoomed, letterboxed against
+   the tile's own --elevated background instead. .task-bento-tile-square
+   forces a 1:1 box (via aspect-ratio, sized off its own grid column width)
+   so Keypoints reads as a square frame rather than a flat strip; the row
+   it shares is set to `auto` so it grows to fit that square instead of
+   fighting it. Heading pinned bottom-right over a dark corner gradient,
+   text fixed white regardless of site theme, same reasoning as
+   .layer-hero.video-bg elsewhere: a real image only reads consistently
+   once the caption stops following the theme-adaptive text color. */
+.task-bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1.3fr auto 1fr;gap:16px;height:min(88vh,860px);margin-top:48px}
+.task-bento-tile-wide{grid-column:span 2}
+.task-bento-tile-square{aspect-ratio:1/1}
+
+.task-bento-tile{position:relative;border-radius:20px;overflow:hidden;background:var(--elevated);transition:transform .3s cubic-bezier(.16,.9,.3,1),box-shadow .3s ease}
+.task-bento-tile:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(0,0,0,0.18)}
+
+.task-bento-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,.9,.3,1)}
+.task-bento-tile-contain img{object-fit:contain}
+.task-bento-tile:hover img{transform:scale(1.05)}
+.task-bento-tile::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0) 45%,rgba(0,0,0,0.75) 100%)}
+
+.task-bento-tile-label{
+  position:absolute;right:22px;bottom:20px;z-index:1;max-width:70%;text-align:right;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(16px,1.8vw,22px);
+  letter-spacing:-0.01em;line-height:1.2;color:#fff;
+}
+
+@media(max-width:860px){
+  .task-bento{grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:minmax(220px,1fr);height:auto}
+  .task-bento-tile{min-height:220px}
+  .task-bento-tile-square{aspect-ratio:auto}
+}
+@media(max-width:560px){
+  .task-bento{grid-template-columns:1fr}
+  .task-bento-tile-wide{grid-column:span 1}
 }
 
 /* FAQ — single-open accordion (initFaq in platform-motion.js). */

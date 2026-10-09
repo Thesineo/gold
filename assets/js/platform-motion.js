@@ -1423,6 +1423,26 @@
     });
   }
 
+  /* ── Cursor-tracked spotlight for feature-tile grids ──
+     Sets --mx/--my (the mouse position relative to the element, in px) on
+     mousemove; the CSS side uses them as the center of a radial-gradient
+     glow that's only visible on :hover. Generic/selector-driven so any
+     future card grid can opt in by just passing its selector — currently
+     used for the Observe page's "Platform Capabilities" tiles. Skipped
+     entirely under prefers-reduced-motion, same as this file's other
+     cursor- or scroll-reactive effects. */
+  function initSpotlightCards(selector) {
+    if (prefersReduced) return;
+    var cards = document.querySelectorAll(selector);
+    cards.forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+
   /* ── FAQ accordion — single item open at a time. ── */
   function initFaq() {
     var items = document.querySelectorAll('.faq-item');
@@ -1446,6 +1466,7 @@
     initInfinityWireframe(document.getElementById('infinityCanvas'));
     initLoopPanel();
     initOverviewScroll();
+    initSpotlightCards('.depth-tile');
     initTaskSwitch();
     initFaq();
   }
