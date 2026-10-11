@@ -688,52 +688,154 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   .task-switch-media.fits-image{min-height:370px}
 }
 
-/* ── Task bento — asymmetric image-tile grid, an alternative to
-   .task-switch for pages that want every task visible at once instead of
-   one-at-a-time (currently used by the Images solutions page). 3 columns;
-   each row pairs one wide tile (span 2) with one narrow tile (span 1) —
-   2+1 sums to exactly 3 every row, so there's never a gap, same technique
-   as .depth-bento on the Observe page. The whole grid is height-capped
-   (min(88vh,860px)) rather than auto, so it still reads as one complete
-   picture without endless scrolling even with 3 rows.
-   Default is full-bleed cover (deliberate cropping, photo-gallery feel),
-   but .task-bento-tile-contain opts a tile OUT of that for images where
-   the full frame matters more than fill (Keypoints, Instance, Document) —
-   object-fit:contain so nothing is cropped or zoomed, letterboxed against
-   the tile's own --elevated background instead. .task-bento-tile-square
-   forces a 1:1 box (via aspect-ratio, sized off its own grid column width)
-   so Keypoints reads as a square frame rather than a flat strip; the row
-   it shares is set to `auto` so it grows to fit that square instead of
-   fighting it. Heading pinned bottom-right over a dark corner gradient,
-   text fixed white regardless of site theme, same reasoning as
-   .layer-hero.video-bg elsewhere: a real image only reads consistently
-   once the caption stops following the theme-adaptive text color. */
-.task-bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1.3fr auto 1fr;gap:16px;height:min(88vh,860px);margin-top:48px}
-.task-bento-tile-wide{grid-column:span 2}
-.task-bento-tile-square{aspect-ratio:1/1}
+/* ── Task bento — asymmetric image-tile layout for the Images solutions
+   page. Deliberately NOT CSS Grid rows: a shared grid row forces every
+   tile in it to the same track height, so one tile's own aspect-ratio
+   fight with its row-mates kept collapsing/starving siblings or leaving
+   dead space below a tile that didn't need the row's full height. Two
+   independent flex columns instead — a wide left column (Object
+   Detection stacked above a Semantic+Instance side-by-side row) and a
+   narrow right column (Document, then Image Classification directly
+   below it, then Keypoints) — so each tile's height comes ONLY from its
+   own width (100% of whichever column/row-half it's in) and its own
+   aspect-ratio, with zero cross-talk between siblings. No shared track,
+   no leftover gap, no need to anchor top/left to avoid empty space.
+   Heading pinned bottom-right over a dark corner gradient, text fixed
+   white regardless of site theme, same reasoning as .layer-hero.video-bg
+   elsewhere: a real image only reads consistently once the caption stops
+   following the theme-adaptive text color. */
+.task-bento{display:flex;gap:16px;margin-top:48px;align-items:flex-start}
+.task-bento-col{display:flex;flex-direction:column;gap:16px;min-width:0}
+.task-bento-col-wide{flex:2 1 0%}
+.task-bento-col-narrow{flex:1 1 0%}
+/* Audio page only: the wide column's own share is reduced so Transcription
+   shrinks as part of the WHOLE column shrinking — shrinking a child inside
+   a column without shrinking the column itself just leaves that leftover
+   width as dead space next to it, which is what happened the first time. */
+.task-bento-col-wide.task-bento-audio-wide{flex:1.8 1 0%}
+.task-bento-row{display:flex;gap:16px;align-items:flex-start}
+.task-bento-row .task-bento-tile{flex:1 1 0%;min-width:0}
+/* .task-bento-row-matched: plain independent sizing for a pair of tiles —
+   each one gets its own explicit width AND height (set directly on its
+   own tile-* class below), with no formula linking them and no shared
+   value with its row sibling. Since a box's shape no longer has to match
+   its image's real shape, object-fit:cover (the default) will crop
+   whatever doesn't fit, instead of guaranteeing the full image always
+   shows — that's the deliberate trade-off for independent control. */
+/* flex-grow ratio, not a fixed px width — two tiles sharing a row always
+   sum to exactly the row's width no matter the viewport, so this can
+   never overflow. Each tile's own flex-grow number below is still
+   independent: raise it and that tile claims more of the row, nothing
+   else needs to change, and the row still can't overflow by construction. */
+.task-bento-row-matched .task-bento-tile{flex-shrink:1;flex-basis:0%;min-width:0}
 
-.task-bento-tile{position:relative;border-radius:20px;overflow:hidden;background:var(--elevated);transition:transform .3s cubic-bezier(.16,.9,.3,1),box-shadow .3s ease}
+/* Images page */
+.task-bento-tile-objdet{aspect-ratio:881/311}
+.task-bento-tile.task-bento-tile-semantic{flex-grow:355;height:315px}
+.task-bento-tile.task-bento-tile-instance{flex-grow:462;height:315px}
+.task-bento-tile-doc{aspect-ratio:870/301}
+.task-bento-tile-imgclass{aspect-ratio:639/311}
+.task-bento-tile-keypoints{aspect-ratio:475/270}
+/* ── Text/NLP page — 4-column grid, 2 rows: RLHF (span 2) + 2 square
+   tiles, then 2 square tiles + Text Classification (span 2). Grid
+   columns are fr units, so the row's width is always divided exactly —
+   no fixed px, no possible overflow. align-items:start (NOT the grid
+   default "stretch") so each tile keeps its own natural height instead
+   of being forced to match its row-mates — that's deliberate: RLHF/Text
+   Classification use their real wide aspect-ratio (full image, no crop),
+   while the 4 "square" tiles are forced to aspect-ratio:1/1 with
+   object-fit:cover, since their real images are wide screenshots, not
+   square — cropping their sides is the unavoidable trade-off for an
+   actually-square box. TO MOVE A BOX: reorder its whole
+   <div class="task-bento-tile ..."> block — the grid fills left-to-right,
+   top-to-bottom in that order, same as the Images page's grid. */
+.task-bento-mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:clamp(200px,20vw,280px) clamp(200px,20vw,280px);gap:16px;align-items:start;margin-top:48px}
+/* Row 1 only (RLHF/NER/Summarization): align-self:stretch overrides the
+   grid's align-items:start, forcing these three to share the row's one
+   explicit height above instead of each using its own aspect-ratio —
+   guarantees their bottoms align and keeps the row the same scale as
+   the rest of the page. Trade-off: object-fit:cover (the default) now
+   crops whichever of the three doesn't exactly match that height,
+   instead of guaranteeing the full image on all three. */
+.task-bento-mosaic-fixed{align-self:stretch}
+.task-bento-mosaic-wide{grid-column:span 2}
+/* Matched to Text Classification's real height by the actual math, not a
+   guess: at a 4-column grid, a span-1 square's height = column-width/R,
+   and Text Classification's (span-2) height = (2×column-width+gap)/3.014
+   (its real ratio). Setting R≈1.47 makes those equal, so this bottom
+   edge lines up with Text Classification's without touching its width. */
+.task-bento-mosaic-rect{aspect-ratio:1.47}
+.task-bento-tile-textclass{aspect-ratio:874/290}
+@media(max-width:860px){
+  .task-bento-mosaic{grid-template-columns:repeat(2,1fr)}
+  .task-bento-mosaic-wide{grid-column:span 2}
+}
+@media(max-width:560px){
+  .task-bento-mosaic{grid-template-columns:1fr}
+  .task-bento-mosaic-wide{grid-column:span 1}
+}
+
+.task-bento-tile.task-bento-tile-transcription{width:100%;height:260px}
+.task-bento-tile.task-bento-tile-speaker{width:100%;height:200px}
+.task-bento-tile.task-bento-tile-emotion{width:100%;height:170px}
+.task-bento-tile.task-bento-tile-audioclass{width:100%;height:135px}
+.task-bento-tile.task-bento-tile-soundevent{flex-grow:400;height:270px}
+.task-bento-tile.task-bento-tile-audioseg{flex-grow:400;height:270px}
+
+/* ── Videos page — 4-column grid, DOM order only (no manual grid-column/
+   row placement needed): Instance Segmentation and Pose Tracking each
+   get grid-row:span 2, so grid auto-placement naturally slots them as
+   tall columns on the far left and far right, with the other 4 videos
+   auto-filling the 2×2 block in between — exactly the layout asked for.
+   All 6 clips are real 16:9 landscape video, so the two tall tiles
+   (1 column wide, 2 rows tall) can't show that shape uncropped — they're
+   deliberately a portrait-ish rectangle instead, and object-fit:cover
+   (the default) crops the video to fill it, same trade-off as a square
+   crop elsewhere on the site. Hover-to-play is initHoverPlayVideos() in
+   platform-motion.js — plays on mouseenter, pauses + resets to frame 0
+   on mouseleave, so every tile sits as a quiet preview frame until then. */
+.task-bento-video-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,clamp(180px,20vw,260px));gap:16px;margin-top:48px}
+.task-bento-video-tall{grid-row:span 2}
+@media(max-width:860px){
+  .task-bento-video-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(3,clamp(160px,30vw,220px))}
+  .task-bento-video-tall{grid-row:span 1}
+}
+@media(max-width:560px){
+  .task-bento-video-grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:220px}
+}
+
+.task-bento-tile{position:relative;width:100%;border-radius:20px;overflow:hidden;background:var(--elevated);transition:transform .3s cubic-bezier(.16,.9,.3,1),box-shadow .3s ease}
 .task-bento-tile:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(0,0,0,0.18)}
 
-.task-bento-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,.9,.3,1)}
-.task-bento-tile-contain img{object-fit:contain}
-.task-bento-tile:hover img{transform:scale(1.05)}
+.task-bento-tile img,.task-bento-tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.16,.9,.3,1)}
+.task-bento-tile:hover img,.task-bento-tile:hover video{transform:scale(1.05)}
 .task-bento-tile::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,0) 45%,rgba(0,0,0,0.75) 100%)}
 
+/* Theme-specific source images for a tile — same on/off switch as
+   .cloud-source-logo's logo-bright/logo-dark pair elsewhere on the site. */
+.task-bento-tile img.task-img-bright,.task-bento-tile img.task-img-dark,
+.task-bento-tile video.task-img-bright,.task-bento-tile video.task-img-dark{display:none}
+:root:not([data-theme="dark"]) .task-bento-tile img.task-img-bright,
+:root:not([data-theme="dark"]) .task-bento-tile video.task-img-bright{display:block}
+:root[data-theme="dark"] .task-bento-tile img.task-img-dark,
+:root[data-theme="dark"] .task-bento-tile video.task-img-dark{display:block}
+
+/* White on the light theme (over the fixed dark corner gradient above), flipped
+   to black on the dark theme — deliberately NOT matching --text, since these
+   sit over real photos/video, not page background. Some tiles are planned to
+   get theme-specific source images later, which is why this is set per theme
+   now rather than left as a single fixed color. */
 .task-bento-tile-label{
   position:absolute;right:22px;bottom:20px;z-index:1;max-width:70%;text-align:right;
   font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(16px,1.8vw,22px);
   letter-spacing:-0.01em;line-height:1.2;color:#fff;
 }
+:root[data-theme="dark"] .task-bento-tile-label{color:#000}
 
 @media(max-width:860px){
-  .task-bento{grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:minmax(220px,1fr);height:auto}
-  .task-bento-tile{min-height:220px}
-  .task-bento-tile-square{aspect-ratio:auto}
-}
-@media(max-width:560px){
-  .task-bento{grid-template-columns:1fr}
-  .task-bento-tile-wide{grid-column:span 1}
+  .task-bento{flex-direction:column}
+  .task-bento-row{flex-direction:column}
+  .task-bento-row-matched .task-bento-tile{flex:0 0 auto;width:100%;height:220px;min-height:220px}
 }
 
 /* FAQ — single-open accordion (initFaq in platform-motion.js). */

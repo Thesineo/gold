@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="AI-assisted image labelling which includes object detection, classification, segmentation, keypoints, and document/OCR, with human review in loop where it matters.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261009">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261009">
+<link rel="icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261011">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261011">
 </head>
 <body>
 
@@ -114,29 +114,35 @@
     </div>
 
     <div class="task-bento" data-reveal="zoom">
-      <div class="task-bento-tile task-bento-tile-wide">
-        <img src="/imgbgm/object-detection.png" alt="Object detection — AI-labeled bounding boxes on an image" loading="lazy">
-        <span class="task-bento-tile-label">Object Detection</span>
+      <div class="task-bento-col task-bento-col-wide">
+        <div class="task-bento-tile task-bento-tile-objdet">
+          <img src="/imgbgm/object-detection.png" alt="Object detection — AI-labeled bounding boxes on an image" loading="lazy">
+          <span class="task-bento-tile-label">Object Detection</span>
+        </div>
+        <div class="task-bento-row task-bento-row-matched">
+          <div class="task-bento-tile task-bento-tile-semantic">
+            <img src="/imgbgm/semantic.png" alt="Semantic segmentation — per-class pixel masks" loading="lazy">
+            <span class="task-bento-tile-label">Semantic Segmentation</span>
+          </div>
+          <div class="task-bento-tile task-bento-tile-instance">
+            <img src="/imgbgm/instance.png" alt="Instance segmentation — per-object pixel masks" loading="lazy">
+            <span class="task-bento-tile-label">Instance Segmentation</span>
+          </div>
+        </div>
       </div>
-      <div class="task-bento-tile">
-        <img src="/imgbgm/Image-classification.png" alt="Image classification — AI-assigned category label with confidence score" loading="lazy" style="object-position:center 68%">
-        <span class="task-bento-tile-label">Image Classification</span>
-      </div>
-      <div class="task-bento-tile task-bento-tile-square task-bento-tile-contain">
-        <img src="/imgbgm/Keypoint.png" alt="Keypoints — facial landmark detection" loading="lazy">
-        <span class="task-bento-tile-label">Keypoints</span>
-      </div>
-      <div class="task-bento-tile task-bento-tile-wide">
-        <img src="/imgbgm/instance.png" alt="Instance segmentation — per-object pixel masks" loading="lazy">
-        <span class="task-bento-tile-label">Instance Segmentation</span>
-      </div>
-      <div class="task-bento-tile task-bento-tile-wide">
-        <img src="/imgbgm/semantic.png" alt="Semantic segmentation — per-class pixel masks" loading="lazy">
-        <span class="task-bento-tile-label">Semantic Segmentation</span>
-      </div>
-      <div class="task-bento-tile task-bento-tile-contain">
-        <img src="/imgbgm/Document.png" alt="Document / OCR — extracted text regions with confidence scores" loading="lazy">
-        <span class="task-bento-tile-label">Document / OCR</span>
+      <div class="task-bento-col task-bento-col-narrow">
+        <div class="task-bento-tile task-bento-tile-doc">
+          <img src="/imgbgm/Document.png" alt="Document / OCR — extracted text regions with confidence scores" loading="lazy">
+          <span class="task-bento-tile-label">Document / OCR</span>
+        </div>
+        <div class="task-bento-tile task-bento-tile-imgclass">
+          <img src="/imgbgm/Image-classification.png" alt="Image classification — AI-assigned category label with confidence score" loading="lazy">
+          <span class="task-bento-tile-label">Image Classification</span>
+        </div>
+        <div class="task-bento-tile task-bento-tile-keypoints">
+          <img src="/imgbgm/Keypoint.png" alt="Keypoints — facial landmark detection" loading="lazy">
+          <span class="task-bento-tile-label">Keypoints</span>
+        </div>
       </div>
     </div>
   </div>
@@ -288,7 +294,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261009" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261009" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261011" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261011" defer></script>
 </body>
 </html>

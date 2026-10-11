@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="AI-assisted video labelling which includes object tracking, video classification, segmentation, temporal boundaries, frame annotation, and pose tracking, with human review where it matters.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261009">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261009">
+<link rel="icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261011">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261011">
 </head>
 <body>
 
@@ -113,22 +113,33 @@
       <h2 class="sec-title">A complete toolkit for video labelling</h2>
     </div>
 
-    <div class="task-switch" data-reveal="zoom">
-      <div class="task-switch-list">
-        <button class="task-switch-item is-active" type="button">Object Tracking</button>
-        <button class="task-switch-item" type="button">Video Classification</button>
-        <button class="task-switch-item" type="button">Instance Segmentation</button>
-        <button class="task-switch-item" type="button">Temporal Segmentation</button>
-        <button class="task-switch-item" type="button">Frame Annotation</button>
-        <button class="task-switch-item" type="button">Pose Tracking</button>
+    <div class="task-bento-video-grid" data-reveal="zoom">
+      <div class="task-bento-tile task-bento-video-tall task-bento-tile-instancesegvid">
+        <video src="/imgbgm/instancesegmentation.mp4" muted loop playsinline preload="metadata" aria-label="Instance segmentation — per-object pixel masks across frames"></video>
+        <span class="task-bento-tile-label">Instance Segmentation</span>
       </div>
-      <div class="task-switch-media">
-        <div class="task-switch-media-item has-media is-active"><video src="/imgbgm/objecttracking.mp4" autoplay loop muted playsinline aria-label="Object tracking — AI-tracked objects with consistent identity across frames"></video></div>
-        <div class="task-switch-media-item has-media"><video src="/imgbgm/videoclassification.mp4" autoplay loop muted playsinline aria-label="Video classification — AI-assigned category label across the clip"></video></div>
-        <div class="task-switch-media-item has-media"><video src="/imgbgm/instancesegmentation.mp4" autoplay loop muted playsinline aria-label="Instance segmentation — per-object pixel masks across frames"></video></div>
-        <div class="task-switch-media-item has-media"><video src="/imgbgm/temporalsegmentation.mp4" autoplay loop muted playsinline aria-label="Temporal segmentation — labeled scene boundaries across the timeline"></video></div>
-        <div class="task-switch-media-item has-media"><video src="/imgbgm/frameannotation.mp4" autoplay loop muted playsinline aria-label="Frame annotation — per-frame labels and bounding boxes"></video></div>
-        <div class="task-switch-media-item has-media"><video src="/imgbgm/posetracking.mp4" autoplay loop muted playsinline aria-label="Pose tracking — AI-tracked body keypoints across frames"></video></div>
+      <div class="task-bento-tile task-bento-tile-objecttracking">
+        <video src="/imgbgm/objecttracking.mp4" muted loop playsinline preload="metadata" aria-label="Object tracking — AI-tracked objects with consistent identity across frames"></video>
+        <span class="task-bento-tile-label">Object Tracking</span>
+      </div>
+      <div class="task-bento-tile task-bento-tile-videoclassification">
+        <video class="task-img-bright" src="/imgbgm/videoclassification-bright.mp4" muted loop playsinline preload="metadata" aria-label="Video classification — AI-assigned category label across the clip"></video>
+        <video class="task-img-dark" src="/imgbgm/videoclassification-dark.webm" muted loop playsinline preload="metadata" aria-label=""></video>
+        <span class="task-bento-tile-label">Video Classification</span>
+      </div>
+      <div class="task-bento-tile task-bento-video-tall task-bento-tile-posetracking">
+        <video src="/imgbgm/posetracking.mp4" muted loop playsinline preload="metadata" aria-label="Pose tracking — AI-tracked body keypoints across frames"></video>
+        <span class="task-bento-tile-label">Pose Tracking</span>
+      </div>
+      <div class="task-bento-tile task-bento-tile-temporalseg">
+        <video class="task-img-bright" src="/imgbgm/temporalsegmentation-bright.mp4" muted loop playsinline preload="metadata" aria-label="Temporal segmentation — labeled scene boundaries across the timeline"></video>
+        <video class="task-img-dark" src="/imgbgm/temporalsegmentation-dark.mp4" muted loop playsinline preload="metadata" aria-label=""></video>
+        <span class="task-bento-tile-label">Temporal Segmentation</span>
+      </div>
+      <div class="task-bento-tile task-bento-tile-frameannotation">
+        <video class="task-img-bright" src="/imgbgm/frameannotation-bright.mp4" muted loop playsinline preload="metadata" aria-label="Frame annotation — per-frame labels and bounding boxes"></video>
+        <video class="task-img-dark" src="/imgbgm/frameannotation-dark.mp4" muted loop playsinline preload="metadata" aria-label=""></video>
+        <span class="task-bento-tile-label">Frame Annotation</span>
       </div>
     </div>
   </div>
@@ -280,7 +291,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261009" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261009" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261011" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261011" defer></script>
 </body>
 </html>

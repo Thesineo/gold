@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="AI-assisted audio labelling includes transcription, classification, speaker diarization, emotion detection, sound event detection, and segmentation, with human reviews in loop where it matters.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261009">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261009">
+<link rel="icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261011">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261011">
 </head>
 <body>
 
@@ -112,47 +112,41 @@
       <h2 class="sec-title">A complete toolkit for automated audio labelling</h2>
     </div>
 
-    <div class="task-card-grid">
-      <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media"><img src="/imgbgm/transcription.png" alt="Transcription — AI-generated timestamped transcript with confidence score" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Transcription</div>
-          <div class="task-card-desc">Convert speech to accurate, timestamped text, ready to train or fine-tune speech models.</div>
+    <div class="task-bento" data-reveal="zoom">
+      <div class="task-bento-col task-bento-col-wide task-bento-audio-wide">
+        <div class="task-bento-row task-bento-row-matched">
+          <div class="task-bento-tile task-bento-tile-audioseg">
+            <img class="task-img-bright" src="/imgbgm/audiosegmentation-bright.png" alt="Audio segmentation — labeled temporal sections across a recording" loading="lazy">
+            <img class="task-img-dark" src="/imgbgm/audiosegmentation-dark.png" alt="" loading="lazy">
+            <span class="task-bento-tile-label">Audio Segmentation</span>
+          </div>
+          <div class="task-bento-tile task-bento-tile-soundevent">
+            <img class="task-img-bright" src="/imgbgm/soundeventdetection-bright.png" alt="Sound event detection — polyphonic event timeline with detected events" loading="lazy">
+            <img class="task-img-dark" src="/imgbgm/soundeventdetection-dark.png" alt="" loading="lazy">
+            <span class="task-bento-tile-label">Sound Event Detection</span>
+          </div>
+        </div>
+        <div class="task-bento-tile task-bento-tile-transcription">
+          <img class="task-img-bright" src="/imgbgm/transcription-bright.png" alt="Transcription — AI-generated timestamped transcript with confidence score" loading="lazy">
+          <img class="task-img-dark" src="/imgbgm/transcription-dark.png" alt="" loading="lazy">
+          <span class="task-bento-tile-label">Transcription</span>
         </div>
       </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media"><img src="/imgbgm/audioclassification.png" alt="Audio classification — AI-assigned category label with confidence score" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Audio Classification</div>
-          <div class="task-card-desc">Categorize entire audio files by content, source, or context with a single global label.</div>
+      <div class="task-bento-col task-bento-col-narrow">
+        <div class="task-bento-tile task-bento-tile-speaker">
+          <img class="task-img-bright" src="/imgbgm/speakerdiazartion-bright.png" alt="Speaker diarization — per-speaker timeline with transcript turns" loading="lazy">
+          <img class="task-img-dark" src="/imgbgm/speakerdiazartion-dark.png" alt="" loading="lazy">
+          <span class="task-bento-tile-label">Speaker Diarization</span>
         </div>
-      </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="2">
-        <div class="task-card-media"><img src="/imgbgm/speakerdiazartion.png" alt="Speaker diarization — per-speaker timeline with transcript turns" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Speaker Diarization</div>
-          <div class="task-card-desc">Identify and separate individual speakers across a recording, segment by segment.</div>
+        <div class="task-bento-tile task-bento-tile-emotion">
+          <img class="task-img-bright" src="/imgbgm/Emotiondetection-bright.png" alt="Emotion detection — detected emotion, sentiment, and intensity with transcript" loading="lazy">
+          <img class="task-img-dark" src="/imgbgm/Emotiondetection-dark.png" alt="" loading="lazy">
+          <span class="task-bento-tile-label">Emotion Detection</span>
         </div>
-      </div>
-      <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media"><img src="/imgbgm/Emotiondetection.png" alt="Emotion detection — detected emotion, sentiment, and intensity with transcript" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Emotion Detection</div>
-          <div class="task-card-desc">Detect emotional tone and sentiment shifts across speech segments, timestamp by timestamp.</div>
-        </div>
-      </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media"><img src="/imgbgm/soundeventdetection.png" alt="Sound event detection — polyphonic event timeline with detected events" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Sound Event Detection</div>
-          <div class="task-card-desc">Flag specific sound events — alarms, glass breaking, applause — wherever they occur in the file.</div>
-        </div>
-      </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="2">
-        <div class="task-card-media"><img src="/imgbgm/audiosegmentation.png" alt="Audio segmentation — labeled temporal sections across a recording" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Audio Segmentation</div>
-          <div class="task-card-desc">Break long recordings into labeled temporal segments for structured downstream training.</div>
+        <div class="task-bento-tile task-bento-tile-audioclass">
+          <img class="task-img-bright" src="/imgbgm/audioclassification-bright.png" alt="Audio classification — AI-assigned category label with confidence score" loading="lazy">
+          <img class="task-img-dark" src="/imgbgm/audioclassification-dark.png" alt="" loading="lazy">
+          <span class="task-bento-tile-label">Audio Classification</span>
         </div>
       </div>
     </div>
@@ -305,7 +299,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261009" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261009" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261011" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261011" defer></script>
 </body>
 </html>

@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="AI-assisted text labelling which includes RLHF preference ranking, named entity recognition, text classification, summarization, and question answering, with human review where it matters.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261009" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261009">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261009">
+<link rel="icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261011" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261011">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261011">
 </head>
 <body>
 
@@ -113,20 +113,36 @@
       <h2 class="sec-title">A complete toolkit for text labelling</h2>
     </div>
 
-    <div class="task-switch" data-reveal="zoom">
-      <div class="task-switch-list">
-        <button class="task-switch-item is-active" type="button">RLHF</button>
-        <button class="task-switch-item" type="button">Named Entity Recognition</button>
-        <button class="task-switch-item" type="button">Text Classification</button>
-        <button class="task-switch-item" type="button">Summarization</button>
-        <button class="task-switch-item" type="button">Question Answering</button>
+    <div class="task-bento-mosaic" data-reveal="zoom">
+      <div class="task-bento-tile task-bento-mosaic-wide task-bento-mosaic-fixed task-bento-tile-rlhf">
+        <img class="task-img-bright" src="/imgbgm/RLHF-bright.png" alt="RLHF preference ranking — AI decision with confidence score comparing two responses" loading="lazy">
+        <img class="task-img-dark" src="/imgbgm/RLHF-dark.png" alt="" loading="lazy">
+        <span class="task-bento-tile-label">RLHF</span>
       </div>
-      <div class="task-switch-media fits-image">
-        <div class="task-switch-media-item has-media is-active"><img src="/imgbgm/RLHF.png" alt="RLHF preference ranking — AI decision with confidence score comparing two responses" loading="lazy"></div>
-        <div class="task-switch-media-item has-media"><img src="/imgbgm/NER.png" alt="Named entity recognition — detected entities highlighted in text" loading="lazy"></div>
-        <div class="task-switch-media-item has-media"><img src="/imgbgm/textclassification.png" alt="Text classification — spam/non-spam label distribution and AI predictions" loading="lazy"></div>
-        <div class="task-switch-media-item has-media"><img src="/imgbgm/Summarization.png" alt="Summarization — original text with AI-generated summary and confidence score" loading="lazy"></div>
-        <div class="task-switch-media-item has-media"><img src="/imgbgm/QA.png" alt="Question answering — extracted answer with confidence score" loading="lazy"></div>
+      <div class="task-bento-tile task-bento-mosaic-fixed task-bento-tile-ner">
+        <img class="task-img-bright" src="/imgbgm/NER-bright.png" alt="Named entity recognition — detected entities highlighted in text" loading="lazy">
+        <img class="task-img-dark" src="/imgbgm/NER-dark.png" alt="" loading="lazy">
+        <span class="task-bento-tile-label">Named Entity Recognition</span>
+      </div>
+      <div class="task-bento-tile task-bento-mosaic-fixed task-bento-tile-summarization">
+        <img class="task-img-bright" src="/imgbgm/Summarization-bright.png" alt="Summarization — original text with AI-generated summary and confidence score" loading="lazy">
+        <img class="task-img-dark" src="/imgbgm/Summarization-dark.png" alt="" loading="lazy">
+        <span class="task-bento-tile-label">Summarization</span>
+      </div>
+      <div class="task-bento-tile task-bento-mosaic-rect task-bento-mosaic-fixed task-bento-tile-qa">
+        <img class="task-img-bright" src="/imgbgm/QA-bright.png" alt="Question answering — extracted answer with confidence score" loading="lazy">
+        <img class="task-img-dark" src="/imgbgm/QA-dark.png" alt="" loading="lazy">
+        <span class="task-bento-tile-label">Question Answering</span>
+      </div>
+      <div class="task-bento-tile task-bento-mosaic-rect task-bento-mosaic-fixed task-bento-tile-relationextraction">
+        <img class="task-img-bright" src="/imgbgm/relationextraction-bright.png" alt="Relation extraction — extracted entity relations from clinical text" loading="lazy">
+        <img class="task-img-dark" src="/imgbgm/relationextraction-dark.png" alt="" loading="lazy">
+        <span class="task-bento-tile-label">Relation Extraction</span>
+      </div>
+      <div class="task-bento-tile task-bento-mosaic-wide task-bento-mosaic-fixed task-bento-tile-textclass">
+        <img class="task-img-bright" src="/imgbgm/textclassification-bright.png" alt="Text classification — spam/non-spam label distribution and AI predictions" loading="lazy">
+        <img class="task-img-dark" src="/imgbgm/textclassification-dark.png" alt="" loading="lazy">
+        <span class="task-bento-tile-label">Text Classification</span>
       </div>
     </div>
   </div>
@@ -278,7 +294,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261009" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261009" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261011" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261011" defer></script>
 </body>
 </html>

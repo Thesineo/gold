@@ -1458,6 +1458,19 @@
     });
   }
 
+  function initHoverPlayVideos() {
+    var videos = document.querySelectorAll('.task-bento-tile video, .task-bento-mosaic-tile video');
+    videos.forEach(function (video) {
+      var tile = video.closest('.task-bento-tile, .task-bento-mosaic-tile');
+      if (!tile) return;
+      tile.addEventListener('mouseenter', function () { video.play(); });
+      tile.addEventListener('mouseleave', function () {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+  }
+
   function init() {
     initLayerScroll();
     initEngineScroll();
@@ -1468,6 +1481,7 @@
     initOverviewScroll();
     initSpotlightCards('.depth-tile');
     initTaskSwitch();
+    initHoverPlayVideos();
     initFaq();
   }
 
