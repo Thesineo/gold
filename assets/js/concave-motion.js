@@ -940,6 +940,14 @@
     });
   }
 
+  /* ── Recipe grid pixel field (Transform page "Operations"): same
+     renderer again, no icon key — the existing SVG icon stays as the
+     actual symbol, this is only the faint ambient dot texture behind it. */
+  function initRecipeCanvases() {
+    var canvases = document.querySelectorAll('.recipe-card-canvas');
+    canvases.forEach(function (canvas) { initWhoCanvas(canvas, null); });
+  }
+
   /* ── Closed-loop diagram: a dotted pixel ring with a comet-trail dot that
      continuously travels it, plus a faint interior data field — the same
      chaotic/structured pixel language, applied to the "loop never stops"
@@ -1340,6 +1348,7 @@
     initModalityBranches();
     initWhoBlocks();
     initReviewBento();
+    initRecipeCanvases();
     initLoopCanvas(document.querySelector('.loop-canvas'));
     initHeroMosaic();
     initParticleField('hero-canvas', 'flow');

@@ -963,6 +963,480 @@
     tick();
   }
 
+  /* ── Transform page "What It Does" diagram — a rotating sphere of
+     connected nodes (an abstract "AI brain" / neural network), standing
+     in for an actual anatomical brain which would read as crude at this
+     scale. Points are a Fibonacci sphere (even spacing, no lat/lon
+     pinching at the poles); each connects to its few nearest neighbours,
+     giving the mesh look without an O(n²) line count. Same project/
+     depth-alpha language as the other wireframes on this page. */
+  function initNeuralSphere(canvas) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    var W, H, R, nodes, edges;
+    var NODE_COUNT = 70, NEIGHBORS = 3;
+
+    function buildNodes() {
+      nodes = [];
+      var golden = Math.PI * (3 - Math.sqrt(5));
+      for (var i = 0; i < NODE_COUNT; i++) {
+        var y = 1 - (i / (NODE_COUNT - 1)) * 2;
+        var radiusAtY = Math.sqrt(Math.max(0, 1 - y * y));
+        var theta = golden * i;
+        nodes.push({ x: Math.cos(theta) * radiusAtY, y: y, z: Math.sin(theta) * radiusAtY });
+      }
+      edges = [];
+      for (var a = 0; a < nodes.length; a++) {
+        var dists = [];
+        for (var b = 0; b < nodes.length; b++) {
+          if (a === b) continue;
+          var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y, dz = nodes[a].z - nodes[b].z;
+          dists.push({ i: b, d: dx * dx + dy * dy + dz * dz });
+        }
+        dists.sort(function (p, q) { return p.d - q.d; });
+        for (var k = 0; k < NEIGHBORS; k++) {
+          var pair = [a, dists[k].i].sort(function (p, q) { return p - q; });
+          var key = pair[0] + '-' + pair[1];
+          if (edges._seen && edges._seen[key]) continue;
+          if (!edges._seen) edges._seen = {};
+          edges._seen[key] = true;
+          edges.push(pair);
+        }
+      }
+    }
+
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      R = Math.min(W, H) * 0.42;
+    }
+    resize();
+    buildNodes();
+    window.addEventListener('resize', resize);
+
+    function project(p, cosR, sinR, cosX, sinX, cx, cy) {
+      var xr = p.x * cosR + p.z * sinR;
+      var zr = p.z * cosR - p.x * sinR;
+      var yr = p.y * cosX - zr * sinX;
+      var zr2 = zr * cosX + p.y * sinX;
+      var persp = 1 / (1 - zr2 * 0.35);
+      return { x: cx + xr * R * persp, y: cy - yr * R * persp, depth: zr2 };
+    }
+
+    function draw(rotY, tiltX) {
+      ctx.clearRect(0, 0, W, H);
+      if (W < 2 || H < 2) return;
+      var rgb = fgRGB();
+      var cx = W / 2, cy = H / 2;
+      var cosR = Math.cos(rotY), sinR = Math.sin(rotY);
+      var cosX = Math.cos(tiltX), sinX = Math.sin(tiltX);
+      var proj = nodes.map(function (p) { return project(p, cosR, sinR, cosX, sinX, cx, cy); });
+
+      for (var e = 0; e < edges.length; e++) {
+        var a = proj[edges[e][0]], b = proj[edges[e][1]];
+        var avgDepth = (a.depth + b.depth) / 2;
+        var alpha = 0.06 + Math.max(0, (avgDepth + 1) / 2) * 0.34;
+        ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(2) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+      for (var i = 0; i < proj.length; i++) {
+        var p = proj[i];
+        var depthT = Math.max(0, Math.min(1, (p.depth + 1) / 2));
+        var alpha2 = 0.18 + depthT * 0.7;
+        var size = 1.6 + depthT * 2.2;
+        ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha2.toFixed(2) + ')';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    if (prefersReduced) {
+      draw(0.6, 0.3);
+      document.addEventListener('concave:themechange', function () { draw(0.6, 0.3); });
+      return;
+    }
+
+    var rotY = 0;
+    function tick() {
+      requestAnimationFrame(tick);
+      rotY += 0.0045;
+      draw(rotY, 0.3);
+    }
+    tick();
+  }
+
+  /* ── Shared geometry: a geodesic sphere (subdivided icosahedron) — the
+     dense, rigid, triangulated-mesh look, built from a real subdivision
+     algorithm (not hand-placed points), so the density and structure
+     are mathematically consistent at any zoom. Each page below uses it
+     differently (full sphere vs. a dome cut from the same mesh) so
+     neither repeats the other. */
+  function buildGeodesicSphere(subdivisions) {
+    var t = (1 + Math.sqrt(5)) / 2;
+    var raw = [
+      [-1, t, 0], [1, t, 0], [-1, -t, 0], [1, -t, 0],
+      [0, -1, t], [0, 1, t], [0, -1, -t], [0, 1, -t],
+      [t, 0, -1], [t, 0, 1], [-t, 0, -1], [-t, 0, 1]
+    ];
+    var verts = raw.map(function (v) {
+      var len = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+      return { x: v[0] / len, y: v[1] / len, z: v[2] / len };
+    });
+    var faces = [
+      [0, 11, 5], [0, 5, 1], [0, 1, 7], [0, 7, 10], [0, 10, 11],
+      [1, 5, 9], [5, 11, 4], [11, 10, 2], [10, 7, 6], [7, 1, 8],
+      [3, 9, 4], [3, 4, 2], [3, 2, 6], [3, 6, 8], [3, 8, 9],
+      [4, 9, 5], [2, 4, 11], [6, 2, 10], [8, 6, 7], [9, 8, 1]
+    ];
+    var midCache = {};
+    function midpoint(i1, i2) {
+      var key = Math.min(i1, i2) + '_' + Math.max(i1, i2);
+      if (midCache[key] !== undefined) return midCache[key];
+      var a = verts[i1], b = verts[i2];
+      var mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, mz = (a.z + b.z) / 2;
+      var len = Math.sqrt(mx * mx + my * my + mz * mz);
+      verts.push({ x: mx / len, y: my / len, z: mz / len });
+      var idx = verts.length - 1;
+      midCache[key] = idx;
+      return idx;
+    }
+    for (var s = 0; s < subdivisions; s++) {
+      var next = [];
+      faces.forEach(function (f) {
+        var ab = midpoint(f[0], f[1]), bc = midpoint(f[1], f[2]), ca = midpoint(f[2], f[0]);
+        next.push([f[0], ab, ca], [f[1], bc, ab], [f[2], ca, bc], [ab, bc, ca]);
+      });
+      faces = next;
+    }
+    var edgeSeen = {};
+    var edges = [];
+    faces.forEach(function (f) {
+      [[f[0], f[1]], [f[1], f[2]], [f[2], f[0]]].forEach(function (pair) {
+        var key = Math.min(pair[0], pair[1]) + '_' + Math.max(pair[0], pair[1]);
+        if (!edgeSeen[key]) { edgeSeen[key] = true; edges.push(pair); }
+      });
+    });
+    return { verts: verts, edges: edges };
+  }
+
+  /* ── Label page "What It Does" diagram — a geodesic dome: the lower
+     half of the mesh is cut away, standing for the single decision
+     threshold that splits every item above it from everything below. */
+  function initGeoDome(canvas) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    var mesh = buildGeodesicSphere(2);
+    var edges = mesh.edges.filter(function (e) {
+      return mesh.verts[e[0]].y > -0.08 && mesh.verts[e[1]].y > -0.08;
+    });
+
+    var W, H, R;
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      R = Math.min(W, H) * 0.44;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function project(p, cosR, sinR, cx, cy) {
+      var xr = p.x * cosR + p.z * sinR;
+      var zr = p.z * cosR - p.x * sinR;
+      var persp = 1 / (1 - zr * 0.35);
+      return { x: cx + xr * R * persp, y: cy - p.y * R * persp, depth: zr };
+    }
+
+    function draw(rotY) {
+      ctx.clearRect(0, 0, W, H);
+      if (W < 2 || H < 2) return;
+      var rgb = fgRGB();
+      var cx = W / 2, cy = H / 2;
+      var cosR = Math.cos(rotY), sinR = Math.sin(rotY);
+      edges.forEach(function (e) {
+        var a = project(mesh.verts[e[0]], cosR, sinR, cx, cy);
+        var b = project(mesh.verts[e[1]], cosR, sinR, cx, cy);
+        var avgDepth = (a.depth + b.depth) / 2;
+        var alpha = 0.1 + Math.max(0, (avgDepth + 1) / 2) * 0.45;
+        ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(2) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      });
+    }
+
+    if (prefersReduced) {
+      draw(0.6);
+      document.addEventListener('concave:themechange', function () { draw(0.6); });
+      return;
+    }
+    var rotY = 0;
+    function tick() {
+      requestAnimationFrame(tick);
+      rotY += 0.0018;
+      draw(rotY);
+    }
+    tick();
+  }
+
+  /* ── Version page "What It Does" diagram — the full geodesic sphere:
+     a single rigid, triangulated, immutable structure, standing for a
+     committed version — complete and locked, not a loose assembly. */
+  function initGeoSphereFull(canvas) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    var mesh = buildGeodesicSphere(2);
+
+    var W, H, R;
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      R = Math.min(W, H) * 0.42;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function project(p, cosR, sinR, cx, cy) {
+      var xr = p.x * cosR + p.z * sinR;
+      var zr = p.z * cosR - p.x * sinR;
+      var persp = 1 / (1 - zr * 0.35);
+      return { x: cx + xr * R * persp, y: cy - p.y * R * persp, depth: zr };
+    }
+
+    function draw(rotY) {
+      ctx.clearRect(0, 0, W, H);
+      if (W < 2 || H < 2) return;
+      var rgb = fgRGB();
+      var cx = W / 2, cy = H / 2;
+      var cosR = Math.cos(rotY), sinR = Math.sin(rotY);
+      mesh.edges.forEach(function (e) {
+        var a = project(mesh.verts[e[0]], cosR, sinR, cx, cy);
+        var b = project(mesh.verts[e[1]], cosR, sinR, cx, cy);
+        var avgDepth = (a.depth + b.depth) / 2;
+        var alpha = 0.08 + Math.max(0, (avgDepth + 1) / 2) * 0.42;
+        ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(2) + ')';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      });
+    }
+
+    if (prefersReduced) {
+      draw(0.6);
+      document.addEventListener('concave:themechange', function () { draw(0.6); });
+      return;
+    }
+    var rotY = 0;
+    function tick() {
+      requestAnimationFrame(tick);
+      rotY += 0.0018;
+      draw(rotY);
+    }
+    tick();
+  }
+
+
+
+  /* ── Observe page "What It Does" diagram — a torus with a comet dot
+     circling it continuously: the observability loop that never stops,
+     made literal rather than metaphorical. */
+  function initFeedbackTorus(canvas) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    var W, H, R;
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      R = Math.min(W, H) * 0.4;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var MAJOR = 1, MINOR = 0.32, RINGS = 28, TUBE = 10;
+    function torusPoint(u, v) {
+      var x = (MAJOR + MINOR * Math.cos(v)) * Math.cos(u);
+      var z = (MAJOR + MINOR * Math.cos(v)) * Math.sin(u);
+      var y = MINOR * Math.sin(v);
+      return { x: x, y: y, z: z };
+    }
+    function project(p, cosR, sinR, cosX, sinX, cx, cy) {
+      var xr = p.x * cosR + p.z * sinR;
+      var zr = p.z * cosR - p.x * sinR;
+      var yr = p.y * cosX - zr * sinX;
+      var zr2 = zr * cosX + p.y * sinX;
+      var persp = 1 / (1 - zr2 * 0.35);
+      return { x: cx + xr * R * persp, y: cy - yr * R * persp, depth: zr2 };
+    }
+    function strokePts(pts, cosR, sinR, cosX, sinX, cx, cy, rgb) {
+      var proj = pts.map(function (p) { return project(p, cosR, sinR, cosX, sinX, cx, cy); });
+      var avgDepth = 0;
+      proj.forEach(function (p) { avgDepth += p.depth; });
+      avgDepth /= proj.length;
+      var alpha = 0.06 + Math.max(0, (avgDepth + 1) / 2) * 0.4;
+      ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(2) + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      proj.forEach(function (p, i) { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+      ctx.stroke();
+    }
+
+    function draw(rotY, cometT) {
+      ctx.clearRect(0, 0, W, H);
+      if (W < 2 || H < 2) return;
+      var rgb = fgRGB();
+      var cx = W / 2, cy = H / 2;
+      var cosR = Math.cos(rotY), sinR = Math.sin(rotY);
+      var cosX = Math.cos(0.5), sinX = Math.sin(0.5);
+
+      for (var i = 0; i < RINGS; i++) {
+        var u = (i / RINGS) * Math.PI * 2;
+        var pts = [];
+        for (var j = 0; j <= TUBE; j++) pts.push(torusPoint(u, (j / TUBE) * Math.PI * 2));
+        strokePts(pts, cosR, sinR, cosX, sinX, cx, cy, rgb);
+      }
+      for (var k = 0; k < TUBE; k++) {
+        var v2 = (k / TUBE) * Math.PI * 2;
+        var pts2 = [];
+        for (var m = 0; m <= RINGS; m++) pts2.push(torusPoint((m / RINGS) * Math.PI * 2, v2));
+        strokePts(pts2, cosR, sinR, cosX, sinX, cx, cy, rgb);
+      }
+      var cometP = torusPoint(cometT, 0);
+      var proj = project(cometP, cosR, sinR, cosX, sinX, cx, cy);
+      var depthT = Math.max(0, Math.min(1, (proj.depth + 1) / 2));
+      ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + (0.5 + depthT * 0.5).toFixed(2) + ')';
+      ctx.beginPath();
+      ctx.arc(proj.x, proj.y, 2.5 + depthT * 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (prefersReduced) {
+      draw(0.6, 0);
+      document.addEventListener('concave:themechange', function () { draw(0.6, 0); });
+      return;
+    }
+    var rotY = 0, cometT = 0;
+    function tick() {
+      requestAnimationFrame(tick);
+      rotY += 0.003;
+      cometT += 0.02;
+      draw(rotY, cometT);
+    }
+    tick();
+  }
+
+  /* ── Govern page "What It Does" diagram — a literal chain: alternating
+     interlocked rings, standing for the immutable, linked audit trail. */
+  function initAuditChain(canvas) {
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    var W, H, R;
+    function resize() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      R = Math.min(W, H) * 0.4;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var LINKS = 6, SPACING = 0.34, LINK_R = 0.26, TUBE_R = 0.09, SEGS = 22, TUBE_SEGS = 10;
+    function linkPoint(linkIndex, u, v, vertical) {
+      var cx0 = (linkIndex - (LINKS - 1) / 2) * SPACING;
+      var baseX, baseY, baseZ;
+      if (!vertical) {
+        baseX = Math.cos(u) * (LINK_R + TUBE_R * Math.cos(v));
+        baseY = Math.sin(u) * (LINK_R + TUBE_R * Math.cos(v));
+        baseZ = TUBE_R * Math.sin(v);
+      } else {
+        baseX = TUBE_R * Math.sin(v);
+        baseY = Math.sin(u) * (LINK_R + TUBE_R * Math.cos(v));
+        baseZ = Math.cos(u) * (LINK_R + TUBE_R * Math.cos(v));
+      }
+      return { x: cx0 + baseX, y: baseY, z: baseZ };
+    }
+    function project(p, cosR, sinR, cx, cy) {
+      var xr = p.x * cosR + p.z * sinR;
+      var zr = p.z * cosR - p.x * sinR;
+      var persp = 1 / (1 - zr * 0.35);
+      return { x: cx + xr * R * persp, y: cy - p.y * R * persp, depth: zr };
+    }
+    function strokePts(pts, cosR, sinR, cx, cy, rgb) {
+      var proj = pts.map(function (p) { return project(p, cosR, sinR, cx, cy); });
+      var avgDepth = 0;
+      proj.forEach(function (p) { avgDepth += p.depth; });
+      avgDepth /= proj.length;
+      var alpha = 0.08 + Math.max(0, (avgDepth + 1) / 2) * 0.5;
+      ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(2) + ')';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      proj.forEach(function (p, i) { if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+      ctx.stroke();
+    }
+
+    function draw(rotY) {
+      ctx.clearRect(0, 0, W, H);
+      if (W < 2 || H < 2) return;
+      var rgb = fgRGB();
+      var cx = W / 2, cy = H / 2;
+      var cosR = Math.cos(rotY), sinR = Math.sin(rotY);
+
+      for (var l = 0; l < LINKS; l++) {
+        var vertical = l % 2 === 1;
+        for (var t = 0; t < TUBE_SEGS; t++) {
+          var v = (t / TUBE_SEGS) * Math.PI * 2;
+          var pts = [];
+          for (var u = 0; u <= SEGS; u++) pts.push(linkPoint(l, (u / SEGS) * Math.PI * 2, v, vertical));
+          strokePts(pts, cosR, sinR, cx, cy, rgb);
+        }
+      }
+    }
+
+    if (prefersReduced) {
+      draw(0.6);
+      document.addEventListener('concave:themechange', function () { draw(0.6); });
+      return;
+    }
+    var rotY = 0;
+    function tick() {
+      requestAnimationFrame(tick);
+      rotY += 0.0035;
+      draw(rotY);
+    }
+    tick();
+  }
+
   /* ── Observe page: loop-panel rectangle dot + card highlighting ──
      The dot used to be a pure SMIL animateMotion riding a path drawn in a
      fixed 1200x700 viewBox with preserveAspectRatio="none" — fine while
@@ -1476,6 +1950,11 @@
     initEngineScroll();
     initGovernScroll();
     initPacketWireframe(document.getElementById('bestCanvas'));
+    initNeuralSphere(document.getElementById('transformCanvas'));
+    initGeoDome(document.getElementById('labelCanvas'));
+    initGeoSphereFull(document.getElementById('versionCanvas'));
+    initFeedbackTorus(document.getElementById('observeCanvas'));
+    initAuditChain(document.getElementById('governCanvas'));
     initInfinityWireframe(document.getElementById('infinityCanvas'));
     initLoopPanel();
     initOverviewScroll();

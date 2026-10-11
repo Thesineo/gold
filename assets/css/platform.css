@@ -261,6 +261,24 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    full-width paragraph like every section below it. */
 .intro-center{text-align:center;min-height:52vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
 @media(max-width:768px){.intro-center{min-height:0}}
+
+/* ── Intro diagram panel (Transform page "What It Does") — a 60/40 split:
+   the same text content that used to sit alone in .intro-center, now
+   paired with the exact same rotating wireframe diagram used on the
+   platform page's "Why Datalier" section (initPacketWireframe, reused
+   as-is via the shared #bestCanvas id — no JS change needed). Plain
+   monochrome box, no colour, matching how that diagram already looks
+   elsewhere on the site. */
+.intro-diagram-panel{display:flex;align-items:center;gap:64px}
+.intro-diagram-copy{flex:1 1 60%;min-width:0}
+.intro-diagram-copy .lead-text{margin-top:20px}
+.intro-diagram-box{flex:0 0 36%;aspect-ratio:5/4}
+.intro-diagram-box canvas,.intro-diagram-box video{width:100%;height:100%;display:block;object-fit:cover}
+@media(max-width:860px){
+  .intro-diagram-panel{flex-direction:column-reverse;gap:36px}
+  .intro-diagram-copy{flex:1 1 auto;text-align:center}
+  .intro-diagram-box{flex:0 0 auto;width:100%;max-width:340px}
+}
 .intro-center .sec-eyebrow{display:block}
 .intro-center .lead-text{max-width:700px;margin-left:auto;margin-right:auto}
 
@@ -281,14 +299,24 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .recipe-group-label{font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;text-align:center}
 .recipe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
 .recipe-grid.cols-2{grid-template-columns:1fr 1fr;gap:20px}
-.recipe-card{background:var(--elevated);border:1px solid var(--border);border-radius:16px;padding:24px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.recipe-card{position:relative;background:var(--elevated);border:1px solid var(--border);border-radius:16px;padding:24px;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
 .recipe-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,0.09);border-color:var(--text-dimmer)}
-.recipe-card-icon{width:38px;height:38px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--text);transition:background .3s ease,color .3s ease}
+/* .recipe-grid-elevated (Transform page "Operations"): the three former
+   sub-groups (Core Cleaning / AI Enrichment / Multimodal Extraction)
+   flattened into one 3×3 grid, each card lifted with a permanent shadow
+   instead of only on hover, and a faint pixel-dot field (same
+   initWhoCanvas renderer as the homepage's who-blocks, just with no icon
+   key so it only draws the plain ambient dot texture, no drawn shape)
+   behind the existing SVG icon/title/body, which are unchanged. */
+.recipe-grid-elevated .recipe-card{overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,0.07)}
+.recipe-grid-elevated .recipe-card:hover{box-shadow:0 20px 42px rgba(0,0,0,0.13)}
+.recipe-card-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.recipe-card-icon{position:relative;z-index:1;width:38px;height:38px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--text);transition:background .3s ease,color .3s ease}
 .recipe-card-icon svg{width:18px;height:18px}
 .recipe-card:hover .recipe-card-icon{background:var(--text);color:var(--bg)}
-.recipe-card-title{font-size:15.5px;font-weight:400;color:var(--text);margin-bottom:8px;letter-spacing:-0.005em}
+.recipe-card-title{position:relative;z-index:1;font-size:15.5px;font-weight:400;color:var(--text);margin-bottom:8px;letter-spacing:-0.005em}
 .recipe-grid.cols-2 .recipe-card-title{font-size:17px;margin-bottom:12px}
-.recipe-card-body{font-size:13.5px;color:var(--text-dim);line-height:1.6}
+.recipe-card-body{position:relative;z-index:1;font-size:13.5px;color:var(--text-dim);line-height:1.6}
 @media(max-width:900px){.recipe-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.recipe-grid{grid-template-columns:1fr}.recipe-grid.cols-2{grid-template-columns:1fr}}
 
