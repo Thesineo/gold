@@ -103,11 +103,96 @@
   </div>
 </section>
 
-<section class="pad" style="padding-top:0">
+<section class="pad" style="padding-top:0;margin-top:-40px">
   <div class="sec-inner">
-    <div class="intro-center" data-reveal>
-      <span class="sec-eyebrow">How Routing Works</span>
-      <p class="lead-text">Every item is scored with a confidence value between 0.00 and 0.99, issued by the engine that labeled it. Once the task crosses the configured threshold, the label stands on its own falling short, and the item is queued for a human eye. That threshold bends to the dataset loosen it for tasks that are complicated, tighten it for precision. Three numbers tell you how the balance is holding the auto-label rate, the human review rate, and the correction rate, the share of AI labels a reviewer choice to overrule.</p>
+    <div class="feature-head" data-reveal>
+      <h2 class="sec-title">Driving forces behind the Data Labelling layer</h2>
+    </div>
+  </div>
+  <div class="feature-track-wrap" data-reveal="zoom">
+    <div class="feature-track">
+      <div class="feature-marquee">
+        <div class="feature-card">
+          <div class="feature-card-title">Progressive In-Run Contextual Grounding</div>
+          <p class="feature-card-desc">Auto-labelling passes continuously draw on previously verified examples within the same dataset as grounding context. Label consistency compounds dynamically across millions of items rather than deciding every row in isolation.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Deterministic Inference Execution</div>
+          <p class="feature-card-desc">Enforces strict execution parameters tuned for mathematical reproducibility rather than creative variance. Running identical raw inputs under the same configuration produces identical label outputs without drift across processing runs.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Asynchronous Row Timeout Isolation</div>
+          <p class="feature-card-desc">Isolates every row behind its own strict execution timeout boundary. A single stuck, corrupted, or unresponsive data point instantly downgrades to a flagged exception without blocking downstream batch throughput.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Exact Spend Reconciliation</div>
+          <p class="feature-card-desc">Reserves compute spend upfront and reconciles charges strictly against successfully processed rows. Interrupted, partial, or failed execution passes are never billed at full campaign completion rates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Low-Cost Configuration Sandboxing</div>
+          <p class="feature-card-desc">Test, evaluate, and fine-tune auto-labelling configurations on a low-cost sandbox tier before committing to full dataset execution. Validates pipeline accuracy and schema alignment before burning large-scale compute resources.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Self-Correcting Task &amp; Schema Reconciliation</div>
+          <p class="feature-card-desc">Reconciles underlying dataset structures against requested label schemas in real time. Automatically flags mismatched or stale configurations before execution, preventing silent generation of invalid label output.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Every Label is Tagged</div>
+          <p class="feature-card-desc">Every label records its exact generating engine at the task level. When execution paths split or fallback engines trigger mid-run, it preserves per-task distinction rather than flattening metadata so reviewers can instantly trace the exact model version responsible for any output.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Semantic Representation Ingestion</div>
+          <p class="feature-card-desc">Processes underlying vector embeddings and semantic representations rather than relying on surface-level keyword matching. Delivers deep context retrieval and annotation consistency across complex multimodal data.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Fault-Isolated Row Containment</div>
+          <p class="feature-card-desc">Contains processing errors strictly to the specific row where they occur. Prevents individual edge-case failures from escalating into pipeline crashes or losing progress on previously completed work.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-title">Horizontal Scale Architecture</div>
+          <p class="feature-card-desc">Maintains steady execution behavior and processing speed whether running 10 rows or 10 million rows. Eliminates performance degradation and latency bottlenecks as dataset volume scales.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Progressive In-Run Contextual Grounding</div>
+          <p class="feature-card-desc">Auto-labelling passes continuously draw on previously verified examples within the same dataset as grounding context. Label consistency compounds dynamically across millions of items rather than deciding every row in isolation.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Deterministic Inference Execution</div>
+          <p class="feature-card-desc">Enforces strict execution parameters tuned for mathematical reproducibility rather than creative variance. Running identical raw inputs under the same configuration produces identical label outputs without drift across processing runs.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Asynchronous Row Timeout Isolation</div>
+          <p class="feature-card-desc">Isolates every row behind its own strict execution timeout boundary. A single stuck, corrupted, or unresponsive data point instantly downgrades to a flagged exception without blocking downstream batch throughput.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Exact Spend Reconciliation</div>
+          <p class="feature-card-desc">Reserves compute spend upfront and reconciles charges strictly against successfully processed rows. Interrupted, partial, or failed execution passes are never billed at full campaign completion rates.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Low-Cost Configuration Sandboxing</div>
+          <p class="feature-card-desc">Test, evaluate, and fine-tune auto-labelling configurations on a low-cost sandbox tier before committing to full dataset execution. Validates pipeline accuracy and schema alignment before burning large-scale compute resources.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Self-Correcting Task &amp; Schema Reconciliation</div>
+          <p class="feature-card-desc">Reconciles underlying dataset structures against requested label schemas in real time. Automatically flags mismatched or stale configurations before execution, preventing silent generation of invalid label output.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Immutable Provenance Logging</div>
+          <p class="feature-card-desc">Captures input data, model configurations, operator identities, and execution parameters into a permanent, queryable audit log. Turns every labelling pass into an immutable record of data provenance.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Semantic Representation Ingestion</div>
+          <p class="feature-card-desc">Processes underlying vector embeddings and semantic representations rather than relying on surface-level keyword matching. Delivers deep context retrieval and annotation consistency across complex multimodal data.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Fault-Isolated Row Containment</div>
+          <p class="feature-card-desc">Contains processing errors strictly to the specific row where they occur. Prevents individual edge-case failures from escalating into pipeline crashes or losing progress on previously completed work.</p>
+        </div>
+        <div class="feature-card" aria-hidden="true">
+          <div class="feature-card-title">Horizontal Scale Architecture</div>
+          <p class="feature-card-desc">Maintains steady execution behavior and processing speed whether running 10 rows or 10 million rows. Eliminates performance degradation and latency bottlenecks as dataset volume scales.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -183,26 +268,42 @@
     <div class="center-head" data-reveal>
       <h2 class="sec-title">Annotation - Review</h2>
     </div>
-    <div class="recipe-grid cols-2">
-      <div class="recipe-card" data-reveal="slide-left">
-        <div class="recipe-card-title">Human Review Interface</div>
-        <div class="recipe-card-body">Human expertise completes what algorithmic confidence cannot. A keyboard-native review stream surfaces model predictions instantly, enabling reviewers to validate, adjust, or discard outputs in under five seconds, up to six times faster than legacy platforms while applying precise error taxonomy with a single keystroke.</div>
+    <div class="review-bento" data-reveal="zoom">
+      <div class="review-card">
+        <canvas class="review-card-canvas" data-icon="confidenceRank" aria-hidden="true"></canvas>
+        <div class="review-card-title">Outcome-Driven Queue Dispatch</div>
+        <div class="review-card-desc">Automatically orders the review queue based on which edge cases will most shift model performance. Bypasses arrival-time queueing to surface critical, high-impact data points directly to reviewers first.</div>
       </div>
-      <div class="recipe-card" data-reveal="slide-right">
-        <div class="recipe-card-title">Quality Measurement</div>
-        <div class="recipe-card-body">Quality is empirically verified, not assumed. Every processing cycle generates an auditor-grade readiness score built on inter-annotator agreement, calibrated confidence intervals, and label distribution metrics, all fully traceable back through the dataset’s versioning & lineage.</div>
+      <div class="review-card">
+        <canvas class="review-card-canvas" data-icon="document2" aria-hidden="true"></canvas>
+        <div class="review-card-title">Contextual Correction Reasoning</div>
+        <div class="review-card-desc">Captures both the manual label fix and the reviewer's underlying rationale simultaneously. Every label override attaches a structured explanation to the edit, preventing ambiguous ground-truth changes.</div>
+      </div>
+      <div class="review-card">
+        <canvas class="review-card-canvas" data-icon="warningFlag" aria-hidden="true"></canvas>
+        <div class="review-card-title">Real-Time Inline Conflict Detection</div>
+        <div class="review-card-desc">Flags overlapping bounding boxes, conflicting annotations, or contradictory predictions directly inside the active editor view. Resolves data ambiguities in real time during review rather than discovering them later in post-hoc audits.</div>
+      </div>
+      <div class="review-card">
+        <canvas class="review-card-canvas" data-icon="geospatial" aria-hidden="true"></canvas>
+        <div class="review-card-title">Scrutiny-Preserving Bulk Actions</div>
+        <div class="review-card-desc">Approves verified, high-confidence inferences in bulk while automatically routing uncertain edge cases to individual manual inspection. Scales throughput speed without compromising review rigor.</div>
+      </div>
+      <div class="review-card">
+        <canvas class="review-card-canvas" data-icon="agriculture" aria-hidden="true"></canvas>
+        <div class="review-card-title">Visual Confidence Ranking</div>
+        <div class="review-card-desc">Visually ranks and highlights items in the queue by model uncertainty before a reviewer opens them. Allows annotators to instantly spot low-confidence inferences needing scrutiny at a glance.</div>
+      </div>
+      <div class="review-card">
+        <canvas class="review-card-canvas" data-icon="energy" aria-hidden="true"></canvas>
+        <div class="review-card-title">Embedded Quality Telemetry</div>
+        <div class="review-card-desc">Embeds quality validation checks silently directly inside the active review queue. Continuously measures label accuracy during normal workflows without requiring separate, external audit processes.</div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="pad" style="padding-top:0">
-  <div class="sec-inner">
-    <div class="layer-hero-media has-media full-bleed-media" data-reveal="zoom" aria-hidden="true">
-      <video src="/imgbgm/annotation.mp4" autoplay loop muted playsinline></video>
-    </div>
-  </div>
-</section>
+
 
 <section class="cta-final">
   <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
