@@ -802,7 +802,9 @@
     var drawIcon = WHO_ICONS[iconKey];
 
     function fgRGB() {
-      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (opts && opts.invert) isDark = !isDark;
+      return isDark ? [250, 250, 248] : [10, 10, 10];
     }
 
     var W, H, cells, mask;
@@ -946,6 +948,16 @@
   function initRecipeCanvases() {
     var canvases = document.querySelectorAll('.recipe-card-canvas');
     canvases.forEach(function (canvas) { initWhoCanvas(canvas, null); });
+  }
+
+  /* ── Govern page "Why It Matters" circles: same ambient dot-field
+     renderer, but each circle's own fill is already inverted (a var
+     (--text) disc with var(--bg) text on it), so the dots need to be
+     drawn in the INVERTED color too (opts.invert) or they'd vanish
+     into a same-color background. */
+  function initGovernWhyCircles() {
+    var canvases = document.querySelectorAll('.govern-why-canvas');
+    canvases.forEach(function (canvas) { initWhoCanvas(canvas, null, { invert: true }); });
   }
 
   /* ── Closed-loop diagram: a dotted pixel ring with a comet-trail dot that
@@ -1370,6 +1382,7 @@
     initWhoBlocks();
     initReviewBento();
     initRecipeCanvases();
+    initGovernWhyCircles();
     initLoopCanvas(document.querySelector('.loop-canvas'));
     initHeroMosaic();
     initParticleField('hero-canvas', 'flow');
