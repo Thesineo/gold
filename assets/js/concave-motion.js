@@ -796,7 +796,7 @@
   /* ── Who-block texture: pixel-dot field (same language as the platform
      canvas), with density boosted inside the rasterized icon mask so the
      shape reads as a denser cluster of dots against a sparse ambient field. */
-  function initWhoCanvas(canvas, iconKey) {
+  function initWhoCanvas(canvas, iconKey, opts) {
     if (!canvas) return;
     var ctx = canvas.getContext('2d');
     var drawIcon = WHO_ICONS[iconKey];
@@ -806,7 +806,7 @@
     }
 
     var W, H, cells, mask;
-    var CELL = 5, GAP = 2;
+    var CELL = (opts && opts.cell) || 5, GAP = (opts && opts.gap) || 2;
 
     function buildMask() {
       if (!drawIcon) { mask = null; return; }
@@ -1201,7 +1201,28 @@
     { type: 'image', src: '/imgbgm/screen6.png' },
     { type: 'image', src: '/imgbgm/screen7.png' },
     { type: 'image', src: '/imgbgm/screen8.png' },
-    { type: 'video', src: '/imgbgm/lscreenvideo.mp4' }
+    { type: 'video', src: '/imgbgm/lscreenvideo.mp4' },
+    { type: 'video', src: '/imgbgm/new1.mp4' },
+    { type: 'video', src: '/imgbgm/new-10.mp4' },
+    { type: 'video', src: '/imgbgm/new-11.mp4' },
+    { type: 'image', src: '/imgbgm/new-2.png' },
+    { type: 'image', src: '/imgbgm/new-3.png' },
+    { type: 'image', src: '/imgbgm/new-4.png' },
+    { type: 'image', src: '/imgbgm/new-5.png' },
+    { type: 'image', src: '/imgbgm/new-6.png' },
+    { type: 'image', src: '/imgbgm/new-7.png' },
+    { type: 'image', src: '/imgbgm/new-8.png' },
+    { type: 'image', src: '/imgbgm/new-9.png' },
+    { type: 'image', src: '/imgbgm/audioclassification-dark.png' },
+    { type: 'image', src: '/imgbgm/audiosegmentation-bright.png' },
+    { type: 'image', src: '/imgbgm/speakerdiazartion-bright.png' },
+    { type: 'image', src: '/imgbgm/transcription-bright.png' },
+    { type: 'image', src: '/imgbgm/NER-dark.png' },
+    { type: 'image', src: '/imgbgm/QA-bright.png' },
+    { type: 'image', src: '/imgbgm/relationextraction-dark.png' },
+    { type: 'video', src: '/imgbgm/temporalsegmentation-dark.mp4' },
+    { type: 'video', src: '/imgbgm/frameannotation-bright.mp4' },
+    { type: 'image', src: '/imgbgm/instance.png' }
   ];
 
   /* Slots are generated on load, not hand-placed — an ellipse/ring of fixed

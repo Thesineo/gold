@@ -1897,26 +1897,6 @@
     });
   }
 
-  /* ── Cursor-tracked spotlight for feature-tile grids ──
-     Sets --mx/--my (the mouse position relative to the element, in px) on
-     mousemove; the CSS side uses them as the center of a radial-gradient
-     glow that's only visible on :hover. Generic/selector-driven so any
-     future card grid can opt in by just passing its selector — currently
-     used for the Observe page's "Platform Capabilities" tiles. Skipped
-     entirely under prefers-reduced-motion, same as this file's other
-     cursor- or scroll-reactive effects. */
-  function initSpotlightCards(selector) {
-    if (prefersReduced) return;
-    var cards = document.querySelectorAll(selector);
-    cards.forEach(function (card) {
-      card.addEventListener('mousemove', function (e) {
-        var r = card.getBoundingClientRect();
-        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-      });
-    });
-  }
-
   /* ── FAQ accordion — single item open at a time. ── */
   function initFaq() {
     var items = document.querySelectorAll('.faq-item');
@@ -1930,6 +1910,123 @@
         if (!wasOpen) item.classList.add('is-open');
       });
     });
+  }
+
+  /* ── Version page "Resolutions" radial diagram: 6 nodes bound by
+     spokes to a fixed center hub. The whole ring orbits the hub at a
+     slow constant angular speed (continuous revolution), while each
+     node's on-screen size cycles through a 6-step rank order — one
+     node is biggest, the next is next-biggest, and so on — smoothly
+     interpolated frame-to-frame so the "biggest" rank visibly travels
+     one step around the ring every cycle, forever. Canvas draws the
+     spokes + node dots each frame; the number/title labels are the
+     real DOM nodes already in the page, repositioned via transform to
+     track the canvas-computed coordinates, so text stays crisp and
+     theme-aware instead of being rasterized. */
+  function initResolutionOrbit(root) {
+    if (!root) return;
+    var canvas = root.querySelector('.resolution-orbit-canvas');
+    var nodeEls = root.querySelectorAll('.resolution-orbit-node');
+    if (!canvas || !nodeEls.length) return;
+    var ctx = canvas.getContext('2d');
+    var N = nodeEls.length;
+    var numEls = [], titleEls = [], descEls = [];
+    nodeEls.forEach(function (el) {
+      numEls.push(el.querySelector('.resolution-orbit-num'));
+      titleEls.push(el.querySelector('.resolution-orbit-title'));
+      descEls.push(el.querySelector('.resolution-orbit-desc'));
+    });
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    /* Diameters as fractions of the container's own min dimension, same
+       for orbitR, so the ring radius and the node sizes it must clear
+       scale together — no overlap at any breakpoint without per-size
+       tuning. Sized to hold a full title + short description inside
+       each circle (not just a number/title label). */
+    var MAX_DIAM_FACTOR = 0.32, MIN_DIAM_FACTOR = 0.175;
+    var ORBIT_FACTOR = 0.32;
+    var TOP_ANGLE = -Math.PI / 2;
+
+    var W, H, cx, cy, orbitR, maxSize, minSize;
+    function resize() {
+      var rect = root.getBoundingClientRect();
+      W = canvas.width = rect.width;
+      H = canvas.height = rect.height;
+      cx = W / 2;
+      cy = H / 2;
+      var minWH = Math.min(W, H);
+      orbitR = minWH * ORBIT_FACTOR;
+      maxSize = minWH * MAX_DIAM_FACTOR;
+      minSize = minWH * MIN_DIAM_FACTOR;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw(t) {
+      if (W < 2 || H < 2) return;
+      ctx.clearRect(0, 0, W, H);
+      var rgb = fgRGB();
+      var rotation = t * 0.00022;
+
+      for (var i = 0; i < N; i++) {
+        var angle = (i / N) * Math.PI * 2 - Math.PI / 2 + rotation;
+        var x = cx + Math.cos(angle) * orbitR;
+        var y = cy + Math.sin(angle) * orbitR;
+
+        /* Size is driven purely by position on the ring, not by which
+           node this is — 1 at the top, 0 at the bottom, continuously
+           interpolated as the ring rotates, so whichever node is
+           currently nearest the top is always the biggest and whoever
+           is at the bottom is always the smallest. */
+        var topness = (Math.cos(angle - TOP_ANGLE) + 1) / 2;
+        var size = minSize + (maxSize - minSize) * topness;
+
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(x, y);
+        ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',0.16)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        var el = nodeEls[i];
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        /* Padding is set here in px, scaled to this node's own `size`,
+           rather than in CSS as a percentage — a percentage padding on
+           an absolutely-positioned element resolves against its
+           positioned ANCESTOR's width (the whole diagram), not its own
+           size, so every node was getting the same fixed padding
+           regardless of how big or small it currently is. */
+        el.style.padding = (size * 0.1) + 'px';
+        el.style.transform = 'translate(' + (x - size / 2) + 'px,' + (y - size / 2) + 'px)';
+        var titleSize = Math.max(10.5, size * 0.085);
+        var descSize = Math.max(7.5, size * 0.044);
+        numEls[i].style.fontSize = Math.max(8, size * 0.07) + 'px';
+        titleEls[i].style.fontSize = titleSize + 'px';
+        descEls[i].style.fontSize = descSize + 'px';
+        /* Max-height tracks this node's own current size (not a flat
+           line count), so the description reveals more as the node
+           grows toward the top of the ring and clips tighter while
+           it's small near the bottom — consistent with "biggest at
+           top, smallest at bottom" rather than fighting it. */
+        descEls[i].style.maxHeight = (size * 0.4) + 'px';
+      }
+    }
+
+    if (prefersReduced) {
+      draw(0);
+      document.addEventListener('concave:themechange', function () { draw(0); });
+      return;
+    }
+
+    function tick(ts) {
+      requestAnimationFrame(tick);
+      draw(ts);
+    }
+    requestAnimationFrame(tick);
   }
 
   function initHoverPlayVideos() {
@@ -1953,12 +2050,12 @@
     initNeuralSphere(document.getElementById('transformCanvas'));
     initGeoDome(document.getElementById('labelCanvas'));
     initGeoSphereFull(document.getElementById('versionCanvas'));
+    initResolutionOrbit(document.querySelector('.resolution-orbit'));
     initFeedbackTorus(document.getElementById('observeCanvas'));
     initAuditChain(document.getElementById('governCanvas'));
     initInfinityWireframe(document.getElementById('infinityCanvas'));
     initLoopPanel();
     initOverviewScroll();
-    initSpotlightCards('.depth-tile');
     initTaskSwitch();
     initHoverPlayVideos();
     initFaq();
