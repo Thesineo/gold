@@ -108,8 +108,8 @@
 <!-- 3. ELONGATED DIAGRAM — extends the platform page's Import section -->
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="cloud-panel" data-reveal="zoom">
-      <div class="cloud-diagram">
+    <div class="cloud-panel cloud-panel-bare" data-reveal="zoom">
+      <div class="cloud-diagram cloud-integration-diagram">
         <svg class="cloud-diagram-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
           <path id="cloudPath1" d="M100,24 C200,24 230,150 340,150"/>
           <path id="cloudPath2" d="M100,84 C200,84 230,150 340,150"/>
@@ -192,23 +192,43 @@
   </div>
 </section>
 
-<!-- 4. TWO FEATURE BOXES -->
-<section class="pad" style="padding-top:0">
+<!-- 4. SEVEN INTEGRATION FEATURES — floating node orbit -->
+<section class="pad" style="padding-top:36px">
   <div class="sec-inner">
-    <div class="task-card-grid cols-2">
-      <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media wide"><img src="/imgbgm/source1.png" alt="Connect a new source — AWS S3, Google GCS, Azure Blob, Hugging Face, PostgreSQL, Snowflake, MongoDB, REST API, or Webhook" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Multimodal data integration</div>
-          <div class="task-card-desc">Seamlessly upload datasets in form of Images, video, audio, text, and documents, into datalier by connecting your hosting datasource through Dataliers API & SDK integration.</div>
-        </div>
+    <div class="center-head" data-reveal>
+      <span class="sec-eyebrow">Integration Depth</span>
+      <h2 class="sec-title">Seven ways Datalier plugs into your cloud stack</h2>
+    </div>
+    <div class="feature-orbit" data-reveal>
+      <canvas class="feature-orbit-canvas" aria-hidden="true"></canvas>
+      <div class="feature-orbit-hub">CLOUD</div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Native Multi-Cloud Storage Protocol Support</div>
+        <div class="feature-orbit-desc">Direct API clients for AWS S3, Google Cloud Storage, Azure Blob, and MinIO, bypassing generic middleware abstractions to stream data seamlessly between your object stores and the execution canvas.</div>
       </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media wide"><img src="/imgbgm/source2.png" alt="Connection setup form — host, port, database, username, and password, with test and connect" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Governed from the first stance</div>
-          <div class="task-card-desc">Every dataset inherits from access rules, audit logging, and retention policy from source the moment it's connected, compliance isn't a separate step.</div>
-        </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Direct Warehouse &amp; Database Connectors</div>
+        <div class="feature-orbit-desc">Native, zero-ETL connections to PostgreSQL, MySQL, MongoDB, and Snowflake, enabling direct ingestion from existing data warehouses without manual export or intermediary staging routines.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Deterministic Compute Billing</div>
+        <div class="feature-orbit-desc">Real-time credit reservation with exact post-execution settlement, guaranteeing billing is bound precisely to consumed compute cycles, eliminating estimated charges and post-run cost surprises.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Cryptographic Outbound Event Verification</div>
+        <div class="feature-orbit-desc">Cryptographically signs every egress payload with SHA-256 HMAC tokens prior to dispatch allowing downstream receivers to deterministically authenticate payload provenance and prevent spoofing.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Isolated Event Fan-Out Architecture</div>
+        <div class="feature-orbit-desc">Decoupled event distribution across Email, Slack, In-App, and Webhooks, engineered with independent execution paths to prevent cascading failures across communication channels.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Source-Level Security &amp; APM Observability</div>
+        <div class="feature-orbit-desc">Real-time application performance tracking featuring automated source-level redaction of credentials and PII, delivering deep pipeline observability without leaking sensitive enterprise data.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Bi-Directional HTTP Integration Bridge</div>
+        <div class="feature-orbit-desc">Full-duplex REST API and Webhook interfaces that interface with any custom or legacy architecture, providing a robust, enterprise-grade HTTP transport bridge for non-standard endpoints.</div>
       </div>
     </div>
   </div>

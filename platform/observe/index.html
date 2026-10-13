@@ -98,6 +98,7 @@
   <div class="sec-inner">
     <div class="intro-diagram-panel" data-reveal>
       <div class="intro-diagram-copy">
+        <canvas class="intro-diagram-copy-canvas" aria-hidden="true"></canvas>
         <span class="sec-eyebrow">What It Does</span>
         <p class="lead-text">The observability layer creates a loop for ML lifecycle by continuously mapping production model performance directly back to foundational training data. When deployed models exhibit drift or edge-case failures, the system diagnoses root-cause degradation at the data tier rather than the architecture level. It automatically initiates an active learning feedback loop that routes edge cases through human-in-the-loop validation, commits a newly versioned dataset, and streams remediated training data directly into active retraining pipelines.</p>
       </div>

@@ -293,7 +293,9 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    .sec-inner's standard content padding — the two "boxes" stacked
    vertically read as aligned instead of staggered. Desktop only: the
    stacked mobile layout below is centered/full-width already. */
-.intro-diagram-copy{flex:1 1 70%;min-width:0;background:var(--invert-bg);color:var(--invert-text);padding:48px 46px 48px 94px;margin-left:-48px;border-radius:20px}
+.intro-diagram-copy{position:relative;overflow:hidden;flex:1 1 70%;min-width:0;background:var(--invert-bg);color:var(--invert-text);padding:48px 46px 48px 94px;margin-left:-48px;border-radius:20px}
+.intro-diagram-copy-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.intro-diagram-copy .sec-eyebrow,.intro-diagram-copy .lead-text{position:relative;z-index:1}
 .intro-diagram-copy .sec-eyebrow{color:rgba(var(--bg-rgb),0.55)}
 .intro-diagram-copy .lead-text{margin-top:20px;color:rgba(var(--bg-rgb),0.88)}
 .intro-diagram-box{flex:0 0 30%;position:relative}
@@ -449,6 +451,39 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 @media(max-width:480px){
   .resolution-orbit{max-width:400px}
 }
+
+/* ── MLOps page "Integration Depth": 8 nodes floating freely around a
+   fixed center hub — unlike .resolution-orbit's single rotating ring,
+   each node here wanders its own angle AND radius independently (like
+   a balloon on a string, drifting, never snapping back), while its
+   size pulses on its own independent cycle (nothing synchronized, no
+   fixed "biggest slot") between a small "heading only" state and a
+   big "heading + description" state. Connecting lines are drawn as a
+   zigzag, not a straight spoke. All math lives in initFeatureOrbit
+   (platform-motion.js); width/height/padding/position/font-size here
+   are all driven by JS per frame, same reason as .resolution-orbit —
+   percentage padding on an absolutely-positioned element resolves
+   against its positioned ANCESTOR, not itself, so padding must be set
+   in px from the node's own live size. Hovering the whole diagram
+   freezes the animation clock; leaving resumes it from where it froze. */
+.feature-orbit{position:relative;width:100%;max-width:1240px;aspect-ratio:1/1;margin:80px auto 40px}
+.feature-orbit-canvas{position:absolute;inset:0;width:100%;height:100%}
+.feature-orbit-hub{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;
+  background:var(--invert-bg);color:var(--invert-text);white-space:nowrap;
+  padding:16px 26px;border-radius:14px;font-weight:600;font-size:15px;letter-spacing:-0.01em;
+  box-shadow:0 18px 40px rgba(0,0,0,0.16);
+}
+.feature-orbit-node{
+  position:absolute;top:0;left:0;z-index:1;border-radius:50%;overflow:hidden;box-sizing:border-box;
+  background:var(--invert-bg);color:var(--invert-text);
+  display:flex;flex-direction:column;align-items:stretch;justify-content:center;text-align:center;
+  pointer-events:auto;cursor:default;box-shadow:0 14px 30px rgba(0,0,0,0.14);
+}
+.feature-orbit-title{flex:0 0 auto;margin-top:3px;font-weight:600;line-height:1.2;color:var(--invert-text);overflow-wrap:break-word}
+.feature-orbit-desc{flex:0 1 auto;margin:6px auto 0;font-weight:400;line-height:1.28;color:rgba(var(--bg-rgb),0.76);max-width:78%;overflow:hidden}
+@media(max-width:1300px){.feature-orbit{max-width:94vw}}
+@media(max-width:760px){.feature-orbit{max-width:94vw;margin-top:56px}}
 
 /* ── Pill row — connectors, formats, tags ── */
 .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
@@ -621,28 +656,50 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
   .govern-why-circle{width:84vw;height:84vw;max-width:300px;max-height:300px}
 }
 
-/* Same light/dark theme behavior as every other section on the site —
-   no inversion here, unlike a dramatic-contrast section elsewhere. */
-.what-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
-.what-card{background:var(--elevated);border:1px solid var(--border);border-radius:16px;padding:38px 30px}
-.what-card-num{font-size:12px;font-weight:700;letter-spacing:0.1em;color:var(--text-dimmer);margin-bottom:18px}
-.what-card-title{font-family:'Inter',sans-serif;font-weight:400;font-size:19px;color:var(--text);margin-bottom:12px;letter-spacing:-0.01em}
-.what-card-body{font-size:14.5px;color:var(--text-dim);line-height:1.7}
-@media(max-width:900px){.what-grid{grid-template-columns:1fr}}
+/* "What We Do" — three circles instead of plain cards, same inverted
+   fill + pixel-dot texture as the Govern page's "Why It Matters"
+   circles (initWhatCircles in concave-motion.js, reusing initWhoCanvas
+   with opts.invert so the dots read against the inverted background).
+   Content is unchanged — just the num/title/body stacked inside a
+   disc instead of a rounded-rect card. */
+.what-circle-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:48px;margin-top:8px}
+.what-circle{
+  position:relative;width:320px;height:320px;flex:0 0 auto;border-radius:50%;overflow:hidden;
+  background:var(--invert-bg);color:var(--invert-text);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  box-shadow:0 20px 50px rgba(0,0,0,0.16);
+}
+.what-circle-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.what-circle-num{position:relative;z-index:1;font-size:12px;font-weight:700;letter-spacing:0.1em;color:rgba(var(--bg-rgb),0.6)}
+.what-circle-title{position:relative;z-index:1;font-family:'Inter',sans-serif;font-weight:600;font-size:18px;color:var(--invert-text);margin-top:8px;margin-bottom:10px;letter-spacing:-0.01em}
+.what-circle-body{position:relative;z-index:1;font-size:13.5px;color:rgba(var(--bg-rgb),0.76);line-height:1.6;max-width:76%}
+@media(max-width:1060px){.what-circle{width:280px;height:280px}}
+@media(max-width:860px){.what-circle-grid{gap:32px}.what-circle{width:250px;height:250px}.what-circle-body{font-size:12.5px}}
+@media(max-width:560px){.what-circle{width:82vw;height:82vw;max-width:300px;max-height:300px}}
 
 .mission-statement{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(20px,2.4vw,28px);letter-spacing:-0.01em;line-height:1.4;color:var(--text);max-width:980px;margin:0 auto;text-align:center}
 .mission-sub{font-size:17px;color:var(--text-dim);line-height:1.7;max-width:640px;margin:28px auto 0;text-align:center}
 .mission-media-placeholder{max-width:900px;margin:48px auto 0}
 
-.values-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.value-box{position:relative;overflow:hidden;background:var(--elevated);border:1px solid var(--border);border-radius:16px;padding:36px 26px;text-align:center;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s ease,box-shadow .35s ease}
-.value-box:hover{transform:translateY(-8px);border-color:var(--text);box-shadow:0 22px 44px rgba(var(--text-rgb),0.08)}
-.value-box-icon{width:52px;height:52px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--text);transition:transform .4s cubic-bezier(.2,.8,.2,1),background .3s ease,color .3s ease}
+/* Values — same inverted fill + pixel-dot texture as the "What We Do"
+   circles above, just square (rounded-rect) instead of round, per an
+   explicit ask to keep these two sibling sections visually distinct by
+   shape while sharing the same "advanced" treatment. initValueBoxes in
+   concave-motion.js wires the canvases, same invert-aware renderer. */
+.values-row{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.value-box{
+  position:relative;overflow:hidden;background:var(--invert-bg);color:var(--invert-text);
+  border-radius:18px;padding:36px 26px;text-align:center;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;
+}
+.value-box:hover{transform:translateY(-8px);box-shadow:0 22px 44px rgba(0,0,0,0.2)}
+.value-box-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.value-box-icon{position:relative;z-index:1;width:52px;height:52px;border-radius:50%;border:1px solid rgba(var(--bg-rgb),0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--invert-text);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
 .value-box-icon svg{width:23px;height:23px}
-.value-box:hover .value-box-icon{transform:rotate(-8deg) scale(1.08);background:var(--invert-bg);color:var(--invert-text)}
-.value-box-title{font-family:'Inter',sans-serif;font-weight:400;font-size:17px;color:var(--text);margin-bottom:10px;letter-spacing:-0.005em}
-.value-box-body{font-size:14px;color:var(--text-dim);line-height:1.65}
-.value-box::after{content:'';position:absolute;left:50%;bottom:0;width:0;height:2px;background:var(--text);transition:width .4s ease,left .4s ease}
+.value-box:hover .value-box-icon{transform:rotate(-8deg) scale(1.08)}
+.value-box-title{position:relative;z-index:1;font-family:'Inter',sans-serif;font-weight:600;font-size:17px;color:var(--invert-text);margin-bottom:10px;letter-spacing:-0.005em}
+.value-box-body{position:relative;z-index:1;font-size:14px;color:rgba(var(--bg-rgb),0.76);line-height:1.65}
+.value-box::after{content:'';position:absolute;z-index:1;left:50%;bottom:0;width:0;height:2px;background:var(--invert-text);transition:width .4s ease,left .4s ease}
 .value-box:hover::after{width:56%;left:22%}
 @media(max-width:900px){.values-row{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.values-row{grid-template-columns:1fr}}
@@ -1113,7 +1170,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 }
 @media(max-width:560px){.who-blocks{padding:0 24px}}
 
-/* ── Review bento (Label page "Annotation - Review") — a STATIC grid
+/* ── Review bento (Label page "Annotation Capabilities Supporting Beyond Labelling") — a STATIC grid
    version of the who-block pixel-mask card: 3 per row, each a tall
    vertical rectangle, each with its own permanently-drawn icon in the
    dot field (no accordion expand/contract like .who-block — hover only
@@ -1223,6 +1280,16 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
    dotted-background frame (.cloud-diagram) carrying the visual weight. */
 .cloud-panel.cloud-panel-bare{background:none;border:none;padding:0;box-shadow:none}
 .cloud-diagram{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background-color:var(--bg);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px;border:1px solid var(--border)}
+/* MLOps feedback-loop diagram: its SVG content is drawn on a 400×300
+   (4:3) viewBox with preserveAspectRatio="none", so stretching it to
+   the standard 16:9 box (1.78 vs 1.33) distorted it into a visibly
+   elongated shape. A closer-to-native ratio keeps it looking like a
+   normal diagram instead of stretched taffy. */
+.cloud-diagram.mlops-diagram{aspect-ratio:3/2;background:none;background-image:none;border:none}
+/* Cloud Integration diagram — same bare treatment: no card behind it,
+   no dotted background inside it, and square instead of the wide
+   16:9 default since its SVG content reads cleaner at 1:1. */
+.cloud-diagram.cloud-integration-diagram{aspect-ratio:1/1;background:none;background-image:none;border:none}
 .cloud-diagram-svg{position:absolute;inset:0;width:100%;height:100%}
 .cloud-diagram-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
 .cloud-flow-dot{fill:var(--text)}

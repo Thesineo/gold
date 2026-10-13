@@ -108,8 +108,8 @@
 <!-- 3. ELONGATED DIAGRAM — extends the platform page's Feedback Loop / Export section -->
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="cloud-panel" data-reveal="zoom">
-      <div class="cloud-diagram">
+    <div class="cloud-panel cloud-panel-bare" data-reveal="zoom">
+      <div class="cloud-diagram mlops-diagram">
         <svg class="cloud-diagram-svg mlops-diagram-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
           <path id="mlopsPath1" d="M100,150 C200,150 230,78 340,78"/>
           <path id="mlopsPath2" d="M100,150 C200,150 230,102 340,102"/>
@@ -191,23 +191,47 @@
   </div>
 </section>
 
-<!-- 4. TWO FEATURE BOXES -->
-<section class="pad" style="padding-top:0">
+<!-- 4. EIGHT INTEGRATION FEATURES — floating node orbit -->
+<section class="pad" style="padding-top:36px">
   <div class="sec-inner">
-    <div class="task-card-grid cols-2">
-      <div class="task-card" data-reveal="zoom">
-        <div class="task-card-media compact"><img src="/imgbgm/drfitleft.png" alt="Connect Training Platform — SageMaker, Vertex AI, Azure ML, HuggingFace, LangSmith, Webhook, and REST API" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Drift caught before it compounds</div>
-          <div class="task-card-desc">Every prediction cycles are logged and compared against ground truth. The moment accuracy drops below threshold, the affected data is flagged automatically, reducing the fix time from days into minutes.</div>
-        </div>
+    <div class="center-head" data-reveal>
+      <span class="sec-eyebrow">Integration Depth</span>
+      <h2 class="sec-title">Eight ways Datalier plugs into your stack</h2>
+    </div>
+    <div class="feature-orbit" data-reveal>
+      <canvas class="feature-orbit-canvas" aria-hidden="true"></canvas>
+      <div class="feature-orbit-hub">MLOPS</div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Programmatic Job Execution</div>
+        <div class="feature-orbit-desc">Launches and polls native training jobs directly on ML platform post-correction closing the execution loop within your existing infrastructure instead of handing off passive webhooks.</div>
       </div>
-      <div class="task-card" data-reveal="zoom" data-reveal-delay="1">
-        <div class="task-card-media compact"><img src="/imgbgm/drift.png" alt="Predictions tab — upload/paste, import from storage, or stream predictions in via webhook" loading="lazy"></div>
-        <div class="task-card-body">
-          <div class="task-card-title">Get multiple training platforms integrated.</div>
-          <div class="task-card-desc">Effortlessly connect multiple training and ML platform with datalier to automate the feedback loop and improve model accuracy, with frictional manual intervention.</div>
-        </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Automated Ingestion from Live Production Runtimes</div>
+        <div class="feature-orbit-desc">Direct, continuous telemetry capture from SageMaker Data Capture, Vertex AI, Azure ML, HuggingFace, and LangSmith eliminating manual, error-prone export routines.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Explicit Approval Gates for Automated Retraining</div>
+        <div class="feature-orbit-desc">Enforces mandatory human verification prior to launching downstream training runs, pairing end-to-end automation with strict governance where it impacts production.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Statistical Drift Monitoring</div>
+        <div class="feature-orbit-desc">Computes PSI directly on real-time prediction streams leveraging industry-standard statistical metrics trusted by risk and compliance teams over heuristic approximations.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Standardized Demographic-Parity Compliance</div>
+        <div class="feature-orbit-desc">Calculates real-time demographic parity metrics powered by Fairlearn, replacing proprietary internal scores with externally grounded, auditable fairness baselines.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Source-Level Root-Cause Diagnostics</div>
+        <div class="feature-orbit-desc">Traces performance drops and model decay directly back to corrupt or drifted data slices delivering actionable root-cause provenance rather than surface-level alerts.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Framework-Native Export Engine</div>
+        <div class="feature-orbit-desc">Outputs production-ready datasets natively in COCO, YOLO, SQuAD, CoNLL, and DPO formats, eliminating custom format transformation steps between correction and retraining.</div>
+      </div>
+      <div class="feature-orbit-node">
+        <div class="feature-orbit-title">Bi-Directional Lineage with Instant Rollback</div>
+        <div class="feature-orbit-desc">Tracks every dataset mutation with complete state versioning and instant rollback capabilities ensuring flawed correction passes never require a from-scratch dataset rebuild.</div>
       </div>
     </div>
   </div>

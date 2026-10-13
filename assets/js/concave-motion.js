@@ -960,6 +960,26 @@
     canvases.forEach(function (canvas) { initWhoCanvas(canvas, null, { invert: true }); });
   }
 
+  /* ── About page "What We Do" circles and "Values" boxes: same
+     inverted-fill pixel-dot treatment as the Govern circles above,
+     just reused on a different page/shape. */
+  function initWhatCircles() {
+    var canvases = document.querySelectorAll('.what-circle-canvas');
+    canvases.forEach(function (canvas) { initWhoCanvas(canvas, null, { invert: true }); });
+  }
+  function initValueBoxes() {
+    var canvases = document.querySelectorAll('.value-box-canvas');
+    canvases.forEach(function (canvas) { initWhoCanvas(canvas, null, { invert: true }); });
+  }
+
+  /* ── Platform pages' "What It Does" black intro panel: same inverted
+     pixel-dot texture, reused across Transform/Label/Version/Observe/
+     Govern since they all share .intro-diagram-copy. */
+  function initIntroDiagramCopy() {
+    var canvases = document.querySelectorAll('.intro-diagram-copy-canvas');
+    canvases.forEach(function (canvas) { initWhoCanvas(canvas, null, { invert: true }); });
+  }
+
   /* ── Closed-loop diagram: a dotted pixel ring with a comet-trail dot that
      continuously travels it, plus a faint interior data field — the same
      chaotic/structured pixel language, applied to the "loop never stops"
@@ -1383,6 +1403,9 @@
     initReviewBento();
     initRecipeCanvases();
     initGovernWhyCircles();
+    initWhatCircles();
+    initValueBoxes();
+    initIntroDiagramCopy();
     initLoopCanvas(document.querySelector('.loop-canvas'));
     initHeroMosaic();
     initParticleField('hero-canvas', 'flow');

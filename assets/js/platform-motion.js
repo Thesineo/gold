@@ -2029,6 +2029,215 @@
     requestAnimationFrame(tick);
   }
 
+  /* ── MLOps page "Integration Depth": 8 nodes sliding straight in
+     toward the center hub and back out again — not orbiting it. Each
+     node keeps a fixed angle WHILE it's mid-cycle, but the instant it
+     bottoms out (closest to the hub, smallest, barely visible) it
+     gets reassigned a fresh random angle before growing back out —
+     so which direction each feature appears in keeps reshuffling over
+     time, without ever reading as rotation, since the reassignment
+     only happens while the node is too small to notice the jump.
+     Radius and size still share the same phase per node, so a node
+     is small exactly when it's closest to the hub and big exactly
+     when it's farthest out: that coupling is what guarantees nodes
+     never collide, not luck — near the hub they're tiny (plenty of
+     room even as spokes converge), and out at the rim they're big
+     but far enough apart to clear (checked against the actual
+     geometry, see the factors below — the geometry holds for ANY
+     angle assignment, not just the original evenly-spaced one, so
+     reassigning angles never breaks the no-overlap guarantee).
+     Each node's cycle has its own independent frequency + phase so
+     they're never all in step. DOM writes are rounded to whole
+     pixels and skipped when unchanged, which is what actually fixes
+     the "text shuddering" — sub-pixel width/font-size writes every
+     frame were re-wrapping the title text every time, reading as
+     a shaky flicker. Hovering the diagram freezes the shared clock. */
+  function initFeatureOrbit(root) {
+    if (!root) return;
+    var canvas = root.querySelector('.feature-orbit-canvas');
+    var nodeEls = root.querySelectorAll('.feature-orbit-node');
+    if (!canvas || !nodeEls.length) return;
+    var ctx = canvas.getContext('2d');
+    var N = nodeEls.length;
+    var titleEls = [], descEls = [], hovered = [];
+    nodeEls.forEach(function (el, idx) {
+      titleEls.push(el.querySelector('.feature-orbit-title'));
+      descEls.push(el.querySelector('.feature-orbit-desc'));
+      hovered.push(false);
+      el.addEventListener('mouseenter', function () { hovered[idx] = true; });
+      el.addEventListener('mouseleave', function () { hovered[idx] = false; });
+    });
+
+    function fgRGB() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? [250, 250, 248] : [10, 10, 10];
+    }
+
+    /* Geometry check (as a fraction of the diagram's min dimension):
+       near point — radius 0.14, node diameter 0.09 (half=0.045) — two
+       adjacent nodes both fully "in" sit 0.14*2*sin(22.5°)=0.107 apart
+       center-to-center, needing only their two 0.045 half-diameters
+       (0.09) to clear, a 19% margin. Far point — radius 0.37, diameter
+       0.23 (half=0.115) — adjacent centers sit 0.37*2*sin(22.5°)=0.283
+       apart, needing 0.23, an 18% margin. Both ends hold. */
+    var MIN_RADIUS_FACTOR = 0.14, MAX_RADIUS_FACTOR = 0.37;
+    var MIN_DIAM_FACTOR = 0.09, MAX_DIAM_FACTOR = 0.23;
+
+    function rand(min, max) { return min + Math.random() * (max - min); }
+
+    /* N fixed, evenly-spaced slot angles — these never change. Each
+       node owns a `slot` index into this array rather than an angle
+       directly; reshuffling means swapping two nodes' slot values,
+       which can never produce two nodes at the same (or a closer-
+       than-45°) angle, since it's always a permutation of the same N
+       slots. That's what keeps the no-overlap geometry proof valid
+       after any number of reshuffles. */
+    var slotAngles = [];
+    for (var s = 0; s < N; s++) slotAngles.push((s / N) * Math.PI * 2);
+
+    var nodes = [];
+    for (var i = 0; i < N; i++) {
+      nodes.push({
+        slot: i,
+        freq: rand(1 / 9000, 1 / 4200),
+        phase: rand(0, Math.PI * 2),
+        armed: true,
+        /* Each node keeps its OWN clock instead of all sharing one —
+           hovering a single circle only stops that node's clock from
+           advancing (frozen in place, mid-motion), every other node's
+           clock keeps ticking exactly as if nothing happened. */
+        localT: 0
+      });
+    }
+
+    var W, H, cx, cy, minRadius, maxRadius, minSize, maxSize;
+    function resize() {
+      var rect = root.getBoundingClientRect();
+      W = canvas.width = rect.width;
+      H = canvas.height = rect.height;
+      cx = W / 2;
+      cy = H / 2;
+      var minWH = Math.min(W, H);
+      minRadius = minWH * MIN_RADIUS_FACTOR;
+      maxRadius = minWH * MAX_RADIUS_FACTOR;
+      minSize = minWH * MIN_DIAM_FACTOR;
+      maxSize = minWH * MAX_DIAM_FACTOR;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    /* A tapered zigzag: offset magnitude follows sin(t·π) so it's
+       exactly 0 at both ends (cleanly meeting the hub and the node)
+       and alternates sides segment to segment. */
+    function strokeZigzag(x0, y0, x1, y1, rgb, alpha) {
+      var dx = x1 - x0, dy = y1 - y0;
+      var len = Math.sqrt(dx * dx + dy * dy) || 1;
+      var nx = -dy / len, ny = dx / len;
+      var segments = 6;
+      var jitter = Math.min(16, len * 0.05);
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      for (var s = 1; s < segments; s++) {
+        var t = s / segments;
+        var px = x0 + dx * t, py = y0 + dy * t;
+        var sign = (s % 2 === 0) ? 1 : -1;
+        var mag = jitter * Math.sin(Math.PI * t);
+        px += nx * mag * sign;
+        py += ny * mag * sign;
+        ctx.lineTo(px, py);
+      }
+      ctx.lineTo(x1, y1);
+      ctx.strokeStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha + ')';
+      ctx.lineWidth = 1.2;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+    }
+
+    var lastSize = new Array(N).fill(-1);
+
+    function draw(dt) {
+      if (W < 2 || H < 2) return;
+      ctx.clearRect(0, 0, W, H);
+      var rgb = fgRGB();
+
+      var sizeTs = new Array(N);
+      for (var i = 0; i < N; i++) {
+        if (!hovered[i]) nodes[i].localT += dt;
+        sizeTs[i] = (Math.sin(nodes[i].localT * nodes[i].freq + nodes[i].phase) + 1) / 2;
+      }
+
+      /* Reshuffle pass: only swap two nodes' slots when BOTH are near
+         their smallest point at once (armed + under the threshold),
+         so the jump is imperceptible for both sides, not just the one
+         that triggered it. A hovered node is excluded entirely — it
+         should stay exactly where the cursor found it, not swap away
+         underneath the pointer. An odd one left over just waits for
+         next time. */
+      var bottomedOut = [];
+      for (var j = 0; j < N; j++) {
+        if (hovered[j]) continue;
+        if (nodes[j].armed && sizeTs[j] < 0.06) bottomedOut.push(j);
+        else if (sizeTs[j] > 0.3) nodes[j].armed = true;
+      }
+      while (bottomedOut.length >= 2) {
+        var a = bottomedOut.pop();
+        var b = bottomedOut.pop();
+        var tmpSlot = nodes[a].slot;
+        nodes[a].slot = nodes[b].slot;
+        nodes[b].slot = tmpSlot;
+        nodes[a].armed = false;
+        nodes[b].armed = false;
+      }
+
+      for (var i = 0; i < N; i++) {
+        var n = nodes[i];
+        var sizeT = sizeTs[i];
+        var angle = slotAngles[n.slot];
+        var radius = minRadius + (maxRadius - minRadius) * sizeT;
+        var size = Math.round(minSize + (maxSize - minSize) * sizeT);
+        var x = cx + Math.cos(angle) * radius;
+        var y = cy + Math.sin(angle) * radius;
+
+        strokeZigzag(cx, cy, x, y, rgb, 0.16);
+
+        var el = nodeEls[i];
+        el.style.transform = 'translate(' + Math.round(x - size / 2) + 'px,' + Math.round(y - size / 2) + 'px)';
+
+        if (size !== lastSize[i]) {
+          lastSize[i] = size;
+          el.style.width = size + 'px';
+          el.style.height = size + 'px';
+          el.style.padding = Math.round(size * 0.1) + 'px';
+          titleEls[i].style.fontSize = Math.round(Math.max(9.5, size * 0.08)) + 'px';
+
+          /* Description stays collapsed until the node is at least 35%
+             of the way through its size cycle, then grows in —
+             "small" only ever shows the heading, "big" reveals the
+             rest. */
+          var descT = Math.max(0, (sizeT - 0.35) / 0.65);
+          descEls[i].style.fontSize = Math.round(Math.max(7.5, size * 0.042)) + 'px';
+          descEls[i].style.maxHeight = Math.round(descT * size * 0.42) + 'px';
+          descEls[i].style.opacity = descT.toFixed(2);
+        }
+      }
+    }
+
+    if (prefersReduced) {
+      draw(0);
+      document.addEventListener('concave:themechange', function () { draw(0); });
+      return;
+    }
+
+    var lastTs = null;
+    function tick(ts) {
+      requestAnimationFrame(tick);
+      if (lastTs === null) lastTs = ts;
+      var dt = ts - lastTs;
+      lastTs = ts;
+      draw(dt);
+    }
+    requestAnimationFrame(tick);
+  }
+
   function initHoverPlayVideos() {
     var videos = document.querySelectorAll('.task-bento-tile video, .task-bento-mosaic-tile video');
     videos.forEach(function (video) {
@@ -2051,6 +2260,7 @@
     initGeoDome(document.getElementById('labelCanvas'));
     initGeoSphereFull(document.getElementById('versionCanvas'));
     initResolutionOrbit(document.querySelector('.resolution-orbit'));
+    initFeatureOrbit(document.querySelector('.feature-orbit'));
     initFeedbackTorus(document.getElementById('observeCanvas'));
     initAuditChain(document.getElementById('governCanvas'));
     initInfinityWireframe(document.getElementById('infinityCanvas'));
