@@ -20,13 +20,18 @@
       return;
     }
 
+    /* Reveal once and stay revealed — toggling the class back off every
+       time an element scrolls out of view made the fade/slide replay
+       on every pass, which on a full-bleed image/video card means
+       briefly seeing the plain page background through the gap while
+       it's mid-transition (looks like a "blank space" flashing at the
+       top/bottom whenever you scroll back across that section). */
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-          } else {
-            entry.target.classList.remove('is-visible');
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -1409,7 +1414,6 @@
     initLoopCanvas(document.querySelector('.loop-canvas'));
     initHeroMosaic();
     initParticleField('hero-canvas', 'flow');
-    initParticleField('cta-canvas', 'calm');
   }
 
   if (document.readyState === 'loading') {

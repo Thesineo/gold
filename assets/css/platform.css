@@ -47,6 +47,22 @@ section.pad{padding:110px 0}
 [data-reveal-delay="2"]{transition-delay:.2s}
 [data-reveal-delay="3"]{transition-delay:.3s}
 [data-reveal-delay="4"]{transition-delay:.4s}
+/* The fade/slide/scale entrance is fine on text and small cards, but
+   on a big full-bleed photo/video panel the mid-transition state (half
+   -opacity, offset or scaled down) exposes the plain page background
+   around or above the edges — exactly the "blank space" seen while
+   scrolling past these. Rendering them fully in place from the start,
+   with no animation, removes that gap entirely for every page that
+   uses any of these wrappers. */
+.layer-hero-card[data-reveal],
+.intro-diagram-panel[data-reveal],
+.cloud-panel[data-reveal],
+.about-hero-media[data-reveal],
+.task-switch-media[data-reveal],
+.mission-media-placeholder[data-reveal],
+.task-bento[data-reveal],
+.task-bento-mosaic[data-reveal],
+.task-bento-video-grid[data-reveal]{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){[data-reveal]{transition:none}}
 
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--invert-bg);color:var(--invert-text);padding:16px 32px;font-size:15px;font-weight:600;text-decoration:none;letter-spacing:0.01em;border-radius:6px;border:1px solid var(--invert-bg);transition:opacity .2s, transform .05s}
@@ -186,12 +202,20 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    .p-hero's override — a real video reads the same in both themes only
    if we stop following the theme-adaptive text colors. */
 .layer-hero.video-bg{display:block;min-height:0;padding:130px 24px 0;overflow:visible}
-.layer-hero-card{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:70vh;background:var(--bg);display:flex;align-items:flex-end}
+/* min-height is declared twice on purpose: vh first as a fallback,
+   dvh second so browsers that support it use it instead. Plain vh on
+   mobile is pinned to the viewport size with the address bar hidden;
+   as the bar shows/hides during scroll, a vh-sized box re-triggers
+   layout against that fixed value while the real visible viewport is
+   actively changing size, which is what was showing as a gray seam at
+   the top of these rounded, clipped cards while scrolling. dvh tracks
+   the actual current viewport instead, so there's nothing to resettle. */
+.layer-hero-card{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:70vh;min-height:70dvh;background:var(--bg);display:flex;align-items:flex-end}
 /* Blog posts: a bit taller than the product hero videos — with a full
    photo/video cover behind it the extra height reads as a proper
    editorial cover, not empty space. */
-.layer-hero-card.blog-cover{min-height:84vh}
-@media(max-width:768px){.layer-hero-card.blog-cover{min-height:64vh}}
+.layer-hero-card.blog-cover{min-height:84vh;min-height:84dvh}
+@media(max-width:768px){.layer-hero-card.blog-cover{min-height:64vh;min-height:64dvh}}
 /* Modality pages' "What It Is" intro — same exact card (size, radius,
    min-height) as the platform pages' layer-hero, just centered content
    instead of bottom-anchored, and a flat dark scrim (not the bottom-
@@ -221,7 +245,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .layer-hero.video-bg .layer-hero-inner{display:block;position:relative;z-index:2;width:100%;padding:48px 56px}
 @media(max-width:768px){
   .layer-hero.video-bg{padding:100px 16px 0}
-  .layer-hero-card{border-radius:20px;min-height:58vh}
+  .layer-hero-card{border-radius:20px;min-height:58vh;min-height:58dvh}
   .layer-hero.video-bg .layer-hero-inner{padding:28px 24px}
 }
 /* Arrow-only back button, top-left of the hero (below the fixed nav) —
@@ -254,6 +278,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .layer-hero-media{position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:1px dashed var(--border);background:var(--elevated);display:flex;align-items:center;justify-content:center}
 .layer-hero-media.has-media{border-style:solid;aspect-ratio:16/10}
 .layer-hero-media img,.layer-hero-media video{width:100%;height:100%;object-fit:cover;display:block}
+.layer-hero-media video{transform:translateZ(0)}
 .layer-hero-media-hint{font-size:11.5px;font-weight:600;color:var(--text-dimmer);letter-spacing:0.06em;text-transform:uppercase}
 
 /* Full-width variant — same treatment as the hero media slot, but spanning
@@ -299,7 +324,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .intro-diagram-copy .sec-eyebrow{color:rgba(var(--bg-rgb),0.55)}
 .intro-diagram-copy .lead-text{margin-top:20px;color:rgba(var(--bg-rgb),0.88)}
 .intro-diagram-box{flex:0 0 30%;position:relative}
-.intro-diagram-box canvas,.intro-diagram-box video{position:relative;z-index:1;width:100%;height:100%;display:block;object-fit:cover;border-radius:34px 34px 34px 8px;box-shadow:0 24px 54px rgba(var(--text-rgb),0.16)}
+.intro-diagram-box canvas,.intro-diagram-box video{position:relative;z-index:1;width:100%;height:100%;display:block;object-fit:cover;border-radius:34px 34px 34px 8px;box-shadow:0 24px 54px rgba(var(--text-rgb),0.16);transform:translateZ(0)}
 @media(max-width:860px){
   .intro-diagram-panel{flex-direction:column-reverse;gap:24px}
   .intro-diagram-copy{flex:1 1 auto;text-align:center;padding:36px 28px;margin-left:0}
@@ -584,14 +609,44 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
   .depth-bento{grid-template-columns:1fr}
 }
 
-/* ── CTA (shared component, identical to homepage) ── */
-.cta-final{position:relative;min-height:60vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:100px 24px}
-.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:920px}
-.cta-final-sub{position:relative;z-index:2;font-size:14px;color:var(--text-dimmer);margin-top:22px}
+/* ── CTA (shared component, identical to homepage) ──
+   The rounded/clipped box (.cta-final) stays a "pure" positioning
+   context — just position:relative + overflow:hidden + border-radius,
+   nothing else — exactly like the working .layer-hero-card pattern.
+   Padding and flex-centering for the text live on .cta-final-inner
+   instead of being bundled onto the same element that's also the
+   containing block for the absolutely-positioned video; mixing those
+   responsibilities on one element was the actual cause of the video
+   not filling it correctly. */
+.cta-final{position:relative;min-height:60vh;min-height:60dvh;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;background:var(--bg)}
+.cta-final-inner{position:relative;z-index:2;width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px}
+/* object-fit:contain let the full clip show but left empty bars on the
+   sides whenever the video's own aspect ratio didn't match this box —
+   back to cover so it always fills the whole rounded rectangle, no
+   gaps, accepting that a differently-shaped clip crops top/bottom or
+   left/right instead. .hero-overlay's bottom-weighted gradient (meant
+   for text pinned low, not centered text over a full clip) still
+   overridden to a flat tint. */
+.cta-final .bg-media video{object-fit:cover}
+.cta-final .hero-overlay{background:rgba(0,0,0,0.3)}
+@media(max-width:768px){.cta-final{border-radius:20px}}
+.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:rgba(255,255,255,0.92);line-height:1.25;position:relative;z-index:2;max-width:920px}
+.cta-final-sub{position:relative;z-index:2;font-size:14px;color:rgba(255,255,255,0.7);margin-top:22px}
 .cta-final .btn-primary{position:relative;z-index:2;margin-top:36px}
 .cta-final-actions{position:relative;z-index:2;margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .cta-final-actions .btn-primary{margin-top:0}
-.bg-media{position:absolute;inset:0;z-index:0}
+/* .btn-ghost's default faint border + dim text reads fine over a
+   plain background, but is nearly invisible over the photo/video now
+   behind this section — boosted just here. */
+.cta-final-actions .btn-ghost{border-color:rgba(255,255,255,0.5);color:#fff;background:rgba(255,255,255,0.1)}
+.cta-final-actions .btn-ghost:hover{background:rgba(255,255,255,0.18);border-color:#fff}
+/* transform:translateZ(0) here — and ONLY here, not also on the video
+   itself or on the outer clipping box — gives the video exactly one
+   stable compositing layer that's welded to this wrapper. Promoting
+   the video AND an ancestor independently (tried earlier) creates two
+   layers that can update on different schedules during scroll, which
+   is what showed as the video "lagging behind" its rounded box. */
+.bg-media{position:absolute;inset:0;z-index:0;transform:translateZ(0)}
 .bg-media canvas{width:100%;height:100%;display:block}
 .bg-media video,.bg-media img{width:100%;height:100%;object-fit:cover;display:block}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(var(--bg-rgb),0.1) 0%,rgba(var(--bg-rgb),0.55) 65%,rgba(var(--bg-rgb),0.88) 100%);pointer-events:none}
@@ -600,7 +655,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    centered-text treatment) ── */
 .about-hero{padding:130px 24px 0}
 .about-hero-media{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center}
-.about-hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.about-hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0)}
 /* Placeholder state — no media asset yet, same dashed-box hint used for
    every other still-empty hero slot on the site (swap for a <video> once
    the asset exists, same as Observe/Govern/Transform were before). */

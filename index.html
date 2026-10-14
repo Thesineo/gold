@@ -53,9 +53,9 @@
 }
 </script>
 
-<link rel="icon" href="/logo.png?v=20261011" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261011" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261011">
+<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
 <style>
 :root{
   --bg-rgb:250,250,248;
@@ -165,7 +165,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 
 /* ── 1. HERO ── */
 .hero{position:relative;min-height:92vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:160px 24px 90px}
-.bg-media{position:absolute;inset:0;z-index:0}
+.bg-media{position:absolute;inset:0;z-index:0;transform:translateZ(0)}
 .bg-media canvas{width:100%;height:100%;display:block}
 
 .hero-mosaic{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
@@ -427,10 +427,26 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 @media(max-width:560px){.who-blocks{padding:0 24px}}
 
 /* ── 7. CTA ── */
-.cta-final{position:relative;min-height:60vh;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:100px 24px}
-.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:var(--text);line-height:1.25;position:relative;z-index:2;max-width:920px}
-.cta-final-sub{position:relative;z-index:2;font-size:14px;color:var(--text-dimmer);margin-top:22px}
+.cta-final{position:relative;min-height:60vh;min-height:60dvh;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;background:var(--bg)}
+.cta-final-inner{position:relative;z-index:2;width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px}
+.cta-final h2{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:rgba(255,255,255,0.92);line-height:1.25;position:relative;z-index:2;max-width:920px}
+.cta-final-sub{position:relative;z-index:2;font-size:14px;color:rgba(255,255,255,0.7);margin-top:22px}
 .cta-final .btn-primary{position:relative;z-index:2;margin-top:36px}
+/* This page's own copy of these rules (index.html doesn't link
+   platform.css at all — it's fully self-contained) never got the fix
+   applied to every other page: the video was cropped by the default
+   object-fit:cover (no rule for it existed here at all) and washed out
+   by .hero-overlay's bottom-weighted gradient. Also .cta-final-actions
+   had no layout rule in this file, and .btn-ghost's default faint
+   border/dim text (fine on a plain background) is nearly invisible
+   over a bright photo — all fixed here, scoped to this section. */
+.cta-final .bg-media video{width:100%;height:100%;object-fit:cover;display:block}
+.cta-final .hero-overlay{background:rgba(0,0,0,0.3)}
+.cta-final-actions{position:relative;z-index:2;margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-final-actions .btn-primary{margin-top:0}
+.cta-final-actions .btn-ghost{border-color:rgba(255,255,255,0.5);color:#fff;background:rgba(255,255,255,0.1)}
+.cta-final-actions .btn-ghost:hover{background:rgba(255,255,255,0.18);border-color:#fff}
+@media(max-width:768px){.cta-final{border-radius:20px}}
 
 /* ── FOOTER ── */
 footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px solid var(--border)}
@@ -794,12 +810,14 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 
 <!-- 7. CTA -->
 <section class="cta-final">
-  <div class="bg-media"><canvas id="cta-canvas" aria-hidden="true"></canvas></div>
+  <div class="bg-media"><video src="/imgbgm/playback.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
   <div class="hero-overlay"></div>
+  <div class="cta-final-inner">
   <h2>Get Data Infrastructure to Empower your AI</h2>
   <div class="cta-final-actions">
     <a href="/platform" class="btn-ghost">Explore the Platform</a>
     <a href="/contact" class="btn-primary large">Book a Demo</a>
+  </div>
   </div>
 </section>
 
@@ -861,6 +879,6 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261011" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
 </body>
 </html>
