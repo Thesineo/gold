@@ -140,7 +140,17 @@
   /* ── Parallax on any .bg-media canvas inside a full-bleed section ── */
   function initBgParallax() {
     if (prefersReduced) return;
-    var layers = document.querySelectorAll('.bg-media');
+    /* Excludes .bg-media elements that live inside a rounded, clipped,
+       edge-to-edge card (.layer-hero-card, .cta-final) — the media
+       there is sized at exactly 100% of its box, so any parallax
+       translateY drags its edge past the box boundary and exposes the
+       plain background behind it in the gap. That gap is exactly what
+       kept showing up as a "blank space" bug across this whole site —
+       it was this scroll-driven inline transform all along, not a CSS
+       issue, which is why nothing in platform.css could ever fix it. */
+    var layers = Array.prototype.filter.call(document.querySelectorAll('.bg-media'), function (el) {
+      return !el.closest('.layer-hero-card') && !el.closest('.cta-final');
+    });
     if (!layers.length) return;
 
     window.addEventListener('scroll', function () {
