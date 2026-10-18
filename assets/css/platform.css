@@ -956,6 +956,78 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   .task-bento-mosaic-wide{grid-column:span 1}
 }
 
+/* ── Text page "Task Types" — 3D coverflow carousel, replacing the
+   bento mosaic there (that grid's tiles were cropping images too
+   aggressively to read well). Not a sliding track — three FIXED
+   roles/positions (left, center, right), and every tick the six
+   cards rotate through which role they occupy: the card at "left"
+   (small, faded, tilted) moves into "center" (full size, full
+   opacity, facing forward) next, the card that WAS center moves out
+   to "right" (small, faded, tilted the other way) and then
+   disappears, and a new card enters at "left" — content flows
+   left → center → right, matching the requested direction. Since
+   there's no track to scroll and no clone/snap needed, the usual
+   infinite-loop seam this kind of carousel runs into doesn't exist
+   here at all: wrapping from card 6 back to card 1 is just the same
+   index-rotation math as any other step. Every card is the exact
+   same fixed size; only scale/opacity/rotateY differ by role. No
+   background/border — just the image in a horizontal-rectangle frame
+   with its name below it. initTaskFlashcards in concave-motion.js
+   assigns is-active/is-incoming/is-outgoing by index each tick.
+   Hovering pauses it. */
+.task-flashcards{margin-top:88px}
+.task-flashcard-stage{
+  position:relative;width:100%;max-width:1100px;margin:0 auto;
+  height:clamp(290px,32vw,380px);
+  perspective:1400px;
+  /* --card-w and --card-h are fully independent — no aspect-ratio
+     formula links them, so changing one can never change the other.
+     Both are percentages now: --card-w is a % of the stage's WIDTH,
+     --card-h a % of the stage's HEIGHT (the clamp() above). A
+     percentage height only works if its element's parent has a
+     definite height to measure against — .task-flashcard didn't have
+     one (it was sized by its own content), so --card-h as a % was
+     silently ignored before. .task-flashcard now gets height:100% of
+     the stage, which IS definite, and .task-flashcard-frame's %
+     height resolves against that. */
+  --card-w:77%;
+  --card-h:100%;
+}
+.task-flashcard{
+  position:absolute;top:50%;left:50%;width:var(--card-w);height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  transform:translate(-50%,-50%) scale(0.6);
+  opacity:0;z-index:0;pointer-events:none;
+  transition:left .7s cubic-bezier(.16,.9,.3,1),transform .7s cubic-bezier(.16,.9,.3,1),opacity .6s ease;
+}
+.task-flashcard.is-active{left:50%;transform:translate(-50%,-50%) scale(1);opacity:1;z-index:3}
+/* Non-overlap check: half the active card's width (--card-w/2) plus
+   half the side card's VISUAL width (--card-w/2 × its scale here,
+   0.66) must be ≤ the distance from 50% to this card's own `left`
+   anchor. At --card-w:46%, that's 23 + 15.18 = 38.18, so anchor must
+   sit at 50∓39 or further out — 10%/90% leaves a safe ~1% margin.
+   If you widen --card-w further, push these two values further
+   toward 0%/100% (or shrink the 0.66 scale below) to keep clearing. */
+.task-flashcard.is-incoming{left:10%;transform:translate(-50%,-50%) scale(0.66) rotateY(22deg);opacity:0.42;z-index:2}
+.task-flashcard.is-outgoing{left:90%;transform:translate(-50%,-50%) scale(0.66) rotateY(-22deg);opacity:0.42;z-index:2}
+.task-flashcard-frame{position:relative;width:100%;height:var(--card-h)}
+.task-flashcard-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.task-flashcard-label{margin-top:18px;font-family:'Inter',sans-serif;font-weight:600;font-size:17px;color:var(--text);letter-spacing:-0.005em;white-space:nowrap}
+.task-flashcard.is-incoming .task-flashcard-label,.task-flashcard.is-outgoing .task-flashcard-label{font-size:14px}
+.task-flashcard-dots{display:flex;gap:9px;justify-content:center;margin-top:32px}
+.task-flashcard-dot{width:7px;height:7px;border-radius:50%;background:var(--border);border:none;padding:0;cursor:pointer;transition:background .25s ease,transform .25s ease}
+.task-flashcard-dot.is-active{background:var(--text);transform:scale(1.35)}
+.task-flashcard-frame img.task-img-bright,.task-flashcard-frame img.task-img-dark{display:none}
+:root:not([data-theme="dark"]) .task-flashcard-frame img.task-img-bright{display:block}
+:root[data-theme="dark"] .task-flashcard-frame img.task-img-dark{display:block}
+@media(max-width:680px){
+  .task-flashcard-stage{--card-w:62%;--card-h:70%}
+  .task-flashcard.is-incoming,.task-flashcard.is-outgoing{transform:translate(-50%,-50%) scale(0.58) rotateY(22deg)}
+  .task-flashcard.is-outgoing{transform:translate(-50%,-50%) scale(0.58) rotateY(-22deg)}
+  .task-flashcard.is-incoming{left:0%}
+  .task-flashcard.is-outgoing{left:100%}
+}
+
 .task-bento-tile.task-bento-tile-transcription{width:100%;height:260px}
 .task-bento-tile.task-bento-tile-speaker{width:100%;height:200px}
 .task-bento-tile.task-bento-tile-emotion{width:100%;height:170px}

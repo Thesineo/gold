@@ -197,6 +197,18 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .hero-sub{font-size:clamp(16px,1.6vw,19px);color:var(--text-dim);max-width:640px;margin:0 auto 44px;font-weight:400;line-height:1.6;animation:heroFlashIn 1s cubic-bezier(.16,.9,.3,1) .2s both}
 .hero-content .btn-primary{animation:heroFlashIn 1s cubic-bezier(.16,.9,.3,1) .3s both}
 @media(prefers-reduced-motion:reduce){.hero-eyebrow,.hero h1,.hero-sub,.hero-content .btn-primary{animation:none}}
+/* Own class, deliberately not .cta-final-actions — that class also
+   lives on the final CTA's button row, which sits over a dark video
+   and needed its ghost button forced near-white to stay visible
+   there. Reusing the same class name here made this hero's ghost
+   button pick up that same white override, on a plain light
+   background, where it read as nearly invisible. Solid, full-strength
+   var(--text) border/color instead, so it's a clear black box in
+   light theme (white in dark theme) regardless of any other section's
+   override. */
+.hero-actions-row{position:relative;z-index:2;margin-top:36px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero-actions-row .btn-ghost{border-color:var(--text);color:var(--text)}
+.hero-actions-row .btn-ghost:hover{background:var(--text);color:var(--bg)}
 .hero-scroll-hint{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .6s 1s ease forwards}
 .hero-scroll-hint span{font-size:9px;font-weight:700;letter-spacing:.15em;color:var(--text-dimmer);text-transform:uppercase}
 .hero-scroll-line{width:1px;height:38px;background:var(--border);position:relative;overflow:hidden}
@@ -533,7 +545,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
     <div class="hero-eyebrow">Data infrastructure for AI </div>
     <h1> Data Infrastructure to Empower Artificial Intelligence </h1>
     <p class="hero-sub">Data infrastructure pioneered to empower Artifical Intelligence to be reliable, sustaining and governing, with focus on enriched automation and real-time quality metrics</p>
-    <div class="cta-final-actions">
+    <div class="hero-actions-row">
     <a href="/platform" class="btn-ghost">Explore the Platform</a>
     <a href="/contact" class="btn-primary large">Book a Demo</a>
   </div>

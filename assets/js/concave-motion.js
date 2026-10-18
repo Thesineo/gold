@@ -1299,6 +1299,61 @@
     return slots;
   }
 
+  /* ── Text page "Task Types" flashcard carousel: one card active at a
+     time, auto-advancing on an interval, previous/next cards faded and
+     offset behind it. Pauses on hover, resumes on leave; a dot click
+     jumps straight to that card and resets the timer. Reduced-motion
+     just shows the first card, no timer. */
+  /* ── Text page "Task Types" 3D coverflow: three FIXED roles — active
+     (center), incoming (left, about to become active), outgoing
+     (right, was just active) — and every tick the index rotates which
+     card occupies which role. No track, no scrolling, no clone/snap:
+     wrapping from the last card back to the first is just the same
+     modulo arithmetic as any other step, so there's no seam to hide
+     in the first place. Content flow is left → center → right, per
+     spec. */
+  function initTaskFlashcards() {
+    var stages = document.querySelectorAll('.task-flashcards');
+    stages.forEach(function (root) {
+      var cards = Array.prototype.slice.call(root.querySelectorAll('.task-flashcard'));
+      var dots = root.querySelectorAll('.task-flashcard-dot');
+      var n = cards.length;
+      if (!n) return;
+      var active = 0;
+
+      function render() {
+        cards.forEach(function (card, i) {
+          card.classList.remove('is-active', 'is-incoming', 'is-outgoing');
+          if (i === active) card.classList.add('is-active');
+          else if (i === (active + 1) % n) card.classList.add('is-incoming');
+          else if (i === (active - 1 + n) % n) card.classList.add('is-outgoing');
+        });
+        dots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === active); });
+      }
+      render();
+
+      function advance() { active = (active + 1) % n; render(); }
+      function jumpTo(i) { active = i; render(); }
+
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () {
+          jumpTo(i);
+          restart();
+        });
+      });
+
+      if (prefersReduced) return;
+
+      var timer = null;
+      function restart() { stop(); timer = setInterval(advance, 2800); }
+      function stop() { if (timer) clearInterval(timer); }
+      restart();
+
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', restart);
+    });
+  }
+
   function initHeroMosaic() {
     var root = document.getElementById('hero-mosaic');
     if (!root || prefersReduced || window.innerWidth < 900) return;
@@ -1423,6 +1478,7 @@
     initIntroDiagramCopy();
     initLoopCanvas(document.querySelector('.loop-canvas'));
     initHeroMosaic();
+    initTaskFlashcards();
     initParticleField('hero-canvas', 'flow');
   }
 
