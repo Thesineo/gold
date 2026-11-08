@@ -9,40 +9,40 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Platform -->
+  <!-- Datalier (platform) -->
   <url>
-    <loc>https://theconcaveai.com/platform</loc>
-    <lastmod>2026-08-11</lastmod>
+    <loc>https://theconcaveai.com/datalier</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://theconcaveai.com/platform/transform</loc>
-    <lastmod>2026-08-11</lastmod>
+    <loc>https://theconcaveai.com/datalier/transform</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://theconcaveai.com/platform/label</loc>
-    <lastmod>2026-08-11</lastmod>
+    <loc>https://theconcaveai.com/datalier/label</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://theconcaveai.com/platform/version</loc>
-    <lastmod>2026-08-11</lastmod>
+    <loc>https://theconcaveai.com/datalier/version</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://theconcaveai.com/platform/observe</loc>
-    <lastmod>2026-08-11</lastmod>
+    <loc>https://theconcaveai.com/datalier/observe</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://theconcaveai.com/platform/govern</loc>
-    <lastmod>2026-08-11</lastmod>
+    <loc>https://theconcaveai.com/datalier/govern</loc>
+    <lastmod>2026-11-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>Version & Lineage - Datalier | Concave AI</title>
+<meta property="og:site_name" content="Concave AI" />
+<meta name="description" content="The Versioning & Lineage layer freezes labeled data into immutable, hash-verified snapshots with full lineage reports, exported in the format your training framework expects.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261014b">
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/datalier" class="is-current">Platform</a>
+    <div class="nav-item">
+      <a href="/datalier">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/datalier/transform">Data Transformation</a>
+            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/version">Data Versioning &amp; Lineage</a>
+            <a href="/datalier/observe">Data Observability</a>
+            <a href="/datalier/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero video-bg">
+  <a href="/datalier" class="layer-back-btn" aria-label="Back to Platform"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card">
+    <div class="bg-media"><video src="/imgbgm/version-lineage.mp4" autoplay loop muted playsinline></video></div>
+    <div class="hero-overlay"></div>
+    <div class="sec-inner layer-hero-inner">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="layer-hero-label">Data Layer</span>
+        <h1>Versioning &amp; Lineage</h1>
+        <p class="layer-hero-sub">Immutable snapshots. Full lineage. Training-ready export.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <div class="intro-diagram-panel" data-reveal>
+      <div class="intro-diagram-copy">
+        <canvas class="intro-diagram-copy-canvas" aria-hidden="true"></canvas>
+        <span class="sec-eyebrow">What It Does</span>
+        <p class="lead-text">The versioning engine captures labelled datasets into immutable state snapshots, establishing a deterministic, point-in-time record of source data, labels, validation metrics, and upstream transformations. By embedding end-to-end data lineage directly into each version, every artifact remains permanently audit-ready and tamper-proof. Once committed, versions are read-only and can exclusively be exported, diffed against historical baselines, or referenced as the foundational branch for new dataset iterations.</p>
+      </div>
+      <div class="intro-diagram-box"><video src="/imgbgm/wwd-version.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <div class="sec-inner">
+    <div class="version-model-panel">
+      <div class="version-flow compact" data-reveal="slide-left">
+        <svg class="version-flow-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <path id="vfPath1" d="M100,150 C180,150 200,54 250,54"/>
+          <path id="vfPath2" d="M100,150 L250,150"/>
+          <path id="vfPath3" d="M100,150 C180,150 200,246 250,246"/>
+          <circle class="version-flow-dot" r="3.4">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0s"><mpath href="#vfPath1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+          <circle class="version-flow-dot" r="3.4">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0.9s"><mpath href="#vfPath2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0.9s"/>
+          </circle>
+          <circle class="version-flow-dot" r="3.4">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="1.8s"><mpath href="#vfPath3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="1.8s"/>
+          </circle>
+        </svg>
+
+        <div class="version-flow-source">v1.0</div>
+
+        <div class="version-flow-endpoints">
+          <div class="version-flow-endpoint" style="top:18%">
+            <span class="version-flow-endpoint-tag">Major</span>
+            <div class="version-flow-endpoint-ver">v2.0</div>
+            <div class="version-flow-endpoint-desc">Schema changes, complete re-processing.</div>
+          </div>
+          <div class="version-flow-endpoint" style="top:50%">
+            <span class="version-flow-endpoint-tag">Minor</span>
+            <div class="version-flow-endpoint-ver">v1.1</div>
+            <div class="version-flow-endpoint-desc">New labels, corrections applied.</div>
+          </div>
+          <div class="version-flow-endpoint" style="top:82%">
+            <span class="version-flow-endpoint-tag">Patch</span>
+            <div class="version-flow-endpoint-ver">v1.0.1</div>
+            <div class="version-flow-endpoint-desc">Small fixes, minor issues resolved.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="version-model-copy" data-reveal="slide-right">
+        <span class="sec-eyebrow">Versioning Model</span>
+        <p class="lead-text">Versions follow semantic numbering: major, minor, patch.</p>
+        <p class="lead-text">Each version records its parent version, the changes made, and the reason for the bump. Versions can branch to explore different labeling strategies on the same base data without touching the main line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <div class="sec-inner">
+    <div class="center-head" data-reveal>
+      <span class="sec-eyebrow">Lineage</span>
+      <p class="lead-text">Every version generates a lineage report one structured document, nine sections, auto-included with every export.</p>
+    </div>
+    <div class="review-bento review-bento-compact">
+      <div class="review-card" data-reveal="zoom">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Identity</div>
+        <div class="review-card-desc">Dataset name, version number, SHA-256 hash, creation timestamp.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Source Provenance</div>
+        <div class="review-card-desc">Where the data originated, how it was imported, original format and row count.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Transformation Chain</div>
+        <div class="review-card-desc">Every cleaning and validation step applied, with before-and-after row counts.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Labeling History</div>
+        <div class="review-card-desc">Engine used, confidence threshold, auto-label vs. review split, correction rate.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Version Changes</div>
+        <div class="review-card-desc">What differs from the previous version rows added, removed, labels changed.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Quality Summary</div>
+        <div class="review-card-desc">Verified agreement, calibration error, class distribution, readiness score.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Compliance Documents</div>
+        <div class="review-card-desc">A structured regulatory evidence pack with provenance, transformations, declared limitations, and bias examination which are assembled automatically and downloadable for auditors or regulators.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Export Evidence</div>
+        <div class="review-card-desc">Where the data was sent, file checksums, export timestamp and, for a restricted dataset, who approved the export and when, recorded separately from who requested it.</div>
+      </div>
+      <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
+        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <div class="review-card-title">Risk Assessment</div>
+        <div class="review-card-desc">Quality warnings, detected PII, fairness gaps across a declared sensitive attribute, or coverage gaps, surfaced before training.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" style="padding-top:0">
+  <div class="sec-inner">
+    <div class="center-head" data-reveal>
+      <span class="sec-eyebrow">Resolutions</span>
+      <p class="lead-text">What versioning actually resolves, six problems eliminated by making every dataset a permanent, addressable record.</p>
+    </div>
+    <div class="resolution-orbit" data-reveal>
+      <canvas class="resolution-orbit-canvas" id="resolutionOrbitCanvas" aria-hidden="true"></canvas>
+      <div class="resolution-orbit-hub">Resolutions</div>
+      <div class="resolution-orbit-node">
+        <span class="resolution-orbit-num">01</span>
+        <div class="resolution-orbit-title">Reproducibility</div>
+        <div class="resolution-orbit-desc">Rerun any experiment against the exact dataset version that produced it bit-for-bit, every time.</div>
+      </div>
+      <div class="resolution-orbit-node">
+        <span class="resolution-orbit-num">02</span>
+        <div class="resolution-orbit-title">Traceability</div>
+        <div class="resolution-orbit-desc">See exactly how the data was collected, cleaned, and labelled, the full path from raw signal to label.</div>
+      </div>
+      <div class="resolution-orbit-node">
+        <span class="resolution-orbit-num">03</span>
+        <div class="resolution-orbit-title">Collaboration</div>
+        <div class="resolution-orbit-desc">Distributed teams branch and work the same base dataset without ever overwriting each other's progress.</div>
+      </div>
+      <div class="resolution-orbit-node">
+        <span class="resolution-orbit-num">04</span>
+        <div class="resolution-orbit-title">Auditability</div>
+        <div class="resolution-orbit-desc">A permanent record of who changed what, and why, for every version that ever existed — each entry SHA-256 hash-chained to the one before it, so tampering with history is mathematically detectable, not assumed.</div>
+      </div>
+      <div class="resolution-orbit-node">
+        <span class="resolution-orbit-num">05</span>
+        <div class="resolution-orbit-title">Resolvability</div>
+        <div class="resolution-orbit-desc">Trace how a change ripples forward to see every downstream dataset, model, and report a single upstream edit would touch before it happens.</div>
+      </div>
+      <div class="resolution-orbit-node">
+        <span class="resolution-orbit-num">06</span>
+        <div class="resolution-orbit-title">Optimisation</div>
+        <div class="resolution-orbit-desc">Map how data actually moves through the organisation, surfacing duplicate pipelines, outdated processes, and where resources are being spent twice.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><video src="/imgbgm/playback.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
+  <div class="hero-overlay"></div>
+  <div class="cta-final-inner">
+  <h2>Get Data Infrastructure to Empower your AI</h2>
+  <div class="cta-final-actions">
+    <a href="/datalier" class="btn-ghost">Explore the Platform</a>
+    <a href="/contact" class="btn-primary large">Book a Demo</a>
+  </div>
+  </div>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure for training AI models</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/datalier">Overview</a>
+          <a href="/datalier/transform">Transform</a>
+          <a href="/datalier/label">Label</a>
+          <a href="/datalier/version">Version</a>
+          <a href="/datalier/observe">Observe</a>
+          <a href="/datalier/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261014b" defer></script>
+</body>
+</html>
