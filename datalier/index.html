@@ -58,17 +58,24 @@
 .p-layers>.sec-inner:first-child{padding-top:110px;padding-bottom:0}
 @media(max-width:768px){.p-layers>.sec-inner:first-child{padding-top:72px}}
 
-/* ── UPLOAD (replaces the old Data Modalities grid) ── */
+/* ── UPLOAD — same hub/ring/spoke grammar as the Export/Loop diagram
+   further down the page, but a single ring of 5 merged source+format
+   cards rather than two separate rings of 10 nodes — the two-ring split
+   made sense for Export (5 formats feeding 7 destinations is genuinely
+   two different counts), but Upload is just 5 pairs, so splitting it the
+   same way only added nodes and lines with nothing extra to say. One
+   plain decorative ring (no dashes, no loop semantics — Upload is one
+   directional, not a cycle) at generous radius, one spoke per source.
+   Data flows inward here: every dot travels source→hub (the path's own
+   start→end direction), the mirror of Export's hub→out. Source logos are
+   unchanged (same .source-logo bright/dark toggle as before), just
+   carrying their format as a second line instead of a separate node. */
 .p-upload{background:var(--bg)}
-.upload-panel{display:grid;grid-template-columns:680px 1fr;gap:64px;align-items:center;margin-top:56px}
-.upload-visual{
-  position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
-  background-color:var(--elevated);
-  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
-  background-size:10px 10px;border:1px solid var(--border)
-}
+.upload-panel{display:grid;grid-template-columns:560px 1fr;gap:64px;align-items:center;margin-top:56px}
+.upload-visual{position:relative;aspect-ratio:500/440}
 .upload-svg{position:absolute;inset:0;width:100%;height:100%}
-.upload-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
+.upload-svg .spoke{fill:none;stroke:var(--border);stroke-width:1.5}
+.upload-svg .ring{fill:none;stroke:var(--border);stroke-width:1.5}
 /* Dots ride the exact same <path> the line is drawn from via SMIL
    animateMotion/mpath — guaranteed to trace the curve exactly (not an
    approximated CSS keyframe), and stays correct at any container size
@@ -76,156 +83,265 @@
 .flow-dot-svg{fill:var(--text)}
 @media(prefers-reduced-motion:reduce){.flow-dot-svg{display:none}}
 
-.upload-sources{position:absolute;top:4%;bottom:4%;left:6%;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;z-index:2}
-.source-chip{display:flex;flex-direction:row;align-items:center;gap:12px;color:var(--text)}
+/* Hub — same true-circle badge and radar pulse as .export-mark. */
+.upload-mark{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;
+  width:104px;height:104px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;
+  background:var(--text);color:var(--bg);
+  box-shadow:0 8px 20px rgba(0,0,0,0.15)
+}
+.upload-mark::before,.upload-mark::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  border:1px solid var(--text);opacity:0;
+  animation:hubPulse 3.2s ease-out infinite;
+}
+.upload-mark::after{animation-delay:1.6s}
+.upload-mark svg{width:26px;height:26px}
+.upload-mark span{font-family:'Inter',sans-serif;font-size:14.5px;font-weight:800;letter-spacing:-0.01em}
 
-/* Uniform fixed-size icon box for every source mark — logos with different
-   native aspect ratios (square icons vs. wide wordmarks) all land on the
-   same left edge and vertical center via object-fit:contain, which is what
-   keeps the whole stack reading as one straight aligned line. */
-.source-logo{display:flex;align-items:center;justify-content:center;width:40px;height:40px;flex-shrink:0}
+/* The ring — one card per source, logo + name on top, its format as a
+   dimmer second line underneath. A 7s sweep still travels around the
+   ring in declared (clockwise) order, same cue as the Export diagram's
+   platform ring. */
+.source-node{
+  position:absolute;transform:translate(-50%,-50%);z-index:2;
+  display:flex;align-items:center;gap:11px;
+  background:var(--bg);border:1px solid var(--border);border-radius:12px;
+  padding:10px 17px 10px 11px;white-space:nowrap;
+  animation:sourcePulse 7s ease-in-out infinite;
+}
+.source-node:nth-child(1){animation-delay:0s}
+.source-node:nth-child(2){animation-delay:1.4s}
+.source-node:nth-child(3){animation-delay:2.8s}
+.source-node:nth-child(4){animation-delay:4.2s}
+.source-node:nth-child(5){animation-delay:5.6s}
+@keyframes sourcePulse{
+  0%,14%,100%{background:var(--bg);box-shadow:none;border-color:var(--border)}
+  7%{background:var(--elevated);box-shadow:0 10px 22px rgba(var(--text-rgb),0.16);border-color:var(--text)}
+}
+@media(prefers-reduced-motion:reduce){
+  .upload-mark::before,.upload-mark::after,.source-node{animation:none}
+}
+.source-name{font-family:'Inter',sans-serif;font-size:13px;font-weight:700;color:var(--text);letter-spacing:-0.005em}
+
+/* File format — metadata about the data, not a source, so it isn't a
+   card: plain text, no border or fill, sitting directly on the spoke
+   partway between the hub and the source it belongs to. */
+.format-label{
+  position:absolute;transform:translate(-50%,-50%);z-index:1;
+  font-family:'Inter',sans-serif;font-size:10.5px;font-weight:700;
+  color:var(--text-dim);background:var(--bg);padding:1px 5px;
+  white-space:nowrap;pointer-events:none;
+}
+
+/* Source logo — unchanged from the original: a fixed-size icon box so
+   logos of different native aspect ratios (square icons vs. wide
+   wordmarks) all land the same size via object-fit:contain. */
+.source-logo{display:flex;align-items:center;justify-content:center;width:28px;height:28px;flex-shrink:0}
 .source-logo svg{width:100%;height:100%}
 .source-logo img{display:none;width:100%;height:100%;object-fit:contain}
 :root:not([data-theme="dark"]) .source-logo img.logo-bright{display:block}
 :root[data-theme="dark"] .source-logo img.logo-dark{display:block}
-.source-word{font-size:15px;font-weight:700;letter-spacing:-0.005em;white-space:nowrap}
-
-.upload-formats{position:absolute;inset:0;z-index:2}
-.format-chip{position:absolute;font-size:11.5px;font-weight:700;letter-spacing:0.02em;color:var(--text-dim);background:var(--bg);border:1px solid var(--border);padding:6px 11px;border-radius:6px}
-.format-chip.f1{top:29%;left:65%;transform:translate(-50%,-50%)}
-.format-chip.f2{top:39%;left:65%;transform:translate(-50%,-50%)}
-.format-chip.f3{top:50%;left:65%;transform:translate(-50%,-50%)}
-.format-chip.f4{top:61%;left:65%;transform:translate(-50%,-50%)}
-.format-chip.f5{top:71%;left:65%;transform:translate(-50%,-50%)}
-
-.upload-mark{
-  position:absolute;top:50%;right:6%;transform:translateY(-50%);z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
-  background:var(--text);color:var(--bg);padding:22px 26px;border-radius:14px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.15)
-}
-.upload-mark svg{width:30px;height:30px}
-.upload-mark span{font-family:'Inter',sans-serif;font-size:19px;font-weight:800;letter-spacing:-0.01em}
 
 .upload-copy .btn-ghost,.export-copy .btn-ghost,.pipeline-copy .btn-ghost{margin-top:28px}
 
 @media(max-width:900px){
   .upload-panel{grid-template-columns:1fr;gap:32px}
-  .upload-visual{aspect-ratio:16/13}
 }
 @media(max-width:560px){
-  .source-chip{gap:8px}
-  .source-word{font-size:11.5px}
-  .source-logo{width:26px;height:26px}
-  .format-chip{font-size:9.5px;padding:4px 7px}
-  .upload-mark{padding:14px 16px}
-  .upload-mark svg{width:22px;height:22px}
-  .upload-mark span{font-size:14px}
+  .upload-mark{width:80px;height:80px}
+  .upload-mark svg{width:20px;height:20px}
+  .upload-mark span{font-size:11.5px}
+  .source-node{padding:7px 12px 7px 7px;gap:7px}
+  .source-logo{width:20px;height:20px}
+  .source-name{font-size:10.5px}
+  .format-label{font-size:9px}
 }
 
 /* ── EXPORT / LOOP (theme-following, plain page background like every
-   other section) — mirrors the Upload diagram in "outlet" form: Datalier
-   fans out toward training-platform connectors (the actual endpoints —
-   same role AWS/Azure/GCS play on the Import side), stacked as one
-   continuous bordered column instead of scattered floating chips. The
-   export FORMAT is a plain dot + label riding partway along each line, not
-   a boxed endpoint. A darker dashed sweep carries the drift-correction
-   path from that platform stack back to Datalier, closing the loop. Every
-   moving dot (outbound + loop) rides its line via SMIL animateMotion/mpath
-   against the exact same <path> the line is drawn from. */
+   other section) — a radial/orbital system, not a fan-out tree: Datalier
+   sits dead center, the five export formats orbit tight on an inner ring,
+   the seven destination platforms orbit further out, and the feedback
+   loop is drawn as an actual closed circular track between the two rings
+   — not an arc tucked into a corner, the literal shape "closed loop"
+   describes. Every platform also gets its own .return-arrow, a small
+   triangle pointing back toward the hub right where its spoke crosses
+   that ring, so "every platform feeds the loop back to
+   Datalier" is an explicit connection for all 7, not an implied one.
+   Every spoke is a straight radial line from the hub (a tree of beziers
+   reads as generic; a constellation of spokes reads as a broadcast
+   source). The ring pulse (.export-mark::before/::after) and the
+   platform sweep (traveling around the ring in angular order, since the
+   platforms are declared in clockwise order) carried over from the
+   previous version. No card framing — the diagram sits directly on the
+   page background, same as the copy beside it, not boxed off from it.
+   Every moving dot rides its own <path> via SMIL animateMotion; the loop
+   path is two half-circle arcs rather than one near-360° arc, which is
+   the numerically stable way to trace a full circle in SVG path data. */
 .p-export{background:var(--bg)}
 .export-panel{display:grid;grid-template-columns:1fr 560px;gap:64px;align-items:center;margin-top:56px}
 .export-visual{
-  position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;
-  background-color:var(--bg);
-  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
-  background-size:10px 10px;border:1px solid var(--border)
+  position:relative;aspect-ratio:500/440;
 }
 .export-svg{position:absolute;inset:0;width:100%;height:100%}
-.export-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
-.export-svg .loop-path{stroke:var(--text-dim);stroke-width:2;stroke-dasharray:4 5}
-.export-svg .wp-dot{fill:var(--text-dim)}
-.export-svg .wp-label{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;fill:var(--text-dim)}
+.export-svg .spoke{fill:none;stroke:var(--border);stroke-width:1.5}
+.export-svg .loop-ring{fill:none;stroke:var(--text-dim);stroke-width:1.6;stroke-dasharray:3 6}
+.export-svg .return-arrow{fill:var(--text);stroke:var(--bg);stroke-width:1.2;stroke-linejoin:round}
+.export-svg .loop-stage-dot{fill:var(--bg);stroke:var(--text-dim);stroke-width:1.4}
+.export-svg .loop-stage-label{font-family:'Inter',sans-serif;font-size:9.5px;font-weight:700;fill:var(--text-dim)}
 .flow-dot-svg{fill:var(--text)}
 .loop-dot-svg{fill:var(--bg);stroke:var(--text);stroke-width:1.5}
 @media(prefers-reduced-motion:reduce){.flow-dot-svg,.loop-dot-svg{display:none}}
 
+/* Hub — a true circle now (fixed equal width/height), dead center, to
+   anchor the orbital geometry. Same two expanding rings pulsing out from
+   its own box as before. */
 .export-mark{
-  position:absolute;top:50%;left:6%;transform:translateY(-50%);z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
-  background:var(--text);color:var(--bg);padding:20px 24px;border-radius:14px;
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;
+  width:104px;height:104px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;
+  background:var(--text);color:var(--bg);
   box-shadow:0 8px 20px rgba(0,0,0,0.15)
 }
-.export-mark svg{width:28px;height:28px}
-.export-mark span{font-family:'Inter',sans-serif;font-size:17px;font-weight:800;letter-spacing:-0.01em}
+.export-mark::before,.export-mark::after{
+  content:'';position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  border:1px solid var(--text);opacity:0;
+  animation:hubPulse 3.2s ease-out infinite;
+}
+.export-mark::after{animation-delay:1.6s}
+@keyframes hubPulse{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+.export-mark svg{width:26px;height:26px}
+.export-mark span{font-family:'Inter',sans-serif;font-size:14.5px;font-weight:800;letter-spacing:-0.01em}
 
-/* Endpoints: training-platform connectors (text-only — no logo files for
-   these, same fallback approach as Azure/AWS before we had their marks),
-   stacked into one continuous "box below box" column via merged borders,
-   vertically centered on the right so it reads as a single unit. */
-.export-platforms{position:absolute;top:50%;right:5%;transform:translateY(-50%);display:flex;flex-direction:column;z-index:2}
-.platform-chip{font-size:12px;font-weight:700;color:var(--text);background:var(--bg);border:1px solid var(--border);padding:8px 15px;white-space:nowrap;text-align:right;margin-top:-1px}
-.platform-chip:first-child{margin-top:0;border-top-left-radius:8px;border-top-right-radius:8px}
-.platform-chip:last-child{border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+/* Inner ring — the five export formats, orbiting close to the hub. */
+.export-format-chip{
+  position:absolute;transform:translate(-50%,-50%);z-index:2;
+  font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+  color:var(--text);background:var(--bg);border:1px solid var(--border);
+  padding:6px 12px;border-radius:20px;white-space:nowrap;
+}
 
-.export-loop-label{position:absolute;bottom:3%;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;color:var(--text-dimmer);white-space:nowrap;z-index:2;text-align:center}
+/* Outer ring — the seven destination platforms. A 7s sweep still travels
+   through them in sequence (declaration order = clockwise order around
+   the ring), so the highlight now reads as rotating around the orbit
+   instead of sliding down a list — the same cue, fitted to the new shape. */
+.platform-chip{
+  position:absolute;transform:translate(-50%,-50%);z-index:2;
+  font-size:11.5px;font-weight:700;color:var(--text);background:var(--bg);
+  border:1px solid var(--border);border-radius:10px;padding:7px 13px;
+  white-space:nowrap;
+  animation:platformPulse 7s ease-in-out infinite;
+}
+.platform-chip:nth-child(1){animation-delay:0s}
+.platform-chip:nth-child(2){animation-delay:1s}
+.platform-chip:nth-child(3){animation-delay:2s}
+.platform-chip:nth-child(4){animation-delay:3s}
+.platform-chip:nth-child(5){animation-delay:4s}
+.platform-chip:nth-child(6){animation-delay:5s}
+.platform-chip:nth-child(7){animation-delay:6s}
+@keyframes platformPulse{
+  0%,14%,100%{background:var(--bg);color:var(--text);box-shadow:none;border-color:var(--border)}
+  7%{background:var(--text);color:var(--bg);box-shadow:0 10px 22px rgba(var(--text-rgb),0.22);border-color:var(--text)}
+}
 
+@media(prefers-reduced-motion:reduce){
+  .export-mark::before,.export-mark::after,.platform-chip{animation:none}
+}
 @media(max-width:900px){
   .export-panel{grid-template-columns:1fr;gap:32px}
-  .export-visual{aspect-ratio:16/13}
 }
 @media(max-width:560px){
-  .export-mark{padding:14px 16px}
-  .export-mark svg{width:22px;height:22px}
-  .export-mark span{font-size:14px}
-  .platform-chip{font-size:9.5px;padding:6px 10px}
-  .export-svg .wp-label{font-size:7.5px}
+  .export-mark{width:80px;height:80px}
+  .export-mark svg{width:20px;height:20px}
+  .export-mark span{font-size:11.5px}
+  .export-format-chip{font-size:8.5px;padding:4px 8px}
+  .platform-chip{font-size:9px;padding:5px 9px}
+  .export-svg .loop-stage-label{font-size:7.5px}
 }
 
-/* ── AUTOMATED PIPELINES (theme-following, plain page background) —
-   Not a flow diagram — a concrete configuration-panel mockup, styled after
-   the actual product's "New Recipe" builder: real Transform step chips
-   (3 of the 9 marked selected) and real Label Engine fields (task type,
-   model, confidence). A "clear picture" of what gets configured, not an
-   abstraction of how data moves. Observe is deliberately absent — per the
-   brief, that's a separate model-training connection, not part of this. */
+/* ── AUTOMATED PIPELINES (theme-following, plain page background) — a
+   vertical pipeline-run timeline, the CI/CD visual grammar real tools use
+   (GitHub Actions, CircleCI, Vercel deploys): a single connecting spine,
+   circular status markers, plain text beside each — not a diagram with
+   nodes-in-a-circle (that's the Export/Upload language already) and not
+   a boxed settings panel pretending to be an app window. An overall
+   progress bar sits above the whole timeline, and every row now carries
+   its own right-aligned stat — a fill bar for the two finished steps, an
+   indeterminate scanning bar for the one in progress, and a circular
+   confidence gauge for Label Engine — instead of ending at a narrow
+   column of text with the right half of the 560px panel empty. The 3
+   active steps run top to bottom in real order (done → done → running);
+   the other 6 available-but-unused steps sit below the spine as a dim
+   secondary row, explicitly not part of the connected run. No outer
+   card, no window chrome, no bordered input fields — same "float
+   directly on the page" treatment as the other two diagrams. */
 .p-pipeline{background:var(--bg)}
 .pipeline-panel{display:grid;grid-template-columns:1fr 560px;gap:64px;align-items:center;margin-top:56px}
+.pipeline-visual{position:relative}
 
-.pipeline-visual{
-  position:relative;border-radius:20px;overflow:hidden;
-  background-color:var(--elevated);
-  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
-  background-size:10px 10px;border:1px solid var(--border)
+.pl-overview{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.pl-overview-label{font-size:10.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dimmer)}
+.pl-overview-pct{font-size:12px;font-weight:700;color:var(--text)}
+.pl-overview-track{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:30px}
+.pl-overview-fill{display:block;height:100%;background:var(--text);border-radius:2px}
+
+.pipeline-timeline{position:relative;list-style:none;padding-left:36px;margin:0}
+.pipeline-timeline::before{content:'';position:absolute;left:11px;top:4px;bottom:4px;width:2px;background:var(--border)}
+
+.pl-step{position:relative;padding-bottom:26px;display:flex;align-items:flex-start;gap:18px}
+.pl-step:last-child{padding-bottom:0}
+.pl-marker{
+  position:absolute;left:-36px;top:1px;width:24px;height:24px;border-radius:50%;z-index:1;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);border:2px solid var(--border);color:var(--text);
 }
-.pipeline-mock{margin:16px;border-radius:14px;background:var(--bg);border:1px solid var(--border);box-shadow:0 12px 30px rgba(0,0,0,0.08);padding:24px 26px;display:flex;flex-direction:column;gap:22px}
-.pipeline-mock-header{display:flex;align-items:center;gap:6px;padding-bottom:14px;border-bottom:1px solid var(--border)}
-.pipeline-mock-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
-.pipeline-mock-title{margin-left:8px;font-size:11.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim)}
+.pl-marker svg{width:12px;height:12px}
+.pl-step.is-done .pl-marker{background:var(--invert-bg);border-color:var(--invert-bg);color:var(--invert-text)}
+.pl-step.is-active .pl-marker{border-color:var(--text);animation:markerPulse 1.8s ease-in-out infinite}
+.pl-step.is-cta .pl-marker{background:var(--invert-bg);border-color:var(--invert-bg);color:var(--invert-text)}
+@keyframes markerPulse{0%,100%{box-shadow:0 0 0 0 rgba(var(--text-rgb),0.22)}50%{box-shadow:0 0 0 7px rgba(var(--text-rgb),0)}}
 
-.pipeline-mock-label{font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);margin-bottom:11px}
-.pipeline-mock-label em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-dimmer)}
-.pipeline-mock-chips{display:flex;flex-wrap:wrap;gap:8px}
-.pipeline-mock-chip{font-size:11px;font-weight:600;color:var(--text-dim);background:var(--elevated);border:1px solid var(--border);padding:7px 12px;border-radius:16px}
-.pipeline-mock-chip.is-on{background:var(--text);color:var(--bg);border-color:var(--text);animation:pipelineChipPulse 2.4s ease-in-out infinite}
-@keyframes pipelineChipPulse{0%,100%{box-shadow:0 0 0 0 rgba(var(--text-rgb),0.18)}50%{box-shadow:0 0 0 5px rgba(var(--text-rgb),0)}}
-@media(prefers-reduced-motion:reduce){.pipeline-mock-chip.is-on{animation:none}}
+.pl-body{flex:1;min-width:0}
+.pl-name{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:var(--text);letter-spacing:-0.005em}
+.pl-detail{font-size:12.5px;color:var(--text-dim);margin-top:4px;line-height:1.5}
+.pl-detail b{color:var(--text);font-weight:700}
+.pl-cursor{display:inline-block;width:6px;height:12px;margin-left:2px;vertical-align:-2px;background:var(--text);animation:cursorBlink 1s step-end infinite}
+@keyframes cursorBlink{0%,100%{opacity:1}50%{opacity:0}}
 
-.pipeline-mock-fields{display:flex;flex-wrap:wrap;gap:10px}
-.pipeline-mock-field{display:flex;flex-direction:column;gap:4px;background:var(--elevated);border:1px solid var(--border);border-radius:10px;padding:9px 13px;min-width:110px}
-.pipeline-mock-field-label{font-size:9.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dimmer)}
-.pipeline-mock-field-value{font-size:12.5px;font-weight:700;color:var(--text)}
+/* Right-hand stat — a fill bar for done/running steps, used up to its
+   own column width so the row actually fills the panel instead of
+   stopping at the text. */
+.pl-stat{flex-shrink:0;width:104px;padding-top:3px}
+.pl-stat-num{display:block;text-align:right;font-size:11.5px;font-weight:700;color:var(--text);margin-bottom:7px}
+.pl-bar{position:relative;display:block;height:4px;border-radius:2px;background:var(--border);overflow:hidden}
+.pl-bar-fill{display:block;height:100%;background:var(--text);border-radius:2px}
+.pl-bar.is-indeterminate .pl-bar-fill{position:absolute;top:0;width:36%;animation:barSlide 1.6s ease-in-out infinite}
+@keyframes barSlide{0%{left:-36%}100%{left:100%}}
 
-.pipeline-mock-footer{padding-top:14px;border-top:1px solid var(--border)}
-.pipeline-mock-run{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--text);background:var(--elevated);border:1px solid var(--border);padding:8px 14px;border-radius:20px}
+/* Label Engine's stat is a circular confidence gauge instead of a bar —
+   genuine visual variety row to row, not the same widget five times. */
+.pl-gauge{flex-shrink:0;position:relative;width:40px;height:40px;border-radius:50%;background:conic-gradient(var(--text) calc(var(--pct) * 1%),var(--border) 0)}
+.pl-gauge::before{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--bg)}
+.pl-gauge-num{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:10px;font-weight:700;color:var(--text)}
+
+@media(prefers-reduced-motion:reduce){
+  .pl-step.is-active .pl-marker,.pl-cursor{animation:none}
+  .pl-bar.is-indeterminate .pl-bar-fill{animation:none;position:static;width:100%}
+}
+
+.pl-available{margin-top:6px;padding-top:22px;border-top:1px dashed var(--border);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.pl-available-label{font-size:10.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dimmer);margin-right:2px}
+.pl-chip{font-size:11px;font-weight:600;color:var(--text-dimmer);border:1px solid var(--border);padding:6px 12px;border-radius:14px}
 
 @media(max-width:900px){
   .pipeline-panel{grid-template-columns:1fr;gap:32px}
 }
 @media(max-width:560px){
-  .pipeline-mock{padding:18px 18px;gap:16px;margin:10px}
-  .pipeline-mock-chip{font-size:9.5px;padding:5px 9px}
-  .pipeline-mock-field{min-width:90px;padding:7px 10px}
+  .pl-name{font-size:13.5px}
+  .pl-chip{font-size:9.5px;padding:5px 9px}
+  .pl-stat{width:72px}
+  .pl-gauge{width:32px;height:32px}
 }
 
 /* ── PLATFORM OVERVIEW — scroll-driven, same .layer-scroll/.layer-sticky
@@ -339,6 +455,105 @@
   .best-grid{grid-template-columns:1fr}
 }
 @media(max-width:560px){.best-panel{padding:32px 22px}}
+
+/* ── DATA MODALITIES — five equal notched cards in a single row, each an
+   empty media slot for now (drop an <img>/<video> into .modality-media
+   later, filling it via object-fit:cover — the dotted-grid hint disappears
+   on its own once a real element sits in front of it). Tall portrait
+   cards (5:9) so there's real presence even before an image lands, with a
+   layered "graded" treatment: an index numeral, a vignette that deepens
+   toward the bottom even over the empty placeholder, an elevated glass
+   icon badge, and a diagonal light-sweep pseudo-element. The "jumping"
+   highlight is one shared CSS animation with a staggered negative delay
+   per card (lift + glow + the light sweep all keyed to the same 10s
+   cycle), so it sweeps left-to-right on a loop with no JS. */
+.p-modalities{background:var(--bg)}
+.modalities-row{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:56px}
+.modality-box{
+  position:relative;aspect-ratio:5/9;overflow:hidden;
+  border:1px solid var(--border);background:var(--elevated);
+  border-radius:22px;
+  animation:modalitySweep 10s ease-in-out infinite;
+  transition:transform .4s cubic-bezier(.16,.9,.3,1),box-shadow .4s ease,border-color .3s ease;
+}
+.modality-box:nth-child(1){animation-delay:-2s}
+.modality-box:nth-child(2){animation-delay:0s}
+.modality-box:nth-child(3){animation-delay:2s}
+.modality-box:nth-child(4){animation-delay:4s}
+.modality-box:nth-child(5){animation-delay:6s}
+@keyframes modalitySweep{
+  0%,12%,100%{transform:translateY(0) scale(1);box-shadow:none;border-color:var(--border)}
+  6%{transform:translateY(-12px) scale(1.035);box-shadow:0 32px 60px rgba(var(--text-rgb),0.16);border-color:var(--text)}
+}
+
+/* Hovering anywhere in the row stops the ambient sweep dead (animation:none
+   drops every card to its plain resting state, no frozen mid-lift frame)
+   and hands control to :hover instead — only the card under the cursor
+   lifts, via the same transform/shadow/border-color .modality-box's own
+   transition already animates smoothly. Moving the cursor off the row
+   hands control back to the keyframe, which restarts its sweep. */
+.modalities-row:hover .modality-box{animation:none;transform:translateY(0) scale(1);box-shadow:none;border-color:var(--border)}
+.modalities-row:hover .modality-box::before{animation:none;transform:translateX(-60%)}
+.modalities-row:hover .modality-box:hover{transform:translateY(-12px) scale(1.035);box-shadow:0 32px 60px rgba(var(--text-rgb),0.16);border-color:var(--text)}
+.modalities-row:hover .modality-box:hover::before{transform:translateX(60%)}
+
+/* Diagonal light sweep — a soft band that crosses the card exactly when
+   it peaks, same 10s/per-card-delay timing as the lift. Pure decoration,
+   sits above the media but below the text content. */
+.modality-box::before{
+  content:'';position:absolute;inset:-20% -60%;z-index:1;pointer-events:none;
+  background:linear-gradient(115deg,transparent 42%,rgba(var(--text-rgb),0.14) 50%,transparent 58%);
+  transform:translateX(-60%);
+  animation:modalitySheen 10s ease-in-out infinite;
+  transition:transform .4s cubic-bezier(.16,.9,.3,1);
+}
+.modality-box:nth-child(1)::before{animation-delay:-2s}
+.modality-box:nth-child(2)::before{animation-delay:0s}
+.modality-box:nth-child(3)::before{animation-delay:2s}
+.modality-box:nth-child(4)::before{animation-delay:4s}
+.modality-box:nth-child(5)::before{animation-delay:6s}
+@keyframes modalitySheen{
+  0%,12%,100%{transform:translateX(-60%)}
+  6%{transform:translateX(60%)}
+}
+
+.modality-media{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background-color:var(--bg);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px}
+.modality-media img,.modality-media video{width:100%;height:100%;object-fit:cover;display:block}
+/* Audio and 3D & LiDAR ship one bright + one dark screenshot of the same
+   panel — same per-theme toggle idiom as .overview-card img above. The
+   other three cards (Text & Documents, Images, Video) use a single asset
+   with no class, so they render regardless of theme. */
+.modality-media img.card-img-bright,.modality-media img.card-img-dark{display:none}
+:root:not([data-theme="dark"]) .modality-media img.card-img-bright{display:block}
+:root[data-theme="dark"] .modality-media img.card-img-dark{display:block}
+/* Three-stop vignette (not a flat fade) so the card reads as "graded"
+   even with an empty placeholder behind it — a touch of depth at the top
+   for the index numeral, clear in the middle, deep at the bottom for the
+   text block, exactly like how the image/video sitting here later would
+   need to be scrimmed for legibility anyway. */
+.modality-overlay{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(var(--text-rgb),0.05) 0%,transparent 22%),
+  linear-gradient(180deg,transparent 48%,rgba(var(--bg-rgb),0.75) 72%,rgba(var(--bg-rgb),0.96) 100%)
+}
+
+.modality-index{position:absolute;top:20px;left:22px;z-index:1;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;color:var(--text-dimmer)}
+
+.modality-content{position:absolute;left:0;right:0;bottom:0;padding:24px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.modality-rule{width:28px;height:2px;background:var(--text);border-radius:2px}
+.modality-icon{width:46px;height:46px;border-radius:12px;background:var(--invert-bg);color:var(--invert-text);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 10px 24px rgba(var(--text-rgb),0.22)}
+.modality-icon svg{width:21px;height:21px}
+.modality-name{font-family:'Inter',sans-serif;font-weight:600;font-size:18px;letter-spacing:-0.01em;line-height:1.25;color:var(--text)}
+
+@media(prefers-reduced-motion:reduce){
+  .modality-box,.modality-box::before{animation:none;transition:none}
+}
+@media(max-width:900px){
+  .modalities-row{grid-template-columns:repeat(5,240px);gap:18px;overflow-x:auto;padding-bottom:4px;margin-top:40px;scroll-snap-type:x mandatory}
+  .modality-box{scroll-snap-align:start}
+}
+@media(max-width:560px){
+  .modalities-row{grid-template-columns:repeat(5,72vw)}
+}
 </style>
 </head>
 <body>
@@ -421,12 +636,21 @@
   <div class="sec-inner">
     <div class="upload-panel">
       <div class="upload-visual" data-reveal="slide-left">
-        <svg class="upload-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-          <path id="upPath1" d="M180,24 C250,24 270,150 340,150"/>
-          <path id="upPath2" d="M180,84 C250,84 270,150 340,150"/>
-          <path id="upPath3" d="M180,150 L340,150"/>
-          <path id="upPath4" d="M180,216 C250,216 270,150 340,150"/>
-          <path id="upPath5" d="M180,276 C250,276 270,150 340,150"/>
+        <svg class="upload-svg" viewBox="0 0 500 440" preserveAspectRatio="none">
+          <!-- One plain ring (no dashes — Upload is one-directional, not
+               a cycle, so it doesn't borrow the Export diagram's loop
+               styling) passing through all 5 cards, plus one spoke per
+               source straight to the hub. -->
+          <circle class="ring" cx="250" cy="220" r="175"/>
+          <path id="upPath1" class="spoke" d="M250,45 L250,220"/>
+          <path id="upPath2" class="spoke" d="M416.4,165.9 L250,220"/>
+          <path id="upPath3" class="spoke" d="M352.9,361.6 L250,220"/>
+          <path id="upPath4" class="spoke" d="M147.1,361.6 L250,220"/>
+          <path id="upPath5" class="spoke" d="M83.6,165.9 L250,220"/>
+
+          <!-- Every dot travels source → hub (the path's own start→end
+               direction), the mirror of the Export diagram's hub → out —
+               upload flows in, export flows out. -->
           <circle class="flow-dot-svg" r="3.2">
             <animateMotion dur="5s" repeatCount="indefinite" begin="0s"><mpath href="#upPath1"/></animateMotion>
             <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0s"/>
@@ -449,45 +673,43 @@
           </circle>
         </svg>
 
-        <div class="upload-sources">
-          <span class="source-chip">
-            <span class="source-logo">
-              <img src="/imgbgm/azure_bright_theme.webp" alt="" class="logo-bright">
-              <img src="/imgbgm/azure_dark_theme.png" alt="" class="logo-dark">
-            </span>
-            <span class="source-word">Azure</span>
+        <span class="source-node" style="left:50%;top:10.2%">
+          <span class="source-logo">
+            <img src="/imgbgm/azure_bright_theme.webp" alt="" class="logo-bright">
+            <img src="/imgbgm/azure_dark_theme.png" alt="" class="logo-dark">
           </span>
-          <span class="source-chip">
-            <span class="source-logo">
-              <img src="/imgbgm/aws_bright_theme.png" alt="" class="logo-bright">
-              <img src="/imgbgm/aws_dark_theme.png" alt="" class="logo-dark">
-            </span>
-            <span class="source-word">AWS</span>
+          <span class="source-name">Azure</span>
+        </span>
+        <span class="source-node" style="left:83.3%;top:37.7%">
+          <span class="source-logo">
+            <img src="/imgbgm/aws_bright_theme.png" alt="" class="logo-bright">
+            <img src="/imgbgm/aws_dark_theme.png" alt="" class="logo-dark">
           </span>
-          <span class="source-chip">
-            <span class="source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-2.821-4.552l-.043.043.006-.05A9.344 9.344 0 0 0 12.19 2.38zm-.358 4.146c1.244-.04 2.518.368 3.486 1.15a5.186 5.186 0 0 1 1.862 4.078v.518c3.53-.07 3.53 5.262 0 5.193h-5.193l-.008.009v-.04H6.785a2.59 2.59 0 0 1-1.067-.23h.001a2.597 2.597 0 1 1 3.437-3.437l3.013-3.012A6.747 6.747 0 0 0 8.11 8.24c.018-.01.04-.026.054-.023a5.186 5.186 0 0 1 3.67-1.69z"/></svg></span>
-            <span class="source-word">Google Cloud</span>
+          <span class="source-name">AWS</span>
+        </span>
+        <span class="source-node" style="left:70.6%;top:82.2%">
+          <span class="source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-2.821-4.552l-.043.043.006-.05A9.344 9.344 0 0 0 12.19 2.38zm-.358 4.146c1.244-.04 2.518.368 3.486 1.15a5.186 5.186 0 0 1 1.862 4.078v.518c3.53-.07 3.53 5.262 0 5.193h-5.193l-.008.009v-.04H6.785a2.59 2.59 0 0 1-1.067-.23h.001a2.597 2.597 0 1 1 3.437-3.437l3.013-3.012A6.747 6.747 0 0 0 8.11 8.24c.018-.01.04-.026.054-.023a5.186 5.186 0 0 1 3.67-1.69z"/></svg></span>
+          <span class="source-name">Google Cloud</span>
+        </span>
+        <span class="source-node" style="left:29.4%;top:82.2%">
+          <span class="source-logo">
+            <img src="/imgbgm/postgres-bright.png" alt="" class="logo-bright">
+            <img src="/imgbgm/postgres-dark.jpeg" alt="" class="logo-dark">
           </span>
-          <span class="source-chip">
-            <span class="source-logo">
-              <img src="/imgbgm/postgres-bright.png" alt="" class="logo-bright">
-              <img src="/imgbgm/postgres-dark.jpeg" alt="" class="logo-dark">
-            </span>
-            <span class="source-word">PostgreSQL</span>
-          </span>
-          <span class="source-chip">
-            <span class="source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="3" y="12" width="17" height="7" rx="3.5"/><circle cx="8" cy="11" r="5"/><circle cx="13.5" cy="8.5" r="6"/><circle cx="18" cy="12" r="4"/></svg></span>
-            <span class="source-word">Any Open Source</span>
-          </span>
-        </div>
+          <span class="source-name">PostgreSQL</span>
+        </span>
+        <span class="source-node" style="left:16.7%;top:37.7%">
+          <span class="source-logo"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="3" y="12" width="17" height="7" rx="3.5"/><circle cx="8" cy="11" r="5"/><circle cx="13.5" cy="8.5" r="6"/><circle cx="18" cy="12" r="4"/></svg></span>
+          <span class="source-name">Any Open Source</span>
+        </span>
 
-        <div class="upload-formats">
-          <span class="format-chip f1">.jsonl</span>
-          <span class="format-chip f2">.jpeg</span>
-          <span class="format-chip f3">.parquet</span>
-          <span class="format-chip f4">.mp4</span>
-          <span class="format-chip f5">.wav</span>
-        </div>
+        <!-- File formats — plain text, no card, sitting on the spoke
+             partway between the hub and the source it came from. -->
+        <span class="format-label" style="left:50%;top:28.1%">.jsonl</span>
+        <span class="format-label" style="left:68.3%;top:43.2%">.jpeg</span>
+        <span class="format-label" style="left:61.3%;top:67.7%">.parquet</span>
+        <span class="format-label" style="left:38.7%;top:67.7%">.mp4</span>
+        <span class="format-label" style="left:31.7%;top:43.2%">.wav</span>
 
         <div class="upload-mark">
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
@@ -700,6 +922,75 @@
   </div>
 </section>
 
+<!-- DATA MODALITIES -->
+<section class="p-modalities pad">
+  <div class="sec-inner">
+    <div class="center-head" data-reveal>
+      <span class="sec-eyebrow">Multimodal by Design</span>
+      <h2 class="sec-title">Infrastructure to Handle all Kind of Data Modalities</h2>
+    </div>
+
+    <div class="modalities-row">
+      <div class="modality-box">
+        <div class="modality-media"><img src="/imgbgm/datallier-text.png" alt="Text and document annotation — contracts, meeting minutes, and structured text highlighted by section"></div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">01</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Text &amp; Documents</span>
+        </div>
+      </div>
+      <div class="modality-box">
+        <div class="modality-media"><img src="/imgbgm/datalier-image.png" alt="Image annotation workspace"></div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">02</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Images</span>
+        </div>
+      </div>
+      <div class="modality-box">
+        <div class="modality-media"><video src="/imgbgm/datalier-video.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">03</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Videos</span>
+        </div>
+      </div>
+      <div class="modality-box">
+        <div class="modality-media">
+          <img class="card-img-bright" src="/imgbgm/datalier-audio-bright.png" alt="Audio transcript with speaker diarization — Speaker 1 and Speaker 2 segmented across a waveform">
+          <img class="card-img-dark" src="/imgbgm/datalier-audio-dark.png" alt="Audio transcript with speaker diarization — Speaker 1 and Speaker 2 segmented across a waveform">
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">04</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="10" x2="4" y2="14"/><line x1="8" y1="6" x2="8" y2="18"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="16" y1="6" x2="16" y2="18"/><line x1="20" y1="10" x2="20" y2="14"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Audio</span>
+        </div>
+      </div>
+      <div class="modality-box">
+        <div class="modality-media">
+          <img class="card-img-bright" src="/imgbgm/datalier-3d-bright.png" alt="3D and LiDAR point cloud annotation">
+          <img class="card-img-dark" src="/imgbgm/datalier-3d-dark.png" alt="3D and LiDAR point cloud annotation">
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">05</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">3D &amp; LiDAR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- EXPORT / LOOP -->
 <section class="p-export pad">
   <div class="sec-inner">
@@ -707,64 +998,120 @@
       <div class="export-copy" data-reveal="slide-left">
         <span class="sec-eyebrow">Automated Closed-Loop Remediation</span>
         <h2 class="sec-title">Loop that streamlines training and improves model accuracy.</h2>
-        <p class="sec-desc">We do not stop after exporting AI-ready data straight into your required storage entity. We connect to your training infrastructure, to ensure every train run on AI models are streamlined and evaluate the model for any form of drifts. Observability layer measures prediction logs in production for any kind of drift. Data behind any degradation routes straight back to Datalier for re-labeling loop without manual intervention dimensing every drift to ensure complete model accuracy.</p>
+        <p class="sec-desc">Export connects straight into your training infrastructure, with observability watching every production run for drift. The moment accuracy degrades, the responsible data routes back to Datalier for re-labeling — no manual intervention, no broken loop.</p>
         <a href="/solutions/mlops-integration/" class="btn-ghost">See how the loop works →</a>
       </div>
 
       <div class="export-visual" data-reveal="slide-right">
-        <svg class="export-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-          <path id="exPath1" d="M100,150 C200,150 230,78 340,78"/>
-          <path id="exPath2" d="M100,150 C200,150 230,102 340,102"/>
-          <path id="exPath3" d="M100,150 C200,150 230,126 340,126"/>
-          <path id="exPath4" d="M100,150 L340,150"/>
-          <path id="exPath5" d="M100,150 C200,150 230,174 340,174"/>
-          <path id="exPath6" d="M100,150 C200,150 230,198 340,198"/>
-          <path id="exPath7" d="M100,150 C200,150 230,222 340,222"/>
-          <path id="exLoopPath" class="loop-path" d="M340,236 C266,270 156,262 100,180"/>
+        <svg class="export-svg" viewBox="0 0 500 440" preserveAspectRatio="none">
+          <!-- Loop track: a real closed circle between the two rings, not
+               an arc — Train → Predict → Detect drift → Re-label sit on it
+               in clockwise order, same direction the loop-dot travels.
+               Drawn as two half-circle arcs rather than one near-360° arc
+               with barely-separated endpoints — that single-arc trick is
+               numerically unstable (the solver has to find a circle
+               through two almost-identical points), which is exactly what
+               was sending the traveling dot visibly off the dashed line.
+               Two clean half-arcs trace the same circle exactly. -->
+          <circle class="loop-ring" cx="250" cy="220" r="138"/>
+          <path id="exLoopPath" d="M250,82 A138,138 0 0,1 250,358 A138,138 0 0,1 250,82" fill="none" stroke="none"/>
+          <circle class="loop-stage-dot" cx="310.0" cy="95.7" r="2.8"/>
+          <text class="loop-stage-label" x="317" y="90" text-anchor="start">Train</text>
+          <circle class="loop-stage-dot" cx="357.9" cy="306.0" r="2.8"/>
+          <text class="loop-stage-label" x="365" y="320" text-anchor="start">Predict</text>
+          <circle class="loop-stage-dot" cx="142.1" cy="306.0" r="2.8"/>
+          <text class="loop-stage-label" x="135" y="320" text-anchor="end">Detect drift</text>
+          <circle class="loop-stage-dot" cx="190.0" cy="95.7" r="2.8"/>
+          <text class="loop-stage-label" x="183" y="90" text-anchor="end">Re-label</text>
 
-          <!-- Export format: a small dot riding partway along the line, not a boxed endpoint -->
-          <circle class="wp-dot" cx="216" cy="96" r="2.6"/>
-          <text class="wp-label" x="222" y="93">.coco</text>
-          <circle class="wp-dot" cx="216" cy="123" r="2.6"/>
-          <text class="wp-label" x="222" y="120">.yolo</text>
-          <circle class="wp-dot" cx="220" cy="150" r="2.6"/>
-          <text class="wp-label" x="226" y="147">.jsonl</text>
-          <circle class="wp-dot" cx="216" cy="177" r="2.6"/>
-          <text class="wp-label" x="222" y="174">imgfolder</text>
-          <circle class="wp-dot" cx="216" cy="204" r="2.6"/>
-          <text class="wp-label" x="222" y="201">.parquet</text>
+          <!-- Inner ring spokes: hub → 5 export formats -->
+          <path id="spF1" class="spoke" d="M250,220 L250,120"/>
+          <path id="spF2" class="spoke" d="M250,220 L345.1,189.1"/>
+          <path id="spF3" class="spoke" d="M250,220 L308.8,300.9"/>
+          <path id="spF4" class="spoke" d="M250,220 L191.2,300.9"/>
+          <path id="spF5" class="spoke" d="M250,220 L154.9,189.1"/>
 
-          <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="0s"><mpath href="#exPath1"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="0s"/>
+          <!-- Outer ring spokes: hub → 7 destination platforms -->
+          <path id="spP1" class="spoke" d="M250,220 L250,45"/>
+          <path id="spP2" class="spoke" d="M250,220 L386.8,110.9"/>
+          <path id="spP3" class="spoke" d="M250,220 L420.7,258.9"/>
+          <path id="spP4" class="spoke" d="M250,220 L325.9,377.7"/>
+          <path id="spP5" class="spoke" d="M250,220 L174.1,377.7"/>
+          <path id="spP6" class="spoke" d="M250,220 L79.3,258.9"/>
+          <path id="spP7" class="spoke" d="M250,220 L113.2,110.9"/>
+
+          <!-- Return markers: a solid dot right where each platform's own
+               spoke crosses the loop ring — a solid dot there turned out
+               indistinguishable from the small flow-dot-svg circles
+               already animating along those same spokes: same fill, same
+               rough size, same lines, so in any single frame it just read
+               as "one more of the many dots already there," not a
+               deliberate marker. A small inward-pointing arrowhead can't
+               be mistaken for a traveling dot — different shape entirely
+               — and it also now shows the thing being asked for directly:
+               which way the data is flowing (back toward the hub), not
+               just that a connection exists. Each is the same template
+               triangle ("M7,0 L-3,4 L-3,-4 Z", tip pointing +x at 0°)
+               rotated to platform-angle+180° so the tip faces the hub. -->
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(250,82) rotate(90)"/>
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(357.9,134.0) rotate(141.43)"/>
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(384.6,250.7) rotate(192.86)"/>
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(309.9,344.3) rotate(244.29)"/>
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(190.1,344.3) rotate(295.71)"/>
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(115.4,250.7) rotate(347.14)"/>
+          <path class="return-arrow" d="M7,0 L-3,4 L-3,-4 Z" transform="translate(142.1,134.0) rotate(38.57)"/>
+
+          <circle class="flow-dot-svg" r="3">
+            <animateMotion dur="3.4s" repeatCount="indefinite" begin="0s"><mpath href="#spF1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.4s" repeatCount="indefinite" begin="0s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3">
+            <animateMotion dur="3.4s" repeatCount="indefinite" begin="0.5s"><mpath href="#spF2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.4s" repeatCount="indefinite" begin="0.5s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3">
+            <animateMotion dur="3.4s" repeatCount="indefinite" begin="1s"><mpath href="#spF3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.4s" repeatCount="indefinite" begin="1s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3">
+            <animateMotion dur="3.4s" repeatCount="indefinite" begin="1.5s"><mpath href="#spF4"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.4s" repeatCount="indefinite" begin="1.5s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3">
+            <animateMotion dur="3.4s" repeatCount="indefinite" begin="2s"><mpath href="#spF5"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.4s" repeatCount="indefinite" begin="2s"/>
           </circle>
           <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="0.75s"><mpath href="#exPath2"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="0.75s"/>
+            <animateMotion dur="5s" repeatCount="indefinite" begin="0.3s"><mpath href="#spP1"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="0.3s"/>
           </circle>
           <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="1.5s"><mpath href="#exPath3"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="1.5s"/>
+            <animateMotion dur="5s" repeatCount="indefinite" begin="1s"><mpath href="#spP2"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="1s"/>
           </circle>
           <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="2.25s"><mpath href="#exPath4"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="2.25s"/>
+            <animateMotion dur="5s" repeatCount="indefinite" begin="1.7s"><mpath href="#spP3"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="1.7s"/>
           </circle>
           <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="3s"><mpath href="#exPath5"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="3s"/>
+            <animateMotion dur="5s" repeatCount="indefinite" begin="2.4s"><mpath href="#spP4"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="2.4s"/>
           </circle>
           <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="3.75s"><mpath href="#exPath6"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="3.75s"/>
+            <animateMotion dur="5s" repeatCount="indefinite" begin="3.1s"><mpath href="#spP5"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="3.1s"/>
           </circle>
           <circle class="flow-dot-svg" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="4.5s"><mpath href="#exPath7"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="4.5s"/>
+            <animateMotion dur="5s" repeatCount="indefinite" begin="3.8s"><mpath href="#spP6"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="3.8s"/>
+          </circle>
+          <circle class="flow-dot-svg" r="3.2">
+            <animateMotion dur="5s" repeatCount="indefinite" begin="4.5s"><mpath href="#spP7"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5s" repeatCount="indefinite" begin="4.5s"/>
           </circle>
           <circle class="loop-dot-svg" r="3.6">
-            <animateMotion dur="6.5s" repeatCount="indefinite" begin="0s"><mpath href="#exLoopPath"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.9;1" dur="6.5s" repeatCount="indefinite" begin="0s"/>
+            <animateMotion dur="9s" repeatCount="indefinite" begin="0s"><mpath href="#exLoopPath"/></animateMotion>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.04;0.96;1" dur="9s" repeatCount="indefinite" begin="0s"/>
           </circle>
         </svg>
 
@@ -773,17 +1120,19 @@
           <span>Datalier</span>
         </div>
 
-        <div class="export-platforms">
-          <span class="platform-chip">SageMaker</span>
-          <span class="platform-chip">Vertex AI</span>
-          <span class="platform-chip">Azure ML</span>
-          <span class="platform-chip">HuggingFace</span>
-          <span class="platform-chip">LangSmith</span>
-          <span class="platform-chip">Webhook</span>
-          <span class="platform-chip">REST API</span>
-        </div>
+        <span class="export-format-chip" style="left:50%;top:27.3%">.coco</span>
+        <span class="export-format-chip" style="left:69.0%;top:43.0%">.yolo</span>
+        <span class="export-format-chip" style="left:61.8%;top:68.4%">.jsonl</span>
+        <span class="export-format-chip" style="left:38.2%;top:68.4%">imgfolder</span>
+        <span class="export-format-chip" style="left:31.0%;top:43.0%">.parquet</span>
 
-        <div class="export-loop-label">Train → Predict → Detect drift → Re-label</div>
+        <span class="platform-chip" style="left:50%;top:10.2%">SageMaker</span>
+        <span class="platform-chip" style="left:77.4%;top:25.2%">Vertex AI</span>
+        <span class="platform-chip" style="left:84.1%;top:58.8%">Azure ML</span>
+        <span class="platform-chip" style="left:65.2%;top:85.8%">HuggingFace</span>
+        <span class="platform-chip" style="left:34.8%;top:85.8%">LangSmith</span>
+        <span class="platform-chip" style="left:15.9%;top:58.8%">Webhook</span>
+        <span class="platform-chip" style="left:22.6%;top:25.2%">REST API</span>
       </div>
     </div>
   </div>
@@ -800,39 +1149,73 @@
       </div>
 
       <div class="pipeline-visual" data-reveal="slide-right">
-        <div class="pipeline-mock">
-          <div class="pipeline-mock-header">
-            <span class="pipeline-mock-dot"></span><span class="pipeline-mock-dot"></span><span class="pipeline-mock-dot"></span>
-            <span class="pipeline-mock-title">New Pipeline</span>
-          </div>
+        <div class="pl-overview">
+          <span class="pl-overview-label">Pipeline Progress</span>
+          <span class="pl-overview-pct">2 of 5 stages complete</span>
+        </div>
+        <div class="pl-overview-track"><span class="pl-overview-fill" style="width:40%"></span></div>
 
-          <div class="pipeline-mock-section">
-            <div class="pipeline-mock-label">Transform Steps <em>— pick any of 9</em></div>
-            <div class="pipeline-mock-chips">
-              <span class="pipeline-mock-chip is-on">Validate</span>
-              <span class="pipeline-mock-chip is-on">Deduplicate</span>
-              <span class="pipeline-mock-chip is-on">PII Detection</span>
-              <span class="pipeline-mock-chip">Schema Normalize</span>
-              <span class="pipeline-mock-chip">Semantic Cluster</span>
-              <span class="pipeline-mock-chip">Confidence Route</span>
-              <span class="pipeline-mock-chip">OCR Extract</span>
-              <span class="pipeline-mock-chip">Speech-to-Text</span>
-              <span class="pipeline-mock-chip">Cross-Modal Align</span>
+        <ol class="pipeline-timeline">
+          <li class="pl-step is-done">
+            <span class="pl-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="pl-body">
+              <div class="pl-name">Validate</div>
+              <div class="pl-detail"><b>1,204/1,204</b> rows checked</div>
             </div>
-          </div>
-
-          <div class="pipeline-mock-section">
-            <div class="pipeline-mock-label">Label Engine</div>
-            <div class="pipeline-mock-fields">
-              <div class="pipeline-mock-field"><span class="pipeline-mock-field-label">Task Type</span><span class="pipeline-mock-field-value">Classification ▾</span></div>
-              <div class="pipeline-mock-field"><span class="pipeline-mock-field-label">Model</span><span class="pipeline-mock-field-value">gpt-4o-mini ▾</span></div>
-              <div class="pipeline-mock-field"><span class="pipeline-mock-field-label">Confidence</span><span class="pipeline-mock-field-value">0.85</span></div>
+            <div class="pl-stat">
+              <span class="pl-stat-num">100%</span>
+              <span class="pl-bar"><span class="pl-bar-fill" style="width:100%"></span></span>
             </div>
-          </div>
+          </li>
+          <li class="pl-step is-done">
+            <span class="pl-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div class="pl-body">
+              <div class="pl-name">Deduplicate</div>
+              <div class="pl-detail"><b>892</b> duplicates removed</div>
+            </div>
+            <div class="pl-stat">
+              <span class="pl-stat-num">100%</span>
+              <span class="pl-bar"><span class="pl-bar-fill" style="width:100%"></span></span>
+            </div>
+          </li>
+          <li class="pl-step is-active">
+            <span class="pl-marker"></span>
+            <div class="pl-body">
+              <div class="pl-name">PII Detection</div>
+              <div class="pl-detail">Scanning<span class="pl-cursor"></span></div>
+            </div>
+            <div class="pl-stat">
+              <span class="pl-bar is-indeterminate"><span class="pl-bar-fill"></span></span>
+            </div>
+          </li>
+          <li class="pl-step">
+            <span class="pl-marker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+            <div class="pl-body">
+              <div class="pl-name">Label Engine</div>
+              <div class="pl-detail">Segmentation · SAM2</div>
+            </div>
+            <span class="pl-gauge" style="--pct:85"><span class="pl-gauge-num">85%</span></span>
+          </li>
+          <li class="pl-step is-cta">
+            <span class="pl-marker"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+            <div class="pl-body">
+              <div class="pl-name">Run continuously</div>
+              <div class="pl-detail">42,918 rows</div>
+            </div>
+            <div class="pl-stat">
+              <span class="pl-stat-num">~4m 12s</span>
+            </div>
+          </li>
+        </ol>
 
-          <div class="pipeline-mock-footer">
-            <span class="pipeline-mock-run">▶ Run continuously</span>
-          </div>
+        <div class="pl-available">
+          <span class="pl-available-label">Also available</span>
+          <span class="pl-chip">Schema Normalize</span>
+          <span class="pl-chip">Semantic Cluster</span>
+          <span class="pl-chip">Confidence Route</span>
+          <span class="pl-chip">OCR Extract</span>
+          <span class="pl-chip">Speech-to-Text</span>
+          <span class="pl-chip">Cross-Modal Align</span>
         </div>
       </div>
     </div>

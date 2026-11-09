@@ -96,13 +96,13 @@
 
 <section class="pad">
   <div class="sec-inner">
-    <div class="intro-diagram-panel" data-reveal>
-      <div class="intro-diagram-copy">
-        <canvas class="intro-diagram-copy-canvas" aria-hidden="true"></canvas>
+    <div class="wwd-feature" data-reveal>
+      <video class="wwd-feature-video" src="/imgbgm/wwd-version.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+      <div class="wwd-feature-scrim" aria-hidden="true"></div>
+      <div class="wwd-feature-copy">
         <span class="sec-eyebrow">What It Does</span>
         <p class="lead-text">The versioning engine captures labelled datasets into immutable state snapshots, establishing a deterministic, point-in-time record of source data, labels, validation metrics, and upstream transformations. By embedding end-to-end data lineage directly into each version, every artifact remains permanently audit-ready and tamper-proof. Once committed, versions are read-only and can exclusively be exported, diffed against historical baselines, or referenced as the foundational branch for new dataset iterations.</p>
       </div>
-      <div class="intro-diagram-box"><video src="/imgbgm/wwd-version.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
     </div>
   </div>
 </section>
@@ -110,39 +110,48 @@
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
     <div class="version-model-panel">
-      <div class="version-flow compact" data-reveal="slide-left">
-        <svg class="version-flow-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-          <path id="vfPath1" d="M100,150 C180,150 200,54 250,54"/>
-          <path id="vfPath2" d="M100,150 L250,150"/>
-          <path id="vfPath3" d="M100,150 C180,150 200,246 250,246"/>
-          <circle class="version-flow-dot" r="3.4">
-            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0s"><mpath href="#vfPath1"/></animateMotion>
+      <div class="ver-graph compact" data-reveal="slide-left">
+        <svg class="ver-graph-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
+          <path id="vgPath1" class="ver-graph-line" d="M58,150 C150,150 172,54 262,54"/>
+          <path id="vgPath2" class="ver-graph-line" d="M58,150 L262,150"/>
+          <path id="vgPath3" class="ver-graph-line" d="M58,150 C150,150 172,246 262,246"/>
+
+          <circle class="ver-graph-node ver-graph-node-source" cx="58" cy="150" r="6.5"/>
+          <circle class="ver-graph-node" cx="262" cy="54" r="5"/>
+          <circle class="ver-graph-node" cx="262" cy="150" r="5"/>
+          <circle class="ver-graph-node" cx="262" cy="246" r="5"/>
+
+          <circle class="ver-graph-dot" r="3.2">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0s"><mpath href="#vgPath1"/></animateMotion>
             <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0s"/>
           </circle>
-          <circle class="version-flow-dot" r="3.4">
-            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0.9s"><mpath href="#vfPath2"/></animateMotion>
+          <circle class="ver-graph-dot" r="3.2">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0.9s"><mpath href="#vgPath2"/></animateMotion>
             <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0.9s"/>
           </circle>
-          <circle class="version-flow-dot" r="3.4">
-            <animateMotion dur="4.5s" repeatCount="indefinite" begin="1.8s"><mpath href="#vfPath3"/></animateMotion>
+          <circle class="ver-graph-dot" r="3.2">
+            <animateMotion dur="4.5s" repeatCount="indefinite" begin="1.8s"><mpath href="#vgPath3"/></animateMotion>
             <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="1.8s"/>
           </circle>
         </svg>
 
-        <div class="version-flow-source">v1.0</div>
+        <div class="ver-graph-source">
+          <span class="ver-graph-source-ver">v1.0</span>
+          <span class="ver-graph-source-label">Base Version</span>
+        </div>
 
-        <div class="version-flow-endpoints">
-          <div class="version-flow-endpoint" style="top:18%">
+        <div class="ver-graph-endpoints">
+          <div class="ver-graph-endpoint" style="top:18%">
             <span class="version-flow-endpoint-tag">Major</span>
             <div class="version-flow-endpoint-ver">v2.0</div>
             <div class="version-flow-endpoint-desc">Schema changes, complete re-processing.</div>
           </div>
-          <div class="version-flow-endpoint" style="top:50%">
+          <div class="ver-graph-endpoint" style="top:50%">
             <span class="version-flow-endpoint-tag">Minor</span>
             <div class="version-flow-endpoint-ver">v1.1</div>
             <div class="version-flow-endpoint-desc">New labels, corrections applied.</div>
           </div>
-          <div class="version-flow-endpoint" style="top:82%">
+          <div class="ver-graph-endpoint" style="top:82%">
             <span class="version-flow-endpoint-tag">Patch</span>
             <div class="version-flow-endpoint-ver">v1.0.1</div>
             <div class="version-flow-endpoint-desc">Small fixes, minor issues resolved.</div>

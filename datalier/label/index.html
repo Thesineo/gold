@@ -96,18 +96,18 @@
 
 <section class="pad">
   <div class="sec-inner">
-    <div class="intro-diagram-panel" data-reveal>
-      <div class="intro-diagram-copy">
-        <canvas class="intro-diagram-copy-canvas" aria-hidden="true"></canvas>
+    <div class="wwd-feature" data-reveal>
+      <video class="wwd-feature-video" src="/imgbgm/wwd-label.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+      <div class="wwd-feature-scrim" aria-hidden="true"></div>
+      <div class="wwd-feature-copy">
         <span class="sec-eyebrow">What It Does</span>
         <p class="lead-text">A multi-engine orchestration system that dispatches every data point to the AI engine that suites best to its modality and task, while a calibrated confidence threshold discerns which labelling engine may certify outright and which requires human judgment. Nothing leaves the system unverified, each label carries either the AI's high-confidence assertion or a reviewer's explicit signing, the twin foundations makes data AI-ready that can train more futuristic AI models.</p>
       </div>
-      <div class="intro-diagram-box"><video src="/imgbgm/wwd-label.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
     </div>
   </div>
 </section>
 
-<section class="pad" style="padding-top:0;margin-top:-40px">
+<section class="pad" style="padding-top:0">
   <div class="sec-inner">
     <div class="feature-head" data-reveal>
       <h2 class="sec-title">Driving forces behind the Data Labelling layer</h2>
@@ -207,15 +207,16 @@
        "basketball" sphere and flattens into a rotating ring of that
        engine's task chips. Same mechanics as the platform page's Five
        Layers section; see initEngineScroll in platform-motion.js. -->
-  <div class="layer-scroll" id="engineScroll">
+  <div class="layer-scroll" id="engineScroll" style="height:744vh">
     <div class="layer-sticky">
       <div class="sec-inner layer-sticky-inner">
         <div class="layer-copy-col">
           <div class="layer-slide-tagline" id="engineTagline"></div>
           <h3 class="layer-slide-heading" id="engineHeading">The AI Engines</h3>
-          <p class="layer-slide-desc" id="engineDesc">Four specialised modality families routing each item to the right kind of intelligence labelling engine text, vision, video, and audio, each producing its own labelling confidence score.</p>
+          <p class="layer-slide-desc" id="engineDesc">Five specialised modality families routing each item to the right kind of intelligence labelling engine text, vision, video, audio, and 3D / LiDAR, each producing its own labelling confidence score.</p>
 
           <div class="layer-progress-row" id="engineProgressRow">
+            <span class="layer-progress-seg"><span></span></span>
             <span class="layer-progress-seg"><span></span></span>
             <span class="layer-progress-seg"><span></span></span>
             <span class="layer-progress-seg"><span></span></span>
@@ -263,6 +264,12 @@
       <div class="layer-mobile-name">Audio</div>
       <p class="layer-mobile-desc">Precise, word-level speech transcription with exact timestamps along with advanced acoustic analysis decoding speaker diarization, emotional registery, dynamic tones, and subtle background event sounds.</p>
       <div class="pill-row"><span class="pill">Transcription</span><span class="pill">Speaker Diarisation</span><span class="pill">Sound Event Detection</span><span class="pill">Classification</span><span class="pill">Emotion Detection</span><span class="pill">Audio Segmentation</span></div>
+    </div>
+    <div class="layer-mobile-item">
+      <div class="layer-mobile-tagline">AI Engine</div>
+      <div class="layer-mobile-name">3D & LiDAR</div>
+      <p class="layer-mobile-desc">Point-cloud native spatial understanding combining volumetric object detection with persistent multi-frame tracking, dense semantic segmentation, cross-sensor fusion, and scan-to-scan registration for consistent world-frame alignment.</p>
+      <div class="pill-row"><span class="pill">3D Object Detection</span><span class="pill">3D Object Tracking</span><span class="pill">Segmentation</span><span class="pill">Sensor Fusion</span><span class="pill">Scan Registration</span></div>
     </div>
   </div>
 </section>

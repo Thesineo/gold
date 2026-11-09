@@ -55,7 +55,7 @@ section.pad{padding:110px 0}
    with no animation, removes that gap entirely for every page that
    uses any of these wrappers. */
 .layer-hero-card[data-reveal],
-.intro-diagram-panel[data-reveal],
+.wwd-feature[data-reveal],
 .cloud-panel[data-reveal],
 .about-hero-media[data-reveal],
 .task-switch-media[data-reveal],
@@ -304,34 +304,26 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .intro-center{text-align:center;min-height:52vh;display:flex;flex-direction:column;justify-content:center;align-items:center}
 @media(max-width:768px){.intro-center{min-height:0}}
 
-/* ── Intro diagram panel (Transform page "What It Does") — a 60/40 split:
-   the same text content that used to sit alone in .intro-center, now
-   paired with the exact same rotating wireframe diagram used on the
-   platform page's "Why Datalier" section (initPacketWireframe, reused
-   as-is via the shared #bestCanvas id — no JS change needed). Plain
-   monochrome box, no colour, matching how that diagram already looks
-   elsewhere on the site. */
-.intro-diagram-panel{display:flex;align-items:stretch;gap:22px}
-/* The black background bleeds 48px further left than its text (which
-   stays put via matching extra left padding) so its edge lines up with
-   the full-bleed hero/video card above it instead of sitting inset at
-   .sec-inner's standard content padding — the two "boxes" stacked
-   vertically read as aligned instead of staggered. Desktop only: the
-   stacked mobile layout below is centered/full-width already. */
-.intro-diagram-copy{position:relative;overflow:hidden;flex:1 1 70%;min-width:0;background:var(--invert-bg);color:var(--invert-text);padding:48px 46px 48px 94px;margin-left:-48px;border-radius:20px}
-.intro-diagram-copy-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
-.intro-diagram-copy .sec-eyebrow,.intro-diagram-copy .lead-text{position:relative;z-index:1}
-.intro-diagram-copy .sec-eyebrow{color:rgba(var(--bg-rgb),0.55)}
-.intro-diagram-copy .lead-text{margin-top:20px;color:rgba(var(--bg-rgb),0.88)}
-.intro-diagram-box{flex:0 0 30%;position:relative}
-.intro-diagram-box canvas,.intro-diagram-box video{position:relative;z-index:1;width:100%;height:100%;display:block;object-fit:cover;border-radius:34px 34px 34px 8px;box-shadow:0 24px 54px rgba(var(--text-rgb),0.16);transform:translateZ(0)}
-@media(max-width:860px){
-  .intro-diagram-panel{flex-direction:column-reverse;gap:24px}
-  .intro-diagram-copy{flex:1 1 auto;text-align:center;padding:36px 28px;margin-left:0}
-  .intro-diagram-box{flex:0 0 auto;width:100%;max-width:340px;aspect-ratio:5/4}
-}
 .intro-center .sec-eyebrow{display:block}
 .intro-center .lead-text{max-width:700px;margin-left:auto;margin-right:auto}
+
+/* ── "What It Does" unified feature (Label/Transform/Version/Observe/
+   Govern pages) — text and video merged into a single full-bleed panel
+   instead of two boxes side by side: the video fills the whole card, a
+   one-sided gradient scrim lets the copy sit directly over it on the
+   left, fading out quickly toward the visible footage on the right. */
+.wwd-feature{position:relative;border-radius:28px;overflow:hidden;min-height:560px;display:flex;background:var(--invert-bg)}
+.wwd-feature-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.wwd-feature-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(var(--text-rgb),0.68) 0%,rgba(var(--text-rgb),0.44) 20%,rgba(var(--text-rgb),0.16) 36%,rgba(var(--text-rgb),0.03) 50%,rgba(var(--text-rgb),0) 62%)}
+.wwd-feature-copy{position:relative;z-index:2;max-width:560px;padding:64px 40px 64px 64px;display:flex;flex-direction:column;justify-content:center;color:var(--invert-text)}
+.wwd-feature-copy .sec-eyebrow{color:rgba(var(--bg-rgb),0.6);text-shadow:0 1px 16px rgba(var(--text-rgb),0.3)}
+.wwd-feature-copy .lead-text{margin-top:20px;color:rgba(var(--bg-rgb),0.92);text-shadow:0 1px 20px rgba(var(--text-rgb),0.35)}
+@media(max-width:860px){
+  .wwd-feature{min-height:0;flex-direction:column;border-radius:20px}
+  .wwd-feature-video{position:relative;height:260px}
+  .wwd-feature-scrim{display:none}
+  .wwd-feature-copy{max-width:none;padding:32px 24px 40px}
+}
 
 /* ── Generic bordered card grid — used for Operations, AI Engines, Connectors,
    Lineage sections, Drift checks, Re-labeling strategies, etc. ── */
@@ -371,60 +363,56 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 @media(max-width:900px){.recipe-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.recipe-grid{grid-template-columns:1fr}.recipe-grid.cols-2{grid-template-columns:1fr}}
 
-/* ── Version flow diagram — a source version fanning out via connected
-   paths to the three semver bump destinations (major/minor/patch), same
-   SVG + animateMotion/mpath technique as the Import/Export diagrams on the
-   main platform page: the dot rides the exact path it's drawn from, so it
-   can't drift off-curve. Replaces a plain 3-box grid with an actual
-   flow/connection visual. */
-.version-flow{
-  position:relative;aspect-ratio:2.3/1;border-radius:20px;overflow:hidden;margin-top:40px;
-  background-color:var(--bg);
-  background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);
-  background-size:10px 10px;border:1px solid var(--border)
-}
-.version-flow-svg{position:absolute;inset:0;width:100%;height:100%}
-.version-flow-svg path{fill:none;stroke:var(--border);stroke-width:1.5}
-.version-flow-dot{fill:var(--text)}
-@media(prefers-reduced-motion:reduce){.version-flow-dot{display:none}}
-.version-flow-source{
-  position:absolute;top:50%;left:5%;transform:translateY(-50%);z-index:2;
-  background:var(--text);color:var(--bg);padding:16px 22px;border-radius:12px;
-  font-family:'Inter',sans-serif;font-weight:800;font-size:17px;letter-spacing:-0.01em;
-  box-shadow:0 8px 20px rgba(0,0,0,0.15)
-}
-.version-flow-endpoints{position:absolute;inset:0;z-index:2}
-/* left+right (not a fixed width) so the box always starts just past
-   where its connecting thread ends, whatever the container's size. */
-.version-flow-endpoint{position:absolute;left:66%;right:4%;transform:translateY(-50%)}
+/* ── Version commit graph — a base version node branching via connected
+   curves to the three semver bump destinations (major/minor/patch), drawn
+   as an open git-log-style graph directly on the page background: ringed
+   nodes at every branch point/terminus, no bounding box, no dot-grid
+   texture. Same SVG + animateMotion/mpath technique as the Import/Export
+   diagrams on the main platform page — the dot rides the exact path it's
+   drawn from, so it can't drift off-curve. */
+.ver-graph{position:relative;aspect-ratio:2.3/1;margin-top:40px}
+.ver-graph-svg{position:absolute;inset:0;width:100%;height:100%}
+.ver-graph-line{fill:none;stroke:var(--border);stroke-width:1.5}
+.ver-graph-node{fill:var(--bg);stroke:var(--text);stroke-width:1.6}
+.ver-graph-node-source{fill:var(--text)}
+.ver-graph-dot{fill:var(--text)}
+@media(prefers-reduced-motion:reduce){.ver-graph-dot{display:none}}
+.ver-graph-source{position:absolute;top:50%;left:0;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:3px}
+.ver-graph-source-ver{font-family:'Inter',sans-serif;font-weight:800;font-size:17px;color:var(--text);letter-spacing:-0.01em}
+.ver-graph-source-label{font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim)}
+.ver-graph-endpoints{position:absolute;inset:0;z-index:2}
+/* left+right (not a fixed width) so the text always starts just past
+   where its connecting curve ends, whatever the container's size. */
+.ver-graph-endpoint{position:absolute;left:68%;right:4%;transform:translateY(-50%)}
 .version-flow-endpoint-tag{font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim)}
 .version-flow-endpoint-ver{font-family:'Inter',sans-serif;font-size:19px;font-weight:800;color:var(--text);margin:2px 0 5px;letter-spacing:-0.01em}
 .version-flow-endpoint-desc{font-size:12px;color:var(--text-dim);line-height:1.5}
 /* Compact variant — diagram sits in one column of a two-up layout
    (.version-model-panel) instead of spanning the full section width. */
 .version-model-panel{display:grid;grid-template-columns:1.2fr 0.8fr;gap:32px;align-items:center;margin-top:40px}
-.version-flow.compact{margin-top:0;aspect-ratio:1.4/1;max-width:100%}
-.version-flow.compact .version-flow-source{font-size:14px;padding:11px 15px;border-radius:9px}
-.version-flow.compact .version-flow-endpoint-tag{font-size:9.5px}
-.version-flow.compact .version-flow-endpoint-ver{font-size:16px;margin:2px 0 4px}
-.version-flow.compact .version-flow-endpoint-desc{font-size:11px;line-height:1.45}
+.ver-graph.compact{margin-top:0;aspect-ratio:1.4/1;max-width:100%}
+.ver-graph.compact .ver-graph-source-ver{font-size:14px}
+.ver-graph.compact .ver-graph-source-label{font-size:9px}
+.ver-graph.compact .version-flow-endpoint-tag{font-size:9.5px}
+.ver-graph.compact .version-flow-endpoint-ver{font-size:16px;margin:2px 0 4px}
+.ver-graph.compact .version-flow-endpoint-desc{font-size:11px;line-height:1.45}
 @media(max-width:900px){
   .version-model-panel{grid-template-columns:1fr}
-  .version-flow.compact{max-width:100%;aspect-ratio:1.8/1;margin:0 auto}
+  .ver-graph.compact{max-width:100%;aspect-ratio:1.8/1;margin:0 auto}
 }
 @media(max-width:768px){
-  /* The connecting lines are drawn for the horizontal desktop layout —
+  /* The connecting curves are drawn for the horizontal desktop layout —
      rather than have them visibly disagree with the reflowed vertical
      positions below, hide them here and keep just the source + endpoints. */
-  .version-flow{aspect-ratio:1/1.55;background-image:none}
-  .version-flow-svg{display:none}
-  .version-flow-source{left:50%;top:8%;transform:translate(-50%,0)}
-  .version-flow-endpoint{right:auto;left:8%;max-width:84%}
-  .version-flow-endpoint[style*="top:18%"]{top:38% !important}
-  .version-flow-endpoint[style*="top:50%"]{top:64% !important}
-  .version-flow-endpoint[style*="top:82%"]{top:90% !important}
-  .version-flow.compact{aspect-ratio:1/1.4}
-  .version-flow.compact .version-flow-endpoint{max-width:84%}
+  .ver-graph{aspect-ratio:1/1.55}
+  .ver-graph-svg{display:none}
+  .ver-graph-source{left:50%;top:6%;align-items:center;transform:translate(-50%,0)}
+  .ver-graph-endpoint{right:auto;left:8%;max-width:84%}
+  .ver-graph-endpoint[style*="top:18%"]{top:38% !important}
+  .ver-graph-endpoint[style*="top:50%"]{top:64% !important}
+  .ver-graph-endpoint[style*="top:82%"]{top:90% !important}
+  .ver-graph.compact{aspect-ratio:1/1.4}
+  .ver-graph.compact .ver-graph-endpoint{max-width:84%}
 }
 
 /* ── Resolution cards — larger tiles with a background numeral, for a
