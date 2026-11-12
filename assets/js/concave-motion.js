@@ -916,31 +916,36 @@
     tick();
   }
 
-  /* ── Who-blocks: accordion-style expand on hover/focus, last panel open by default ── */
+  /* ── Who-blocks: accordion-style expand on hover/focus, last panel open
+     by default. Each .who-blocks group on the page runs as its own
+     independent accordion (the Lineage report section on the Version page
+     stacks three of these), so blocks/activation are scoped per group
+     rather than queried once globally. */
   function initWhoBlocks() {
-    var group = document.querySelector('.who-blocks');
-    var blocks = document.querySelectorAll('.who-block');
-    if (!group || !blocks.length) return;
+    document.querySelectorAll('.who-blocks').forEach(function (group) {
+      var blocks = group.querySelectorAll('.who-block');
+      if (!blocks.length) return;
 
-    var defaultActive = blocks[blocks.length - 1];
-    defaultActive.classList.add('is-active');
+      var defaultActive = blocks[blocks.length - 1];
+      defaultActive.classList.add('is-active');
 
-    blocks.forEach(function (block) {
-      var canvas = block.querySelector('.who-canvas');
-      initWhoCanvas(canvas, canvas ? canvas.getAttribute('data-icon') : null);
+      blocks.forEach(function (block) {
+        var canvas = block.querySelector('.who-canvas');
+        initWhoCanvas(canvas, canvas ? canvas.getAttribute('data-icon') : null);
+      });
+
+      function activate(block) {
+        blocks.forEach(function (b) { b.classList.remove('is-active'); });
+        block.classList.add('is-active');
+      }
+
+      blocks.forEach(function (block) {
+        block.addEventListener('mouseenter', function () { activate(block); });
+        block.addEventListener('focus', function () { activate(block); });
+      });
+
+      group.addEventListener('mouseleave', function () { activate(defaultActive); });
     });
-
-    function activate(block) {
-      blocks.forEach(function (b) { b.classList.remove('is-active'); });
-      block.classList.add('is-active');
-    }
-
-    blocks.forEach(function (block) {
-      block.addEventListener('mouseenter', function () { activate(block); });
-      block.addEventListener('focus', function () { activate(block); });
-    });
-
-    group.addEventListener('mouseleave', function () { activate(defaultActive); });
   }
 
   /* ── Review bento: a STATIC grid version of the who-canvas pixel-mask

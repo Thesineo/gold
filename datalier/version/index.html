@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="The Versioning & Lineage layer freezes labeled data into immutable, hash-verified snapshots with full lineage reports, exported in the format your training framework expects.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261014b">
+<link rel="icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261112d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261112d">
 </head>
 <body>
 
@@ -49,6 +49,7 @@
             <a href="/solutions/videos">Videos</a>
             <a href="/solutions/audio">Audio</a>
             <a href="/solutions/nlp-text">NLP/Text</a>
+            <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
           </div>
           <div>
             <div class="nav-dropdown-group-label">Integration</div>
@@ -116,6 +117,11 @@
           <path id="vgPath2" class="ver-graph-line" d="M58,150 L262,150"/>
           <path id="vgPath3" class="ver-graph-line" d="M58,150 C150,150 172,246 262,246"/>
 
+          <path class="ver-graph-tail" d="M262,54 L378,54"/>
+          <path class="ver-graph-tail" d="M262,150 L378,150"/>
+          <path class="ver-graph-tail" d="M262,246 L378,246"/>
+
+          <circle class="ver-graph-node-ring" cx="58" cy="150" r="11"/>
           <circle class="ver-graph-node ver-graph-node-source" cx="58" cy="150" r="6.5"/>
           <circle class="ver-graph-node" cx="262" cy="54" r="5"/>
           <circle class="ver-graph-node" cx="262" cy="150" r="5"/>
@@ -138,22 +144,23 @@
         <div class="ver-graph-source">
           <span class="ver-graph-source-ver">v1.0</span>
           <span class="ver-graph-source-label">Base Version</span>
+          <span class="ver-graph-source-hash">#a3f9c2e</span>
         </div>
 
         <div class="ver-graph-endpoints">
           <div class="ver-graph-endpoint" style="top:18%">
             <span class="version-flow-endpoint-tag">Major</span>
-            <div class="version-flow-endpoint-ver">v2.0</div>
+            <div class="version-flow-endpoint-ver">v2.0 <span class="ver-graph-hash">#9e14bd0</span></div>
             <div class="version-flow-endpoint-desc">Schema changes, complete re-processing.</div>
           </div>
           <div class="ver-graph-endpoint" style="top:50%">
             <span class="version-flow-endpoint-tag">Minor</span>
-            <div class="version-flow-endpoint-ver">v1.1</div>
+            <div class="version-flow-endpoint-ver">v1.1 <span class="ver-graph-hash">#5c7a21f</span></div>
             <div class="version-flow-endpoint-desc">New labels, corrections applied.</div>
           </div>
           <div class="ver-graph-endpoint" style="top:82%">
             <span class="version-flow-endpoint-tag">Patch</span>
-            <div class="version-flow-endpoint-ver">v1.0.1</div>
+            <div class="version-flow-endpoint-ver">v1.0.1 <span class="ver-graph-hash">#d081e4a</span></div>
             <div class="version-flow-endpoint-desc">Small fixes, minor issues resolved.</div>
           </div>
         </div>
@@ -161,8 +168,8 @@
 
       <div class="version-model-copy" data-reveal="slide-right">
         <span class="sec-eyebrow">Versioning Model</span>
-        <p class="lead-text">Versions follow semantic numbering: major, minor, patch.</p>
-        <p class="lead-text">Each version records its parent version, the changes made, and the reason for the bump. Versions can branch to explore different labeling strategies on the same base data without touching the main line.</p>
+        <p class="lead-text">Semantic by design: major, minor, and patch bumps map directly to the weight of the change.</p>
+        <p class="lead-text">Every version carries its parent, its diff, and its reason for existing committed, not inferred. Branches let you test new labeling strategies against the same base data without ever touching the main line.</p>
       </div>
     </div>
   </div>
@@ -172,51 +179,60 @@
   <div class="sec-inner">
     <div class="center-head" data-reveal>
       <span class="sec-eyebrow">Lineage</span>
-      <p class="lead-text">Every version generates a lineage report one structured document, nine sections, auto-included with every export.</p>
+      <h2 class="sec-title">Automated Structural Lineage Report</h2>
     </div>
     <div class="review-bento review-bento-compact">
       <div class="review-card" data-reveal="zoom">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="mask" aria-hidden="true"></canvas>
+        <span class="review-card-index">01</span>
         <div class="review-card-title">Identity</div>
         <div class="review-card-desc">Dataset name, version number, SHA-256 hash, creation timestamp.</div>
       </div>
       <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="network" aria-hidden="true"></canvas>
+        <span class="review-card-index">02</span>
         <div class="review-card-title">Source Provenance</div>
         <div class="review-card-desc">Where the data originated, how it was imported, original format and row count.</div>
       </div>
       <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="pipeline" aria-hidden="true"></canvas>
+        <span class="review-card-index">03</span>
         <div class="review-card-title">Transformation Chain</div>
         <div class="review-card-desc">Every cleaning and validation step applied, with before-and-after row counts.</div>
       </div>
       <div class="review-card" data-reveal="zoom">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="correction" aria-hidden="true"></canvas>
+        <span class="review-card-index">04</span>
         <div class="review-card-title">Labeling History</div>
         <div class="review-card-desc">Engine used, confidence threshold, auto-label vs. review split, correction rate.</div>
       </div>
       <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="tree" aria-hidden="true"></canvas>
+        <span class="review-card-index">05</span>
         <div class="review-card-title">Version Changes</div>
         <div class="review-card-desc">What differs from the previous version rows added, removed, labels changed.</div>
       </div>
       <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="confidenceRank" aria-hidden="true"></canvas>
+        <span class="review-card-index">06</span>
         <div class="review-card-title">Quality Summary</div>
         <div class="review-card-desc">Verified agreement, calibration error, class distribution, readiness score.</div>
       </div>
       <div class="review-card" data-reveal="zoom">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="document2" aria-hidden="true"></canvas>
+        <span class="review-card-index">07</span>
         <div class="review-card-title">Compliance Documents</div>
         <div class="review-card-desc">A structured regulatory evidence pack with provenance, transformations, declared limitations, and bias examination which are assembled automatically and downloadable for auditors or regulators.</div>
       </div>
       <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="telemetry" aria-hidden="true"></canvas>
+        <span class="review-card-index">08</span>
         <div class="review-card-title">Export Evidence</div>
         <div class="review-card-desc">Where the data was sent, file checksums, export timestamp and, for a restricted dataset, who approved the export and when, recorded separately from who requested it.</div>
       </div>
       <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
-        <canvas class="review-card-canvas" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas" data-icon="warningFlag" aria-hidden="true"></canvas>
+        <span class="review-card-index">09</span>
         <div class="review-card-title">Risk Assessment</div>
         <div class="review-card-desc">Quality warnings, detected PII, fairness gaps across a declared sensitive attribute, or coverage gaps, surfaced before training.</div>
       </div>
@@ -228,7 +244,7 @@
   <div class="sec-inner">
     <div class="center-head" data-reveal>
       <span class="sec-eyebrow">Resolutions</span>
-      <p class="lead-text">What versioning actually resolves, six problems eliminated by making every dataset a permanent, addressable record.</p>
+      <h2 class="sec-title">Built for Uncompromising Data Integrity</h2>
     </div>
     <div class="resolution-orbit" data-reveal>
       <canvas class="resolution-orbit-canvas" id="resolutionOrbitCanvas" aria-hidden="true"></canvas>
@@ -308,6 +324,7 @@
           <a href="/solutions/videos">Videos</a>
           <a href="/solutions/audio">Audio</a>
           <a href="/solutions/nlp-text">NLP/Text</a>
+          <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
         </div>
         <div class="footer-sub-title">Integration</div>
         <div class="footer-links">
@@ -337,7 +354,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261014b" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261112d" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261112d" defer></script>
 </body>
 </html>

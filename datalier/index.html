@@ -17,10 +17,10 @@
 <meta name="description" content="Datalier is Concave AI's data infrastructure platform. Five data layers embedded to fine-tune raw data into production grade AI-ready data to transform, label, version, observe, and govern, data across text, image, video, and audio modalities. While streamlining model training and enhancing model accuracy in AI production in one cohessive loop.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261014b">
+<link rel="icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261112d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261112d">
 <style>
 /* ── HERO (theme-following, same as homepage) ── */
 .p-hero-wrap{padding:130px 24px 0}
@@ -456,104 +456,6 @@
 }
 @media(max-width:560px){.best-panel{padding:32px 22px}}
 
-/* ── DATA MODALITIES — five equal notched cards in a single row, each an
-   empty media slot for now (drop an <img>/<video> into .modality-media
-   later, filling it via object-fit:cover — the dotted-grid hint disappears
-   on its own once a real element sits in front of it). Tall portrait
-   cards (5:9) so there's real presence even before an image lands, with a
-   layered "graded" treatment: an index numeral, a vignette that deepens
-   toward the bottom even over the empty placeholder, an elevated glass
-   icon badge, and a diagonal light-sweep pseudo-element. The "jumping"
-   highlight is one shared CSS animation with a staggered negative delay
-   per card (lift + glow + the light sweep all keyed to the same 10s
-   cycle), so it sweeps left-to-right on a loop with no JS. */
-.p-modalities{background:var(--bg)}
-.modalities-row{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin-top:56px}
-.modality-box{
-  position:relative;aspect-ratio:5/9;overflow:hidden;
-  border:1px solid var(--border);background:var(--elevated);
-  border-radius:22px;
-  animation:modalitySweep 10s ease-in-out infinite;
-  transition:transform .4s cubic-bezier(.16,.9,.3,1),box-shadow .4s ease,border-color .3s ease;
-}
-.modality-box:nth-child(1){animation-delay:-2s}
-.modality-box:nth-child(2){animation-delay:0s}
-.modality-box:nth-child(3){animation-delay:2s}
-.modality-box:nth-child(4){animation-delay:4s}
-.modality-box:nth-child(5){animation-delay:6s}
-@keyframes modalitySweep{
-  0%,12%,100%{transform:translateY(0) scale(1);box-shadow:none;border-color:var(--border)}
-  6%{transform:translateY(-12px) scale(1.035);box-shadow:0 32px 60px rgba(var(--text-rgb),0.16);border-color:var(--text)}
-}
-
-/* Hovering anywhere in the row stops the ambient sweep dead (animation:none
-   drops every card to its plain resting state, no frozen mid-lift frame)
-   and hands control to :hover instead — only the card under the cursor
-   lifts, via the same transform/shadow/border-color .modality-box's own
-   transition already animates smoothly. Moving the cursor off the row
-   hands control back to the keyframe, which restarts its sweep. */
-.modalities-row:hover .modality-box{animation:none;transform:translateY(0) scale(1);box-shadow:none;border-color:var(--border)}
-.modalities-row:hover .modality-box::before{animation:none;transform:translateX(-60%)}
-.modalities-row:hover .modality-box:hover{transform:translateY(-12px) scale(1.035);box-shadow:0 32px 60px rgba(var(--text-rgb),0.16);border-color:var(--text)}
-.modalities-row:hover .modality-box:hover::before{transform:translateX(60%)}
-
-/* Diagonal light sweep — a soft band that crosses the card exactly when
-   it peaks, same 10s/per-card-delay timing as the lift. Pure decoration,
-   sits above the media but below the text content. */
-.modality-box::before{
-  content:'';position:absolute;inset:-20% -60%;z-index:1;pointer-events:none;
-  background:linear-gradient(115deg,transparent 42%,rgba(var(--text-rgb),0.14) 50%,transparent 58%);
-  transform:translateX(-60%);
-  animation:modalitySheen 10s ease-in-out infinite;
-  transition:transform .4s cubic-bezier(.16,.9,.3,1);
-}
-.modality-box:nth-child(1)::before{animation-delay:-2s}
-.modality-box:nth-child(2)::before{animation-delay:0s}
-.modality-box:nth-child(3)::before{animation-delay:2s}
-.modality-box:nth-child(4)::before{animation-delay:4s}
-.modality-box:nth-child(5)::before{animation-delay:6s}
-@keyframes modalitySheen{
-  0%,12%,100%{transform:translateX(-60%)}
-  6%{transform:translateX(60%)}
-}
-
-.modality-media{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background-color:var(--bg);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px}
-.modality-media img,.modality-media video{width:100%;height:100%;object-fit:cover;display:block}
-/* Audio and 3D & LiDAR ship one bright + one dark screenshot of the same
-   panel — same per-theme toggle idiom as .overview-card img above. The
-   other three cards (Text & Documents, Images, Video) use a single asset
-   with no class, so they render regardless of theme. */
-.modality-media img.card-img-bright,.modality-media img.card-img-dark{display:none}
-:root:not([data-theme="dark"]) .modality-media img.card-img-bright{display:block}
-:root[data-theme="dark"] .modality-media img.card-img-dark{display:block}
-/* Three-stop vignette (not a flat fade) so the card reads as "graded"
-   even with an empty placeholder behind it — a touch of depth at the top
-   for the index numeral, clear in the middle, deep at the bottom for the
-   text block, exactly like how the image/video sitting here later would
-   need to be scrimmed for legibility anyway. */
-.modality-overlay{position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(var(--text-rgb),0.05) 0%,transparent 22%),
-  linear-gradient(180deg,transparent 48%,rgba(var(--bg-rgb),0.75) 72%,rgba(var(--bg-rgb),0.96) 100%)
-}
-
-.modality-index{position:absolute;top:20px;left:22px;z-index:1;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.08em;color:var(--text-dimmer)}
-
-.modality-content{position:absolute;left:0;right:0;bottom:0;padding:24px 22px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
-.modality-rule{width:28px;height:2px;background:var(--text);border-radius:2px}
-.modality-icon{width:46px;height:46px;border-radius:12px;background:var(--invert-bg);color:var(--invert-text);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 10px 24px rgba(var(--text-rgb),0.22)}
-.modality-icon svg{width:21px;height:21px}
-.modality-name{font-family:'Inter',sans-serif;font-weight:600;font-size:18px;letter-spacing:-0.01em;line-height:1.25;color:var(--text)}
-
-@media(prefers-reduced-motion:reduce){
-  .modality-box,.modality-box::before{animation:none;transition:none}
-}
-@media(max-width:900px){
-  .modalities-row{grid-template-columns:repeat(5,240px);gap:18px;overflow-x:auto;padding-bottom:4px;margin-top:40px;scroll-snap-type:x mandatory}
-  .modality-box{scroll-snap-align:start}
-}
-@media(max-width:560px){
-  .modalities-row{grid-template-columns:repeat(5,72vw)}
-}
 </style>
 </head>
 <body>
@@ -584,6 +486,7 @@
             <a href="/solutions/videos">Videos</a>
             <a href="/solutions/audio">Audio</a>
             <a href="/solutions/nlp-text">NLP/Text</a>
+            <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
           </div>
           <div>
             <div class="nav-dropdown-group-label">Integration</div>
@@ -931,7 +834,7 @@
     </div>
 
     <div class="modalities-row">
-      <div class="modality-box">
+      <a class="modality-box" href="/solutions/nlp-text" aria-label="Text &amp; Documents modality">
         <div class="modality-media"><img src="/imgbgm/datallier-text.png" alt="Text and document annotation — contracts, meeting minutes, and structured text highlighted by section"></div>
         <div class="modality-overlay"></div>
         <span class="modality-index">01</span>
@@ -940,8 +843,8 @@
           <span class="modality-rule"></span>
           <span class="modality-name">Text &amp; Documents</span>
         </div>
-      </div>
-      <div class="modality-box">
+      </a>
+      <a class="modality-box" href="/solutions/images" aria-label="Images modality">
         <div class="modality-media"><img src="/imgbgm/datalier-image.png" alt="Image annotation workspace"></div>
         <div class="modality-overlay"></div>
         <span class="modality-index">02</span>
@@ -950,8 +853,8 @@
           <span class="modality-rule"></span>
           <span class="modality-name">Images</span>
         </div>
-      </div>
-      <div class="modality-box">
+      </a>
+      <a class="modality-box" href="/solutions/videos" aria-label="Videos modality">
         <div class="modality-media"><video src="/imgbgm/datalier-video.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
         <div class="modality-overlay"></div>
         <span class="modality-index">03</span>
@@ -960,8 +863,8 @@
           <span class="modality-rule"></span>
           <span class="modality-name">Videos</span>
         </div>
-      </div>
-      <div class="modality-box">
+      </a>
+      <a class="modality-box" href="/solutions/audio" aria-label="Audio modality">
         <div class="modality-media">
           <img class="card-img-bright" src="/imgbgm/datalier-audio-bright.png" alt="Audio transcript with speaker diarization — Speaker 1 and Speaker 2 segmented across a waveform">
           <img class="card-img-dark" src="/imgbgm/datalier-audio-dark.png" alt="Audio transcript with speaker diarization — Speaker 1 and Speaker 2 segmented across a waveform">
@@ -973,8 +876,8 @@
           <span class="modality-rule"></span>
           <span class="modality-name">Audio</span>
         </div>
-      </div>
-      <div class="modality-box">
+      </a>
+      <a class="modality-box" href="/solutions/3d-lidar" aria-label="3D &amp; LiDAR modality">
         <div class="modality-media">
           <img class="card-img-bright" src="/imgbgm/datalier-3d-bright.png" alt="3D and LiDAR point cloud annotation">
           <img class="card-img-dark" src="/imgbgm/datalier-3d-dark.png" alt="3D and LiDAR point cloud annotation">
@@ -986,7 +889,7 @@
           <span class="modality-rule"></span>
           <span class="modality-name">3D &amp; LiDAR</span>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -1302,6 +1205,7 @@
           <a href="/solutions/videos">Videos</a>
           <a href="/solutions/audio">Audio</a>
           <a href="/solutions/nlp-text">NLP/Text</a>
+          <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
         </div>
         <div class="footer-sub-title">Integration</div>
         <div class="footer-links">
@@ -1331,7 +1235,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261014b" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261112d" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261112d" defer></script>
 </body>
 </html>

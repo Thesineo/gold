@@ -12,14 +12,14 @@
   } catch (e) {}
 })();
 </script>
-<title>Video Modality - Curate Video Data to Train AI & ML Models | Concave AI</title>
+<title>Video Modality - Curate Videos to Train AI & ML Models | Concave AI</title>
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="AI-assisted video labelling which includes object tracking, video classification, segmentation, temporal boundaries, frame annotation, and pose tracking, with human review where it matters.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261014b">
+<link rel="icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261112d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261112d">
 </head>
 <body>
 
@@ -49,6 +49,7 @@
             <a href="/solutions/videos">Videos</a>
             <a href="/solutions/audio">Audio</a>
             <a href="/solutions/nlp-text">NLP/Text</a>
+            <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
           </div>
           <div>
             <div class="nav-dropdown-group-label">Integration</div>
@@ -85,7 +86,7 @@
   <div class="hero-overlay"></div>
   <div class="modality-hero-content">
     <div class="modality-hero-eyebrow" data-reveal>Video Modality</div>
-    <h1 data-reveal>Curate Video Data for Model Training</h1>
+    <h1 data-reveal>Curate Videos to Train AI &amp; ML Models</h1>
     <p class="modality-hero-sub" data-reveal data-reveal-delay="1">Track objects across frames, segment scenes, and classify footage frame-by-frame to create AI ready video data with high accelration rate</p>
     <div class="modality-hero-actions" data-reveal data-reveal-delay="2">
       <a href="/datalier" class="btn-ghost">Explore the Platform</a>
@@ -119,33 +120,81 @@
       <h2 class="sec-title">Complete Toolkit to Curate Videos</h2>
     </div>
 
-    <div class="task-bento-video-grid" data-reveal="zoom">
-      <div class="task-bento-tile task-bento-video-tall task-bento-tile-instancesegvid">
-        <video src="/imgbgm/instancesegmentation.mp4" muted loop playsinline preload="metadata" aria-label="Instance segmentation — per-object pixel masks across frames"></video>
-        <span class="task-bento-tile-label">Instance Segmentation</span>
+    <div class="modalities-row modalities-row-6" data-reveal="zoom">
+      <div class="modality-box">
+        <div class="modality-media">
+          <video src="/imgbgm/instancesegmentation.mp4" muted loop playsinline preload="metadata" aria-label="Instance segmentation — per-object pixel masks across frames"></video>
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">01</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Instance Segmentation</span>
+        </div>
       </div>
-      <div class="task-bento-tile task-bento-tile-objecttracking">
-        <video src="/imgbgm/objecttracking.mp4" muted loop playsinline preload="metadata" aria-label="Object tracking — AI-tracked objects with consistent identity across frames"></video>
-        <span class="task-bento-tile-label">Object Tracking</span>
+      <div class="modality-box">
+        <div class="modality-media">
+          <video src="/imgbgm/objecttracking.mp4" muted loop playsinline preload="metadata" aria-label="Object tracking — AI-tracked objects with consistent identity across frames"></video>
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">02</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Object Tracking</span>
+        </div>
       </div>
-      <div class="task-bento-tile task-bento-tile-videoclassification">
-        <video class="task-img-bright" src="/imgbgm/videoclassification-bright.mp4" muted loop playsinline preload="metadata" aria-label="Video classification — AI-assigned category label across the clip"></video>
-        <video class="task-img-dark" src="/imgbgm/videoclassification-dark.webm" muted loop playsinline preload="metadata" aria-label=""></video>
-        <span class="task-bento-tile-label">Video Classification</span>
+      <div class="modality-box">
+        <div class="modality-media">
+          <img class="card-img-bright" src="/imgbgm/videoclassification-bright.png" alt="Video classification — AI-assigned category label across the clip" loading="lazy">
+          <img class="card-img-dark" src="/imgbgm/videoclassification-dark.png" alt="" loading="lazy">
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">03</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Video Classification</span>
+        </div>
       </div>
-      <div class="task-bento-tile task-bento-video-tall task-bento-tile-posetracking">
-        <video src="/imgbgm/posetracking.mp4" muted loop playsinline preload="metadata" aria-label="Pose tracking — AI-tracked body keypoints across frames"></video>
-        <span class="task-bento-tile-label">Pose Tracking</span>
+      <div class="modality-box">
+        <div class="modality-media">
+          <video src="/imgbgm/posetracking.mp4" muted loop playsinline preload="metadata" aria-label="Pose tracking — AI-tracked body keypoints across frames"></video>
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">04</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v6"/><path d="M12 13l-4 7"/><path d="M12 13l4 7"/><path d="M6 10h12"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Pose Tracking</span>
+        </div>
       </div>
-      <div class="task-bento-tile task-bento-tile-temporalseg">
-        <video class="task-img-bright" src="/imgbgm/temporalsegmentation-bright.mp4" muted loop playsinline preload="metadata" aria-label="Temporal segmentation — labeled scene boundaries across the timeline"></video>
-        <video class="task-img-dark" src="/imgbgm/temporalsegmentation-dark.mp4" muted loop playsinline preload="metadata" aria-label=""></video>
-        <span class="task-bento-tile-label">Temporal Segmentation</span>
+      <div class="modality-box">
+        <div class="modality-media">
+          <img class="card-img-bright" src="/imgbgm/temporalsegmentation-bright.png" alt="Temporal segmentation — labeled scene segments across the timeline" loading="lazy">
+          <img class="card-img-dark" src="/imgbgm/temporalsegmentation-dark.png" alt="" loading="lazy">
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">05</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="8" y1="4" x2="8" y2="20"/><line x1="16" y1="4" x2="16" y2="20"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Temporal Segmentation</span>
+        </div>
       </div>
-      <div class="task-bento-tile task-bento-tile-frameannotation">
-        <video class="task-img-bright" src="/imgbgm/frameannotation-bright.mp4" muted loop playsinline preload="metadata" aria-label="Frame annotation — per-frame labels and bounding boxes"></video>
-        <video class="task-img-dark" src="/imgbgm/frameannotation-dark.mp4" muted loop playsinline preload="metadata" aria-label=""></video>
-        <span class="task-bento-tile-label">Frame Annotation</span>
+      <div class="modality-box">
+        <div class="modality-media">
+          <img class="card-img-bright" src="/imgbgm/frameannotation-bright.png" alt="Frame annotation — per-frame object counts and frames flagged to check" loading="lazy">
+          <img class="card-img-dark" src="/imgbgm/frameannotation-dark.png" alt="" loading="lazy">
+        </div>
+        <div class="modality-overlay"></div>
+        <span class="modality-index">06</span>
+        <div class="modality-content">
+          <span class="modality-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg></span>
+          <span class="modality-rule"></span>
+          <span class="modality-name">Frame Annotation</span>
+        </div>
       </div>
     </div>
   </div>
@@ -270,6 +319,7 @@
           <a href="/solutions/videos">Videos</a>
           <a href="/solutions/audio">Audio</a>
           <a href="/solutions/nlp-text">NLP/Text</a>
+          <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
         </div>
         <div class="footer-sub-title">Integration</div>
         <div class="footer-links">
@@ -299,7 +349,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261014b" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261112d" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261112d" defer></script>
 </body>
 </html>

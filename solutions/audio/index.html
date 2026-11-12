@@ -12,14 +12,14 @@
   } catch (e) {}
 })();
 </script>
-<title>Audio Modality - Curate Audio Data to Train AI & ML Models | Concave AI</title>
+<title>Audio Modality - Curate Audios to Train AI & ML Models | Concave AI</title>
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="AI-engine enabled audio labelling which includes transcription, classification, speaker diarization, emotion detection, sound event detection, and segmentation, with human reviews in loop for special edge cases.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261014b">
+<link rel="icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261112d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261112d">
 </head>
 <body>
 
@@ -49,6 +49,7 @@
             <a href="/solutions/videos">Videos</a>
             <a href="/solutions/audio">Audio</a>
             <a href="/solutions/nlp-text">NLP/Text</a>
+            <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
           </div>
           <div>
             <div class="nav-dropdown-group-label">Integration</div>
@@ -85,7 +86,7 @@
   <div class="hero-overlay"></div>
   <div class="modality-hero-content">
     <div class="modality-hero-eyebrow" data-reveal>Audio Modality</div>
-    <h1 class="modality-hero-title">Curate Audio Data for Training AI & ML Models</h1>
+    <h1 class="modality-hero-title">Curate Audios to Train AI &amp; ML Models</h1>
     <p class="modality-hero-sub" data-reveal data-reveal-delay="1">Transcribe speech, diarize speakers, tag events and segment audios with AI engine to consolidate audio data at faster pace </p>
     <div class="modality-hero-actions" data-reveal data-reveal-delay="2">
       <a href="/datalier" class="btn-ghost">Explore the Platform</a>
@@ -119,42 +120,48 @@
       <h2 class="sec-title">Complete Toolkit to Curate Audios</h2>
     </div>
 
-    <div class="task-bento" data-reveal="zoom">
-      <div class="task-bento-col task-bento-col-wide task-bento-audio-wide">
-        <div class="task-bento-row task-bento-row-matched">
-          <div class="task-bento-tile task-bento-tile-audioseg">
-            <img class="task-img-bright" src="/imgbgm/audiosegmentation-bright.png" alt="Audio segmentation — labeled temporal sections across a recording" loading="lazy">
-            <img class="task-img-dark" src="/imgbgm/audiosegmentation-dark.png" alt="" loading="lazy">
-            <span class="task-bento-tile-label">Audio Segmentation</span>
-          </div>
-          <div class="task-bento-tile task-bento-tile-soundevent">
-            <img class="task-img-bright" src="/imgbgm/soundeventdetection-bright.png" alt="Sound event detection — polyphonic event timeline with detected events" loading="lazy">
-            <img class="task-img-dark" src="/imgbgm/soundeventdetection-dark.png" alt="" loading="lazy">
-            <span class="task-bento-tile-label">Sound Event Detection</span>
-          </div>
+    <div class="tk-grid" data-reveal="zoom">
+      <div class="tk-box">
+        <div class="tk-media">
+          <img class="task-img-bright" src="/imgbgm/audiosegmentation-bright.png" alt="Audio segmentation — labeled temporal sections across a recording" loading="lazy">
+          <img class="task-img-dark" src="/imgbgm/audiosegmentation-dark.png" alt="" loading="lazy">
         </div>
-        <div class="task-bento-tile task-bento-tile-transcription">
+        <span class="tk-title">Audio Segmentation</span>
+      </div>
+      <div class="tk-box">
+        <div class="tk-media">
+          <img class="task-img-bright" src="/imgbgm/soundeventdetection-bright.png" alt="Sound event detection — polyphonic event timeline with detected events" loading="lazy">
+          <img class="task-img-dark" src="/imgbgm/soundeventdetection-dark.png" alt="" loading="lazy">
+        </div>
+        <span class="tk-title">Sound Event Detection</span>
+      </div>
+      <div class="tk-box">
+        <div class="tk-media">
           <img class="task-img-bright" src="/imgbgm/transcription-bright.png" alt="Transcription — AI-generated timestamped transcript with confidence score" loading="lazy">
           <img class="task-img-dark" src="/imgbgm/transcription-dark.png" alt="" loading="lazy">
-          <span class="task-bento-tile-label">Transcription</span>
         </div>
+        <span class="tk-title">Transcription</span>
       </div>
-      <div class="task-bento-col task-bento-col-narrow">
-        <div class="task-bento-tile task-bento-tile-speaker">
+      <div class="tk-box">
+        <div class="tk-media">
           <img class="task-img-bright" src="/imgbgm/speakerdiazartion-bright.png" alt="Speaker diarization — per-speaker timeline with transcript turns" loading="lazy">
           <img class="task-img-dark" src="/imgbgm/speakerdiazartion-dark.png" alt="" loading="lazy">
-          <span class="task-bento-tile-label">Speaker Diarization</span>
         </div>
-        <div class="task-bento-tile task-bento-tile-emotion">
+        <span class="tk-title">Speaker Diarization</span>
+      </div>
+      <div class="tk-box">
+        <div class="tk-media">
           <img class="task-img-bright" src="/imgbgm/Emotiondetection-bright.png" alt="Emotion detection — detected emotion, sentiment, and intensity with transcript" loading="lazy">
           <img class="task-img-dark" src="/imgbgm/Emotiondetection-dark.png" alt="" loading="lazy">
-          <span class="task-bento-tile-label">Emotion Detection</span>
         </div>
-        <div class="task-bento-tile task-bento-tile-audioclass">
+        <span class="tk-title">Emotion Detection</span>
+      </div>
+      <div class="tk-box">
+        <div class="tk-media">
           <img class="task-img-bright" src="/imgbgm/audioclassification-bright.png" alt="Audio classification — AI-assigned category label with confidence score" loading="lazy">
           <img class="task-img-dark" src="/imgbgm/audioclassification-dark.png" alt="" loading="lazy">
-          <span class="task-bento-tile-label">Audio Classification</span>
         </div>
+        <span class="tk-title">Audio Classification</span>
       </div>
     </div>
   </div>
@@ -279,6 +286,7 @@
           <a href="/solutions/videos">Videos</a>
           <a href="/solutions/audio">Audio</a>
           <a href="/solutions/nlp-text">NLP/Text</a>
+          <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
         </div>
         <div class="footer-sub-title">Integration</div>
         <div class="footer-links">
@@ -308,7 +316,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261014b" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261112d" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261112d" defer></script>
 </body>
 </html>

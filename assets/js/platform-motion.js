@@ -1458,6 +1458,105 @@
      so speed is genuinely constant — instead of SMIL, which also makes it
      trivial to know which edge/card the dot is currently over and light
      that card up (.is-loop-active) as it passes, like :hover on a timer. */
+  /* ── Images page "Task Types" — continuously scrolling card strip with
+     a scale "spotlight" on whatever's centered. The track holds the card
+     list twice back to back; once it has scrolled exactly one set's
+     width, that offset is subtracted back off, which — since the second
+     set is identical to the first — is invisible to the eye and gives an
+     infinite loop without ever resetting to a visibly different frame. */
+  function initImgCarousel() {
+    var root = document.getElementById('imgCarousel');
+    var track = document.getElementById('imgCarouselTrack');
+    if (!root || !track) return;
+    var cards = Array.prototype.slice.call(track.children);
+    if (!cards.length) return;
+
+    // Markup holds the set twice; add a third so there are always cards on
+    // both sides of the active one while it steps through the middle set.
+    var setCount = cards.length / 2;
+    for (var i = 0; i < setCount; i++) {
+      var cl = cards[i].cloneNode(true);
+      cl.setAttribute('aria-hidden', 'true');
+      track.appendChild(cl);
+    }
+    cards = Array.prototype.slice.call(track.children);
+
+    var HOLD = 2800;   // ms a card stays centered
+    var MOVE = 450;    // ms for the quick hop to the next card
+    var SCALES = [1.2, 1.02, 0.86]; // by distance from the active card (2+ share the last)
+    var cardW, gap, index = setCount; // start on the first card of the middle set
+
+    function measure() {
+      cardW = cards[0].offsetWidth;
+      gap = parseFloat(getComputedStyle(cards[0]).marginRight) || 0; // negative = overlap
+    }
+
+    function place(animate) {
+      var ease = animate ? 'transform ' + MOVE + 'ms cubic-bezier(.22,.8,.24,1)' : 'none';
+      track.style.transition = ease;
+      track.style.transform = 'translateX(' + (root.clientWidth / 2 - (index * (cardW + gap) + cardW / 2)) + 'px)';
+      cards.forEach(function (card, n) {
+        var k = Math.min(SCALES.length - 1, Math.abs(n - index));
+        card.style.transition = ease;
+        card.style.transform = 'scale(' + SCALES[k] + ')';
+        card.style.zIndex = Math.round(SCALES[k] * 100);
+      });
+    }
+
+    function next() {
+      index++;
+      place(true);
+      if (index >= setCount * 2) {
+        // Landed on the start of the third set — identical to the middle
+        // set's start, so jump back there once the hop has finished.
+        setTimeout(function () {
+          index = setCount;
+          place(false);
+        }, MOVE + 30);
+      }
+    }
+
+    measure();
+    place(false);
+    window.addEventListener('resize', function () { measure(); place(false); });
+    if (!prefersReduced) setInterval(next, HOLD + MOVE);
+
+    // Video cards play while the strip is on screen, pause when it isn't.
+    var vids = root.querySelectorAll('video');
+    if (vids.length && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          vids.forEach(function (v) {
+            if (e.isIntersecting && !prefersReduced) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+            else v.pause();
+          });
+        });
+      }, { threshold: 0.1 }).observe(root);
+    }
+  }
+
+  // Videos inside the modality card row: play only the ones that are both
+  // on screen and currently displayed (the bright/dark pair swaps by theme).
+  function initModalityVideos() {
+    var rows = document.querySelectorAll('.modalities-row');
+    rows.forEach(function (row) {
+      var vids = row.querySelectorAll('video');
+      if (!vids.length) return;
+      var visible = false;
+      function sync() {
+        vids.forEach(function (v) {
+          if (visible && !prefersReduced && v.offsetParent !== null) {
+            var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+          } else v.pause();
+        });
+      }
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) { visible = es[0].isIntersecting; sync(); }, { threshold: 0.1 }).observe(row);
+      } else { visible = true; sync(); }
+      new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    });
+  }
+
   function initLoopPanel() {
     var panel = document.querySelector('.loop-panel');
     if (!panel) return;
@@ -2265,6 +2364,8 @@
     initFeedbackTorus(document.getElementById('observeCanvas'));
     initAuditChain(document.getElementById('governCanvas'));
     initInfinityWireframe(document.getElementById('infinityCanvas'));
+    initImgCarousel();
+    initModalityVideos();
     initLoopPanel();
     initOverviewScroll();
     initTaskSwitch();

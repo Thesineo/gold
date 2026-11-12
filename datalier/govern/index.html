@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="The Govern layer controls who can access, modify, or export data, and logs every action taken against it, role-based permissions, an immutable audit trail, and regulatory tagging that travels with the data.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261014b" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261014b">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261014b">
+<link rel="icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261112d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261112d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261112d">
 </head>
 <body>
 
@@ -49,6 +49,7 @@
             <a href="/solutions/videos">Videos</a>
             <a href="/solutions/audio">Audio</a>
             <a href="/solutions/nlp-text">NLP/Text</a>
+            <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
           </div>
           <div>
             <div class="nav-dropdown-group-label">Integration</div>
@@ -198,53 +199,50 @@
 
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
-    <div class="cloud-panel cloud-panel-bare" data-reveal="zoom">
-      <div class="cloud-diagram">
-        <svg class="govern-diagram-svg" viewBox="0 0 500 280" preserveAspectRatio="none">
-          <rect class="govern-wrap-rect" x="40" y="50" width="420" height="124" rx="16"/>
-          <rect class="govern-wrap-glow" x="40" y="50" width="420" height="124" rx="16"/>
-          <path id="governLinkPath" class="govern-link" d="M80,112 L400,112"/>
-          <path id="governOutPath1" class="govern-link" d="M250,174 C250,205 180,205 150,238"/>
-          <path id="governOutPath2" class="govern-link" d="M250,174 L250,238"/>
-          <path id="governOutPath3" class="govern-link" d="M250,174 C250,205 320,205 350,238"/>
-
-          <circle class="govern-flow-dot" r="3">
-            <animateMotion dur="4.5s" repeatCount="indefinite" begin="0s"><mpath href="#governLinkPath"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="0s"/>
-          </circle>
-          <circle class="govern-flow-dot" r="2.6">
-            <animateMotion dur="4.5s" repeatCount="indefinite" begin="2.25s"><mpath href="#governLinkPath"/></animateMotion>
-            <animate attributeName="opacity" values="0;0.7;0.7;0" keyTimes="0;0.08;0.92;1" dur="4.5s" repeatCount="indefinite" begin="2.25s"/>
-          </circle>
-          <circle class="govern-flow-dot" r="3.2">
-            <animateMotion dur="5s" repeatCount="indefinite" begin="0.5s"><mpath href="#governOutPath1"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" repeatCount="indefinite" begin="0.5s"/>
-          </circle>
-          <circle class="govern-flow-dot" r="3.2">
-            <animateMotion dur="5s" repeatCount="indefinite" begin="1.2s"><mpath href="#governOutPath2"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" repeatCount="indefinite" begin="1.2s"/>
-          </circle>
-          <circle class="govern-flow-dot" r="3.2">
-            <animateMotion dur="5s" repeatCount="indefinite" begin="1.9s"><mpath href="#governOutPath3"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="5s" repeatCount="indefinite" begin="1.9s"/>
-          </circle>
-        </svg>
-
-        <span class="govern-wrap-label">Govern</span>
-        <span class="govern-layer-chip" style="left:16%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10M8 9l4 4 4-4"/><path d="M4 19h16"/></svg>Ingest</span>
-        <span class="govern-layer-chip" style="left:32%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg>Transform</span>
-        <span class="govern-layer-chip" style="left:48%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11V5a2 2 0 0 1 2-2h6l10 10-8 8L3 11z"/><circle cx="8" cy="8" r="1.4"/></svg>Label</span>
-        <span class="govern-layer-chip" style="left:64%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="3" x2="7" y2="14"/><circle cx="18" cy="6" r="2.4"/><circle cx="7" cy="17" r="2.4"/><path d="M18 8.4A8 8 0 0 1 10 16.5"/></svg>Version</span>
-        <span class="govern-layer-chip" style="left:80%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>Observe</span>
-
-        <span class="govern-output-chip" style="left:30%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>Data Files</span>
-        <span class="govern-output-chip" style="left:50%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4c-2 0-3 1-3 3v3c0 1-1 2-2 2 1 0 2 1 2 2v3c0 2 1 3 3 3"/><path d="M15 4c2 0 3 1 3 3v3c0 1 1 2 2 2-1 0-2 1-2 2v3c0 2-1 3-3 3"/></svg>Manifest<br>(JSON)</span>
-        <span class="govern-output-chip" style="left:70%"><svg class="govern-chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 14.5l5-5M8 11.7a3.7 3.7 0 0 1 0-5.2l1.8-1.8a3.7 3.7 0 0 1 5.2 5.2l-.9.9M16 12.3a3.7 3.7 0 0 1 0 5.2l-1.8 1.8a3.7 3.7 0 0 1-5.2-5.2l.9-.9"/></svg>Lineage<br>Report</span>
+    <!-- Same side-by-side shape as the main Datalier page's "Automated
+         Closed-Loop Remediation" section (.export-panel: copy column +
+         a radial hub/spoke visual with a traveling dot) — copy with the
+         five capabilities listed as points on one side, an equal-point
+         radial diagram of the same five on the other, instead of a
+         stacked full-width orbit. -->
+    <div class="export-panel gov-feature-panel">
+      <div class="export-copy" data-reveal="slide-left">
+        <span class="sec-eyebrow">What It Produces</span>
+        <h2 class="sec-title">Governance that wraps every dataset, continuously.</h2>
+        <p class="sec-desc">Five controls run on every dataset from the moment it's imported — not a checklist run once at export time.</p>
+        <ul class="gov-feature-list">
+          <li><strong>Governance Health</strong><span>A continuously computed risk score flags exactly which compliance gaps are open.</span></li>
+          <li><strong>PII Scan Posture</strong><span>Automated detection flags personal data before it ever reaches a training run.</span></li>
+          <li><strong>Legal Consent</strong><span>Training-use consent is declared and enforced per dataset.</span></li>
+          <li><strong>Residency &amp; Lock</strong><span>Storage region is pinned and versions can be frozen.</span></li>
+          <li><strong>Cryptographic Integrity</strong><span>Every record is SHA-256 hash-chained to the one before it.</span></li>
+        </ul>
       </div>
 
-      <div class="cloud-copy">
-        <h3>What It Produces</h3>
-        <p>Every export delivers three core artifacts, the dataset structured is precisely for your target framework. A machine-verifiable manifest detailing file integrity, row counts, and cryptographic checksums. And a comprehensive lineage report documenting complete provenance and quality benchmark validation. Together, they resolve every critical governance requirement—establishing exactly what the data contains, how it was engineered, and why it is enterprise-trusted.</p>
+      <div class="export-visual gov-feature-visual" data-reveal="slide-right">
+        <svg class="gov-feature-svg" viewBox="0 0 400 400" preserveAspectRatio="none">
+          <circle class="gov-feature-ring" cx="200" cy="200" r="150"/>
+          <path id="govFeaturePath" d="M200,50 A150,150 0 0,1 200,350 A150,150 0 0,1 200,50" fill="none" stroke="none"/>
+          <path class="gov-feature-spoke" d="M200,200 L200,50"/>
+          <path class="gov-feature-spoke" d="M200,200 L342.7,153.6"/>
+          <path class="gov-feature-spoke" d="M200,200 L288.2,321.4"/>
+          <path class="gov-feature-spoke" d="M200,200 L111.8,321.4"/>
+          <path class="gov-feature-spoke" d="M200,200 L57.3,153.6"/>
+          <circle class="gov-feature-node" cx="200" cy="50" r="5"/>
+          <circle class="gov-feature-node" cx="342.7" cy="153.6" r="5"/>
+          <circle class="gov-feature-node" cx="288.2" cy="321.4" r="5"/>
+          <circle class="gov-feature-node" cx="111.8" cy="321.4" r="5"/>
+          <circle class="gov-feature-node" cx="57.3" cy="153.6" r="5"/>
+          <circle class="gov-feature-dot" r="3.4">
+            <animateMotion dur="7s" repeatCount="indefinite"><mpath href="#govFeaturePath"/></animateMotion>
+          </circle>
+        </svg>
+        <div class="gov-feature-hub">Governance</div>
+        <span class="gov-feature-label" style="top:12.5%;left:50%">Health</span>
+        <span class="gov-feature-label" style="top:38.4%;left:85.7%">PII Scan</span>
+        <span class="gov-feature-label" style="top:80.3%;left:72%">Consent</span>
+        <span class="gov-feature-label" style="top:80.3%;left:28%">Residency</span>
+        <span class="gov-feature-label" style="top:38.4%;left:14.3%">Integrity</span>
       </div>
     </div>
   </div>
@@ -314,6 +312,7 @@
           <a href="/solutions/videos">Videos</a>
           <a href="/solutions/audio">Audio</a>
           <a href="/solutions/nlp-text">NLP/Text</a>
+          <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
         </div>
         <div class="footer-sub-title">Integration</div>
         <div class="footer-links">
@@ -343,7 +342,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261014b" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261014b" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261112d" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261112d" defer></script>
 </body>
 </html>
