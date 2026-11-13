@@ -1497,7 +1497,9 @@
       track.style.transform = 'translateX(' + (root.clientWidth / 2 - (index * (cardW + gap) + cardW / 2)) + 'px)';
       cards.forEach(function (card, n) {
         var k = Math.min(SCALES.length - 1, Math.abs(n - index));
-        card.style.transition = ease;
+        card.style.transition = animate ? 'transform ' + MOVE + 'ms cubic-bezier(.22,.8,.24,1), opacity ' + MOVE + 'ms ease' : 'none';
+        // Only the active card and two on each side are shown (the strip is five wide).
+        card.style.opacity = Math.abs(n - index) > 2 ? '0' : '1';
         card.style.transform = 'scale(' + SCALES[k] + ')';
         card.style.zIndex = Math.round(SCALES[k] * 100);
       });
