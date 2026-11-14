@@ -1344,7 +1344,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 
 .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
 .blog-card{border:1px solid var(--border);border-radius:16px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .25s ease,transform .25s ease}
-.blog-card:hover{border-color:var(--text-dimmer);transform:translateY(-3px)}
+.blog-card:hover{border-color:var(--text-dimmer);transform:translateX(3px)}
 .blog-card-media{position:relative;aspect-ratio:16/10;overflow:hidden;background-color:var(--elevated);background-image:radial-gradient(rgba(var(--text-rgb),0.14) 1.3px,transparent 1.3px);background-size:10px 10px;display:flex;align-items:center;justify-content:center}
 .blog-card-media img{width:100%;height:100%;object-fit:cover;display:block}
 .blog-card-body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1}
@@ -1441,6 +1441,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   .who-block-name{white-space:normal}
 }
 @media(max-width:560px){.who-blocks{padding:0 24px}}
+
 
 /* ── Review bento (Label page "Annotation Capabilities Supporting Beyond Labelling") — a STATIC grid
    version of the who-block pixel-mask card: 3 per row, each a tall
@@ -1747,3 +1748,41 @@ a.modality-box:focus-visible{outline:2px solid var(--text);outline-offset:4px}
 @media(max-width:700px){
   .modalities-row-6{grid-template-columns:repeat(6,72vw);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
 }
+
+/* ── Split scroll showcase (.sx): large rounded panel (black in the bright theme,
+   white in the dark theme), equal square topic tiles stacked on the left, one big
+   statement on the right starting from the top. The panel pins while you scroll and
+   each scroll step advances to the next topic; clicking a tile jumps to it. ── */
+.sx{position:relative;margin-top:72px;height:calc(100vh + var(--sx-n,4) * 46vh)}
+.sx-pin{position:sticky;top:100px;height:min(820px,calc(100vh - 130px));min-height:520px}
+.sx-card{--sq:clamp(96px,calc((min(820px,100vh - 130px) - 150px) / 4),146px);height:100%;display:grid;grid-template-columns:var(--sq) minmax(0,1fr);column-gap:clamp(56px,13vw,320px);align-content:start;padding:clamp(40px,6vh,76px) clamp(36px,8.2vw,156px);border-radius:40px;background:var(--text);color:var(--bg)}
+.sx-left{display:flex;flex-direction:column;min-height:0}
+.sx-tabs{display:flex;flex-direction:column;gap:10px}
+.sx-tab{display:flex;align-items:center;justify-content:center;flex:none;width:var(--sq);height:var(--sq);padding:12px;border-radius:12px;border:1px solid rgba(var(--bg-rgb),0.55);background:transparent;color:var(--bg);font:inherit;text-align:center;cursor:pointer;transition:background .3s ease,color .3s ease,border-color .3s ease}
+.sx-tab:hover{border-color:var(--bg)}
+.sx-tab-t{font-size:clamp(14px,1.15vw,17px);font-weight:600;letter-spacing:-0.01em;line-height:1.2}
+.sx-tab.is-active{background:var(--bg);color:var(--text);border-color:var(--bg)}
+.sx-right{position:relative;min-height:0}
+.sx-panel{position:absolute;inset:0;z-index:1;display:block;opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .4s ease,transform .5s cubic-bezier(.22,.8,.24,1)}
+.sx-panel.is-active{opacity:1;transform:none;pointer-events:auto;transition-delay:.1s}
+.sx-lead{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(26px,2.5vw,48px);line-height:1.27;letter-spacing:-0.04em;color:var(--bg);max-width:1060px;text-indent:clamp(60px,10.5vw,200px)}
+/* moving 3D wireframe in the empty bottom-right of the panel */
+.sx-wire{position:absolute;right:-10px;bottom:-72px;width:min(400px,32vw);aspect-ratio:5/4;pointer-events:none}
+/* the Images scene is wider and bigger */
+.sx-wire-lg{width:min(760px,54vw);aspect-ratio:3/2;right:-130px;bottom:-78px}
+/* the Videos walker is a little larger than the default */
+.sx-wire-vid{width:min(480px,38vw);right:-6px;bottom:-84px}
+/* the Images photo is a touch smaller so it stays clear of the lead copy */
+.sx-wire-img{width:min(540px,40vw);aspect-ratio:3/2;right:0;bottom:-24px}
+/* the Text document is smaller so it stays clear of the lead copy */
+.sx-wire-txt{width:min(470px,36vw);aspect-ratio:3/2;right:0;bottom:-24px}
+@media(max-width:900px){
+  .sx-wire{display:none}
+  .sx{height:auto;margin-top:40px}
+  .sx-pin{position:static;height:auto;min-height:0}
+  .sx-card{--sq:104px;grid-template-columns:1fr;row-gap:28px;padding:32px 24px;border-radius:28px}
+  .sx-tabs{flex-direction:row;flex-wrap:wrap}
+  .sx-lead{font-size:22px;text-indent:0}
+  .sx-right{min-height:240px}
+}
+@media(prefers-reduced-motion:reduce){.sx-panel,.sx-tab{transition:none}}
