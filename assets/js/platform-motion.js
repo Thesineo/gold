@@ -2979,6 +2979,774 @@
     });
   }
 
+  /* ── Wireframe cards (Label page, "Annotation Capabilities"): each card carries a real 3D wireframe
+     model that turns on its own turntable instead of the old pixel-dot icons. Models are built from
+     plain line segments (edges), drawn with depth fading; "accent" edges (the part the card is about)
+     are brighter. Satellite, tractor and wind turbine are modelled part by part; the others are a ranked
+     bar chart, a document with a margin note, and two overlapping 3D boxes with a warning sign. ── */
+  var WF_BUILD = (function () {
+    function kit() {
+      var s = [];
+      var K = {
+        s: s,
+        xf: function (p) { return p; },                      // optional transform applied to every edge (used to pose jointed models)
+        L: function (a, b, k) { a = K.xf(a); b = K.xf(b); s.push([a[0], a[1], a[2], b[0], b[1], b[2], k || 0]); },
+        // a rectangular bar from a to b (w across, h thick), oriented along its own axis
+        bar: function (a, b, w, h, k) {
+          var d = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], l = Math.hypot(d[0], d[1], d[2]) || 1; d = [d[0] / l, d[1] / l, d[2] / l];
+          var up = Math.abs(d[2]) < 0.95 ? [0, 0, 1] : [1, 0, 0];
+          var sd = [d[1] * up[2] - d[2] * up[1], d[2] * up[0] - d[0] * up[2], d[0] * up[1] - d[1] * up[0]], sl = Math.hypot(sd[0], sd[1], sd[2]) || 1; sd = [sd[0] / sl, sd[1] / sl, sd[2] / sl];
+          var u = [sd[1] * d[2] - sd[2] * d[1], sd[2] * d[0] - sd[0] * d[2], sd[0] * d[1] - sd[1] * d[0]], c = [], i, e;
+          [a, b].forEach(function (pt) { [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (q) { c.push([pt[0] + sd[0] * q[0] * w / 2 + u[0] * q[1] * h / 2, pt[1] + sd[1] * q[0] * w / 2 + u[1] * q[1] * h / 2, pt[2] + sd[2] * q[0] * w / 2 + u[2] * q[1] * h / 2]); }); });
+          for (i = 0; i < 4; i++) { K.L(c[i], c[(i + 1) % 4], k); K.L(c[4 + i], c[4 + (i + 1) % 4], k); K.L(c[i], c[4 + i], k); }
+        },
+        // a cylinder between two points: rings across its axis joined by lines along it
+        cyl: function (a, b, r, sides, rings, k) {
+          var d = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], l = Math.hypot(d[0], d[1], d[2]) || 1; d = [d[0] / l, d[1] / l, d[2] / l];
+          var up = Math.abs(d[2]) < 0.95 ? [0, 0, 1] : [1, 0, 0];
+          var u = [d[1] * up[2] - d[2] * up[1], d[2] * up[0] - d[0] * up[2], d[0] * up[1] - d[1] * up[0]], ul = Math.hypot(u[0], u[1], u[2]) || 1; u = [u[0] / ul, u[1] / ul, u[2] / ul];
+          var v = [d[1] * u[2] - d[2] * u[1], d[2] * u[0] - d[0] * u[2], d[0] * u[1] - d[1] * u[0]], prev = null, i, j;
+          for (j = 0; j <= rings; j++) {
+            var f = j / rings, pts = [];
+            for (i = 0; i < sides; i++) { var an = i / sides * 6.2832, cs = Math.cos(an) * r, sn = Math.sin(an) * r; pts.push([a[0] + (b[0] - a[0]) * f + u[0] * cs + v[0] * sn, a[1] + (b[1] - a[1]) * f + u[1] * cs + v[1] * sn, a[2] + (b[2] - a[2]) * f + u[2] * cs + v[2] * sn]); }
+            K.poly(pts, k, true);
+            if (prev) for (i = 0; i < sides; i++) K.L(prev[i], pts[i], k);
+            prev = pts;
+          }
+        },
+        poly: function (pts, k, closed) { for (var i = 0; i < pts.length - (closed ? 0 : 1); i++) K.L(pts[i], pts[(i + 1) % pts.length], k); },
+        box: function (x0, y0, z0, x1, y1, z1, k) {
+          var c = [[x0, y0, z0], [x1, y0, z0], [x1, y1, z0], [x0, y1, z0], [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]];
+          [[0, 1], [1, 2], [2, 3], [3, 0], [4, 5], [5, 6], [6, 7], [7, 4], [0, 4], [1, 5], [2, 6], [3, 7]].forEach(function (e) { K.L(c[e[0]], c[e[1]], k); });
+        },
+        // a circle in the plane spanned by unit vectors u and v
+        ring: function (c, u, v, r, n, k, a0, a1) {
+          a0 = a0 || 0; a1 = a1 == null ? 6.2832 : a1;
+          var prev = null;
+          for (var i = 0; i <= n; i++) {
+            var a = a0 + (a1 - a0) * i / n, cs = Math.cos(a) * r, sn = Math.sin(a) * r;
+            var p = [c[0] + u[0] * cs + v[0] * sn, c[1] + u[1] * cs + v[1] * sn, c[2] + u[2] * cs + v[2] * sn];
+            if (prev) K.L(prev, p, k); prev = p;
+          }
+        },
+        // a tapered cylinder along z: radius r0 at z0 to r1 at z1, with rings and verticals
+        cylZ: function (cx, cy, z0, z1, r0, r1, sides, rings, k) {
+          var pr = null, i, j;
+          for (j = 0; j <= rings; j++) {
+            var f = j / rings, z = z0 + (z1 - z0) * f, r = r0 + (r1 - r0) * f, pts = [];
+            for (i = 0; i < sides; i++) pts.push([cx + r * Math.cos(i / sides * 6.2832), cy + r * Math.sin(i / sides * 6.2832), z]);
+            K.poly(pts, k, true);
+            if (pr) for (i = 0; i < sides; i++) K.L(pr[i], pts[i], k);
+            pr = pts;
+          }
+        },
+        // a wheel with its axle along y: tyre walls, tread, rim, hub and spokes
+        wheel: function (cx, cy, cz, R, w, lugs, k) {
+          var n = 28, i, y0 = cy - w / 2, y1 = cy + w / 2;
+          for (i = 0; i < n; i++) {
+            var a0 = i / n * 6.2832, a1 = (i + 1) / n * 6.2832, c0 = Math.cos(a0), s0 = Math.sin(a0), c1 = Math.cos(a1), s1 = Math.sin(a1);
+            [y0, y1].forEach(function (y) { K.L([cx + R * c0, y, cz + R * s0], [cx + R * c1, y, cz + R * s1], k); });
+            [y0, y1].forEach(function (y) { K.L([cx + R * 0.66 * c0, y, cz + R * 0.66 * s0], [cx + R * 0.66 * c1, y, cz + R * 0.66 * s1], k); });
+            if (i % (lugs ? 1 : 2) === 0) K.L([cx + R * c0, y0, cz + R * s0], [cx + R * c0, y1, cz + R * s0], k);
+            K.L([cx + R * 0.2 * c0, y1, cz + R * 0.2 * s0], [cx + R * 0.2 * c1, y1, cz + R * 0.2 * s1], k);
+            if (i % 5 === 0) K.L([cx + R * 0.2 * c0, y1, cz + R * 0.2 * s0], [cx + R * 0.66 * c0, y1, cz + R * 0.66 * s0], k);
+          }
+        },
+      };
+      return K;
+    }
+    var M = {};
+
+    // SATELLITE — Earth-observation bus with two solar wings, a dish, a camera barrel and an orbit
+    M.satellite = function () {
+      var K = kit(), L = K.L, i, j, sd;
+      K.box(-0.5, -0.42, 0, 0.5, 0.42, 1.2, 1);
+      [0.4, 0.8].forEach(function (z) { L([-0.5, -0.42, z], [-0.5, 0.42, z], 0); L([0.5, -0.42, z], [0.5, 0.42, z], 0); L([-0.5, 0.42, z], [0.5, 0.42, z], 0); L([-0.5, -0.42, z], [0.5, -0.42, z], 0); });
+      K.box(-0.36, 0.42, 0.18, 0.36, 0.45, 1.02, 0);                                        // radiator panel on the +y face
+      for (j = 1; j < 6; j++) L([-0.36, 0.45, 0.18 + 0.14 * j], [0.36, 0.45, 0.18 + 0.14 * j], 0);
+      [-1, 1].forEach(function (sx) {                                                       // solar wings: boom, yoke and three panels of cells
+        L([sx * 0.5, -0.04, 0.6], [sx * 0.95, -0.04, 0.6], 1); L([sx * 0.5, 0.04, 0.6], [sx * 0.95, 0.04, 0.6], 1);
+        for (var p = 0; p < 3; p++) {
+          var xa = sx * (0.95 + p * 0.74), xb = sx * (0.95 + (p + 1) * 0.74 - 0.06), x0 = Math.min(xa, xb), x1 = Math.max(xa, xb);
+          K.box(x0, -0.02, 0.05, x1, 0.02, 1.15, 1);
+          for (j = 1; j < 5; j++) L([x0 + (x1 - x0) * j / 5, 0.02, 0.05], [x0 + (x1 - x0) * j / 5, 0.02, 1.15], 0);
+          for (j = 1; j < 8; j++) L([x0, 0.02, 0.05 + 1.1 * j / 8], [x1, 0.02, 0.05 + 1.1 * j / 8], 0);
+        }
+      });
+      // dish antenna on a mast: a paraboloid of rings and ribs with a three-strut feed
+      L([0, 0, 1.2], [0, 0, 1.55], 1); K.box(-0.07, -0.07, 1.2, 0.07, 0.07, 1.3, 0);
+      var dz = 1.62, ks = 0.55;
+      for (j = 1; j <= 3; j++) { var rr = 0.2 * j; K.ring([0, 0, dz + ks * rr * rr], [1, 0, 0], [0, 1, 0], rr, 28, 1); }
+      for (i = 0; i < 12; i++) { var an = i / 12 * 6.2832, pr = [0, 0, dz]; for (j = 1; j <= 6; j++) { var r2 = 0.6 * j / 6, q = [r2 * Math.cos(an), r2 * Math.sin(an), dz + ks * r2 * r2]; L(pr, q, 1); pr = q; } }
+      for (i = 0; i < 3; i++) { var a3 = i / 3 * 6.2832 + 0.5; L([0.6 * Math.cos(a3), 0.6 * Math.sin(a3), dz + ks * 0.36], [0, 0, dz + 0.5], 0); }
+      K.box(-0.05, -0.05, dz + 0.46, 0.05, 0.05, dz + 0.58, 1);
+      // camera barrel underneath, star trackers and thrusters
+      K.cylZ(0, 0, -0.55, 0, 0.3, 0.3, 14, 5, 1); K.ring([0, 0, -0.55], [1, 0, 0], [0, 1, 0], 0.2, 14, 1);
+      K.box(0.52, -0.14, 0.9, 0.7, 0.14, 1.15, 0); K.box(-0.7, -0.14, 0.9, -0.52, 0.14, 1.15, 0);
+      [[-0.4, -0.34], [0.4, -0.34], [-0.4, 0.34], [0.4, 0.34]].forEach(function (q) { K.box(q[0] - 0.05, q[1] - 0.05, -0.12, q[0] + 0.05, q[1] + 0.05, 0, 0); });
+      // orbit
+      for (i = 0; i < 60; i += 2) { var o0 = i / 60 * 6.2832, o1 = (i + 1) / 60 * 6.2832; L([3.9 * Math.cos(o0), 3.9 * Math.sin(o0), 0.6], [3.9 * Math.cos(o1), 3.9 * Math.sin(o1), 0.6], 0); }
+      return { s: K.s, orbit: true };
+    };
+
+    // WIND TURBINE — tapered tower, nacelle, spinner, three twisted airfoil blades that really spin
+    M.turbine = function () {
+      var K = kit(), L = K.L, i;
+      K.cylZ(0, 0, 0, 3.2, 0.2, 0.1, 14, 8, 1);
+      K.box(-0.3, -0.3, -0.08, 0.3, 0.3, 0, 0);                                                           // foundation
+      K.box(-0.15, -0.5, 3.2, 0.15, 0.4, 3.5, 1);                                                          // nacelle
+      L([-0.15, -0.5, 3.35], [0.15, -0.5, 3.35], 0); L([-0.15, 0.4, 3.35], [0.15, 0.4, 3.35], 0);
+      K.box(-0.06, 0.0, 3.5, 0.06, 0.22, 3.58, 0);                                                         // anemometer mount
+      L([0, 0.1, 3.58], [0, 0.1, 3.75], 0);
+      // spinner: rings along -y
+      var pr = null, rad = [[-0.5, 0.15], [-0.62, 0.13], [-0.74, 0.085], [-0.84, 0.03]];
+      rad.forEach(function (rr) { var pts = []; for (i = 0; i < 12; i++) pts.push([0.15 * 0 + rr[1] * Math.cos(i / 12 * 6.2832), rr[0], 3.35 + rr[1] * Math.sin(i / 12 * 6.2832)]); K.poly(pts, 1, true); if (pr) for (i = 0; i < 12; i++) K.L(pr[i], pts[i], 1); pr = pts; });
+      var dyn = function (t) {
+        var out = [], AF = [[-0.25, 0], [-0.12, 0.07], [0.18, 0.08], [0.52, 0.045], [0.75, 0], [0.5, -0.03], [0.18, -0.045], [-0.12, -0.045]];
+        for (var b = 0; b < 3; b++) {
+          var ph = t * 0.0012 + b * 2.0944, sx = Math.sin(ph), cz = Math.cos(ph), prev = null;
+          for (var st = 0; st <= 9; st++) {
+            var r = 0.16 + 1.84 * Math.pow(st / 9, 1.0), ch = 0.3 * Math.max(0.16, 1 - Math.max(0, r - 0.4) / 1.9), tw = 0.5 * (1 - r / 2.0), ct = Math.cos(tw), stw = Math.sin(tw);
+            var pts = AF.map(function (p) {
+              var cx = p[0] * ch, th = p[1] * ch * 1.2;
+              // chord direction in the rotor plane, twisted toward the axis (y)
+              var cdx = cz * ct, cdy = stw, cdz = -sx * ct, ndx = -cz * stw, ndy = ct, ndz = sx * stw;
+              return [sx * r + cdx * cx + ndx * th, -0.55 + cdy * cx + ndy * th, 3.35 + cz * r + cdz * cx + ndz * th];
+            });
+            for (var q = 0; q < pts.length; q++) out.push([pts[q][0], pts[q][1], pts[q][2], pts[(q + 1) % pts.length][0], pts[(q + 1) % pts.length][1], pts[(q + 1) % pts.length][2], 1]);
+            if (prev) for (var q2 = 0; q2 < pts.length; q2++) out.push([prev[q2][0], prev[q2][1], prev[q2][2], pts[q2][0], pts[q2][1], pts[q2][2], 1]);
+            prev = pts;
+          }
+        }
+        return out;
+      };
+      return { s: K.s, dyn: dyn };
+    };
+
+    // DRONE — a quadcopter: faceted fuselage and canopy, four arms with motor pods, spinning two-blade props,
+    // landing legs and a camera gimbal under the nose
+    M.drone = function () {
+      var K = kit(), L = K.L, i, sd;
+      K.cylZ(0, 0, 0.26, 0.56, 0.42, 0.38, 8, 3, 1); K.cylZ(0, 0, 0.56, 0.74, 0.3, 0.2, 8, 2, 1);
+      K.box(-0.55, -0.1, 0.3, -0.42, 0.1, 0.5, 0);                                                         // battery bay
+      [45, 135, 225, 315].forEach(function (deg) {
+        var a = deg * Math.PI / 180, c = Math.cos(a), s2 = Math.sin(a);
+        K.bar([0.34 * c, 0.34 * s2, 0.44], [1.3 * c, 1.3 * s2, 0.44], 0.17, 0.09, 0);
+        K.cylZ(1.3 * c, 1.3 * s2, 0.36, 0.64, 0.16, 0.14, 10, 2, 0);                                      // motor pod
+        K.ring([1.3 * c, 1.3 * s2, 0.66], [1, 0, 0], [0, 1, 0], 0.05, 10, 0);
+        K.box(1.3 * c - 0.03, 1.3 * s2 - 0.03, 0.3, 1.3 * c + 0.03, 1.3 * s2 + 0.03, 0.36, 1);             // nav light
+        // landing leg: down and out, ending in a foot pad
+        var fx = 0.78 * c, fy = 0.78 * s2;
+        L([0.36 * c, 0.36 * s2, 0.3], [fx, fy, -0.32], 0); K.bar([fx - 0.12 * -s2, fy - 0.12 * c, -0.32], [fx + 0.12 * -s2, fy + 0.12 * c, -0.32], 0.05, 0.04, 0);
+        L([0.4 * c, 0.4 * s2, 0.28], [fx, fy, -0.28], 0);
+      });
+      // gimbal camera under the nose
+      L([0.3, -0.08, 0.28], [0.44, -0.08, 0.06], 1); L([0.3, 0.08, 0.28], [0.44, 0.08, 0.06], 1);
+      K.box(0.34, -0.14, -0.14, 0.56, 0.14, 0.1, 1); K.cyl([0.56, 0, -0.02], [0.74, 0, -0.02], 0.09, 12, 3, 1); K.ring([0.74, 0, -0.02], [0, 1, 0], [0, 0, 1], 0.06, 10, 1);
+      L([-0.4, -0.2, 0.56], [-0.7, -0.4, 0.95], 0); L([-0.4, 0.2, 0.56], [-0.7, 0.4, 0.95], 0);           // antennas
+      var dyn = function (t) {
+        var out = [], KK = kit(), q;
+        [45, 135, 225, 315].forEach(function (deg, n) {
+          var a = deg * Math.PI / 180, cx = 1.3 * Math.cos(a), cy = 1.3 * Math.sin(a), ph = t * 0.009 * (n % 2 ? 1 : -1);
+          for (var bl = 0; bl < 2; bl++) {
+            var aa = ph + bl * Math.PI, ca = Math.cos(aa), sa = Math.sin(aa);
+            var pro = [[0.05, 0], [0.18, 0.05], [0.5, 0.045], [0.62, 0.012], [0.62, -0.012], [0.5, -0.03], [0.18, -0.045], [0.05, -0.02]].map(function (p) { return [cx + p[0] * ca - p[1] * sa, cy + p[0] * sa + p[1] * ca, 0.68]; });
+            KK.poly(pro, 1, true);
+          }
+          for (q = 0; q < 24; q += 2) { var b0 = q / 24 * 6.2832, b1 = (q + 1) / 24 * 6.2832; KK.L([cx + 0.62 * Math.cos(b0), cy + 0.62 * Math.sin(b0), 0.68], [cx + 0.62 * Math.cos(b1), cy + 0.62 * Math.sin(b1), 0.68], 0); }
+        });
+        return KK.s;
+      };
+      return { s: K.s, dyn: dyn };
+    };
+
+    // BRIDGE — a suspension bridge: stiffening truss deck, two tapered towers with cross-bracing and portal arch,
+    // main cables, suspenders and anchorages
+    M.bridge = function () {
+      var K = kit(), L = K.L, i, sd, x;
+      var HX = 3.3, TX = 1.9, TH = 2.6, DZ = 0.06, CY = 0.36;
+      K.box(-HX, -0.42, -0.04, HX, 0.42, DZ, 0);                                                           // deck slab
+      L([-HX, 0, DZ], [HX, 0, DZ], 0);
+      [-1, 1].forEach(function (sd) {                                                                      // stiffening trusses: chords and a Warren zig-zag
+        L([-HX, sd * CY, 0.3], [HX, sd * CY, 0.3], 0); L([-HX, sd * CY, DZ], [HX, sd * CY, DZ], 0);
+        for (x = -HX; x < HX - 1e-6; x += 0.22) { L([x, sd * CY, DZ], [x + 0.11, sd * CY, 0.3], 0); L([x + 0.11, sd * CY, 0.3], [x + 0.22, sd * CY, DZ], 0); }
+      });
+      for (x = -HX; x <= HX + 1e-6; x += 0.44) L([x, -CY, DZ], [x, CY, DZ], 0);                              // cross girders
+      // towers
+      [-TX, TX].forEach(function (tx) {
+        [-1, 1].forEach(function (sd) {
+          var ring = function (z, w) { var f = [[-w, -w * 0.8], [w, -w * 0.8], [w, w * 0.8], [-w, w * 0.8]]; return f.map(function (q) { return [tx + q[0] * 0.8, sd * 0.33 + q[1], z]; }); };
+          var prev = null, n;
+          for (n = 0; n <= 8; n++) { var z = -0.5 + (TH + 0.5) * n / 8, r = ring(z, 0.13 - 0.06 * n / 8); K.poly(r, 1, true); if (prev) for (var q = 0; q < 4; q++) L(prev[q], r[q], 1); prev = r; }
+        });
+        [0.7, 1.4, 2.1].forEach(function (z) { L([tx, -0.33, z], [tx, 0.33, z], 1); });                      // cross braces
+        for (var lv = 0; lv < 3; lv++) { var z0 = [0.7, 1.4, 2.1][lv], z1 = lv < 2 ? [1.4, 2.1][lv] : TH; L([tx, -0.33, z0], [tx, 0.33, z1], 0); L([tx, 0.33, z0], [tx, -0.33, z1], 0); }
+        L([tx, -0.33, TH], [tx, 0.33, TH], 1); L([tx, -0.33, 0.1], [tx, 0.33, 0.1], 0);
+        K.box(tx - 0.3, -0.5, -0.7, tx + 0.3, 0.5, -0.5, 0);                                                  // foundation
+      });
+      // main cables with suspenders
+      function cableZ(ax) {
+        var a = Math.abs(ax);
+        if (a <= TX) return 0.5 + (TH - 0.5) * Math.pow(a / TX, 2);
+        var t = Math.max(0, (HX - a) / (HX - TX)); return 0.3 + (TH - 0.3) * Math.pow(t, 1.15);
+      }
+      [-1, 1].forEach(function (sd) {
+        var prevc = null;
+        for (x = -HX; x <= HX + 1e-6; x += 0.1) { var pc = [x, sd * CY, cableZ(x)]; if (prevc) L(prevc, pc, 1); prevc = pc; }
+        for (x = -HX + 0.2; x <= HX - 0.19; x += 0.22) { if (Math.abs(Math.abs(x) - TX) < 0.1) continue; L([x, sd * CY, 0.3], [x, sd * CY, cableZ(x)], 0); }
+        L([-HX, sd * CY, 0.3], [-HX - 0.3, sd * 0.5, 0.2], 0); L([HX, sd * CY, 0.3], [HX + 0.3, sd * 0.5, 0.2], 0);
+      });
+      K.box(-HX - 0.6, -0.55, -0.3, -HX - 0.15, 0.55, 0.45, 0); K.box(HX + 0.15, -0.55, -0.3, HX + 0.6, 0.55, 0.45, 0);   // anchorages
+      return { s: K.s };
+    };
+
+    // SMART CITY — a city model on a plinth: towers of different forms (round, stepped, slab, wedge-roofed) with
+    // floor lines and mullions, a stadium, and a live sensor network: rooftop nodes joined by arcing links
+    M.city = function () {
+      var K = kit(), L = K.L, i, j, seed = 11, tops = [];
+      function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      function floors(cx, cy, w, d, z0, z1, k) {                                              // floor lines round the perimeter and mullions on each face
+        var fl = 0.2, z, n = 0;
+        for (z = z0 + fl; z < z1 - 0.01; z += fl) { K.poly([[cx - w, cy - d, z], [cx + w, cy - d, z], [cx + w, cy + d, z], [cx - w, cy + d, z]], 0, true); n++; }
+        for (var jj = 1; jj < 3; jj++) { var fx = cx - w + 2 * w * jj / 3, fy = cy - d + 2 * d * jj / 3; L([fx, cy - d, z0], [fx, cy - d, z1], 0); L([fx, cy + d, z0], [fx, cy + d, z1], 0); L([cx - w, fy, z0], [cx - w, fy, z1], 0); L([cx + w, fy, z0], [cx + w, fy, z1], 0); }
+      }
+      function node(x, y, z) { K.ring([x, y, z + 0.06], [1, 0, 0], [0, 1, 0], 0.07, 10, 1); L([x, y, z], [x, y, z + 0.14], 1); tops.push([x, y, z + 0.14]); }
+      // plinth
+      K.box(-2.2, -2.2, -0.14, 2.2, 2.2, 0, 0);
+      for (i = 1; i <= 2; i++) K.ring([0, 0, 0.002], [0.8 * i, 0, 0], [0, 0.8 * i, 0], 1, 40, 1);          // coverage rings round the central tower
+      var kinds = ['rect', 'step', 'wedge', 'step', 'rect'];
+      for (i = -2; i <= 2; i++) for (j = -2; j <= 2; j++) {
+        var cx = i * 0.82 + (rnd() - 0.5) * 0.06, cy = j * 0.82 + (rnd() - 0.5) * 0.06, cen = 1 - Math.hypot(i, j) / 3.2;
+        if (i === 2 && j === -2) continue;
+        var sens = (i + j) % 2 === 0;                                                     // the stadium takes this corner
+        var h = (i === 0 && j === 0) ? 2.7 : 0.3 + Math.pow(cen, 1.3) * 2.0 + rnd() * 0.5, kind = (i === 0 && j === 0) ? 'round' : kinds[Math.floor(rnd() * 5)], w = 0.2 + rnd() * 0.08, d = 0.2 + rnd() * 0.08, acc = (i === 0 && j === 0) ? 1 : 0;
+        if (kind === 'round') {
+          var r = (i === 0 && j === 0) ? 0.26 : 0.2 + rnd() * 0.05; K.cylZ(cx, cy, 0, h, r, r * 0.85, 12, Math.max(3, Math.round(h / 0.15)), acc);
+          if (i === 0 && j === 0) { L([cx, cy, h], [cx, cy, h + 0.55], 1); K.ring([cx, cy, h + 0.18], [1, 0, 0], [0, 1, 0], 0.07, 10, 1); K.ring([cx, cy, h + 0.34], [1, 0, 0], [0, 1, 0], 0.045, 10, 1); node(cx, cy, h + 0.55 - 0.14); }
+          else if (sens) node(cx, cy, h);
+        } else if (kind === 'step') {
+          K.box(cx - w, cy - d, 0, cx + w, cy + d, h * 0.55, 0); floors(cx, cy, w, d, 0, h * 0.55);
+          K.box(cx - w * 0.7, cy - d * 0.7, h * 0.55, cx + w * 0.7, cy + d * 0.7, h * 0.85, 0); floors(cx, cy, w * 0.7, d * 0.7, h * 0.55, h * 0.85);
+          K.box(cx - w * 0.4, cy - d * 0.4, h * 0.85, cx + w * 0.4, cy + d * 0.4, h, 0); if (sens) node(cx, cy, h);
+        } else if (kind === 'wedge') {
+          K.box(cx - w, cy - d, 0, cx + w, cy + d, h * 0.8, 0); floors(cx, cy, w, d, 0, h * 0.8);
+          L([cx - w, cy - d, h * 0.8], [cx - w, cy - d, h], 0); L([cx - w, cy + d, h * 0.8], [cx - w, cy + d, h], 0); L([cx - w, cy - d, h], [cx - w, cy + d, h], 0);
+          L([cx - w, cy - d, h], [cx + w, cy - d, h * 0.8], 0); L([cx - w, cy + d, h], [cx + w, cy + d, h * 0.8], 0); if (sens) node(cx, cy, h * 0.8);
+        } else {
+          K.box(cx - w, cy - d, 0, cx + w, cy + d, h, 0); floors(cx, cy, w, d, 0, h); if (sens) node(cx, cy, h);
+        }
+      }
+      // stadium in the south-east corner: two ellipses, tiers and a pitch
+      var sx = 1.64, sy = -1.64;
+      for (var tier = 0; tier < 3; tier++) { var rx = 0.42 - tier * 0.05, ry = 0.32 - tier * 0.04, zt = 0.06 + tier * 0.07; K.ring([sx, sy, zt], [rx, 0, 0], [0, ry, 0], 1, 28, 0); }
+      for (i = 0; i < 28; i++) { var a0 = i / 28 * 6.2832; L([sx + 0.42 * Math.cos(a0), sy + 0.32 * Math.sin(a0), 0], [sx + 0.42 * Math.cos(a0), sy + 0.32 * Math.sin(a0), 0.2], 0); }
+      // sensor network: arcing links between rooftop nodes (nearest neighbours), raised above the roofs
+      var seen = {};
+      tops.forEach(function (A, ia) {
+        var ds = tops.map(function (B, ib) { return [Math.hypot(A[0] - B[0], A[1] - B[1]), ib]; }).filter(function (q) { return q[1] !== ia; }).sort(function (p, q) { return p[0] - q[0]; });
+        for (var n = 0; n < 2; n++) {
+          if (!ds[n]) continue;
+          var ib = ds[n][1], key = Math.min(ia, ib) + '-' + Math.max(ia, ib); if (seen[key] || ds[n][0] > 1.9) continue; seen[key] = 1;
+          var B = tops[ib], prev = A, steps = 14;
+          for (var st = 1; st <= steps; st++) { var f = st / steps, pt = [A[0] + (B[0] - A[0]) * f, A[1] + (B[1] - A[1]) * f, A[2] + (B[2] - A[2]) * f + Math.sin(f * Math.PI) * (0.14 + ds[n][0] * 0.1)]; L(prev, pt, 1); prev = pt; }
+        }
+      });
+      return { s: K.s };
+    };
+
+    // ── Version-page models (lineage cards): objects from our customers' industries ──
+    // PADLOCK (security / identity) — a scanned point cloud: a rounded-block body, a tubular shackle and a keyway cut-out
+    M.padlock = function () {
+      var pts = [], i, j, seed = 9;
+      function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      var H = [0.82, 0.36, 0.56], ZC = 0.56, RR = 0.17, ar = [H[1] * H[2], H[0] * H[2], H[0] * H[1]], tot = 2 * (ar[0] + ar[1] + ar[2]), n = 0;
+      while (n < 1500) {                                                  // uniform samples on the box surface, then rounded onto a rounded box
+        var pick = rnd() * tot, ax = pick < 2 * ar[0] ? 0 : (pick < 2 * (ar[0] + ar[1]) ? 1 : 2), sg = rnd() < 0.5 ? -1 : 1, p = [(rnd() * 2 - 1) * H[0], (rnd() * 2 - 1) * H[1], (rnd() * 2 - 1) * H[2]];
+        p[ax] = sg * H[ax];
+        var q = [Math.max(-(H[0] - RR), Math.min(H[0] - RR, p[0])), Math.max(-(H[1] - RR), Math.min(H[1] - RR, p[1])), Math.max(-(H[2] - RR), Math.min(H[2] - RR, p[2]))];
+        var d = [p[0] - q[0], p[1] - q[1], p[2] - q[2]], dl = Math.hypot(d[0], d[1], d[2]) || 1;
+        var x = q[0] + d[0] / dl * RR, y = q[1] + d[1] / dl * RR, z = ZC + q[2] + d[2] / dl * RR;
+        if (y < -0.3 && ((x * x + (z - 0.68) * (z - 0.68)) < 0.0196 || (Math.abs(x) < 0.05 && z < 0.7 && z > 0.3))) continue;    // keyway
+        pts.push([x, y, z]); n++;
+      }
+      // front plate ring and corner screws on the face
+      for (i = 0; i < 40; i++) { var a = i / 40 * 6.2832; pts.push([0.2 * Math.cos(a), -0.372, 0.68 + 0.2 * Math.sin(a)]); }
+      [[-0.62, 0.22], [0.62, 0.22], [-0.62, 0.9], [0.62, 0.9]].forEach(function (q) { for (i = 0; i < 8; i++) { var b = i / 8 * 6.2832; pts.push([q[0] + 0.04 * Math.cos(b), -0.368, q[1] + 0.04 * Math.sin(b)]); } });
+      // shackle: a tube swept along a U-shaped path, its legs sinking into the body
+      function path(t) { if (t < 0.25) return [-0.5, 0, 0.82 + (t / 0.25) * 0.63]; if (t < 0.75) { var a2 = Math.PI - (t - 0.25) / 0.5 * Math.PI; return [0.5 * Math.cos(a2), 0, 1.45 + 0.5 * Math.sin(a2)]; } return [0.5, 0, 1.45 - ((t - 0.75) / 0.25) * 0.63]; }
+      for (i = 0; i <= 90; i++) {
+        var t = i / 90, P0 = path(t), P1 = path(Math.min(1, t + 0.01)), tx = P1[0] - P0[0], tz = P1[2] - P0[2], tl = Math.hypot(tx, tz) || 1; tx /= tl; tz /= tl;
+        var nx = -tz, nz = tx;                                   // in-plane normal; the other normal is y
+        for (j = 0; j < 9; j++) { var th = j / 9 * 6.2832, cs = 0.1 * Math.cos(th), sy = 0.1 * Math.sin(th); pts.push([P0[0] + nx * cs, sy, P0[2] + nz * cs]); }
+      }
+      return { s: [], pts: pts };
+    };
+    // TERRAIN (geospatial) — a surveyed landscape as a scattered point cloud
+    M.terrain = function () {
+      var pts = [], i, j;
+      function h(x, y) { return 1.9 * Math.exp(-(Math.pow(x + 0.9, 2) + Math.pow(y - 0.5, 2)) / 1.3) + 1.4 * Math.exp(-(Math.pow(x - 1.3, 2) + Math.pow(y + 1.0, 2)) / 0.95) + 0.9 * Math.exp(-(Math.pow(x - 0.1, 2) + Math.pow(y - 1.7, 2)) / 0.7) + 0.16 * Math.sin(x * 2.1) * Math.cos(y * 1.7) - 0.05 * x; }
+      for (i = -26; i <= 26; i++) for (j = -26; j <= 26; j++) { var x = i * 0.11, y = j * 0.11; if (Math.hypot(x, y) > 2.95) continue; pts.push([x, y, h(x, y)]); }
+      return { s: [], pts: pts };
+    };
+    // FACTORY (industrial & manufacturing) — steel-framed production hall with a saw-tooth glazed roof, dock doors, twin
+    // banded chimneys, a hyperbolic cooling tower, domed storage tanks and a pipe rack, on a concrete plinth
+    M.factory = function () {
+      var K = kit(), L = K.L, i, j;
+      K.box(-3.6, -1.9, -0.08, 3.5, 1.8, 0, 0); K.box(-3.45, -1.75, 0, 3.35, 1.65, 0.0, 0);                  // plinth and kerb
+      var X0 = -1.5, X1 = 1.3, Y0 = -0.85, Y1 = 0.85, HZ = 0.85;
+      K.box(X0, Y0, 0, X1, Y1, HZ, 0);
+      for (i = 0; i <= 8; i++) { var cx = X0 + (X1 - X0) * i / 8; L([cx, Y0, 0], [cx, Y0, HZ], 0); L([cx, Y1, 0], [cx, Y1, HZ], 0); }     // steel columns
+      [0.28, 0.56].forEach(function (z) { K.poly([[X0, Y0, z], [X1, Y0, z], [X1, Y1, z], [X0, Y1, z]], 0, true); });                          // girts
+      for (i = 0; i < 5; i++) {                                                                            // saw-tooth roof with glazing bars
+        var x0 = X0 + i * 0.56, pf = [[x0, HZ], [x0, HZ + 0.4], [x0 + 0.56, HZ]];
+        [Y1, Y0].forEach(function (y) { K.poly(pf.map(function (p) { return [p[0], y, p[1]]; }), 1, true); });
+        L([x0, Y0, HZ + 0.4], [x0, Y1, HZ + 0.4], 1); L([x0 + 0.56, Y0, HZ], [x0 + 0.56, Y1, HZ], 0);
+        for (j = 1; j < 9; j++) { var yy = Y0 + (Y1 - Y0) * j / 9; L([x0, yy, HZ + 0.4], [x0 + 0.56, yy, HZ], 0); }
+        L([x0 + 0.28, Y0, HZ + 0.2], [x0 + 0.28, Y1, HZ + 0.2], 0);
+      }
+      for (i = 0; i < 4; i++) {                                                                            // dock doors with slats, and a canopy
+        var dx = -1.2 + i * 0.66;
+        K.poly([[dx, Y0, 0], [dx + 0.44, Y0, 0], [dx + 0.44, Y0, 0.52], [dx, Y0, 0.52]], 0, true);
+        for (j = 1; j < 7; j++) L([dx, Y0 - 0.002, j * 0.075], [dx + 0.44, Y0 - 0.002, j * 0.075], 0);
+        K.box(dx - 0.04, Y0 - 0.16, 0.56, dx + 0.48, Y0, 0.6, 0);
+      }
+      K.box(1.3, -0.55, 0, 2.0, 0.55, 0.5, 0); for (j = 1; j < 5; j++) L([1.3, -0.55, j * 0.1], [2.0, -0.55, j * 0.1], 0);   // annex
+      [[0.9, 1.2, 2.5], [1.4, 1.2, 1.95]].forEach(function (c) {                                           // chimneys: tapered, banded, flared lip
+        K.cylZ(c[0], c[1], 0, c[2], 0.15, 0.1, 14, 14, 1); K.ring([c[0], c[1], c[2]], [1, 0, 0], [0, 1, 0], 0.125, 14, 1);
+        K.ring([c[0], c[1], c[2] - 0.12], [1, 0, 0], [0, 1, 0], 0.115, 14, 1); L([c[0] - 0.16, c[1], 0.3], [c[0] - 0.16, c[1], 0.12], 0);
+        K.box(c[0] - 0.24, c[1] - 0.24, 0, c[0] + 0.24, c[1] + 0.24, 0.1, 0);
+      });
+      // hyperbolic cooling tower
+      var TH = 1.6;
+      function tr(z) { return 0.5 * Math.sqrt(0.46 + Math.pow((z - 0.95) / 0.9, 2) * 0.54 + 0.2 * (z / TH)); }
+      [[-2.3, 0.85], [-2.3, -0.85]].forEach(function (tc) {                                                 // two hyperbolic cooling towers
+        var tcx = tc[0], tcy = tc[1], prevR = null, ring, nsd = 24;
+        for (j = 0; j <= 12; j++) { var z = TH * j / 12, r = tr(z); ring = []; for (i = 0; i < nsd; i++) ring.push([tcx + r * Math.cos(i / nsd * 6.2832), tcy + r * Math.sin(i / nsd * 6.2832), z]); K.poly(ring, 1, true); if (prevR) for (i = 0; i < nsd; i += 2) L(prevR[i], ring[i], 1); prevR = ring; }
+        K.ring([tcx, tcy, 0], [1, 0, 0], [0, 1, 0], 0.66, 28, 0);
+        for (i = 0; i < 12; i++) { var aa = i / 12 * 6.2832; L([tcx + 0.58 * Math.cos(aa), tcy + 0.58 * Math.sin(aa), 0], [tcx + 0.56 * Math.cos(aa + 0.26), tcy + 0.56 * Math.sin(aa + 0.26), 0.16], 0); }     // air-inlet columns
+        L([tcx + 0.62, tcy, 0.1], [tcx + 1.1, tcy * 0.7, 0.1], 0);
+      });
+      // reactor containment: a cylindrical shell under a ribbed dome, with a hatch and buttress bands
+      var rcx = 2.65, rcy = -0.05, rr = 0.62, rh = 1.05;
+      K.cylZ(rcx, rcy, 0, rh, rr, rr, 24, 8, 1);
+      for (i = 0; i < 12; i++) { var th2 = i / 12 * 6.2832, pv = [rcx + rr * Math.cos(th2), rcy + rr * Math.sin(th2), rh]; for (j = 1; j <= 8; j++) { var ph = j / 8 * 1.5708, q = [rcx + rr * Math.cos(ph) * Math.cos(th2), rcy + rr * Math.cos(ph) * Math.sin(th2), rh + rr * 0.9 * Math.sin(ph)]; L(pv, q, 1); pv = q; } }
+      [0.3, 0.6, 0.85].forEach(function (f) { K.ring([rcx, rcy, rh + rr * 0.9 * f], [1, 0, 0], [0, 1, 0], rr * Math.sqrt(1 - f * f), 24, 1); });
+      K.ring([rcx - 0.62, rcy, 0.4], [0, 1, 0], [0, 0, 1], 0.14, 14, 0);
+      K.box(rcx - 0.95, rcy - 0.5, 0, rcx - 0.55, rcy + 0.5, 0.45, 0);                                       // auxiliary building
+      // steam bridge from the turbine hall to the containment
+      [0.5, 0.64].forEach(function (z) { K.cyl([1.3, 0.0, z], [rcx - 0.6, 0.0, z], 0.045, 8, 6, 0); });
+      for (i = 0; i < 3; i++) { var px2 = 1.5 + i * 0.35; L([px2, 0.0, 0], [px2, 0.0, 0.58], 0); L([px2 - 0.07, 0.0, 0.58], [px2 + 0.07, 0.0, 0.58], 0); }
+      // switchyard: two lattice pylons with three conductors each, sagging between them
+      var pyl = function (px, py) {
+        for (var q = 0; q <= 6; q++) { var w = 0.15 - 0.09 * q / 6, z = 1.5 * q / 6; K.poly([[px - w, py - w, z], [px + w, py - w, z], [px + w, py + w, z], [px - w, py + w, z]], 0, true); if (q) { var w0 = 0.15 - 0.09 * (q - 1) / 6, z0 = 1.5 * (q - 1) / 6; [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (c) { L([px + c[0] * w0, py + c[1] * w0, z0], [px + c[0] * w, py + c[1] * w, z], 0); }); } }
+        [1.0, 1.28, 1.5].forEach(function (z) { L([px, py - 0.5, z], [px, py + 0.5, z], 1); });
+      };
+      pyl(-0.6, -1.5); pyl(1.5, -1.5);
+      [1.0, 1.28, 1.5].forEach(function (z, n) { [-0.5, 0.5].forEach(function (dy) { var pv = [-0.6, -1.5 + dy, z]; for (j = 1; j <= 16; j++) { var f = j / 16, q = [-0.6 + 2.1 * f, -1.5 + dy, z - Math.sin(f * Math.PI) * 0.13]; L(pv, q, 1); pv = q; } }); });
+      K.box(0.1, -1.7, 0, 0.7, -1.3, 0.28, 0); K.box(0.8, -1.7, 0, 1.2, -1.3, 0.22, 0);                       // transformer yard
+      // storage tanks with domed tops
+      [[1.9, 0.85], [1.9, 0.3]].forEach(function (c, n) {
+        var th = 0.62 - n * 0.06; K.cylZ(c[0], c[1], 0, th, 0.24, 0.24, 16, 5, 0);
+        for (j = 1; j <= 3; j++) K.ring([c[0], c[1], th + j * 0.035], [1, 0, 0], [0, 1, 0], 0.24 * Math.cos(j * 0.4), 16, 0);
+        L([c[0], c[1], th + 0.11], [c[0], c[1], th + 0.16], 0);
+      });
+      // pipe rack: three tubes on posts, running to the tanks
+      [0.18, 0.3, 0.42].forEach(function (z, n) { K.cyl([1.3, -0.95 + n * 0.0, z], [2.35, -0.95, z], 0.035, 8, 5, 0); });
+      for (i = 0; i < 4; i++) { var px = 1.45 + i * 0.3; L([px, -0.95, 0], [px, -0.95, 0.46], 0); L([px - 0.06, -0.95, 0.46], [px + 0.06, -0.95, 0.46], 0); }
+      L([2.35, -0.95, 0.3], [2.35, 0.3, 0.3], 0);
+      return { s: K.s };
+    };
+    // CINEMA CAMERA (media & entertainment) — body, EVF and handle, a stepped lens with focus gears, matte box with flags,
+    // support rods and follow-focus, on a fluid head and a two-stage tripod
+    M.camera = function () {
+      var K = kit(), L = K.L, i, j;
+      K.box(-0.34, -0.46, 0.42, 0.34, 0.46, 0.96, 0); K.box(-0.3, -0.46, 0.46, 0.3, -0.45, 0.92, 0);
+      K.box(-0.4, 0.2, 0.5, -0.34, 0.46, 0.9, 0); K.box(0.34, 0.2, 0.5, 0.4, 0.46, 0.9, 0);                      // cheek plates
+      K.box(-0.3, 0.46, 0.44, 0.3, 0.64, 0.92, 0); for (i = 1; i < 5; i++) L([-0.3, 0.64, 0.44 + i * 0.1], [0.3, 0.64, 0.44 + i * 0.1], 0);   // battery plate
+      K.box(-0.12, 0.1, 0.96, 0.12, 0.5, 1.12, 0); K.cyl([0, 0.5, 1.04], [0, 0.72, 1.04], 0.1, 12, 2, 0);          // viewfinder and eyecup
+      [-0.2, 0.2].forEach(function (x) { L([x, -0.22, 0.96], [x, -0.22, 1.22], 0); L([x, 0.2, 0.96], [x, 0.2, 1.22], 0); }); L([-0.2, -0.22, 1.22], [0.2, -0.22, 1.22], 0); L([-0.2, 0.2, 1.22], [0.2, 0.2, 1.22], 0); L([-0.2, -0.22, 1.22], [-0.2, 0.2, 1.22], 0); L([0.2, -0.22, 1.22], [0.2, 0.2, 1.22], 0);   // top handle
+      var lz = 0.69;                                                                                                    // lens axis height
+      K.cyl([0, -0.46, lz], [0, -0.58, lz], 0.27, 20, 1, 1);                                                          // mount
+      K.cyl([0, -0.58, lz], [0, -1.0, lz], 0.23, 20, 8, 1);                                                           // focus barrel with grip bands
+      K.cyl([0, -1.0, lz], [0, -1.5, lz], 0.2, 22, 12, 1);                                                            // iris / zoom barrel
+      K.cyl([0, -1.5, lz], [0, -1.58, lz], 0.22, 20, 1, 1); K.ring([0, -1.58, lz], [1, 0, 0], [0, 0, 1], 0.15, 18, 1); K.ring([0, -1.58, lz], [1, 0, 0], [0, 0, 1], 0.08, 14, 1);   // front element
+      // matte box: bellows, filter stage and flags
+      var mb = function (y, h) { return [[-h, y, lz - h], [h, y, lz - h], [h, y, lz + h], [-h, y, lz + h]]; };
+      var b0 = mb(-1.62, 0.24), b1 = mb(-2.05, 0.5); K.poly(b0, 0, true); K.poly(b1, 0, true); for (i = 0; i < 4; i++) L(b0[i], b1[i], 0);
+      for (j = 1; j < 5; j++) { var yy = -1.62 - 0.43 * j / 5, hh = 0.24 + 0.26 * j / 5; K.poly(mb(yy, hh), 0, true); }
+      K.box(-0.52, -2.2, lz - 0.52, 0.52, -2.05, lz + 0.52, 0); K.box(-0.5, -2.35, lz + 0.5, 0.5, -2.2, lz + 0.7, 0); K.box(0.5, -2.35, lz - 0.5, 0.7, -2.2, lz + 0.5, 0);   // flags
+      // rods, follow focus and rod block
+      [-0.22, 0.22].forEach(function (x) { K.cyl([x, -0.4, 0.22], [x, -1.7, 0.22], 0.03, 8, 6, 0); });
+      K.box(-0.32, -0.4, 0.14, 0.32, -0.3, 0.3, 0);
+      K.box(-0.38, -1.0, 0.12, -0.12, -0.82, 0.32, 1); K.cyl([-0.5, -0.91, 0.22], [-0.38, -0.91, 0.22], 0.14, 16, 1, 1);
+      // base plate, fluid head, pan bar
+      K.box(-0.4, -0.5, 0.34, 0.4, 0.5, 0.42, 0); K.cyl([0, 0, 0.1], [0, 0, 0.34], 0.17, 14, 2, 0); K.cyl([0, 0, -0.08], [0, 0, 0.1], 0.22, 14, 1, 0);
+      K.cyl([0, 0.2, 0.2], [0, 1.1, -0.1], 0.025, 8, 5, 0); K.cyl([0, 0.95, -0.05], [0, 1.2, -0.13], 0.055, 10, 2, 0);
+      // two-stage tripod
+      [0.4, 2.5, 4.6].forEach(function (a) {
+        var ca = Math.cos(a), sa = Math.sin(a);
+        K.bar([0.2 * ca, 0.2 * sa, -0.1], [0.95 * ca, 0.95 * sa, -1.1], 0.07, 0.07, 0);
+        K.bar([0.95 * ca, 0.95 * sa, -1.1], [1.25 * ca, 1.25 * sa, -1.55], 0.045, 0.045, 0);
+        K.box(1.25 * ca - 0.05, 1.25 * sa - 0.05, -1.6, 1.25 * ca + 0.05, 1.25 * sa + 0.05, -1.55, 0);
+      });
+      [0.4, 2.5, 4.6].forEach(function (a, n) { var a2 = [0.4, 2.5, 4.6][(n + 1) % 3]; L([0.7 * Math.cos(a), 0.7 * Math.sin(a), -0.78], [0.7 * Math.cos(a2), 0.7 * Math.sin(a2), -0.78], 0); });
+      return { s: K.s };
+    };
+    // CELL TOWER (telecom) — tapered triangular lattice mast with panel antennas and microwave dishes
+    M.tower = function () {
+      var K = kit(), L = K.L, i, j, H = 3.8;
+      function tri(z) { var r = 0.55 - 0.43 * z / H, pts = []; for (var q = 0; q < 3; q++) pts.push([r * Math.cos(q * 2.0944 + 0.5236), r * Math.sin(q * 2.0944 + 0.5236), z]); return pts; }
+      var lv = [], n = 12; for (i = 0; i <= n; i++) lv.push(tri(H * i / n));
+      for (i = 0; i <= n; i++) K.poly(lv[i], 0, true);
+      for (i = 0; i < n; i++) for (j = 0; j < 3; j++) { L(lv[i][j], lv[i + 1][j], 1); L(lv[i][j], lv[i + 1][(j + 1) % 3], 0); L(lv[i][(j + 1) % 3], lv[i + 1][j], 0); }
+      K.box(-0.5, -0.5, -0.02, 0.5, 0.5, 0.0, 0);                                                           // plinth
+      K.box(0.7, -0.3, 0, 1.4, 0.3, 0.4, 0);                                                                // equipment shelter
+      L([0.6, 0, 0.2], [0.7, 0, 0.2], 0);
+      [0, 2.0944, 4.1888].forEach(function (a) {
+        var r = 0.2, cx = r * Math.cos(a + 0.5236), cy = r * Math.sin(a + 0.5236), px = Math.cos(a + 0.5236), py = Math.sin(a + 0.5236);
+        L([0, 0, H - 0.25], [cx * 3.2, cy * 3.2, H - 0.25], 0);
+        K.bar([cx * 3.4, cy * 3.4, H - 0.65], [cx * 3.4, cy * 3.4, H + 0.05], 0.1, 0.05, 1);                   // panel antenna
+      });
+      [[1.0, 2.5], [4.3, 3.0]].forEach(function (d) {                                                          // microwave dishes
+        var a = d[0], z = d[1], r = 0.36 - 0.43 * z / H * 0.4 + 0.1, cx = r * Math.cos(a), cy = r * Math.sin(a), nx = Math.cos(a), ny = Math.sin(a), ux = -ny, uy = nx;
+        K.ring([cx + nx * 0.18, cy + ny * 0.18, z], [ux, uy, 0], [0, 0, 1], 0.26, 20, 1);
+        K.ring([cx + nx * 0.1, cy + ny * 0.1, z], [ux, uy, 0], [0, 0, 1], 0.15, 16, 1);
+        L([cx, cy, z], [cx + nx * 0.2, cy + ny * 0.2, z], 1);
+      });
+      L([0, 0, H], [0, 0, H + 0.5], 1); K.ring([0, 0, H + 0.5], [1, 0, 0], [0, 1, 0], 0.03, 8, 1);
+      return { s: K.s };
+    };
+    // SPECTROGRAM (music / audio) — a 3D time-frequency field as columns of points that bounce like an equalizer
+    M.spectrogram = function () {
+      var cols = [], i, j;
+      for (i = 0; i < 30; i++) for (j = 0; j < 12; j++) {
+        var env = Math.abs(Math.sin(i * 0.3)) * 0.75 + 0.25, ridge = 1.6 * Math.exp(-Math.pow(j - 3.0 - 2.4 * Math.sin(i * 0.2), 2) / 3.2) + 1.0 * Math.exp(-Math.pow(j - 8, 2) / 2.4) * Math.abs(Math.cos(i * 0.45)) + 0.08;
+        cols.push([-2.4 + i * 0.165, -0.95 + j * 0.17, Math.min(2.5, ridge * env + 0.06), i, j]);
+      }
+      return { s: [], dynPts: function (t, full) {
+        var pts = [], k;
+        cols.forEach(function (c) {
+          var f = full ? 1 : 0.42 + 0.58 * (0.5 + 0.5 * Math.sin(t * 0.0042 * (0.7 + 0.09 * c[4]) + c[3] * 0.55 + c[4] * 1.3)), hh = c[2] * f;
+          for (k = 0; k <= hh / 0.06; k++) pts.push([c[0], c[1], k * 0.06]);
+        });
+        return pts;
+      } };
+    };
+    // SCALES OF JUSTICE (legal / compliance)
+    M.scales = function () {
+      var K = kit(), L = K.L, i;
+      K.cylZ(0, 0, 0, 0.14, 0.75, 0.68, 20, 2, 0); K.cylZ(0, 0, 0.14, 0.34, 0.5, 0.4, 20, 2, 0);
+      K.cylZ(0, 0, 0.34, 2.05, 0.13, 0.09, 14, 12, 1);
+      K.ring([0, 0, 2.15], [1, 0, 0], [0, 0, 1], 0.12, 14, 1);
+      K.bar([-1.35, 0, 2.15], [1.35, 0, 2.15], 0.08, 0.07, 1); K.box(-0.12, -0.06, 2.1, 0.12, 0.06, 2.2, 1);
+      L([0, 0, 2.05], [0, 0, 2.3], 1); K.ring([0, 0, 2.4], [1, 0, 0], [0, 0, 1], 0.06, 10, 1);
+      [-1.35, 1.35].forEach(function (x) {
+        K.ring([x, 0, 2.15], [1, 0, 0], [0, 0, 1], 0.05, 8, 1);
+        for (i = 0; i < 3; i++) { var a = i / 3 * 6.2832; L([x, 0, 2.15], [x + 0.48 * Math.cos(a), 0.48 * Math.sin(a), 1.35], 0); }
+        [[0.5, 1.35], [0.36, 1.26], [0.14, 1.17], [0.0, 1.14]].forEach(function (r, n, arr) { if (r[0] > 0) K.ring([x, 0, r[1]], [1, 0, 0], [0, 1, 0], r[0], 22, 1); });
+        for (i = 0; i < 10; i++) { var a2 = i / 10 * 6.2832; L([x + 0.5 * Math.cos(a2), 0.5 * Math.sin(a2), 1.35], [x + 0.36 * Math.cos(a2), 0.36 * Math.sin(a2), 1.26], 0); L([x + 0.36 * Math.cos(a2), 0.36 * Math.sin(a2), 1.26], [x + 0.14 * Math.cos(a2), 0.14 * Math.sin(a2), 1.17], 0); }
+      });
+      return { s: K.s };
+    };
+    // AIRLINER (aviation / logistics) — lofted fuselage, swept wings with flaps, engines, tail and a row of windows
+    M.airliner = function () {
+      var K = kit(), L = K.L, i, j, sd;
+      function rad(x) { if (x > 2.0) return 0.44 * Math.sqrt(Math.max(0, 1 - Math.pow((x - 2.0) / 1.25, 2))) + 0.01; if (x > -1.6) return 0.44; return 0.44 * (1 - 0.82 * Math.pow((-1.6 - x) / 1.6, 1.4)); }
+      var ST = [-3.2, -3.0, -2.7, -2.3, -1.9, -1.5, -1.0, -0.4, 0.2, 0.8, 1.4, 1.9, 2.3, 2.7, 2.95, 3.1, 3.2], prev = null;
+      ST.forEach(function (x) {
+        var r = rad(x), pts = []; for (i = 0; i < 14; i++) { var a = i / 14 * 6.2832; pts.push([x, r * Math.cos(a), r * Math.sin(a) * 0.95 + (x < -1.6 ? 0.06 * (-1.6 - x) / 1.6 : 0)]); }
+        K.poly(pts, 0, true); if (prev) for (i = 0; i < 14; i++) L(prev[i], pts[i], 0); prev = pts;
+      });
+      [-1, 1].forEach(function (sd) {
+        var w = [[0.9, 0.42], [-0.45, 2.9], [-0.85, 2.9], [-0.95, 0.42]];
+        [0.03, -0.03].forEach(function (zo) { K.poly(w.map(function (p) { return [p[0], sd * p[1], -0.12 + zo + (p[1] - 0.42) * 0.05]; }), 1, true); });
+        w.forEach(function (p) { L([p[0], sd * p[1], -0.09 + (p[1] - 0.42) * 0.05], [p[0], sd * p[1], -0.15 + (p[1] - 0.42) * 0.05], 1); });
+        for (j = 1; j < 5; j++) { var f = j / 5; L([0.9 + (-0.45 - 0.9) * f, sd * (0.42 + 2.48 * f), -0.12 + 0.12 * f * 1.0 + 0.03], [-0.95 + (-0.85 + 0.95) * f, sd * (0.42 + 2.48 * f), -0.12 + 0.12 * f + 0.03], 0); }
+        L([-0.6, sd * 0.5, -0.09], [-0.78, sd * 2.8, 0.03], 0);                                            // rear spar
+        var ey = sd * 1.15; K.cyl([0.55, ey, -0.45], [-0.25, ey, -0.45], 0.23, 14, 4, 1); K.ring([0.55, ey, -0.45], [0, 1, 0], [0, 0, 1], 0.16, 12, 1); L([0.3, ey, -0.25], [0.3, ey, -0.17], 0); L([-0.1, ey, -0.25], [-0.1, ey, -0.17], 0);   // engine
+        var t = [[-2.55, 0.42], [-3.25, 1.35], [-3.5, 1.35], [-3.2, 0.42]];                                  // tailplane
+        K.poly(t.map(function (p) { return [p[0], sd * p[1], 0.3]; }), 0, true);
+      });
+      var fin = [[-2.3, 0.44], [-3.05, 1.75], [-3.4, 1.75], [-3.2, 0.44]];                                   // fin
+      [0.025, -0.025].forEach(function (y) { K.poly(fin.map(function (p) { return [p[0], y, p[1]]; }), 1, true); });
+      for (i = 0; i < 28; i++) { var wx = -1.8 + i * 0.14; [-1, 1].forEach(function (sd) { K.box(wx, sd * 0.43, 0.1, wx + 0.06, sd * 0.45, 0.17, 0); }); }   // windows
+      K.poly([[2.55, -0.18, 0.22], [2.55, 0.18, 0.22], [2.7, 0.12, 0.12], [2.7, -0.12, 0.12]], 1, true);     // cockpit glass
+      return { s: K.s, asDots: true };
+    };
+    // FINANCE BARS (finance / risk) — a clustered 3D bar chart on a slim plinth: two series of growing columns that breathe up
+    // and down, with a rising trend curve and arrow over the tops. No axes, no grid, just the chart.
+    M.finance = function () {
+      var N = 7, GX = 0.62, X0 = -(N - 1) * GX / 2, hA = [0.75, 1.0, 1.25, 1.2, 1.65, 1.95, 2.45], hB = [0.5, 0.62, 0.8, 0.95, 1.0, 1.25, 1.5], K0 = kit(), i;
+      K0.box(X0 - 0.5, -0.5, -0.1, -X0 + 0.5, 0.5, 0, 0);                                                  // plinth
+      var dyn = function (t) {
+        var K = kit(), L = K.L, tops = [];
+        for (i = 0; i < N; i++) {
+          var x = X0 + i * GX, fa = 0.9 + 0.1 * Math.sin(t * 0.0032 + i * 0.9), fb = 0.9 + 0.1 * Math.sin(t * 0.0029 + i * 1.3 + 1), ha = hA[i] * fa, hb = hB[i] * fb;
+          K.box(x - 0.24, -0.16, 0, x - 0.04, 0.16, hb, 0);                                              // series B (lighter)
+          K.box(x + 0.04, -0.16, 0, x + 0.24, 0.16, ha, 1);                                              // series A (the focus)
+          K.box(x + 0.04, -0.16, ha, x + 0.24, 0.16, ha + 0.03, 1);
+          for (var r = 1; r < 3; r++) L([x + 0.04, -0.16, ha * r / 3], [x + 0.24, -0.16, ha * r / 3], 0);   // lift lines
+          tops.push([x + 0.14, -0.3, ha + 0.22 + 0.1 * i]);
+        }
+        // a smooth rising trend curve over the tops, ending in an arrow
+        var pts = [], seg = 12;
+        for (i = 0; i < N - 1; i++) for (var q = 0; q < seg; q++) { var f = q / seg, f2 = f * f * (3 - 2 * f), p0 = tops[i], p1 = tops[i + 1]; pts.push([p0[0] + (p1[0] - p0[0]) * f, p0[1], p0[2] + (p1[2] - p0[2]) * f2]); }
+        pts.push(tops[N - 1]);
+        for (i = 0; i < pts.length - 1; i++) L(pts[i], pts[i + 1], 1);
+        var e = tops[N - 1], d = pts[pts.length - 3];
+        var dx = e[0] - d[0], dz = e[2] - d[2], dl = Math.hypot(dx, dz) || 1; dx /= dl; dz /= dl;
+        L(e, [e[0] - dx * 0.2 - dz * 0.1, e[1], e[2] - dz * 0.2 + dx * 0.1], 1); L(e, [e[0] - dx * 0.2 + dz * 0.1, e[1], e[2] - dz * 0.2 - dx * 0.1], 1);
+        return K0.s.concat(K.s);
+      };
+      return { s: [], dyn: dyn };
+    };
+
+    // ── Observe-page models: infrastructure and industries ──
+    // DATA HALL — two rows of server racks facing a contained cold aisle, with a cable ladder overhead and cooling units at the end
+    M.datahall = function () {
+      var K = kit(), L = K.L, i, j, xs = [-1.0, -0.5, 0, 0.5, 1.0];
+      K.box(-1.95, -1.75, -0.08, 1.95, 1.75, 0, 0);
+      [-1, 1].forEach(function (sd) {
+        xs.forEach(function (x, n) {
+          var ya = Math.min(sd * 0.5, sd * 1.3), yb = Math.max(sd * 0.5, sd * 1.3), acc = (sd === 1 && n === 2) ? 1 : 0, yf = sd * 0.5 - sd * 0.003;
+          K.box(x - 0.23, ya, 0, x + 0.23, yb, 2.0, acc);
+          K.poly([[x - 0.19, yf, 0.08], [x + 0.19, yf, 0.08], [x + 0.19, yf, 1.92], [x - 0.19, yf, 1.92]], 0, true);
+          for (j = 1; j < 24; j++) L([x - 0.19, yf, 0.08 + j * 0.0767], [x + 0.19, yf, 0.08 + j * 0.0767], 0);
+          for (j = 0; j < 8; j++) K.box(x + 0.12, yf - sd * 0.004, 0.2 + j * 0.22, x + 0.17, yf, 0.26 + j * 0.22, acc);
+          K.box(x - 0.23, ya + (sd > 0 ? 0.0 : 0), 2.0, x + 0.23, yb, 2.04, 0);
+        });
+      });
+      K.box(-1.3, -0.5, 2.0, 1.3, 0.5, 2.08, 1);
+      [-1.3].forEach(function (x) { K.poly([[x, -0.5, 0], [x, 0.5, 0], [x, 0.5, 2.0], [x, -0.5, 2.0]], 1, true); L([x, 0, 0], [x, 0, 2.0], 0); for (j = 1; j < 8; j++) L([x, -0.5, j * 0.25], [x, 0.5, j * 0.25], 0); });
+      for (i = 0; i <= 23; i++) { var tx = -1.25 + i * 0.109; L([tx, -0.22, 2.3], [tx, 0.22, 2.3], 0); }
+      L([-1.25, -0.22, 2.3], [1.25, -0.22, 2.3], 0); L([-1.25, 0.22, 2.3], [1.25, 0.22, 2.3], 0);
+      for (i = 0; i < 5; i++) { var px = -1.0 + i * 0.5; L([px, -0.22, 2.08], [px, -0.22, 2.3], 0); L([px, 0.22, 2.08], [px, 0.22, 2.3], 0); }
+      K.box(1.45, -0.75, 0, 1.8, 0.75, 1.95, 0); for (j = 1; j < 14; j++) L([1.45, -0.7, j * 0.14], [1.45, 0.7, j * 0.14], 0); K.ring([1.62, 0, 1.97], [1, 0, 0], [0, 1, 0], 0.14, 14, 0);
+      L([-1.3, 0, 2.3], [-1.9, 0, 2.3], 1); L([-1.9, 0, 2.3], [-1.9, 0, 0], 1);                                    // power / fibre feed
+      return { s: K.s };
+    };
+    // LAUNCH VEHICLE (aerospace / geospatial) on a pad with a lattice umbilical tower — dotted
+    M.rocket = function () {
+      var K = kit(), L = K.L, i, j;
+      K.box(-1.0, -1.0, -0.14, 1.0, 1.0, 0, 0); K.box(-0.5, -0.5, -0.14, 0.5, 0.5, -0.02, 0);
+      K.cylZ(0, 0, 0.36, 3.3, 0.28, 0.28, 12, 4, 1);
+      for (j = 0; j <= 6; j++) { var f = j / 6, z = 3.3 + 1.25 * f, r = 0.28 * Math.pow(1 - Math.pow(f, 1.8), 0.55); K.ring([0, 0, z], [1, 0, 0], [0, 1, 0], r, 12, 1); }
+      for (i = 0; i < 12; i += 3) { var a = i / 12 * 6.2832, pv = [0.28 * Math.cos(a), 0.28 * Math.sin(a), 3.3]; for (j = 1; j <= 6; j++) { var f2 = j / 6, r2 = 0.28 * Math.pow(1 - Math.pow(f2, 1.8), 0.55), q = [r2 * Math.cos(a), r2 * Math.sin(a), 3.3 + 1.25 * f2]; L(pv, q, 1); pv = q; } }
+      [45, 135, 225, 315].forEach(function (deg) {
+        var a = deg * Math.PI / 180, cx = 0.43 * Math.cos(a), cy = 0.43 * Math.sin(a);
+        K.cylZ(cx, cy, 0.36, 2.15, 0.13, 0.13, 8, 3, 0);
+        for (j = 0; j <= 3; j++) { var f = j / 3, z = 2.15 + 0.45 * f, r = 0.13 * (1 - f * f * 0.95); K.ring([cx, cy, z], [1, 0, 0], [0, 1, 0], r, 8, 0); }
+        K.cylZ(cx, cy, 0.0, 0.36, 0.1, 0.17, 10, 2, 0);
+      });
+      for (i = 0; i < 3; i++) { var an = i / 3 * 6.2832; K.cylZ(0.12 * Math.cos(an), 0.12 * Math.sin(an), 0.02, 0.36, 0.09, 0.17, 10, 2, 0); }
+      [0, 90, 180, 270].forEach(function (deg) { var a = deg * Math.PI / 180; K.bar([0.28 * Math.cos(a), 0.28 * Math.sin(a), 3.0], [0.46 * Math.cos(a), 0.46 * Math.sin(a), 3.0], 0.2, 0.025, 0); });
+      var tx = 1.5, tw = 0.16;
+      for (j = 0; j <= 13; j++) { var z = j * 0.3; K.poly([[tx - tw, -tw, z], [tx + tw, -tw, z], [tx + tw, tw, z], [tx - tw, tw, z]], 0, true); if (j) { var z0 = (j - 1) * 0.3; L([tx - tw, -tw, z0], [tx + tw, -tw, z], 0); L([tx + tw, -tw, z0], [tx - tw, -tw, z], 0); L([tx - tw, tw, z0], [tx + tw, tw, z], 0); L([tx + tw, tw, z0], [tx - tw, tw, z], 0); } }
+      [-tw, tw].forEach(function (x) { [-tw, tw].forEach(function (y) { L([tx + x, y, 0], [tx + x, y, 3.9], 1); }); });
+      [1.2, 2.4, 3.3].forEach(function (z) { K.bar([tx - tw, 0, z], [0.3, 0, z], 0.07, 0.05, 1); });
+      L([tx, 0, 3.9], [tx, 0, 4.25], 1);
+      return { s: K.s, asDots: true, dotStep: 0.12 };
+    };
+    // CONTAINER PORT (logistics / maritime) — one ship-to-shore gantry crane (portal legs, braced side frames, lattice boom with
+    // stays, machinery house, trolley and a container on its spreader) working a container ship alongside the quay, with the
+    // stacked container yard behind. Kept deliberately simple so every part reads clearly.
+    M.port = function () {
+      var K = kit(), L = K.L, i, j;
+      K.box(-3.3, -2.5, -0.12, 3.3, 0.3, 0, 0);                                                                  // quay apron
+      L([-3.3, 0.3, 0.05], [3.3, 0.3, 0.05], 1);
+      [0.15, -0.95].forEach(function (y) { L([-3.3, y, 0.01], [3.3, y, 0.01], 0); });                          // crane rails
+      // ship alongside: lofted hull and two columns of stacked containers per bay
+      function bm(x) { if (x < -2.0) return 0.32 + 0.1 * (x + 2.9) / 0.9; if (x < 1.5) return 0.46; return 0.46 * Math.sqrt(Math.max(0, 1 - Math.pow((x - 1.5) / 1.3, 2))) + 0.004; }
+      var ST = [-2.9, -2.4, -1.6, -0.6, 0.4, 1.4, 2.1, 2.55, 2.8], prev = null, cy = 1.1;
+      ST.forEach(function (x) {
+        var b = bm(x), pts = [[x, cy - b, 0.36], [x, cy - b, 0.04], [x, cy - b * 0.6, -0.26], [x, cy + b * 0.6, -0.26], [x, cy + b, 0.04], [x, cy + b, 0.36]];
+        K.poly(pts, 0, false); if (prev) for (var m = 0; m < pts.length; m++) L(prev[m], pts[m], 0); prev = pts;
+      });
+      var TIERS = [3, 4, 4, 5, 5, 5, 5, 4, 4, 3, 3, 2];
+      for (i = 0; i < TIERS.length; i++) {
+        var x0 = -1.55 + i * 0.3, w = Math.min(0.2, bm(x0 + 0.15) * 0.45);
+        if (w < 0.05) continue;
+        [-1, 1].forEach(function (sd) { K.box(x0, cy + (sd < 0 ? -2 * w - 0.01 : 0.01), 0.36, x0 + 0.27, cy + (sd < 0 ? -0.01 : 2 * w + 0.01), 0.36 + TIERS[i] * 0.1, 1); });
+      }
+      K.box(-2.75, cy - 0.3, 0.36, -2.2, cy + 0.3, 1.0, 1); for (j = 1; j < 5; j++) L([-2.2, cy - 0.3, 0.36 + j * 0.13], [-2.2, cy + 0.3, 0.36 + j * 0.13], 0);
+      // the gantry crane
+      var cx = 0.1, yW = 0.15, yL = -0.95, zG = 2.5, W = 0.6;
+      [yW, yL].forEach(function (y) { [cx - W, cx + W].forEach(function (x) { K.bar([x, y, 0.02], [x, y, zG], 0.1, 0.1, 1); K.box(x - 0.12, y - 0.08, 0, x + 0.12, y + 0.08, 0.12, 0); }); });
+      [cx - W, cx + W].forEach(function (x) { L([x, yW, 1.2], [x, yL, 1.2], 0); L([x, yW, zG], [x, yL, zG], 1); L([x, yW, 0.12], [x, yL, 1.2], 0); L([x, yL, 0.12], [x, yW, 1.2], 0); L([x, yW, 1.2], [x, yL, zG], 0); L([x, yL, 1.2], [x, yW, zG], 0); });
+      [yW, yL].forEach(function (y) { L([cx - W, y, 1.2], [cx + W, y, 1.2], 0); L([cx - W, y, zG], [cx + W, y, zG], 1); });
+      var y0 = -1.9, y1 = 2.6, bt = zG + 0.16, bb = zG;
+      [-0.13, 0.13].forEach(function (dx) { L([cx + dx, y0, bt], [cx + dx, y1, bt], 1); L([cx + dx, y0, bb], [cx + dx, y1, bb], 0); });
+      for (i = 0; i < 20; i++) { var ya = y0 + (y1 - y0) * i / 20, yb = y0 + (y1 - y0) * (i + 1) / 20; [-0.13, 0.13].forEach(function (dx) { L([cx + dx, ya, bb], [cx + dx, yb, bt], 0); }); L([cx - 0.13, ya, bt], [cx + 0.13, ya, bt], 0); }
+      var apex = [cx, -0.4, 3.7];
+      [[cx - W, yW], [cx + W, yW], [cx - W, yL], [cx + W, yL]].forEach(function (p) { L([p[0], p[1], zG], apex, 0); });
+      L(apex, [cx, y1, bt], 1); L(apex, [cx, 1.4, bt], 1); L(apex, [cx, y0, bt], 1); L(apex, [cx, -1.2, bt], 1);
+      K.box(cx - 0.34, -0.72, zG + 0.16, cx + 0.34, -0.1, zG + 0.62, 1);                                           // machinery house
+      K.box(cx - 0.2, y0, zG, cx + 0.2, y0 + 0.35, zG + 0.28, 0);                                                 // counterweight
+      var ty = 1.5; K.box(cx - 0.17, ty - 0.15, bb - 0.14, cx + 0.17, ty + 0.15, bb, 1); K.box(cx - 0.12, ty - 0.1, bb - 0.32, cx + 0.12, ty + 0.1, bb - 0.14, 0);
+      [[-0.2, -0.09], [0.2, -0.09], [-0.2, 0.09], [0.2, 0.09]].forEach(function (o) { L([cx + o[0] * 0.6, ty + o[1] * 0.6, bb - 0.14], [cx + o[0] * 1.5, ty + o[1], 1.02], 0); });
+      K.box(cx - 0.3, ty - 0.08, 1.0, cx + 0.3, ty + 0.08, 1.05, 1); K.box(cx - 0.28, ty - 0.09, 0.78, cx + 0.28, ty + 0.09, 1.0, 1);   // the container on the spreader
+      for (j = 1; j < 4; j++) L([cx - 0.28 + j * 0.14, ty - 0.09, 0.78], [cx - 0.28 + j * 0.14, ty - 0.09, 1.0], 0);
+      // container yard behind the quay
+      for (i = 0; i < 6; i++) for (j = 0; j < 2; j++) { var bx = -2.9 + i * 1.0, by = -1.55 - j * 0.45, th = [3, 4, 3, 4, 2, 4, 3, 4, 3, 2, 4, 3][i + j * 6]; K.box(bx, by - 0.18, 0, bx + 0.85, by + 0.18, th * 0.1, 0); for (var q = 1; q < 6; q++) L([bx + q * 0.142, by - 0.18, 0], [bx + q * 0.142, by - 0.18, th * 0.1], 0); }
+      return { s: K.s };
+    };
+    // CENTER-PIVOT IRRIGATION (agriculture) — a dotted circular crop field with a wireframe pivot span that slowly sweeps round it
+    M.pivot = function () {
+      var pts = [], i, j;
+      for (j = 1; j <= 13; j++) { var r = 0.24 * j + 0.3, n = Math.max(8, Math.round(6.2832 * r / 0.2)); for (i = 0; i < n; i++) { var a = i / n * 6.2832 + (j % 2) * 0.1; pts.push([r * Math.cos(a), r * Math.sin(a), 0]); } }
+      var K0 = kit(); K0.cylZ(0, 0, 0, 0.7, 0.09, 0.06, 8, 4, 1); K0.box(-0.14, -0.14, 0, 0.14, 0.14, 0.14, 1); K0.box(0.12, -0.08, 0.1, 0.3, 0.08, 0.3, 0);
+      var dyn = function (t) {
+        var K = kit(), L = K.L, th = t * 0.0005, c = Math.cos(th), sn = Math.sin(th), nx = -sn, ny = c, ZP = 0.68, LEN = 3.3, k;
+        function P(d, o, z) { return [c * d + nx * o, sn * d + ny * o, z]; }
+        K.cyl(P(0.05, 0, ZP), P(LEN, 0, ZP), 0.045, 8, 22, 1);
+        for (k = 0; k < 22; k++) { var d0 = 0.1 + k * (LEN - 0.1) / 22, d1 = d0 + (LEN - 0.1) / 44, d2 = d0 + (LEN - 0.1) / 22; L(P(d0, 0.0, ZP + 0.09), P(d1, 0, ZP + 0.23), 0); L(P(d1, 0, ZP + 0.23), P(d2, 0, ZP + 0.09), 0); L(P(d0, 0, ZP + 0.09), P(d2, 0, ZP + 0.09), 0); }
+        [0.9, 1.7, 2.5, 3.25].forEach(function (d) {                                                         // drive towers: A-frame, wheels
+          L(P(d, 0, ZP + 0.1), P(d, 0.16, 0.14), 1); L(P(d, 0, ZP + 0.1), P(d, -0.16, 0.14), 1); L(P(d, 0.16, 0.14), P(d, -0.16, 0.14), 1);
+          [-0.18, 0.18].forEach(function (o) { var pv = null; for (var q = 0; q <= 14; q++) { var a = q / 14 * 6.2832, pp = [c * (d + 0.13 * Math.cos(a)) + nx * o, sn * (d + 0.13 * Math.cos(a)) + ny * o, 0.14 + 0.13 * Math.sin(a)]; if (pv) L(pv, pp, 1); pv = pp; } });
+        });
+        for (k = 1; k < 16; k++) { var dd = 0.2 + k * 0.2; if (dd > LEN) break; L(P(dd, 0, ZP), P(dd, 0, 0.32), 0); K.ring(P(dd, 0, 0.3), [0.05 * c, 0.05 * sn, 0], [0, 0, 0.05], 1, 6, 0); }   // sprinkler drops
+        L(P(LEN, 0, ZP), P(LEN + 0.28, 0, ZP + 0.04), 1);                                                    // end gun
+        return K0.s.concat(K.s);
+      };
+      return { s: [], pts: pts, dyn: dyn };
+    };
+    // SATELLITE GROUND STATION (telecom / geospatial) — a ribbed parabolic dish on an elevation-over-azimuth mount with a feed
+    // on struts, a pedestal and equipment shelter, with a smaller second dish
+    M.groundstation = function () {
+      var K = kit(), L = K.L, i, j, phi = 0.95, A = [Math.sin(phi), 0, Math.cos(phi)], U = [Math.cos(phi), 0, -Math.sin(phi)], C = [0, 0, 1.9], kk = 0.28, RR = 0.98;
+      function dp(r, th, d) { var dd = (d == null ? kk * r * r : d); return [C[0] + A[0] * dd + U[0] * r * Math.cos(th), C[1] + r * Math.sin(th), C[2] + A[2] * dd + U[2] * r * Math.cos(th)]; }
+      [0.3, 0.55, 0.78, RR].forEach(function (r, n) { var pv = null; for (i = 0; i <= 36; i++) { var q = dp(r, i / 36 * 6.2832); if (pv) L(pv, q, n === 3 ? 1 : 0); pv = q; } });
+      for (i = 0; i < 20; i++) { var th = i / 20 * 6.2832, pv2 = dp(0, 0); for (j = 1; j <= 8; j++) { var q2 = dp(RR * j / 8, th); L(pv2, q2, 1); pv2 = q2; } }
+      var F = [C[0] + A[0] * (1 / (4 * kk)), 0, C[2] + A[2] * (1 / (4 * kk))];
+      [0.4, 2.0, 3.5, 5.1].forEach(function (th) { L(dp(RR, th), F, 1); });
+      K.cyl(F, [F[0] + A[0] * 0.12, 0, F[2] + A[2] * 0.12], 0.06, 10, 2, 1); K.cyl([F[0] - A[0] * 0.08, 0, F[2] - A[2] * 0.08], F, 0.025, 6, 1, 1);
+      K.cyl(C, [C[0] - A[0] * 0.28, 0, C[2] - A[2] * 0.28], 0.17, 12, 2, 0);                                      // hub
+      [-1, 1].forEach(function (sd) { K.bar([C[0] - A[0] * 0.16, sd * 0.5, C[2] - A[2] * 0.16], [0, sd * 0.5, 1.25], 0.07, 0.07, 0); L([C[0] - A[0] * 0.16, sd * 0.5, C[2] - A[2] * 0.16], [C[0] - A[0] * 0.16, 0, C[2] - A[2] * 0.16], 0); });   // yoke
+      K.cyl([0, -0.55, 1.25], [0, 0.55, 1.25], 0.07, 10, 2, 0);
+      K.cylZ(0, 0, 0, 1.0, 0.2, 0.16, 14, 5, 0); K.box(-0.42, -0.5, 1.0, 0.42, 0.5, 1.26, 0); K.box(-0.7, -0.7, -0.08, 0.7, 0.7, 0, 0);
+      K.box(1.2, -0.7, 0, 2.0, -0.1, 0.55, 0); for (j = 1; j < 5; j++) L([1.2, -0.7, j * 0.11], [2.0, -0.7, j * 0.11], 0);
+      K.cylZ(1.6, 0.8, 0, 0.9, 0.05, 0.05, 8, 3, 0);                                                               // second, smaller dish on a mast
+      var C2 = [1.6, 0.8, 1.0], B = [Math.sin(0.7), 0, Math.cos(0.7)], U2 = [Math.cos(0.7), 0, -Math.sin(0.7)];
+      [0.2, 0.4, 0.55].forEach(function (r, n) { var pv = null; for (i = 0; i <= 28; i++) { var th2 = i / 28 * 6.2832, d = 0.5 * r * r, q = [C2[0] + B[0] * d + U2[0] * r * Math.cos(th2), C2[1] + r * Math.sin(th2), C2[2] + B[2] * d + U2[2] * r * Math.cos(th2)]; if (pv) L(pv, q, 0); pv = q; } });
+      L([C2[0], C2[1], C2[2]], [C2[0] + B[0] * 0.5, C2[1], C2[2] + B[2] * 0.5], 0);
+      return { s: K.s };
+    };
+    // CITY LIDAR SCAN (real estate / geospatial / insurance) — a point-cloud survey of an urban district: tower blocks of every height
+    // with setbacks and roof plant, street lines and kerbs, tree canopies, parked vehicles and a plaza, all as scanned surface points
+    M.cityscan = function () {
+      var pts = [], seed = 17, i, j;
+      function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      function boxPts(x0, y0, z0, x1, y1, z1, dens, roof) {                                              // lattice-scanned walls (with window bands), roof and corner columns
+        var st = 0.15, nx = Math.max(2, Math.round((x1 - x0) / st)), ny = Math.max(2, Math.round((y1 - y0) / st)), nz = Math.max(1, Math.round((z1 - z0) / st)), a, b, c;
+        for (c = 0; c <= nz; c++) {
+          var z = z0 + (z1 - z0) * c / nz, band = (c % 3 === 1) && c > 0 && c < nz;
+          if (band) continue;                                                                           // windows read as bands between solid courses
+          for (a = 0; a <= nx; a++) { var x = x0 + (x1 - x0) * a / nx; pts.push([x, y0, z]); pts.push([x, y1, z]); }
+          for (b = 1; b < ny; b++) { var y = y0 + (y1 - y0) * b / ny; pts.push([x0, y, z]); pts.push([x1, y, z]); }
+        }
+        if (roof !== false) for (a = 1; a < nx; a++) for (b = 1; b < ny; b++) { if ((a + b) % 2) pts.push([x0 + (x1 - x0) * a / nx, y0 + (y1 - y0) * b / ny, z1]); }
+        var ne = Math.max(2, Math.round((z1 - z0) / 0.1));
+        for (c = 0; c <= ne; c++) { var ze = z0 + (z1 - z0) * c / ne; pts.push([x0, y0, ze]); pts.push([x1, y0, ze]); pts.push([x0, y1, ze]); pts.push([x1, y1, ze]); }
+      }
+      // buildings on a 3 x 3 grid of city blocks with streets between them
+      var SP = 1.3;
+      for (i = -1; i <= 1; i++) for (j = -1; j <= 1; j++) {
+        var cx = i * SP, cy = j * SP, cen = 1 - Math.hypot(i, j) / 2.2;
+        if (i === 1 && j === -1) continue;                                                              // the plaza
+        if (i === 0 && j === 0) { boxPts(-0.4, -0.4, 0, 0.4, 0.4, 1.7, 1); boxPts(-0.3, -0.3, 1.7, 0.3, 0.3, 2.6, 1); boxPts(-0.15, -0.15, 2.6, 0.15, 0.15, 3.1, 1); for (var q = 0; q < 6; q++) pts.push([0, 0, 3.1 + q * 0.06]); continue; }   // the landmark tower: stepped, with a spire
+        var base = 0.45 + cen * 1.5 + rnd() * 0.5, two = rnd() < 0.4;
+        if (two) { boxPts(cx - 0.5, cy - 0.42, 0, cx - 0.04, cy + 0.42, base * 0.8, 1); boxPts(cx + 0.08, cy - 0.38, 0, cx + 0.5, cy + 0.38, base * 0.5, 1); }
+        else { boxPts(cx - 0.45, cy - 0.45, 0, cx + 0.45, cy + 0.45, base, 1); if (base > 1.1) boxPts(cx - 0.25, cy - 0.25, base, cx + 0.25, cy + 0.25, base + 0.3, 1); }
+      }
+      // street lane lines and a few ground returns, a plaza fountain ring, tree canopies and parked cars
+      for (i = -2; i <= 2; i++) for (j = -2.5; j <= 2.5; j += 0.18) { if (i % 2) { pts.push([i * SP / 2 * 1.0, j, 0]); pts.push([j, i * SP / 2 * 1.0, 0]); } }
+      for (i = 0; i < 90; i++) pts.push([(rnd() - 0.5) * 5.0, (rnd() - 0.5) * 5.0, 0]);
+      for (i = 0; i < 36; i++) { var a = i / 36 * 6.2832; pts.push([SP + 0.32 * Math.cos(a), -SP + 0.32 * Math.sin(a), 0.04]); pts.push([SP + 0.17 * Math.cos(a), -SP + 0.17 * Math.sin(a), 0.1]); }
+      [[1.1, -1.9], [1.7, -0.9], [0.8, -0.6], [-0.7, 0.65], [-1.9, 0.6], [0.65, 1.95], [-0.6, -1.95], [1.95, 0.7], [-1.95, -0.6]].forEach(function (t) { for (j = 0; j < 22; j++) { var u = rnd() * 6.2832, v = Math.acos(2 * rnd() - 1), r = 0.12 + 0.05 * rnd(); pts.push([t[0] + r * Math.sin(v) * Math.cos(u), t[1] + r * Math.sin(v) * Math.sin(u), 0.26 + r * Math.cos(v) * 0.8]); } for (j = 0; j < 4; j++) pts.push([t[0], t[1], j * 0.07]); });
+      for (i = 0; i < 14; i++) { var vx = (rnd() - 0.5) * 4.6, vy = (Math.floor(rnd() * 4) - 1.5) * SP / 2 * 1.0; boxPts(vx - 0.1, vy - 0.05, 0, vx + 0.1, vy + 0.05, 0.07, 1); }
+      return { s: [], pts: pts };
+    };
+
+    // CAR — the same LiDAR point-cloud car used on the 3D & LiDAR page (dots only, no bounding box)
+    M.car = function () {
+      var pts = [], i;
+      for (i = 0; i < SX_CAR.length; i += 3) pts.push([SX_CAR[i] / 50, SX_CAR[i + 1] / 50, SX_CAR[i + 2] / 50]);
+      return { s: [], pts: pts };
+    };
+    return M;
+  })();
+  function initWireCards() {
+    var canvases = document.querySelectorAll('.wf-canvas');
+    if (!canvases.length) return;
+    canvases.forEach(function (canvas) {
+      var build = WF_BUILD[canvas.getAttribute('data-wf')];
+      if (!build) return;
+      var model = build(), ctx = canvas.getContext('2d'), W = 0, H = 0, dpr = 1, running = false;
+      if (model.asDots) {                                  // dotted version: sample points along every edge of the model
+        var pts2 = [], ext = 0;
+        model.s.forEach(function (g) { ext = Math.max(ext, Math.abs(g[0]), Math.abs(g[1])); });
+        var step = model.dotStep || Math.max(0.05, ext * 0.03);
+        model.s.forEach(function (g) {
+          var l = Math.hypot(g[3] - g[0], g[4] - g[1], g[5] - g[2]), n = Math.max(1, Math.round(l / step));
+          for (var q = 0; q < n; q++) { var f = q / n; pts2.push([g[0] + (g[3] - g[0]) * f, g[1] + (g[4] - g[1]) * f, g[2] + (g[5] - g[2]) * f]); }
+        });
+        model = { s: [], pts: pts2 };
+      }
+      // centre and radius of the static model, so any model fits the card the same way
+      var mn = [9, 9, 9], mx = [-9, -9, -9];
+      var allp = model.pts || (model.dynPts ? model.dynPts(0, true) : []);
+      allp.forEach(function (q) { for (var a = 0; a < 3; a++) { mn[a] = Math.min(mn[a], q[a]); mx[a] = Math.max(mx[a], q[a]); } });
+      model.s.concat(model.dyn ? model.dyn(0) : []).forEach(function (g) { for (var m = 0; m < 2; m++) for (var a = 0; a < 3; a++) { mn[a] = Math.min(mn[a], g[m * 3 + a]); mx[a] = Math.max(mx[a], g[m * 3 + a]); } });
+      var ocx = (mn[0] + mx[0]) / 2, ocy = (mn[1] + mx[1]) / 2, ocz = (mn[2] + mx[2]) / 2;
+      var rad = model.orbit ? 3.9 : Math.max(0.8, Math.hypot(mx[0] - mn[0], mx[1] - mn[1]) / 2), hgt = (mx[2] - mn[2]) / 2;
+      function resize() { dpr = Math.min(2, window.devicePixelRatio || 1); W = canvas.offsetWidth; H = canvas.offsetHeight; canvas.width = W * dpr; canvas.height = H * dpr; }
+      function draw(ang, t) {
+        if (W < 2 || H < 2) return;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark', col = dark ? '250,250,248' : '10,10,10';
+        var PITCH = 0.42, cp = Math.cos(PITCH), sp = Math.sin(PITCH), ca = Math.cos(ang), sa = Math.sin(ang);
+        var sc = Math.min(W * 0.4 / rad, H * 0.27 / Math.max(hgt * cp + rad * sp, 0.5)), mx0 = W / 2, my0 = H * 0.36;
+        var segs = model.dyn ? model.s.concat(model.dyn(t)) : model.s, B = [], i;
+        for (i = 0; i < 20; i++) B.push([]);
+        segs.forEach(function (g) {
+          var x1 = g[0] - ocx, y1 = g[1] - ocy, z1 = g[2] - ocz, x2 = g[3] - ocx, y2 = g[4] - ocy, z2 = g[5] - ocz;
+          var xr1 = x1 * ca - y1 * sa, yr1 = x1 * sa + y1 * ca, xr2 = x2 * ca - y2 * sa, yr2 = x2 * sa + y2 * ca;
+          var d = ((yr1 + yr2) / 2) * cp - ((z1 + z2) / 2) * sp, near = Math.max(0, Math.min(1, 1 - (d / rad + 1.2) / 2.4));
+          var al = g[6] ? 0.95 : 0.66;                       // solid, constant darkness: no depth fade and no sweeping highlight
+          B[((al * 10) | 0) * 2 + (g[6] ? 1 : 0)].push(mx0 + xr1 * sc, my0 - (z1 * cp + yr1 * sp) * sc, mx0 + xr2 * sc, my0 - (z2 * cp + yr2 * sp) * sc);
+        });
+        var cloud = model.dynPts ? model.dynPts(t) : model.pts;
+        if (cloud) {                                    // point cloud
+          cloud.forEach(function (q) {
+            var x = q[0] - ocx, y = q[1] - ocy, z = q[2] - ocz, xr = x * ca - y * sa, yr = x * sa + y * ca, d = yr * cp - z * sp, near = Math.max(0, Math.min(1, 1 - (d / rad + 1.2) / 2.4));
+            var sz = 1.5 + near * 1.1;                          // solid, uniformly dark dots; only the size hints at depth
+            ctx.fillStyle = 'rgba(' + col + ',0.95)';
+            ctx.fillRect(mx0 + xr * sc - sz / 2, my0 - (z * cp + yr * sp) * sc - sz / 2, sz, sz);
+          });
+        }
+        for (i = 0; i < 20; i++) {
+          var arr = B[i]; if (!arr.length) continue;
+          ctx.lineWidth = (i % 2) ? 1.25 : 0.9; ctx.strokeStyle = 'rgba(' + col + ',' + ((((i / 2) | 0) + 0.5) / 10).toFixed(2) + ')';
+          ctx.beginPath();
+          for (var m = 0; m < arr.length; m += 4) { ctx.moveTo(arr[m], arr[m + 1]); ctx.lineTo(arr[m + 2], arr[m + 3]); }
+          ctx.stroke();
+        }
+      }
+      resize();
+      window.addEventListener('resize', function () { resize(); if (prefersReduced) draw(0.8, 1500); });
+      if (prefersReduced) { draw(0.8, 1500); document.addEventListener('concave:themechange', function () { draw(0.8, 1500); }); return; }
+      var ang = 0.6, t0 = performance.now(), last = t0;
+      function tick(now) {
+        if (!running) return; requestAnimationFrame(tick);
+        var dt = now - last; if (dt < 33) return; last = now;
+        ang += 0.0075 * Math.min(4, dt / 16.67); draw(ang, now - t0);
+      }
+      function start() { if (!running) { running = true; requestAnimationFrame(tick); } }
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(); else running = false; }); }, { threshold: 0.05 }).observe(canvas);
+      else start();
+    });
+  }
+
   /* ── Task switcher (modality pages) — a vertical list of task names next
      to a stack of placeholder media panels. Hovering or clicking a task
      activates it (and only it) by matching list index to panel index, so
@@ -3398,7 +4166,8 @@
     initModalityVideos();
     initSplitScroll();
     initLoopPanel();
-    initOverviewMorph();   // (the old scroll-pinned heading stepper, initOverviewScroll, is retired: all three pillars stay on show)
+    initOverviewMorph();
+    initWireCards();   // (the old scroll-pinned heading stepper, initOverviewScroll, is retired: all three pillars stay on show)
     initTaskSwitch();
     initHoverPlayVideos();
     initFaq();

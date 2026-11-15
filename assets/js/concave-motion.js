@@ -958,6 +958,7 @@
     if (!cards.length) return;
     cards.forEach(function (card) {
       var canvas = card.querySelector('.review-card-canvas');
+      if (canvas && canvas.hasAttribute('data-wf')) return;          // drawn as a 3D wireframe by initWireCards in platform-motion.js
       initWhoCanvas(canvas, canvas ? canvas.getAttribute('data-icon') : null);
     });
   }

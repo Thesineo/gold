@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="The Observe layer monitors deployed models, detects drift, and routes targeted corrections back through the labeling layer — closing the loop without manual investigation.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261115l" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261115l" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261115l">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261115l">
+<link rel="icon" href="/logo.png?v=20261116l" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261116l" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261116l">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261116l">
 </head>
 <body>
 
@@ -200,37 +200,37 @@
 
     <div class="review-bento">
       <div class="review-card" data-reveal="zoom">
-        <canvas class="review-card-canvas" data-icon="tree" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas wf-canvas" data-wf="datahall" aria-hidden="true"></canvas>
         <div class="review-card-title">Root-Cause Attribution Ensemble</div>
         <div class="review-card-desc">Classifier AUC, real SHAP attribution, and embedding-space nearest-neighbor tracing run together to find exactly which feature shifted and which training rows caused it. Most platforms stop at "drift detected." This answers why.</div>
       </div>
 
       <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
-        <canvas class="review-card-canvas" data-icon="telemetry" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas wf-canvas" data-wf="rocket" aria-hidden="true"></canvas>
         <div class="review-card-title">Generative Drift Vocabulary</div>
         <div class="review-card-desc">A distinct drift model for LLMs — topic-cluster PSI, new-topic emergence, refusal-rate drift. Classic label PSI is meaningless for generative output; this measures what actually degrades.</div>
       </div>
 
       <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
-        <canvas class="review-card-canvas" data-icon="pipeline" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas wf-canvas" data-wf="port" aria-hidden="true"></canvas>
         <div class="review-card-title">Multi-Modal Drift Engine</div>
         <div class="review-card-desc">Real, distinct feature extraction per modality — image, audio, video — feeding one shared statistical core: PSI, KS-test, Wasserstein distance, real KDE curves. Not one generic check pretending to cover every modality.</div>
       </div>
 
       <div class="review-card" data-reveal="zoom">
-        <canvas class="review-card-canvas" data-icon="confidenceRank" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas wf-canvas" data-wf="pivot" aria-hidden="true"></canvas>
         <div class="review-card-title">Multi-Axis Fix Validation</div>
         <div class="review-card-desc">The same held-out rows are checked for accuracy, calibration, and fairness. A win on one that regresses another is reported as a partial fix, never hidden behind one green number.</div>
       </div>
 
       <div class="review-card" data-reveal="zoom" data-reveal-delay="1">
-        <canvas class="review-card-canvas" data-icon="correction" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas wf-canvas" data-wf="groundstation" aria-hidden="true"></canvas>
         <div class="review-card-title">Compliance-Gated Autonomous Retrain</div>
         <div class="review-card-desc">PII and consent enforcement extends into the automated retrain handoff, not just manual exports. An unattended pipeline that would ship unredacted PII gets silently blocked at the one step that matters — no human needed to catch it.</div>
       </div>
 
       <div class="review-card" data-reveal="zoom" data-reveal-delay="2">
-        <canvas class="review-card-canvas" data-icon="bulkActions" aria-hidden="true"></canvas>
+        <canvas class="review-card-canvas wf-canvas" data-wf="cityscan" aria-hidden="true"></canvas>
         <div class="review-card-title">Guaranteed Stratified Hold-Out</div>
         <div class="review-card-desc">Held-out selection is deterministic per label — every class with enough rows contributes at least one, with a 20-row floor — so a rare class can't silently vanish the way a naive random split would let it.</div>
       </div>
@@ -309,7 +309,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261115l" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261115l" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261116l" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261116l" defer></script>
 </body>
 </html>

@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="Export training-ready data to the platform where your model trains, then route production drift straight back for correction — a continuous feedback loop between Datalier and your MLOps stack.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261115l" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261115l" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261115l">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261115l">
+<link rel="icon" href="/logo.png?v=20261116l" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261116l" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261116l">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261116l">
 </head>
 <body>
 
@@ -116,83 +116,27 @@
 <section class="pad" style="padding-top:0">
   <div class="sec-inner">
     <div class="cloud-panel cloud-panel-bare" data-reveal="zoom">
-      <div class="cloud-diagram mlops-diagram">
-        <svg class="cloud-diagram-svg mlops-diagram-svg" viewBox="0 0 400 300" preserveAspectRatio="none">
-          <path id="mlopsPath1" d="M100,150 C200,150 230,78 340,78"/>
-          <path id="mlopsPath2" d="M100,150 C200,150 230,102 340,102"/>
-          <path id="mlopsPath3" d="M100,150 C200,150 230,126 340,126"/>
-          <path id="mlopsPath4" d="M100,150 L340,150"/>
-          <path id="mlopsPath5" d="M100,150 C200,150 230,174 340,174"/>
-          <path id="mlopsPath6" d="M100,150 C200,150 230,198 340,198"/>
-          <path id="mlopsPath7" d="M100,150 C200,150 230,222 340,222"/>
-          <path id="mlopsLoopPath" class="loop-path" d="M340,236 C266,270 156,262 100,180"/>
-
-          <circle class="mlops-wp-dot" cx="216" cy="96" r="2.6"/>
-          <text class="mlops-wp-label" x="222" y="93">.coco</text>
-          <circle class="mlops-wp-dot" cx="216" cy="123" r="2.6"/>
-          <text class="mlops-wp-label" x="222" y="120">.yolo</text>
-          <circle class="mlops-wp-dot" cx="220" cy="150" r="2.6"/>
-          <text class="mlops-wp-label" x="226" y="147">.jsonl</text>
-          <circle class="mlops-wp-dot" cx="216" cy="177" r="2.6"/>
-          <text class="mlops-wp-label" x="222" y="174">imgfolder</text>
-          <circle class="mlops-wp-dot" cx="216" cy="204" r="2.6"/>
-          <text class="mlops-wp-label" x="222" y="201">.parquet</text>
-
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="0s"><mpath href="#mlopsPath1"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="0s"/>
-          </circle>
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="0.75s"><mpath href="#mlopsPath2"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="0.75s"/>
-          </circle>
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="1.5s"><mpath href="#mlopsPath3"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="1.5s"/>
-          </circle>
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="2.25s"><mpath href="#mlopsPath4"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="2.25s"/>
-          </circle>
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="3s"><mpath href="#mlopsPath5"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="3s"/>
-          </circle>
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="3.75s"><mpath href="#mlopsPath6"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="3.75s"/>
-          </circle>
-          <circle class="cloud-flow-dot" r="3.2">
-            <animateMotion dur="5.6s" repeatCount="indefinite" begin="4.5s"><mpath href="#mlopsPath7"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.92;1" dur="5.6s" repeatCount="indefinite" begin="4.5s"/>
-          </circle>
-          <circle class="mlops-loop-dot" r="3.6">
-            <animateMotion dur="6.5s" repeatCount="indefinite" begin="0s"><mpath href="#mlopsLoopPath"/></animateMotion>
-            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.06;0.9;1" dur="6.5s" repeatCount="indefinite" begin="0s"/>
-          </circle>
-        </svg>
-
-        <div class="cloud-mark left">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
-          <span>Datalier</span>
+      <div class="cloud-screen" role="img" aria-label="A screen showing where Datalier sends training data and receives predictions back: SageMaker, Vertex AI, Azure ML, Hugging Face, LangSmith, Webhook and REST API">
+        <div class="up-screen">
+          <div class="up-display is-export">
+            <div class="up-row is-wrap">
+            <div class="up-card" style="--i:0"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="mlSm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4AE0A0"/><stop offset="1" stop-color="#0A7A66"/></linearGradient></defs><rect x="4" y="4" width="40" height="40" rx="11" fill="url(#mlSm)"/><path d="M32 16c-3.5-3.5-14-3-14 3.2 0 6 14.5 3.5 14.5 10.6 0 6-11.5 6.5-16 2" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg><span>SageMaker</span></div>
+            <div class="up-card" style="--i:1"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 12h9l7 14 7-14h9L24 42z" fill="#4285F4" stroke="#4285F4" stroke-width="2" stroke-linejoin="round"/><circle cx="11" cy="11" r="5" fill="#EA4335"/><circle cx="37" cy="11" r="5" fill="#FBBC05"/><circle cx="24" cy="40" r="4.5" fill="#34A853"/></svg><span>Vertex AI</span></div>
+            <div class="up-card" style="--i:2"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 5h10v3.5h-2.2V20L36 37.5c1.2 2.2-.2 4.5-2.7 4.5H14.7c-2.5 0-3.9-2.3-2.7-4.5L21.2 20V8.5H19z" fill="#0A64C8"/><path d="M15.8 31h16.4l3.8 6.8c1 1.8-.2 4.2-2.7 4.2H14.7c-2.5 0-3.7-2.4-2.7-4.2z" fill="#50E6FF"/><circle cx="22.5" cy="26" r="1.8" fill="#fff"/><circle cx="27" cy="22" r="1.2" fill="#fff"/></svg><span>Azure ML</span></div>
+            <div class="up-card" style="--i:3"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="11" cy="37" r="5.5" fill="#FFD21E" stroke="#FF9D00" stroke-width="1.5"/><circle cx="37" cy="37" r="5.5" fill="#FFD21E" stroke="#FF9D00" stroke-width="1.5"/><circle cx="24" cy="24" r="17.5" fill="#FFD21E" stroke="#FF9D00" stroke-width="1.8"/><ellipse cx="17.5" cy="21" rx="2.3" ry="3.2" fill="#3A3B45"/><ellipse cx="30.5" cy="21" rx="2.3" ry="3.2" fill="#3A3B45"/><path d="M15.5 29c2 5.5 15 5.5 17 0" fill="none" stroke="#3A3B45" stroke-width="2.3" stroke-linecap="round"/><circle cx="12.5" cy="27.5" r="2.8" fill="#FF7A59" opacity=".45"/><circle cx="35.5" cy="27.5" r="2.8" fill="#FF7A59" opacity=".45"/></svg><span>Hugging Face</span></div>
+            <div class="up-card" style="--i:4"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="11" fill="#245C55"/><g transform="rotate(-35 24 24)" fill="none" stroke="#7EE8B3" stroke-width="3.2"><rect x="8" y="19" width="19" height="10" rx="5"/><rect x="21" y="19" width="19" height="10" rx="5"/></g></svg><span>LangSmith</span></div>
+            <div class="up-card" style="--i:5"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="11" fill="#7C3AED"/><path d="M27 9L14 27h9l-2 12 13-18h-9z" fill="#fff" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Webhook</span></div>
+            <div class="up-card" style="--i:6"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="11" fill="#FF6C37"/><text x="24" y="31.5" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-weight="800" font-size="20" fill="#fff">{ }</text></svg><span>REST API</span></div>
+            </div>
+          </div>
         </div>
-
-        <div class="mlops-platforms">
-          <span class="mlops-platform-chip">SageMaker</span>
-          <span class="mlops-platform-chip">Vertex AI</span>
-          <span class="mlops-platform-chip">Azure ML</span>
-          <span class="mlops-platform-chip">HuggingFace</span>
-          <span class="mlops-platform-chip">LangSmith</span>
-          <span class="mlops-platform-chip">Webhook</span>
-          <span class="mlops-platform-chip">REST API</span>
-        </div>
-
-        <div class="mlops-loop-label">Train → Predict → Detect Drift → Re-label</div>
       </div>
 
       <div class="cloud-copy">
         <h3>Feedback Loop</h3>
         <p>Datalier exports training-ready data straight into your platform, in the format your framework expects. Once training runs are completed, predictions logs are flown back into the platform for identifying drifts impacting the model accuracy. Furthermore, the root cause data for the drifts get traced, which are then rectified using the relabelling feedback loop, and are re-versioned to be pushed back into the training platform creating a model monitoring and performance loop without a manual handoff.</p>
+        <div class="fmt-row"><span class="fmt-label">Export formats</span><span>.coco</span><span>.yolo</span><span>.parquet</span><span>.jsonl</span><span>imgfolder</span></div>
+        <div class="fmt-row loop-row"><span class="fmt-label">The loop</span><span>Train</span><i aria-hidden="true">→</i><span>Predict</span><i aria-hidden="true">→</i><span>Detect drift</span><i aria-hidden="true">→</i><span>Re-label</span></div>
       </div>
     </div>
   </div>
@@ -348,7 +292,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261115l" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261115l" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261116l" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261116l" defer></script>
 </body>
 </html>
