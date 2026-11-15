@@ -2808,33 +2808,33 @@
   /* ── Platform Overview morph — the three pillars as one continuous, looping flow.
      A single square splits into three tilted planes stacked vertically, the planes stand up into
      three squares in a column, the squares round into three circles that slide into a Venn (the
-     triple overlap lights up), the circles turn into three hexagons that lock into a honeycomb, the
-     hexagons sharpen into three triangles that form one larger triangle, and everything folds back
-     into the one square. Every shape is one pillar (Fabric / Remediation / Governance). Outlines are
-     sampled by angle and blended between shape families (rounded square / circle, hexagon, triangle),
-     then run through a small rotate-X + perspective projection, so every change is a smooth morph.
-     Hovering a heading on the left emphasises its pillar; otherwise the emphasis cycles. ── */
+     triple overlap lights up), the circles shrink to three nodes on a ring and are joined by three
+     coloured arcs with arrows (the closed loop), the nodes then rise into three columns that carry a
+     roof and stand on a base (three pillars holding one structure), and everything folds back into the
+     one square. Every shape is one pillar (Fabric / Remediation / Governance). Outlines are
+     superellipses (rounded square to circle) run through a small rotate-X + perspective projection,
+     so every change is a smooth morph. Hovering a heading on the left emphasises its pillar;
+     otherwise the emphasis cycles. ── */
   var OV_KF = (function () {
-    var K0 = { th: 0, hw: [1, 0.94, 0.88], hh: [1, 0.94, 0.88], n: [9, 9, 9], hx: [0, 0, 0], tr: [0, 0, 0], ox: [0, 0, 0], oy: [0, 0.045, 0.09], chip: [1, 0, 0], lab: 0, trd: 0, ix: 0, hg: 0, tg: 0 };
+    var K0 = { th: 0, hw: [1, 0.94, 0.88], hh: [1, 0.94, 0.88], n: [9, 9, 9], ox: [0, 0, 0], oy: [0, 0.045, 0.09], chip: [1, 0, 0], lab: 0, trd: 0, ix: 0, rg: 0, tp: 0 };
     function mk(o) { var k = {}; for (var p in K0) k[p] = K0[p]; for (var q in o) k[q] = o[q]; return k; }
     var STACK = mk({ th: 1.1, hw: [1, 1, 1], hh: [1, 1, 1], n: [7, 7, 7], oy: [-1.02, 0, 1.02], chip: [1, 1, 1] });
     var COL = mk({ th: 0, hw: [0.42, 0.42, 0.42], hh: [0.42, 0.42, 0.42], n: [5, 5, 5], oy: [-1.02, 0, 1.02], chip: [1, 1, 1] });
     var VENN = mk({ th: 0, hw: [0.76, 0.76, 0.76], hh: [0.76, 0.76, 0.76], n: [2, 2, 2], ox: [0, -0.46, 0.46], oy: [-0.42, 0.38, 0.38], chip: [1, 1, 1], trd: 1 });
-    var R = 0.62, DX = 0.866 * R, TOPY = -0.75 * R, BOTY = 0.75 * R;
-    var HEX = mk({ th: 0, hw: [R, R, R], hh: [R, R, R], n: [2, 2, 2], hx: [1, 1, 1], ox: [0, -DX, DX], oy: [TOPY, BOTY, BOTY], chip: [1, 1, 1], trd: 1 });
-    var TRI = mk({ th: 0, hw: [R, R, R], hh: [R, R, R], n: [2, 2, 2], tr: [1, 1, 1], ox: [0, -DX, DX], oy: [-0.465, 0.465, 0.465], chip: [1, 1, 1], trd: 1 });
+    var RR = 0.86, RING = mk({ th: 0, hw: [0.3, 0.3, 0.3], hh: [0.3, 0.3, 0.3], n: [2, 2, 2], ox: [0, -RR * 0.866, RR * 0.866], oy: [-RR, RR * 0.5, RR * 0.5], chip: [1, 1, 1], trd: 1 });   // three nodes on a ring
+    var TEMPLE = mk({ th: 0, hw: [0.21, 0.21, 0.21], hh: [0.66, 0.66, 0.66], n: [9, 9, 9], ox: [-0.62, 0, 0.62], oy: [0.05, 0.05, 0.05], chip: [1, 1, 1], trd: 1 });   // three columns
     var a = function (o, t, extra) { var k = mk(o); k.t = t; if (extra) for (var q in extra) k[q] = extra[q]; return k; };
     return [
       a(K0, 0), a(K0, 1.2),
       a(STACK, 3.0), a(STACK, 3.5, { lab: 1 }), a(STACK, 4.3, { lab: 1 }),
       a(COL, 4.9),
       a(VENN, 6.3), a(VENN, 6.8, { lab: 1, ix: 1 }), a(VENN, 7.9, { lab: 1, ix: 1 }), a(VENN, 8.5),
-      a(HEX, 9.8), a(HEX, 10.3, { lab: 1, hg: 1 }), a(HEX, 11.4, { lab: 1, hg: 1 }), a(HEX, 12.0),
-      a(TRI, 13.2), a(TRI, 13.7, { lab: 1, tg: 1 }), a(TRI, 14.8, { lab: 1, tg: 1 }), a(TRI, 15.4),
-      a(K0, 16.6), a(K0, 17.4)
+      a(RING, 9.8), a(RING, 10.4, { lab: 1, rg: 1 }), a(RING, 11.8, { lab: 1, rg: 1 }), a(RING, 12.4),
+      a(TEMPLE, 13.6), a(TEMPLE, 14.1, { lab: 1, tp: 1 }), a(TEMPLE, 15.2, { lab: 1, tp: 1 }), a(TEMPLE, 15.8),
+      a(K0, 17.0), a(K0, 17.8)
     ];
   })();
-  var OV_LOOP = 17.4, OV_SPEED = 1.18;
+  var OV_LOOP = 17.8, OV_SPEED = 1.18;
   function ovState(sec) {
     var kf = OV_KF, i = 0;
     while (i < kf.length - 2 && sec > kf[i + 1].t) i++;
@@ -2848,12 +2848,14 @@
     }
     return S;
   }
-  function ovGlyph(ctx) {                                // one shared mark for all three pillars: a small colonnade, drawn in a -1..1 box
-    ctx.beginPath();
-    ctx.moveTo(-0.82, -0.66); ctx.lineTo(0.82, -0.66);   // lintel
-    ctx.moveTo(-0.82, 0.74); ctx.lineTo(0.82, 0.74);     // base
-    [-0.52, 0, 0.52].forEach(function (x) { ctx.moveTo(x, -0.5); ctx.lineTo(x, 0.58); });   // the three pillars
+  function ovGlyph(ctx) {                                // one shared mark for all three pillars: three linked nodes, drawn in a -1..1 box
+    var P = [[0, -0.58], [-0.62, 0.42], [0.62, 0.42]], i;
+    ctx.beginPath();                                     // the links: a triangle, plus a spoke from each node to the centre
+    ctx.moveTo(P[0][0], P[0][1]); ctx.lineTo(P[1][0], P[1][1]); ctx.lineTo(P[2][0], P[2][1]); ctx.closePath();
+    for (i = 0; i < 3; i++) { ctx.moveTo(P[i][0], P[i][1]); ctx.lineTo(0, 0.08); }
     ctx.stroke();
+    for (i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(P[i][0], P[i][1], 0.25, 0, 6.2832); ctx.fill(); }
+    ctx.beginPath(); ctx.arc(0, 0.08, 0.16, 0, 6.2832); ctx.fill();
   }
   function initOverviewMorph() {
     var canvases = document.querySelectorAll('.ov-morph');
@@ -2879,19 +2881,12 @@
           var th = st.th, d = -v * Math.sin(th), s = F / (F + d);
           return { x: cx + (st.ox[i] + u * s) * S, y: cy + (st.oy[i] + v * Math.cos(th) * s) * S, s: s };
         }
-        function poly(k, th) {                           // regular polygon radius, apex up
-          var seg = 2 * Math.PI / k, phi = ((th + Math.PI / 2) % seg + seg) % seg;
-          return Math.cos(Math.PI / k) / Math.cos(phi - Math.PI / k);
-        }
-        function outline(i) {                            // blend rounded-square/circle, hexagon and triangle by angle
-          var hw = st.hw[i], hh = st.hh[i], n = st.n[i], hx = st.hx[i], tr = st.tr[i], se = 1 - hx - tr, pts = [], j;
+        function outline(i) {                            // rounded square -> circle (superellipse), sampled by angle
+          var hw = st.hw[i], hh = st.hh[i], n = st.n[i], pts = [], j;
           for (j = 0; j < NP; j++) {
             var th = -Math.PI / 2 + j / NP * 2 * Math.PI, cs = Math.cos(th), sn = Math.sin(th);
             var ex = Math.sign(cs) * Math.pow(Math.abs(cs), 2 / n), ey = Math.sign(sn) * Math.pow(Math.abs(sn), 2 / n);
-            var u = se * ex, v = se * ey;
-            if (hx > 0.001) { var rh = poly(6, th); u += hx * rh * cs; v += hx * rh * sn; }
-            if (tr > 0.001) { var rt = poly(3, th); u += tr * rt * cs; v += tr * rt * sn; }
-            pts.push(proj(u * hw, v * hh, i));
+            pts.push(proj(ex * hw, ey * hh, i));
           }
           return pts;
         }
@@ -2908,6 +2903,32 @@
             ctx.fillStyle = 'rgba(' + c + ',' + (0.9 * sk * Math.sin(ph * Math.PI)).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(top.x, py, 2.6, 0, 6.283); ctx.fill();
           }
         }
+        // the closed loop: three coloured arcs with arrows between the nodes, and a dot that keeps circling
+        if (st.rg > 0.02) {
+          var rr = 0.86 * S, dl = 0.42, COLS = ['#6366F1', '#10B981', '#F59E0B'], ga = st.rg;
+          ctx.lineCap = 'round';
+          for (var r1 = 0; r1 < 3; r1++) {
+            var a0 = Math.atan2(st.oy[r1], st.ox[r1]), s0 = a0 - dl, e0 = a0 - 2 * Math.PI / 3 + dl;
+            ctx.strokeStyle = COLS[r1]; ctx.globalAlpha = 0.9 * ga; ctx.lineWidth = 3.4;
+            ctx.beginPath(); ctx.arc(cx, cy, rr, s0, e0, true); ctx.stroke();
+            var ax = cx + rr * Math.cos(e0), ay = cy + rr * Math.sin(e0), tx = Math.sin(e0), ty = -Math.cos(e0);
+            ctx.fillStyle = COLS[r1]; ctx.beginPath(); ctx.moveTo(ax + tx * 8, ay + ty * 8); ctx.lineTo(ax - tx * 3 - ty * 5.5, ay - ty * 3 + tx * 5.5); ctx.lineTo(ax - tx * 3 + ty * 5.5, ay - ty * 3 - tx * 5.5); ctx.closePath(); ctx.fill();
+          }
+          ctx.globalAlpha = 1;
+          var da = -Math.PI / 2 - sec * 1.5;
+          ctx.fillStyle = 'rgba(' + c + ',' + (0.95 * ga).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(cx + rr * Math.cos(da), cy + rr * Math.sin(da), 3.4, 0, 6.283); ctx.fill();
+        }
+        // the structure the three columns hold up: a base, a roof beam and a pediment
+        if (st.tp > 0.02) {
+          var tp = st.tp, drop = (1 - tp) * 0.5 * S;
+          ctx.globalAlpha = tp; ctx.lineJoin = 'round'; ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(' + c + ',0.6)'; ctx.fillStyle = 'rgba(' + c + ',0.05)';
+          function slab(x0, x1, y0, y1, dy) { ctx.beginPath(); ctx.rect(cx + x0 * S, cy + y0 * S + dy, (x1 - x0) * S, (y1 - y0) * S); ctx.fill(); ctx.stroke(); }
+          slab(-0.98, 0.98, 0.78, 0.9, -drop * -1);          // base, rising from below
+          slab(-1.06, 1.06, 0.9, 1.02, -drop * -1);
+          slab(-0.98, 0.98, -0.88, -0.74, -drop);            // roof beam, dropping from above
+          ctx.beginPath(); ctx.moveTo(cx - 1.06 * S, cy - 0.88 * S - drop); ctx.lineTo(cx + 1.06 * S, cy - 0.88 * S - drop); ctx.lineTo(cx, cy - 1.42 * S - drop); ctx.closePath(); ctx.fill(); ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
         // shapes, back to front, each followed by its chip
         for (var n = 2; n >= 0; n--) {
           var on = n === act, pts = outs[n];
@@ -2922,36 +2943,28 @@
             var ch = proj(0, 0, n), cs2 = S * 0.105 * (on ? 1.18 : 1) * ch.s, cth = Math.cos(st.th);
             ctx.save(); ctx.translate(ch.x, ch.y); ctx.scale(cs2, cs2 * Math.max(0.12, cth)); ctx.globalAlpha = Math.min(1, st.chip[n]);
             var rr2 = 0.34; ctx.beginPath(); ctx.moveTo(-1 + rr2, -1); ctx.lineTo(1 - rr2, -1); ctx.quadraticCurveTo(1, -1, 1, -1 + rr2); ctx.lineTo(1, 1 - rr2); ctx.quadraticCurveTo(1, 1, 1 - rr2, 1); ctx.lineTo(-1 + rr2, 1); ctx.quadraticCurveTo(-1, 1, -1, 1 - rr2); ctx.lineTo(-1, -1 + rr2); ctx.quadraticCurveTo(-1, -1, -1 + rr2, -1); ctx.closePath();
-            ctx.fillStyle = 'rgba(' + c + ',' + (on ? 1 : 0.9) + ')'; ctx.fill();
-            ctx.lineWidth = 0.19; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(' + bgc + ',1)';
+            ctx.fillStyle = ['#6366F1', '#10B981', '#F59E0B'][n]; ctx.fill();   // one colour per pillar: indigo, emerald, amber
+            ctx.lineWidth = 0.13; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#fff'; ctx.fillStyle = '#fff';
             ctx.scale(0.66, 0.66); ovGlyph(ctx); ctx.restore();
           }
         }
-        // where the three meet lights up: the Venn overlap, the honeycomb junction, the triangle's inner gap
+        // where the three meet lights up: the Venn overlap, the honeycomb junction, the cube's shared corner
         if (st.ix > 0.02) {
           ctx.save(); trace(outs[0]); ctx.clip(); trace(outs[1]); ctx.clip(); trace(outs[2]); ctx.clip();
           ctx.fillStyle = 'rgba(' + c + ',' + ((0.16 + 0.1 * Math.sin(sec * 3.2)) * st.ix).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H);
           ctx.restore();
         }
-        if (st.hg > 0.02) {
-          var jx = cx + (st.ox[0] + st.ox[1] + st.ox[2]) / 3 * S, jy = cy + (st.oy[0] + st.oy[1] + st.oy[2]) / 3 * S, jr = S * (0.1 + 0.035 * Math.sin(sec * 3.2));
-          ctx.fillStyle = 'rgba(' + c + ',' + (0.9 * st.hg).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(jx, jy, 3.6, 0, 6.283); ctx.fill();
-          ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(' + c + ',' + (0.7 * st.hg).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(jx, jy, jr, 0, 6.283); ctx.stroke();
-        }
-        if (st.tg > 0.02) {
-          ctx.beginPath(); ctx.moveTo(cx - 0.537 * S, cy - 0.155 * S); ctx.lineTo(cx + 0.537 * S, cy - 0.155 * S); ctx.lineTo(cx, cy + 0.775 * S); ctx.closePath();
-          ctx.fillStyle = 'rgba(' + c + ',' + ((0.14 + 0.1 * Math.sin(sec * 3.2)) * st.tg).toFixed(3) + ')'; ctx.fill();
-          ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(' + c + ',' + (0.7 * st.tg).toFixed(2) + ')'; ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
-        }
-        // pillar names beside each shape
+        // pillar names beside each shape (under each column in the temple)
         if (st.lab > 0.02) {
           ctx.font = '600 12px Inter, sans-serif'; ctx.textBaseline = 'middle';
           for (var m = 0; m < 3; m++) {
-            var trd = st.trd > 0.5, side = trd ? (m === 1 ? -1 : 1) : 1, cp = proj(0, 0, m);
-            var ext = trd ? Math.max(st.hw[m], 0.62) * S + (st.hx[m] + st.tr[m] > 0.5 ? 26 : 14) : (st.hw[m] * cp.s * S + 18);
-            ctx.textAlign = side > 0 ? 'left' : 'right';
+            var cp = proj(0, 0, m), temple = st.tp > 0.5, trd = st.trd > 0.5;
             ctx.fillStyle = 'rgba(' + c + ',' + ((m === act ? 0.95 : 0.55) * st.lab).toFixed(2) + ')';
-            ctx.fillText(NAMES[m].toUpperCase(), cp.x + side * ext, cp.y);
+            if (temple) { ctx.textAlign = 'center'; ctx.fillText(NAMES[m].toUpperCase(), cp.x, cy + 1.22 * S); continue; }
+            var side = trd ? (cp.x < cx - 4 ? -1 : 1) : 1, ox2 = 0, q2;
+            for (q2 = 0; q2 < outs[m].length; q2++) ox2 = Math.max(ox2, side > 0 ? outs[m][q2].x - cp.x : cp.x - outs[m][q2].x);
+            ctx.textAlign = side > 0 ? 'left' : 'right';
+            ctx.fillText(NAMES[m].toUpperCase(), cp.x + side * (ox2 + 16), cp.y);
           }
         }
       }
