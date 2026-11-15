@@ -2732,13 +2732,15 @@
     var groups = container.querySelectorAll('.ov-group');
     var visual = document.getElementById('ovVisual');
     var track = document.getElementById('ovTrack');
-    if (!headingItems.length || !groups.length || !visual || !track) return;
+    if (!headingItems.length) return;
+    var hasReel = !!(groups.length && visual && track);        // the screenshot reel is gone; headings alone now drive the morph
 
     var STAGES = headingItems.length;
     var current = -1;
     var offsets = [];
 
     function measure() {
+      if (!hasReel) return;
       offsets = Array.prototype.map.call(groups, function (g) {
         return g.offsetTop + g.offsetHeight / 2;
       });
@@ -2749,6 +2751,7 @@
     }
 
     function applyTrack(progress) {
+      if (!hasReel) return;
       var lo = Math.max(0, Math.min(STAGES - 1, Math.floor(progress)));
       var hi = Math.min(STAGES - 1, lo + 1);
       var blend = progress - lo;
@@ -2800,6 +2803,167 @@
     measure();
     render(0);
     onScroll();
+  }
+
+  /* ── Platform Overview morph — the three pillars as one continuous, looping flow.
+     A single square splits into three tilted planes stacked vertically, the planes stand up into
+     three squares in a column, the squares round into three circles that slide into a Venn (the
+     triple overlap lights up), the circles turn into three hexagons that lock into a honeycomb, the
+     hexagons sharpen into three triangles that form one larger triangle, and everything folds back
+     into the one square. Every shape is one pillar (Fabric / Remediation / Governance). Outlines are
+     sampled by angle and blended between shape families (rounded square / circle, hexagon, triangle),
+     then run through a small rotate-X + perspective projection, so every change is a smooth morph.
+     Hovering a heading on the left emphasises its pillar; otherwise the emphasis cycles. ── */
+  var OV_KF = (function () {
+    var K0 = { th: 0, hw: [1, 0.94, 0.88], hh: [1, 0.94, 0.88], n: [9, 9, 9], hx: [0, 0, 0], tr: [0, 0, 0], ox: [0, 0, 0], oy: [0, 0.045, 0.09], chip: [1, 0, 0], lab: 0, trd: 0, ix: 0, hg: 0, tg: 0 };
+    function mk(o) { var k = {}; for (var p in K0) k[p] = K0[p]; for (var q in o) k[q] = o[q]; return k; }
+    var STACK = mk({ th: 1.1, hw: [1, 1, 1], hh: [1, 1, 1], n: [7, 7, 7], oy: [-1.02, 0, 1.02], chip: [1, 1, 1] });
+    var COL = mk({ th: 0, hw: [0.42, 0.42, 0.42], hh: [0.42, 0.42, 0.42], n: [5, 5, 5], oy: [-1.02, 0, 1.02], chip: [1, 1, 1] });
+    var VENN = mk({ th: 0, hw: [0.76, 0.76, 0.76], hh: [0.76, 0.76, 0.76], n: [2, 2, 2], ox: [0, -0.46, 0.46], oy: [-0.42, 0.38, 0.38], chip: [1, 1, 1], trd: 1 });
+    var R = 0.62, DX = 0.866 * R, TOPY = -0.75 * R, BOTY = 0.75 * R;
+    var HEX = mk({ th: 0, hw: [R, R, R], hh: [R, R, R], n: [2, 2, 2], hx: [1, 1, 1], ox: [0, -DX, DX], oy: [TOPY, BOTY, BOTY], chip: [1, 1, 1], trd: 1 });
+    var TRI = mk({ th: 0, hw: [R, R, R], hh: [R, R, R], n: [2, 2, 2], tr: [1, 1, 1], ox: [0, -DX, DX], oy: [-0.465, 0.465, 0.465], chip: [1, 1, 1], trd: 1 });
+    var a = function (o, t, extra) { var k = mk(o); k.t = t; if (extra) for (var q in extra) k[q] = extra[q]; return k; };
+    return [
+      a(K0, 0), a(K0, 1.2),
+      a(STACK, 3.0), a(STACK, 3.5, { lab: 1 }), a(STACK, 4.3, { lab: 1 }),
+      a(COL, 4.9),
+      a(VENN, 6.3), a(VENN, 6.8, { lab: 1, ix: 1 }), a(VENN, 7.9, { lab: 1, ix: 1 }), a(VENN, 8.5),
+      a(HEX, 9.8), a(HEX, 10.3, { lab: 1, hg: 1 }), a(HEX, 11.4, { lab: 1, hg: 1 }), a(HEX, 12.0),
+      a(TRI, 13.2), a(TRI, 13.7, { lab: 1, tg: 1 }), a(TRI, 14.8, { lab: 1, tg: 1 }), a(TRI, 15.4),
+      a(K0, 16.6), a(K0, 17.4)
+    ];
+  })();
+  var OV_LOOP = 17.4, OV_SPEED = 1.18;
+  function ovState(sec) {
+    var kf = OV_KF, i = 0;
+    while (i < kf.length - 2 && sec > kf[i + 1].t) i++;
+    var A = kf[i], B = kf[i + 1], f = B.t === A.t ? 1 : Math.max(0, Math.min(1, (sec - A.t) / (B.t - A.t)));
+    var e = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2, S = {};
+    function mix(x, y) { return x + (y - x) * e; }
+    for (var p in A) {
+      if (p === 't') continue;
+      if (typeof A[p] === 'number') S[p] = mix(A[p], B[p]);
+      else S[p] = A[p].map(function (v, j) { return mix(v, B[p][j]); });
+    }
+    return S;
+  }
+  function ovGlyph(ctx) {                                // one shared mark for all three pillars: a small colonnade, drawn in a -1..1 box
+    ctx.beginPath();
+    ctx.moveTo(-0.82, -0.66); ctx.lineTo(0.82, -0.66);   // lintel
+    ctx.moveTo(-0.82, 0.74); ctx.lineTo(0.82, 0.74);     // base
+    [-0.52, 0, 0.52].forEach(function (x) { ctx.moveTo(x, -0.5); ctx.lineTo(x, 0.58); });   // the three pillars
+    ctx.stroke();
+  }
+  function initOverviewMorph() {
+    var canvases = document.querySelectorAll('.ov-morph');
+    if (!canvases.length) return;
+    var NAMES = ['Fabric', 'Remediation', 'Governance'], NP = 108;
+    canvases.forEach(function (canvas) {
+      var ctx = canvas.getContext('2d'), W = 0, H = 0, dpr = 1, running = false, t0 = performance.now(), hover = -1;
+      var scope = canvas.closest('.ov-scroll');
+      if (scope) scope.querySelectorAll('.ov-heading-item').forEach(function (h, i) {
+        h.addEventListener('mouseenter', function () { hover = i; });
+        h.addEventListener('mouseleave', function () { hover = -1; });
+        h.addEventListener('focus', function () { hover = i; });
+        h.addEventListener('blur', function () { hover = -1; });
+      });
+      function resize() { dpr = Math.min(2, window.devicePixelRatio || 1); W = canvas.offsetWidth; H = canvas.offsetHeight; canvas.width = W * dpr; canvas.height = H * dpr; }
+      function activeIndex(sec) { return hover >= 0 ? hover : Math.floor(sec / 3.1) % 3; }
+      function draw(sec) {
+        if (W < 2 || H < 2) return;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark', c = dark ? '250,250,248' : '10,10,10', bgc = dark ? '10,10,10' : '250,250,248';
+        var S = Math.min(H / 3.3, W / 3.2), cx = W / 2, cy = H / 2, st = ovState(sec * OV_SPEED), act = activeIndex(sec), F = 4.2;
+        function proj(u, v, i) {                         // plane point -> screen, with tilt about X and perspective
+          var th = st.th, d = -v * Math.sin(th), s = F / (F + d);
+          return { x: cx + (st.ox[i] + u * s) * S, y: cy + (st.oy[i] + v * Math.cos(th) * s) * S, s: s };
+        }
+        function poly(k, th) {                           // regular polygon radius, apex up
+          var seg = 2 * Math.PI / k, phi = ((th + Math.PI / 2) % seg + seg) % seg;
+          return Math.cos(Math.PI / k) / Math.cos(phi - Math.PI / k);
+        }
+        function outline(i) {                            // blend rounded-square/circle, hexagon and triangle by angle
+          var hw = st.hw[i], hh = st.hh[i], n = st.n[i], hx = st.hx[i], tr = st.tr[i], se = 1 - hx - tr, pts = [], j;
+          for (j = 0; j < NP; j++) {
+            var th = -Math.PI / 2 + j / NP * 2 * Math.PI, cs = Math.cos(th), sn = Math.sin(th);
+            var ex = Math.sign(cs) * Math.pow(Math.abs(cs), 2 / n), ey = Math.sign(sn) * Math.pow(Math.abs(sn), 2 / n);
+            var u = se * ex, v = se * ey;
+            if (hx > 0.001) { var rh = poly(6, th); u += hx * rh * cs; v += hx * rh * sn; }
+            if (tr > 0.001) { var rt = poly(3, th); u += tr * rt * cs; v += tr * rt * sn; }
+            pts.push(proj(u * hw, v * hh, i));
+          }
+          return pts;
+        }
+        function trace(pts) { ctx.beginPath(); pts.forEach(function (p, j) { if (j === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); }); ctx.closePath(); }
+        var outs = [outline(0), outline(1), outline(2)];
+        // pulses running down through the stacked planes
+        var sk = Math.pow(Math.max(0, Math.min(1, st.th / 1.1)), 3);
+        if (sk > 0.02) {
+          var top = proj(0, 0, 0), bot = proj(0, 0, 2);
+          ctx.strokeStyle = 'rgba(' + c + ',' + (0.32 * sk).toFixed(2) + ')'; ctx.lineWidth = 1; ctx.setLineDash([2, 5]);
+          ctx.beginPath(); ctx.moveTo(top.x, top.y); ctx.lineTo(bot.x, bot.y); ctx.stroke(); ctx.setLineDash([]);
+          for (var d = 0; d < 3; d++) {
+            var ph = ((sec * 0.55 + d / 3) % 1), py = top.y + (bot.y - top.y) * ph;
+            ctx.fillStyle = 'rgba(' + c + ',' + (0.9 * sk * Math.sin(ph * Math.PI)).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(top.x, py, 2.6, 0, 6.283); ctx.fill();
+          }
+        }
+        // shapes, back to front, each followed by its chip
+        for (var n = 2; n >= 0; n--) {
+          var on = n === act, pts = outs[n];
+          trace(pts);
+          ctx.fillStyle = 'rgba(' + c + ',' + (on ? 0.07 : 0.035) + ')'; ctx.fill();
+          ctx.lineJoin = 'round'; ctx.lineWidth = on ? 2.2 : 1.5; ctx.strokeStyle = 'rgba(' + c + ',' + (on ? 0.98 : 0.6) + ')'; ctx.stroke();
+          if (on) {                                      // a bright dot travels the active outline
+            var pi = Math.floor(((sec * 0.35) % 1) * pts.length), pp = pts[pi];
+            ctx.fillStyle = 'rgba(' + c + ',1)'; ctx.beginPath(); ctx.arc(pp.x, pp.y, 3, 0, 6.283); ctx.fill();
+          }
+          if (st.chip[n] > 0.02) {
+            var ch = proj(0, 0, n), cs2 = S * 0.105 * (on ? 1.18 : 1) * ch.s, cth = Math.cos(st.th);
+            ctx.save(); ctx.translate(ch.x, ch.y); ctx.scale(cs2, cs2 * Math.max(0.12, cth)); ctx.globalAlpha = Math.min(1, st.chip[n]);
+            var rr2 = 0.34; ctx.beginPath(); ctx.moveTo(-1 + rr2, -1); ctx.lineTo(1 - rr2, -1); ctx.quadraticCurveTo(1, -1, 1, -1 + rr2); ctx.lineTo(1, 1 - rr2); ctx.quadraticCurveTo(1, 1, 1 - rr2, 1); ctx.lineTo(-1 + rr2, 1); ctx.quadraticCurveTo(-1, 1, -1, 1 - rr2); ctx.lineTo(-1, -1 + rr2); ctx.quadraticCurveTo(-1, -1, -1 + rr2, -1); ctx.closePath();
+            ctx.fillStyle = 'rgba(' + c + ',' + (on ? 1 : 0.9) + ')'; ctx.fill();
+            ctx.lineWidth = 0.19; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = 'rgba(' + bgc + ',1)';
+            ctx.scale(0.66, 0.66); ovGlyph(ctx); ctx.restore();
+          }
+        }
+        // where the three meet lights up: the Venn overlap, the honeycomb junction, the triangle's inner gap
+        if (st.ix > 0.02) {
+          ctx.save(); trace(outs[0]); ctx.clip(); trace(outs[1]); ctx.clip(); trace(outs[2]); ctx.clip();
+          ctx.fillStyle = 'rgba(' + c + ',' + ((0.16 + 0.1 * Math.sin(sec * 3.2)) * st.ix).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H);
+          ctx.restore();
+        }
+        if (st.hg > 0.02) {
+          var jx = cx + (st.ox[0] + st.ox[1] + st.ox[2]) / 3 * S, jy = cy + (st.oy[0] + st.oy[1] + st.oy[2]) / 3 * S, jr = S * (0.1 + 0.035 * Math.sin(sec * 3.2));
+          ctx.fillStyle = 'rgba(' + c + ',' + (0.9 * st.hg).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(jx, jy, 3.6, 0, 6.283); ctx.fill();
+          ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(' + c + ',' + (0.7 * st.hg).toFixed(2) + ')'; ctx.beginPath(); ctx.arc(jx, jy, jr, 0, 6.283); ctx.stroke();
+        }
+        if (st.tg > 0.02) {
+          ctx.beginPath(); ctx.moveTo(cx - 0.537 * S, cy - 0.155 * S); ctx.lineTo(cx + 0.537 * S, cy - 0.155 * S); ctx.lineTo(cx, cy + 0.775 * S); ctx.closePath();
+          ctx.fillStyle = 'rgba(' + c + ',' + ((0.14 + 0.1 * Math.sin(sec * 3.2)) * st.tg).toFixed(3) + ')'; ctx.fill();
+          ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(' + c + ',' + (0.7 * st.tg).toFixed(2) + ')'; ctx.setLineDash([4, 4]); ctx.stroke(); ctx.setLineDash([]);
+        }
+        // pillar names beside each shape
+        if (st.lab > 0.02) {
+          ctx.font = '600 12px Inter, sans-serif'; ctx.textBaseline = 'middle';
+          for (var m = 0; m < 3; m++) {
+            var trd = st.trd > 0.5, side = trd ? (m === 1 ? -1 : 1) : 1, cp = proj(0, 0, m);
+            var ext = trd ? Math.max(st.hw[m], 0.62) * S + (st.hx[m] + st.tr[m] > 0.5 ? 26 : 14) : (st.hw[m] * cp.s * S + 18);
+            ctx.textAlign = side > 0 ? 'left' : 'right';
+            ctx.fillStyle = 'rgba(' + c + ',' + ((m === act ? 0.95 : 0.55) * st.lab).toFixed(2) + ')';
+            ctx.fillText(NAMES[m].toUpperCase(), cp.x + side * ext, cp.y);
+          }
+        }
+      }
+      function still() { resize(); draw(3.9 / OV_SPEED); }
+      resize();
+      window.addEventListener('resize', function () { resize(); if (prefersReduced) draw(3.9 / OV_SPEED); });
+      if (prefersReduced) { draw(3.9 / OV_SPEED); document.addEventListener('concave:themechange', still); return; }
+      function tick(now) { if (!running) return; requestAnimationFrame(tick); draw(((now - t0) / 1000) % (OV_LOOP / OV_SPEED)); }
+      function start() { if (!running) { running = true; requestAnimationFrame(tick); } }
+      if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(); else running = false; }); }, { threshold: 0.02 }).observe(canvas);
+      else start();
+    });
   }
 
   /* ── Task switcher (modality pages) — a vertical list of task names next
@@ -3221,7 +3385,7 @@
     initModalityVideos();
     initSplitScroll();
     initLoopPanel();
-    initOverviewScroll();
+    initOverviewMorph();   // (the old scroll-pinned heading stepper, initOverviewScroll, is retired: all three pillars stay on show)
     initTaskSwitch();
     initHoverPlayVideos();
     initFaq();

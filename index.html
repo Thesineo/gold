@@ -53,9 +53,9 @@
 }
 </script>
 
-<link rel="icon" href="/logo.png?v=20261114x" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261114x" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261114x">
+<link rel="icon" href="/logo.png?v=20261115c" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261115c" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261115c">
 <style>
 :root{
   --bg-rgb:250,250,248;
@@ -361,6 +361,103 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 @media(max-width:768px){
   .shift-card{width:270px;padding:22px}
   .shift-marquee{animation-duration:30s}
+}
+
+/* ── 4b. FIVE LAYERS, ONE INFRASTRUCTURE ── */
+.stack-sec{background:var(--bg)}
+.stack-head{max-width:760px;margin:0 auto 60px;text-align:center}
+.stack-head .sec-eyebrow{display:block}
+.stack-title{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(28px,3.4vw,40px);letter-spacing:-0.02em;line-height:1.22}
+.stack-panel{display:grid;grid-template-columns:1.02fr .98fr;gap:72px;align-items:center}
+.stack-fig{max-width:520px;width:100%;margin:0 auto}
+.stk-svg{display:block;width:100%;height:auto;overflow:visible;color:var(--text)}
+.stk-svg .end{font:600 11px 'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;fill:rgba(var(--text-rgb),0.5)}
+.stk-svg .beam{stroke:rgba(var(--text-rgb),0.5);stroke-width:1.2;stroke-dasharray:2 5}
+.stk-svg .pulse{fill:var(--text);animation:stkPulse 4.6s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes stkPulse{0%{transform:translateY(0);opacity:0}8%{opacity:1}92%{opacity:1}100%{transform:translateY(548px);opacity:0}}
+.stk-slab{cursor:pointer;transition:transform .5s cubic-bezier(.2,.8,.2,1),opacity .4s ease,filter .4s ease;opacity:.82}
+.stk-slab a{outline:none}
+.stk-slab .top{fill:var(--bg);fill-opacity:.94;stroke:rgba(var(--text-rgb),0.45);stroke-width:1.2;transition:stroke .3s,fill-opacity .3s}
+.stk-slab .side{fill:rgba(var(--text-rgb),0.16);stroke:rgba(var(--text-rgb),0.38);stroke-width:1;transition:fill .3s}
+.stk-slab .side-r{fill:rgba(var(--text-rgb),0.26)}
+.stk-slab .port{fill:none;stroke:rgba(var(--text-rgb),0.7);stroke-width:1.2}
+.stk-slab .num{font:700 11px 'Inter',sans-serif;letter-spacing:.08em;fill:rgba(var(--text-rgb),0.68)}
+.stk-slab .tag{font:600 12px 'Inter',sans-serif;fill:rgba(var(--text-rgb),0.72);transition:fill .3s}
+.stk-slab .lead{stroke:rgba(var(--text-rgb),0.45);stroke-width:1}
+.stk-slab.is-active{transform:translateY(-22px);opacity:1}
+.stk-slab.is-active .top{stroke:var(--text);stroke-width:1.6;fill-opacity:1}
+.stk-slab.is-active .side{fill:rgba(var(--text-rgb),0.2)}
+.stk-slab.is-active .side-r{fill:rgba(var(--text-rgb),0.34)}
+.stk-slab.is-active .tag,.stk-slab.is-active .num{fill:var(--text)}
+.stk-slab a:focus-visible .top{stroke:var(--text);stroke-width:2.6}
+.stk-slab.is-active{filter:drop-shadow(0 14px 16px rgba(0,0,0,0.22))}
+.stk-slab.is-active .top{stroke-width:2}
+.stk-slab.is-active .sv{stroke:var(--text);stroke-width:1.9}
+.stk-slab.is-active .port{stroke:var(--text);stroke-width:1.6}
+.stk-slab.is-active .tag{font-weight:700}
+:root[data-theme="dark"] .stk-slab .top{fill:#151515;fill-opacity:1}
+:root[data-theme="dark"] .stk-slab .side{fill:rgba(255,255,255,0.13)}
+:root[data-theme="dark"] .stk-slab .side-r{fill:rgba(255,255,255,0.22)}
+:root[data-theme="dark"] .stk-slab.is-active .top{fill:#1f1f1f;stroke:#fff}
+:root[data-theme="dark"] .stk-slab.is-active .side{fill:rgba(255,255,255,0.3)}
+:root[data-theme="dark"] .stk-slab.is-active .side-r{fill:rgba(255,255,255,0.5)}
+:root[data-theme="dark"] .stk-slab.is-active{filter:drop-shadow(0 0 14px rgba(255,255,255,0.38))}
+:root[data-theme="dark"] .stk-svg .pulse{filter:drop-shadow(0 0 6px rgba(255,255,255,0.9))}
+/* the tiny diagram printed on each plate (flat plane, skewed into the isometric view) */
+.sv{fill:none;stroke:rgba(var(--text-rgb),0.92);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.sv *{vector-effect:non-scaling-stroke}
+.sv .sv-dim{stroke:rgba(var(--text-rgb),0.5)}
+.sv .sv-fill{fill:var(--text);stroke:none}
+.sv .sv-dash{stroke-dasharray:5 4;animation:svDash 1.6s linear infinite}
+.sv .sv-d2{animation-delay:-.8s}
+.sv .sv-dash2{stroke-dasharray:3 5}
+.sv .sv-cell{fill:var(--text);stroke:none;animation:svCell 2.6s ease-in-out infinite}
+.sv .sv-scatter *{stroke:rgba(var(--text-rgb),0.75)}
+.sv .sv-flow{stroke-dasharray:6 4;animation:svDash 1.2s linear infinite}
+.sv .sv-wave{stroke-width:1.8}
+.sv .sv-scan{stroke:rgba(var(--text-rgb),0.9);animation:svScan 3.8s ease-in-out infinite alternate}
+.sv .sv-branch{stroke-dasharray:140;animation:svDraw 3.6s ease-in-out infinite}
+.sv .sv-pulse{transform-box:fill-box;transform-origin:center;animation:svBeat 1.8s ease-in-out infinite}
+.sv .sv-spin{transform-box:fill-box;transform-origin:center;animation:svSpin 24s linear infinite;stroke:rgba(var(--text-rgb),0.4)}
+.sv .sv-shield{stroke-width:1.8}
+.sv .sv-check{stroke-width:2.2}
+.sv .sv-box{stroke:var(--text)}
+@keyframes svDash{to{stroke-dashoffset:-18}}
+@keyframes svCell{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes svScan{from{transform:translateX(-76px)}to{transform:translateX(76px)}}
+@keyframes svDraw{0%{stroke-dashoffset:140}55%,100%{stroke-dashoffset:0}}
+@keyframes svBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.7)}}
+@keyframes svSpin{to{transform:rotate(360deg)}}
+.stack-list{display:flex;flex-direction:column;gap:12px}
+.stk-row{position:relative;display:block;padding:24px 28px;border:1px solid var(--border);border-radius:20px;background:var(--elevated);color:var(--text);text-decoration:none;overflow:hidden;transition:background .35s ease,border-color .35s ease,color .35s ease,transform .35s ease}
+.stk-row:hover{border-color:rgba(var(--text-rgb),0.34)}
+.stk-row::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:rgba(var(--bg-rgb),0.55)}
+.stk-row.is-active::after{width:100%}
+.is-auto .stk-row.is-active::after{animation:stkProg 4.6s linear}
+@keyframes stkProg{from{width:0}to{width:100%}}
+.stk-row-head{display:grid;grid-template-columns:48px 1fr 28px;align-items:baseline}
+.stk-row-num{font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--text-dimmer);font-variant-numeric:tabular-nums;transition:color .3s}
+.stk-row-title{font-size:clamp(19px,1.8vw,24px);font-weight:500;letter-spacing:-0.015em;line-height:1.25;color:var(--text-dim);transition:color .3s}
+.stk-row-arrow{justify-self:end;font-size:22px;line-height:1;opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s}
+.stk-row-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
+.stk-row-inner{overflow:hidden;min-height:0;display:block;padding:0 28px 0 48px}
+.stk-row-desc{display:block;max-width:440px;font-size:15.5px;line-height:1.7;color:var(--text-dim);padding-top:12px;padding-bottom:4px;opacity:0;transition:opacity .4s ease .1s,color .3s}
+.stk-row.is-active{background:var(--text);border-color:var(--text);transform:translateX(-6px)}
+.stk-row.is-active .stk-row-body{grid-template-rows:1fr}
+.stk-row.is-active .stk-row-desc{opacity:1;color:rgba(var(--bg-rgb),0.74)}
+.stk-row.is-active .stk-row-title{color:var(--bg)}
+.stk-row.is-active .stk-row-num{color:rgba(var(--bg-rgb),0.6)}
+.stk-row.is-active .stk-row-arrow{opacity:1;transform:none;color:var(--bg)}
+.stk-row:not(.is-active):hover .stk-row-title{color:var(--text)}
+.stk-row:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+@media(max-width:960px){
+  .stack-panel{grid-template-columns:1fr;gap:36px}
+  .stack-fig{max-width:420px}
+  .stack-head{margin-bottom:40px}
+}
+@media(prefers-reduced-motion:reduce){
+  .stk-svg .pulse{animation:none;opacity:0}
+  .sv *,.stk-slab,.stk-row-body{animation:none!important;transition:none!important}
 }
 
 /* ── 5. CLOSED LOOP ── */
@@ -763,6 +860,127 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
 </section>
 
 
+<!-- 4b. FIVE LAYERS, ONE INFRASTRUCTURE -->
+<section class="stack-sec pad" id="five-layers">
+  <div class="sec-inner">
+    <div class="stack-head" data-reveal>
+      <h2 class="stack-title">Five Layers, One Unified Infrastructure</h2>
+    </div>
+    <div class="stack-panel" data-reveal="zoom">
+      <div class="stack-fig">
+      <svg class="stk-svg" viewBox="0 0 470 610" role="group" aria-label="Five infrastructure layers stacked, with data flowing down through each one">
+        <g transform="translate(0 24)"><line class="beam" x1="175" y1="26" x2="175" y2="576"/>
+        <g class="stk-slab" data-stk="4">
+          <a href="/datalier/govern" aria-label="Data Governance">
+            <polygon class="side" points="5,476 175,548 175,557 5,485"/><polygon class="side side-r" points="345,476 175,548 175,557 345,485"/>
+            <polygon class="top" points="175,404 345,476 175,548 5,476"/>
+            <g class="sv" transform="matrix(0.85 0.36 -0.85 0.36 175 476)"><circle class="sv-dash sv-spin" cx="0" cy="0" r="66"/><path class="sv-shield" d="M0-50L32-35V6C32 30 10 44 0 51-10 44-32 30-32 6V-35Z"/><polyline class="sv-check" points="-13,2 -3,13 17,-12"/></g>
+            <ellipse class="port" cx="175" cy="476" rx="13" ry="6"/>
+            <text class="num" x="31" y="480">05</text>
+            <line class="lead" x1="343" y1="476" x2="357" y2="476"/>
+            <text class="tag" x="363" y="480">Govern</text>
+          </a>
+        </g>
+        <g class="stk-slab" data-stk="3">
+          <a href="/datalier/observe" aria-label="Data Observability">
+            <polygon class="side" points="5,382 175,454 175,463 5,391"/><polygon class="side side-r" points="345,382 175,454 175,463 345,391"/>
+            <polygon class="top" points="175,310 345,382 175,454 5,382"/>
+            <g class="sv" transform="matrix(0.85 0.36 -0.85 0.36 175 382)"><path d="M-80 0H80" class="sv-dim sv-dash2"/><polyline class="sv-wave" points="-80,0 -62,-6 -48,8 -34,-4 -20,6 -8,-2 0,-44 8,30 18,-4 30,4 46,-6 60,2 80,0"/><circle class="sv-dash sv-d2" cx="0" cy="-44" r="9"/><line class="sv-scan" x1="0" y1="-52" x2="0" y2="52"/></g>
+            <ellipse class="port" cx="175" cy="382" rx="13" ry="6"/>
+            <text class="num" x="31" y="386">04</text>
+            <line class="lead" x1="343" y1="382" x2="357" y2="382"/>
+            <text class="tag" x="363" y="386">Observe</text>
+          </a>
+        </g>
+        <g class="stk-slab" data-stk="2">
+          <a href="/datalier/version" aria-label="Data Versioning &amp; Lineage">
+            <polygon class="side" points="5,288 175,360 175,369 5,297"/><polygon class="side side-r" points="345,288 175,360 175,369 345,297"/>
+            <polygon class="top" points="175,216 345,288 175,360 5,288"/>
+            <g class="sv" transform="matrix(0.85 0.36 -0.85 0.36 175 288)"><path d="M-80 14H80" class="sv-dim"/><path class="sv-branch" d="M-30 14C-22-30-6-34 6-34H34C46-34 52-10 54 14"/><circle class="sv-fill" cx="-70" cy="14" r="4.5"/><circle class="sv-fill" cx="-30" cy="14" r="4.5"/><circle class="sv-fill" cx="6" cy="-34" r="4.5"/><circle class="sv-fill" cx="34" cy="-34" r="4.5"/><circle class="sv-fill" cx="54" cy="14" r="4.5"/><circle class="sv-fill sv-pulse" cx="80" cy="14" r="4.5"/></g>
+            <ellipse class="port" cx="175" cy="288" rx="13" ry="6"/>
+            <text class="num" x="31" y="292">03</text>
+            <line class="lead" x1="343" y1="288" x2="357" y2="288"/>
+            <text class="tag" x="363" y="292">Version</text>
+          </a>
+        </g>
+        <g class="stk-slab" data-stk="1">
+          <a href="/datalier/label" aria-label="Data Labelling">
+            <polygon class="side" points="5,194 175,266 175,275 5,203"/><polygon class="side side-r" points="345,194 175,266 175,275 345,203"/>
+            <polygon class="top" points="175,122 345,194 175,266 5,194"/>
+            <g class="sv" transform="matrix(0.85 0.36 -0.85 0.36 175 194)"><rect x="-70" y="-48" width="140" height="96" rx="4" class="sv-dim"/><circle cx="-30" cy="-5" r="14" class="sv-dim"/><rect x="10" y="-10" width="34" height="30" class="sv-dim"/><rect class="sv-box sv-dash" x="-50" y="-26" width="40" height="42"/><rect class="sv-box sv-dash sv-d2" x="2" y="-20" width="50" height="42"/><rect class="sv-fill" x="-50" y="-34" width="24" height="8"/><rect class="sv-fill" x="2" y="-28" width="20" height="8"/></g>
+            <ellipse class="port" cx="175" cy="194" rx="13" ry="6"/>
+            <text class="num" x="31" y="198">02</text>
+            <line class="lead" x1="343" y1="194" x2="357" y2="194"/>
+            <text class="tag" x="363" y="198">Label</text>
+          </a>
+        </g>
+        <g class="stk-slab" data-stk="0">
+          <a href="/datalier/transform" aria-label="Data Transformation">
+            <polygon class="side" points="5,100 175,172 175,181 5,109"/><polygon class="side side-r" points="345,100 175,172 175,181 345,109"/>
+            <polygon class="top" points="175,28 345,100 175,172 5,100"/>
+            <g class="sv" transform="matrix(0.85 0.36 -0.85 0.36 175 100)"><g class="sv-scatter"><rect x="-78" y="-34" width="14" height="9" transform="rotate(24 -71 -29)"/><rect x="-56" y="6" width="12" height="12" transform="rotate(-32 -50 12)"/><path d="M-74 30l10-3-3 11z"/><circle cx="-40" cy="-22" r="6"/><rect x="-44" y="32" width="15" height="7" transform="rotate(48 -36 35)"/></g><path class="sv-flow" d="M-14-10l12 10-12 10M2-10l12 10-12 10"/><g class="sv-cells"><rect class="sv-cell" style="animation-delay:0.00s" x="20" y="-36" width="16" height="16"/><rect class="sv-cell" style="animation-delay:0.18s" x="42" y="-36" width="16" height="16"/><rect class="sv-cell" style="animation-delay:0.36s" x="64" y="-36" width="16" height="16"/><rect class="sv-cell" style="animation-delay:0.54s" x="20" y="-12" width="16" height="16"/><rect class="sv-cell" style="animation-delay:0.72s" x="42" y="-12" width="16" height="16"/><rect class="sv-cell" style="animation-delay:0.90s" x="64" y="-12" width="16" height="16"/><rect class="sv-cell" style="animation-delay:1.08s" x="20" y="12" width="16" height="16"/><rect class="sv-cell" style="animation-delay:1.26s" x="42" y="12" width="16" height="16"/><rect class="sv-cell" style="animation-delay:1.44s" x="64" y="12" width="16" height="16"/></g></g>
+            <ellipse class="port" cx="175" cy="100" rx="13" ry="6"/>
+            <text class="num" x="31" y="104">01</text>
+            <line class="lead" x1="343" y1="100" x2="357" y2="100"/>
+            <text class="tag" x="363" y="104">Transform</text>
+          </a>
+        </g>
+        <circle class="pulse" cx="175" cy="26" r="4"/></g>
+      </svg>
+      </div>
+      <div class="stack-list">
+          <a class="stk-row" href="/datalier/transform" data-stk="0">
+            <span class="stk-row-head"><span class="stk-row-num">01</span><span class="stk-row-title">Data Transformation</span><span class="stk-row-arrow" aria-hidden="true">→</span></span>
+            <span class="stk-row-body"><span class="stk-row-inner"><span class="stk-row-desc">Raw, messy, multimodal data becomes clean, consistent and training-ready, through automated cleaning, normalisation, enrichment and curation.</span></span></span>
+          </a>
+          <a class="stk-row" href="/datalier/label" data-stk="1">
+            <span class="stk-row-head"><span class="stk-row-num">02</span><span class="stk-row-title">Data Labelling</span><span class="stk-row-arrow" aria-hidden="true">→</span></span>
+            <span class="stk-row-body"><span class="stk-row-inner"><span class="stk-row-desc">AI-assisted annotation with expert review and consensus routing, so every label is accurate, consistent and verified before it ships.</span></span></span>
+          </a>
+          <a class="stk-row" href="/datalier/version" data-stk="2">
+            <span class="stk-row-head"><span class="stk-row-num">03</span><span class="stk-row-title">Data Versioning &amp; Lineage</span><span class="stk-row-arrow" aria-hidden="true">→</span></span>
+            <span class="stk-row-body"><span class="stk-row-inner"><span class="stk-row-desc">Every dataset version is tracked and reproducible, with end-to-end lineage from source to model and rollback in one click.</span></span></span>
+          </a>
+          <a class="stk-row" href="/datalier/observe" data-stk="3">
+            <span class="stk-row-head"><span class="stk-row-num">04</span><span class="stk-row-title">Data Observability</span><span class="stk-row-arrow" aria-hidden="true">→</span></span>
+            <span class="stk-row-body"><span class="stk-row-inner"><span class="stk-row-desc">Continuous monitoring of quality, drift and anomalies, with real-time metrics that catch silent failures before they reach production.</span></span></span>
+          </a>
+          <a class="stk-row" href="/datalier/govern" data-stk="4">
+            <span class="stk-row-head"><span class="stk-row-num">05</span><span class="stk-row-title">Data Governance</span><span class="stk-row-arrow" aria-hidden="true">→</span></span>
+            <span class="stk-row-body"><span class="stk-row-inner"><span class="stk-row-desc">Access control, audit trails and compliance policies enforced at every layer, so your data stays secure and audit-ready by default.</span></span></span>
+          </a>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var root=document.getElementById('five-layers'); if(!root) return;
+  var els=root.querySelectorAll('[data-stk]'), N=5, cur=-1, vis=false, lastTouch=0, over=false;
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function set(i){
+    if(i===cur) return; cur=i;
+    els.forEach(function(e){ var on=+e.getAttribute('data-stk')===i; e.classList.toggle('is-active',on); if(e.classList.contains('stk-row')) e.setAttribute('aria-current', on?'true':'false'); });
+  }
+  // A pause only holds while the pointer is moving over the layers; a cursor left resting there no longer freezes it.
+  function paused(){ return over && (Date.now()-lastTouch) < 2500; }
+  function tick(){ if(vis && !paused()) set((cur+1)%N); }
+  function touch(i){ over=true; lastTouch=Date.now(); root.classList.remove('is-auto'); set(i); }
+  els.forEach(function(e){
+    var i=+e.getAttribute('data-stk');
+    e.addEventListener('mouseenter',function(){ touch(i); });
+    e.addEventListener('mousemove',function(){ lastTouch=Date.now(); });
+    e.addEventListener('mouseleave',function(){ over=false; root.classList.add('is-auto'); });
+    e.addEventListener('focusin',function(ev){ if(ev.target.matches && ev.target.matches(':focus-visible')) touch(i); });
+  });
+  root.addEventListener('mouseleave',function(){ over=false; root.classList.add('is-auto'); });
+  set(0);
+  root.classList.add('is-auto');
+  if('IntersectionObserver' in window) new IntersectionObserver(function(es){ vis=es[0].isIntersecting; },{threshold:0}).observe(root); else vis=true;
+  setInterval(function(){ if(!paused()) root.classList.add('is-auto'); tick(); },reduced?5200:4600);
+})();
+</script>
+
 <!-- 5. THE CLOSED LOOP -->
 <section class="closed-loop pad">
   <div class="sec-inner">
@@ -901,6 +1119,6 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261114x" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261115c" defer></script>
 </body>
 </html>
