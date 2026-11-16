@@ -1218,92 +1218,42 @@
     tick();
   }
 
-  /* ── Hero mosaic: annotation screenshots/clips pop in and out at scattered
-     positions around the hero, independent of each other, continuously.
-     Images hold for IMAGE_MS; videos always play to completion before the
-     slot moves on, however long that takes.
+  /* ── Hero mosaic: real-world use-case photos (agriculture, finance, legal, logistics...) pop in and
+     out at scattered positions around the hero, independent of each other, continuously, at full
+     brightness, each with its industry tag. Images hold for IMAGE_MS.
 
      To add more assets later: drop the file in /imgbgm and add one line to
      HERO_MOSAIC_MEDIA below — nothing else needs to change. Desktop only
      (disabled under 900px) and skipped entirely under prefers-reduced-motion,
      same as the rest of this file's motion. */
   var HERO_MOSAIC_MEDIA = [
-    { type: 'image', src: '/imgbgm/img-segment-street-runner.png' },
-    { type: 'image', src: '/imgbgm/img-segment-surfboard.png' },
-    { type: 'image', src: '/imgbgm/img-segment-marathon.png' },
-    { type: 'image', src: '/imgbgm/img-segment-portrait-duo.png' },
-    { type: 'image', src: '/imgbgm/img-segment-street-scene.png' },
-    { type: 'image', src: '/imgbgm/img-segment-palms.png' },
-    { type: 'image', src: '/imgbgm/img-segment-plaza.png' },
-    { type: 'image', src: '/imgbgm/img-audio-diarization.png' },
-    { type: 'image', src: '/imgbgm/img-audio-segments.png' },
-    { type: 'image', src: '/imgbgm/img-keypoints-face.png' },
-    { type: 'image', src: '/imgbgm/img-rlhf-compare.png' },
-    { type: 'image', src: '/imgbgm/img-before-after-runner.png' },
-    { type: 'video', src: '/imgbgm/video-annotated-01.mp4' },
-    { type: 'video', src: '/imgbgm/video-annotated-02.mp4' },
-    { type: 'video', src: '/imgbgm/video-annotated-03.mp4' },
-    { type: 'video', src: '/imgbgm/video-annotated-04.mp4' },
-    { type: 'video', src: '/imgbgm/video-annotated-05.mp4' },
-    { type: 'video', src: '/imgbgm/video-annotated-06.mp4' },
-    { type: 'image', src: '/imgbgm/screen1.png' },
-    { type: 'image', src: '/imgbgm/screen2.png' },
-    { type: 'image', src: '/imgbgm/screen3.png' },
-    { type: 'image', src: '/imgbgm/screen4.png' },
-    { type: 'image', src: '/imgbgm/screen5.png' },
-    { type: 'image', src: '/imgbgm/screen6.png' },
-    { type: 'image', src: '/imgbgm/screen7.png' },
-    { type: 'image', src: '/imgbgm/screen8.png' },
-    { type: 'video', src: '/imgbgm/lscreenvideo.mp4' },
-    { type: 'video', src: '/imgbgm/new1.mp4' },
-    { type: 'video', src: '/imgbgm/new-10.mp4' },
-    { type: 'video', src: '/imgbgm/new-11.mp4' },
-    { type: 'image', src: '/imgbgm/new-2.png' },
-    { type: 'image', src: '/imgbgm/new-3.png' },
-    { type: 'image', src: '/imgbgm/new-4.png' },
-    { type: 'image', src: '/imgbgm/new-5.png' },
-    { type: 'image', src: '/imgbgm/new-6.png' },
-    { type: 'image', src: '/imgbgm/new-7.png' },
-    { type: 'image', src: '/imgbgm/new-8.png' },
-    { type: 'image', src: '/imgbgm/new-9.png' },
-    { type: 'image', src: '/imgbgm/audioclassification-dark.png' },
-    { type: 'image', src: '/imgbgm/audiosegmentation-bright.png' },
-    { type: 'image', src: '/imgbgm/speakerdiazartion-bright.png' },
-    { type: 'image', src: '/imgbgm/transcription-bright.png' },
-    { type: 'image', src: '/imgbgm/NER-dark.png' },
-    { type: 'image', src: '/imgbgm/QA-bright.png' },
-    { type: 'image', src: '/imgbgm/relationextraction-dark.png' },
-    { type: 'video', src: '/imgbgm/temporalsegmentation-dark.mp4' },
-    { type: 'video', src: '/imgbgm/frameannotation-bright.mp4' },
-    { type: 'image', src: '/imgbgm/instance.png' }
+    { type: 'image', src: '/imgbgm/uc-agriculture.jpg', label: 'Agriculture' },
+    { type: 'image', src: '/imgbgm/uc-finance.jpg', label: 'Finance' },
+    { type: 'image', src: '/imgbgm/uc-legal.jpg', label: 'Legal' },
+    { type: 'image', src: '/imgbgm/uc-av.jpg', label: 'Autonomous vehicles' },
+    { type: 'image', src: '/imgbgm/uc-compliance.jpg', label: 'Compliance' },
+    { type: 'image', src: '/imgbgm/uc-insurance.jpg', label: 'Insurance' },
+    { type: 'image', src: '/imgbgm/uc-realestate.jpg', label: 'Real estate' },
+    { type: 'image', src: '/imgbgm/uc-geospatial.jpg', label: 'Geospatial' },
+    { type: 'image', src: '/imgbgm/uc-logistics.jpg', label: 'Logistics' },
+    { type: 'image', src: '/imgbgm/uc-warehouse.jpg', label: 'Warehouse' },
+    { type: 'image', src: '/imgbgm/uc-industrial.jpg', label: 'Industrial & manufacturing' },
+    { type: 'image', src: '/imgbgm/uc-telecom.jpg', label: 'Telecom' },
+    { type: 'image', src: '/imgbgm/uc-retail.jpg', label: 'Retail & e-commerce' },
+    { type: 'image', src: '/imgbgm/uc-fleet.jpg', label: 'Fleet & environment' },
+    { type: 'image', src: '/imgbgm/uc-fraud.jpg', label: 'Fraud & security' },
+    { type: 'image', src: '/imgbgm/uc-media.jpg', label: 'Media & entertainment' },
+    { type: 'image', src: '/imgbgm/uc-sports.jpg', label: 'Sports' },
+    { type: 'image', src: '/imgbgm/uc-support.jpg', label: 'Customer support' },
+    { type: 'image', src: '/imgbgm/uc-access.jpg', label: 'Accessibility' }
+,
+    { type: 'lidar', id: 'lidar-adas', label: 'LiDAR · ADAS & Automotive', c1: 'hsl(210 90% 42%)', c2: 'hsl(190 85% 30%)' },
+    { type: 'lidar', id: 'lidar-aerial', label: 'LiDAR · Aerial', c1: 'hsl(262 80% 52%)', c2: 'hsl(235 75% 34%)' },
+    { type: 'lidar', id: 'lidar-construction', label: 'LiDAR · Construction', c1: 'hsl(140 65% 36%)', c2: 'hsl(165 70% 24%)' },
+    { type: 'lidar', id: 'lidar-infra', label: 'LiDAR · Infrastructure', c1: 'hsl(28 90% 50%)', c2: 'hsl(8 80% 38%)' },
+    { type: 'lidar', id: 'lidar-city', label: 'LiDAR · Smart Cities & Traffic', c1: 'hsl(335 80% 52%)', c2: 'hsl(305 70% 36%)' }
   ];
 
-  /* Slots are generated on load, not hand-placed — an ellipse/ring of fixed
-     points always reads as a circle no matter how many points you use. A
-     jittered grid instead covers the whole rectangle (corners included),
-     skipping only the cells that overlap the headline/subtitle/button, and
-     comes out different every page load since the jitter is randomized. */
-  function buildHeroMosaicSlots() {
-    var cols = 7, rows = 5;
-    var safe = { left: 24, right: 76, top: 27, bottom: 78 };
-    var cellW = 100 / cols, cellH = 100 / rows;
-    var slots = [];
-    for (var r = 0; r < rows; r++) {
-      for (var c = 0; c < cols; c++) {
-        var cx = c * cellW + cellW / 2;
-        var cy = r * cellH + cellH / 2;
-        if (cx > safe.left && cx < safe.right && cy > safe.top && cy < safe.bottom) continue;
-        var jx = (Math.random() - 0.5) * cellW * 0.7;
-        var jy = (Math.random() - 0.5) * cellH * 0.7;
-        var top = Math.min(94, Math.max(3, cy + jy));
-        var left = Math.min(96, Math.max(2, cx + jx));
-        var w = 110 + Math.round(Math.random() * 90);
-        var h = 100 + Math.round(Math.random() * 90);
-        slots.push({ top: top + '%', left: left + '%', w: w, h: h });
-      }
-    }
-    return slots;
-  }
 
   /* ── Text page "Task Types" flashcard carousel: one card active at a
      time, auto-advancing on an interval, previous/next cards faded and
@@ -1360,89 +1310,39 @@
     });
   }
 
+  /* Hero photo wall: the real-world use-case photos (and the five 3D & LiDAR use cases, drawn as point-cloud art) drift slowly across the hero in five tilted rows (alternate rows run in
+     opposite directions, each at its own slow speed), like a wall seen in perspective. A soft clearing in the centre (a CSS
+     mask) keeps the headline, subtitle and buttons clean, while the photos around the edges show at full brightness. All the
+     motion is a CSS transform loop, so it is smooth and cheap; this function only builds the rows. */
   function initHeroMosaic() {
     var root = document.getElementById('hero-mosaic');
-    if (!root || prefersReduced || window.innerWidth < 900) return;
-
-    var HERO_MOSAIC_SLOTS = buildHeroMosaicSlots();
-    var IMAGE_MS = 6000;
-    var MAX_CONCURRENT_VIDEOS = 2;
-    var activeVideoCount = 0;
-    var recent = [];
-    var heroVisible = true;
-
-    function pickAsset() {
-      var pool = HERO_MOSAIC_MEDIA.filter(function (m) { return recent.indexOf(m.src) === -1; });
-      if (!pool.length) pool = HERO_MOSAIC_MEDIA;
-      var pick = pool[Math.floor(Math.random() * pool.length)];
-      recent.push(pick.src);
-      if (recent.length > 5) recent.shift();
-      return pick;
+    if (!root || window.innerWidth < 700) return;
+    var wall = document.createElement('div'), ROWS = 5, DUR = [190, 150, 215, 165, 200], media = HERO_MOSAIC_MEDIA;
+    wall.className = 'mosaic-wall';
+    function card(m) {
+      if (m.type === 'lidar') return '<div class="mosaic-card is-lidar" style="--c1:' + m.c1 + ';--c2:' + m.c2 + '"><svg viewBox="0 0 600 400" aria-hidden="true"><use href="/assets/lidar-art.svg#' + m.id + '"/></svg><span class="mosaic-tag">' + m.label + '</span></div>';
+      return '<div class="mosaic-card"><img src="' + encodeURI(m.src) + '" alt="" decoding="async"><span class="mosaic-tag">' + m.label + '</span></div>';
     }
-
-    HERO_MOSAIC_SLOTS.forEach(function (slot, i) {
-      var card = document.createElement('div');
-      card.className = 'mosaic-card';
-      card.style.top = slot.top;
-      card.style.left = slot.left;
-      card.style.width = slot.w + 'px';
-      card.style.height = slot.h + 'px';
-      root.appendChild(card);
-
-      function cycle() {
-        var asset = pickAsset();
-
-        if (asset.type === 'video' && activeVideoCount >= MAX_CONCURRENT_VIDEOS) {
-          setTimeout(cycle, 1500 + Math.random() * 1500);
-          return;
-        }
-
-        card.innerHTML = '';
-        var el;
-        if (asset.type === 'video') {
-          el = document.createElement('video');
-          el.src = encodeURI(asset.src);
-          el.muted = true;
-          el.playsInline = true;
-          el.loop = false;
-          activeVideoCount++;
-          if (heroVisible) el.play().catch(function () {});
-        } else {
-          el = document.createElement('img');
-          el.src = encodeURI(asset.src);
-          el.alt = '';
-        }
-        card.appendChild(el);
-        requestAnimationFrame(function () { card.classList.add('is-visible'); });
-
-        function finish() {
-          card.classList.remove('is-visible');
-          if (asset.type === 'video') activeVideoCount--;
-          setTimeout(function () {
-            card.innerHTML = '';
-            cycle();
-          }, 700 + Math.random() * 2200);
-        }
-
-        if (asset.type === 'video') {
-          el.addEventListener('ended', finish);
-          el.addEventListener('error', finish);
-        } else {
-          setTimeout(finish, IMAGE_MS);
-        }
-      }
-
-      setTimeout(cycle, i * 350 + Math.random() * 1800);
-    });
-
+    var photos = media.filter(function (m) { return m.type !== 'lidar'; }), lidar = media.filter(function (m) { return m.type === 'lidar'; });
+    for (var r = 0; r < ROWS; r++) {
+      var ph = photos.slice(), k = (r * 7) % ph.length;
+      ph = ph.slice(k).concat(ph.slice(0, k));                               // each row starts at a different photo
+      var ld = lidar.slice(), kl = r % ld.length; ld = ld.slice(kl).concat(ld.slice(0, kl));
+      var order = [], gap = Math.floor(ph.length / ld.length) + 1, li = 0;
+      ph.forEach(function (m, i) { order.push(m); if ((i + 1) % gap === 0 && li < ld.length) order.push(ld[li++]); });
+      while (li < ld.length) order.push(ld[li++]);                           // the five LiDAR use cases sit evenly through every row
+      if (r % 2) order.reverse();
+      var row = document.createElement('div');
+      row.className = 'mosaic-row' + (r % 2 ? ' rev' : '');
+      row.style.setProperty('--dur', DUR[r] + 's');
+      row.style.setProperty('--delay', '-' + Math.round(Math.random() * DUR[r] * 0.8) + 's');
+      row.innerHTML = order.map(card).join('') + order.map(card).join('');   // two identical halves: the loop is seamless
+      wall.appendChild(row);
+    }
+    root.appendChild(wall);
+    requestAnimationFrame(function () { wall.classList.add('is-on'); });
     if (window.IntersectionObserver) {
-      new IntersectionObserver(function (entries) {
-        heroVisible = entries[0].isIntersecting;
-        root.querySelectorAll('video').forEach(function (v) {
-          if (heroVisible) v.play().catch(function () {});
-          else v.pause();
-        });
-      }, { threshold: 0.1 }).observe(document.querySelector('.hero'));
+      new IntersectionObserver(function (entries) { wall.classList.toggle('is-paused', !entries[0].isIntersecting); }, { threshold: 0.05 }).observe(root.parentElement);
     }
   }
 
