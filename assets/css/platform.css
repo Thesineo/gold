@@ -13,6 +13,8 @@
   --elevated:rgba(var(--text-rgb),0.035);
   --invert-bg:var(--text);
   --invert-text:var(--bg);
+  --page-max:1600px;
+  --gutter:32px;
 }
 :root[data-theme="dark"]{
   --bg-rgb:10,10,10;
@@ -22,12 +24,12 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;transition:background .25s ease,color .25s ease}
 img{max-width:100%}
-.sec-inner{max-width:1400px;margin:0 auto;padding:0 48px}
+.sec-inner{max-width:var(--page-max);margin:0 auto;padding:0 var(--gutter)}
 .sec-eyebrow{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:18px;display:block}
 .sec-title{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(28px,3.6vw,42px);letter-spacing:-0.02em;line-height:1.25}
 .sec-desc{font-size:18px;color:var(--text-dim);max-width:620px;margin-top:18px;font-weight:400;line-height:1.65}
 section.pad{padding:110px 0}
-@media(max-width:768px){section.pad{padding:72px 0}.sec-inner{padding:0 24px}}
+@media(max-width:768px){:root{--gutter:20px}section.pad{padding:72px 0}.sec-inner{padding:0 var(--gutter)}}
 
 /* Several entrance styles, picked per-section instead of one generic
    fade-up everywhere. Same [data-reveal] attribute/JS trigger; the value
@@ -72,8 +74,8 @@ section.pad{padding:110px 0}
 .btn-ghost:hover{border-color:var(--text);color:var(--text)}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;background:rgba(var(--bg-rgb),0.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:background .3s ease, box-shadow .3s ease, padding .3s ease}
-nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(var(--text-rgb),0.06);padding:14px 40px}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px max(var(--gutter),calc((100% - var(--page-max))/2 + var(--gutter)));display:flex;align-items:center;justify-content:space-between;gap:24px;background:rgba(var(--bg-rgb),0.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:background .3s ease, box-shadow .3s ease, padding .3s ease}
+nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(var(--text-rgb),0.06);padding:14px max(var(--gutter),calc((100% - var(--page-max))/2 + var(--gutter)))}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
 .nav-logo svg{width:30px;height:30px;flex-shrink:0;color:var(--text)}
 .logo-text{font-family:'Inter',sans-serif;font-size:19px;color:var(--text);font-weight:500;letter-spacing:-0.01em}
@@ -192,7 +194,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    Text on the left, a media slot on the right for a page-specific image
    or video (currently a placeholder — swap the inner markup for an
    <img>/<video> per page when that asset is ready). */
-.layer-hero{position:relative;min-height:64vh;background:var(--bg);display:flex;align-items:center;padding:170px 24px 80px;overflow:hidden}
+.layer-hero{position:relative;min-height:64vh;background:var(--bg);display:flex;align-items:center;padding:170px var(--gutter) 80px;overflow:hidden}
 /* Opt-in boxed-video variant: the page-specific video becomes a rounded,
    margined card (same treatment as the Platform page's .p-hero) instead
    of a full-bleed background or a small side-slot. .layer-hero-card is
@@ -201,7 +203,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    level split. Pinned dark gradient + white text, same reasoning as
    .p-hero's override — a real video reads the same in both themes only
    if we stop following the theme-adaptive text colors. */
-.layer-hero.video-bg{display:block;min-height:0;padding:130px 24px 0;overflow:visible}
+.layer-hero.video-bg{display:block;min-height:0;padding:130px var(--gutter) 0;overflow:visible}
 /* min-height is declared twice on purpose: vh first as a fallback,
    dvh second so browsers that support it use it instead. Plain vh on
    mobile is pinned to the viewport size with the address bar hidden;
@@ -210,16 +212,12 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    actively changing size, which is what was showing as a gray seam at
    the top of these rounded, clipped cards while scrolling. dvh tracks
    the actual current viewport instead, so there's nothing to resettle. */
-.layer-hero-card{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:70vh;min-height:70dvh;background:var(--bg);display:flex;align-items:flex-end}
+.layer-hero-card{position:relative;max-width:calc(var(--page-max) - 2*var(--gutter));margin:0 auto;border-radius:28px;overflow:hidden;min-height:70vh;min-height:70dvh;background:var(--bg);display:flex;align-items:flex-end}
 /* Blog posts: a bit taller than the product hero videos — with a full
    photo/video cover behind it the extra height reads as a proper
    editorial cover, not empty space. */
 .layer-hero-card.blog-cover{min-height:84vh;min-height:84dvh}
 @media(max-width:768px){.layer-hero-card.blog-cover{min-height:64vh;min-height:64dvh}}
-/* image banner cards (Why It Matters etc.): run wider so the side gaps stay small on large screens, up to 1600px */
-.sec-inner:has(>.layer-hero-card){max-width:1600px;padding-left:32px;padding-right:32px}
-.sec-inner:has(>.layer-hero-card)>.layer-hero-card{max-width:none}
-@media(max-width:768px){.sec-inner:has(>.layer-hero-card){padding-left:24px;padding-right:24px}}
 /* Modality pages' "What It Is" intro — same exact card (size, radius,
    min-height) as the platform pages' layer-hero, just centered content
    instead of bottom-anchored, and a flat dark scrim (not the bottom-
@@ -566,7 +564,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 @media(max-width:1300px){.feature-orbit{max-width:94vw}}
 @media(max-width:760px){.feature-orbit{max-width:94vw;margin-top:56px}}
 /* Integration Depth on the Cloud and MLOps pages: a clean card grid (7 = 3 over 4, 8 = 4 over 4) */
-.integ-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;max-width:1240px;margin:56px auto 40px}
+.integ-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;max-width:none;margin:56px auto 40px}
 .integ-grid.cols-8 .integ-card{grid-column:span 3}
 .integ-grid.cols-7 .integ-card{grid-column:span 3}
 .integ-grid.cols-7 .integ-card:nth-child(-n+3){grid-column:span 4}
@@ -690,7 +688,7 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    containing block for the absolutely-positioned video; mixing those
    responsibilities on one element was the actual cause of the video
    not filling it correctly. */
-.cta-final{position:relative;min-height:60vh;min-height:60dvh;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;background:var(--bg)}
+.cta-final{position:relative;min-height:60vh;min-height:60dvh;width:calc(100% - 2*var(--gutter));max-width:calc(var(--page-max) - 2*var(--gutter));margin:0 auto;border-radius:28px;overflow:hidden;background:var(--bg)}
 .cta-final-inner{position:relative;z-index:2;width:100%;height:100%;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px}
 /* object-fit:contain let the full clip show but left empty bars on the
    sides whenever the video's own aspect ratio didn't match this box —
@@ -725,8 +723,8 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 
 /* ── About page (reused as-is by the Careers hero — same rounded, contained,
    centered-text treatment) ── */
-.about-hero{padding:130px 24px 0}
-.about-hero-media{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center}
+.about-hero{padding:130px var(--gutter) 0}
+.about-hero-media{position:relative;max-width:calc(var(--page-max) - 2*var(--gutter));margin:0 auto;border-radius:28px;overflow:hidden;min-height:640px;display:flex;align-items:center;justify-content:center}
 .about-hero-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:translateZ(0)}
 /* Placeholder state — no media asset yet, same dashed-box hint used for
    every other still-empty hero slot on the site (swap for a <video> once
@@ -856,7 +854,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
    the explicit grid-template-columns track, height comes from the row's
    auto-height, which is driven by the form column's real content. */
 .contact-section{padding:168px 24px 110px}
-.contact-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:stretch}
+.contact-grid{max-width:none;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:stretch}
 .contact-heading{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(34px,4.2vw,50px);letter-spacing:-0.02em;line-height:1.12;color:var(--text);margin-bottom:14px}
 .contact-sub{font-size:17px;color:var(--text-dim);line-height:1.6;max-width:460px;margin-bottom:40px}
 .contact-form{display:flex;flex-direction:column;gap:22px}
@@ -1386,7 +1384,7 @@ footer{background:var(--bg);color:var(--text);padding:80px 0 32px;border-top:1px
    department, title, location, tagline, apply link. Right column: body
    sections (Overview / What You'll Do / etc.), each separated by a rule. */
 .job-detail{padding:130px 24px 100px}
-.job-detail-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:340px 1fr;gap:80px}
+.job-detail-inner{max-width:none;margin:0 auto;display:grid;grid-template-columns:340px 1fr;gap:80px}
 .job-detail-dept-icon{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:var(--elevated);border:1px solid var(--border);color:var(--text-dim);margin-bottom:16px}
 .job-detail-dept-icon svg{width:20px;height:20px}
 .job-detail-dept-label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px}
