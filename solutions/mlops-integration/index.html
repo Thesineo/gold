@@ -16,10 +16,10 @@
 <meta property="og:site_name" content="Concave AI" />
 <meta name="description" content="Export training-ready data to the platform where your model trains, then route production drift straight back for correction — a continuous feedback loop between Datalier and your MLOps stack.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
+<link rel="icon" href="/logo.png?v=20261117g" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117g" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117g">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117g">
 </head>
 <body>
 
@@ -105,7 +105,7 @@
         <div class="center-head">
           <span class="sec-eyebrow">Why It Matters</span>
           <h2 class="sec-title">Rationalize model training and Enhance model accuracy</h2>
-          <p class="sec-desc">Datalier formats your framework to get Model and training platform registered to monitor model inaccuracy, by getting the prediction logs back into the observability layer to identify any drift. Root cause for the drift gets traced to the data, which is rectified, and re-versioned closing the loop without a manual handoff between teams.</p>
+          <p class="sec-desc">Datalier connects to your ML frameworks and training platforms and registers your models, so it can monitor how they perform in production. Prediction logs flow back into the observability layer to detect drift, and the root cause is traced to the underlying data. The data is then corrected and re-versioned, closing the loop without a manual handoff.</p>
         </div>
       </div>
     </div>
@@ -149,40 +149,46 @@
       <span class="sec-eyebrow">Integration Depth</span>
       <h2 class="sec-title">Eight ways Datalier plugs into your stack</h2>
     </div>
-    <div class="feature-orbit" data-reveal>
-      <canvas class="feature-orbit-canvas" aria-hidden="true"></canvas>
-      <div class="feature-orbit-hub">MLOPS</div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Programmatic Job Execution</div>
-        <div class="feature-orbit-desc">Launches and polls native training jobs directly on ML platform post-correction closing the execution loop within your existing infrastructure instead of handing off passive webhooks.</div>
+    <div class="integ-grid cols-8" data-reveal>
+      <div class="integ-card">
+        <span class="integ-card-num">01</span>
+        <div class="integ-card-title">Programmatic Job Execution</div>
+        <div class="integ-card-desc">Launches and polls native training jobs directly on ML platform post-correction closing the execution loop within your existing infrastructure instead of handing off passive webhooks.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Automated Ingestion from Live Production Runtimes</div>
-        <div class="feature-orbit-desc">Direct, continuous telemetry capture from SageMaker Data Capture, Vertex AI, Azure ML, HuggingFace, and LangSmith eliminating manual, error-prone export routines.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">02</span>
+        <div class="integ-card-title">Automated Ingestion from Live Production Runtimes</div>
+        <div class="integ-card-desc">Direct, continuous telemetry capture from SageMaker Data Capture, Vertex AI, Azure ML, HuggingFace, and LangSmith eliminating manual, error-prone export routines.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Explicit Approval Gates for Automated Retraining</div>
-        <div class="feature-orbit-desc">Enforces mandatory human verification prior to launching downstream training runs, pairing end-to-end automation with strict governance where it impacts production.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">03</span>
+        <div class="integ-card-title">Explicit Approval Gates for Automated Retraining</div>
+        <div class="integ-card-desc">Enforces mandatory human verification prior to launching downstream training runs, pairing end-to-end automation with strict governance where it impacts production.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Statistical Drift Monitoring</div>
-        <div class="feature-orbit-desc">Computes PSI directly on real-time prediction streams leveraging industry-standard statistical metrics trusted by risk and compliance teams over heuristic approximations.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">04</span>
+        <div class="integ-card-title">Statistical Drift Monitoring</div>
+        <div class="integ-card-desc">Computes PSI directly on real-time prediction streams leveraging industry-standard statistical metrics trusted by risk and compliance teams over heuristic approximations.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Standardized Demographic-Parity Compliance</div>
-        <div class="feature-orbit-desc">Calculates real-time demographic parity metrics powered by Fairlearn, replacing proprietary internal scores with externally grounded, auditable fairness baselines.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">05</span>
+        <div class="integ-card-title">Standardized Demographic-Parity Compliance</div>
+        <div class="integ-card-desc">Calculates real-time demographic parity metrics powered by Fairlearn, replacing proprietary internal scores with externally grounded, auditable fairness baselines.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Source-Level Root-Cause Diagnostics</div>
-        <div class="feature-orbit-desc">Traces performance drops and model decay directly back to corrupt or drifted data slices delivering actionable root-cause provenance rather than surface-level alerts.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">06</span>
+        <div class="integ-card-title">Source-Level Root-Cause Diagnostics</div>
+        <div class="integ-card-desc">Traces performance drops and model decay directly back to corrupt or drifted data slices delivering actionable root-cause provenance rather than surface-level alerts.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Framework-Native Export Engine</div>
-        <div class="feature-orbit-desc">Outputs production-ready datasets natively in COCO, YOLO, SQuAD, CoNLL, and DPO formats, eliminating custom format transformation steps between correction and retraining.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">07</span>
+        <div class="integ-card-title">Framework-Native Export Engine</div>
+        <div class="integ-card-desc">Outputs production-ready datasets natively in COCO, YOLO, SQuAD, CoNLL, and DPO formats, eliminating custom format transformation steps between correction and retraining.</div>
       </div>
-      <div class="feature-orbit-node">
-        <div class="feature-orbit-title">Bi-Directional Lineage with Instant Rollback</div>
-        <div class="feature-orbit-desc">Tracks every dataset mutation with complete state versioning and instant rollback capabilities ensuring flawed correction passes never require a from-scratch dataset rebuild.</div>
+      <div class="integ-card">
+        <span class="integ-card-num">08</span>
+        <div class="integ-card-title">Bi-Directional Lineage with Instant Rollback</div>
+        <div class="integ-card-desc">Tracks every dataset mutation with complete state versioning and instant rollback capabilities ensuring flawed correction passes never require a from-scratch dataset rebuild.</div>
       </div>
     </div>
   </div>
@@ -292,7 +298,7 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
-<script src="/assets/js/platform-motion.js?v=20261117d" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117g" defer></script>
+<script src="/assets/js/platform-motion.js?v=20261117g" defer></script>
 </body>
 </html>

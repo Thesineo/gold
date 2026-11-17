@@ -561,6 +561,22 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
 .feature-orbit-desc{flex:0 1 auto;margin:6px auto 0;font-weight:400;line-height:1.28;color:rgba(var(--bg-rgb),0.76);max-width:78%;overflow:hidden}
 @media(max-width:1300px){.feature-orbit{max-width:94vw}}
 @media(max-width:760px){.feature-orbit{max-width:94vw;margin-top:56px}}
+/* Integration Depth on the Cloud and MLOps pages: a clean card grid (7 = 3 over 4, 8 = 4 over 4) */
+.integ-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;max-width:1240px;margin:56px auto 40px}
+.integ-grid.cols-8 .integ-card{grid-column:span 3}
+.integ-grid.cols-7 .integ-card{grid-column:span 3}
+.integ-grid.cols-7 .integ-card:nth-child(-n+3){grid-column:span 4}
+.integ-card{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:28px 26px 30px;border-radius:22px;background:var(--invert-bg);color:var(--invert-text);box-shadow:0 14px 34px rgba(0,0,0,0.14);transition:transform .35s ease,box-shadow .35s ease}
+.integ-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 100% 0,rgba(var(--bg-rgb),0.16),transparent 55%);opacity:.7;transition:opacity .35s ease}
+.integ-card:hover{transform:translateY(-6px);box-shadow:0 26px 52px rgba(0,0,0,0.22)}
+.integ-card:hover::before{opacity:1}
+.integ-card-num{position:relative;align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.1em;padding:5px 11px;border-radius:999px;border:1px solid rgba(var(--bg-rgb),0.3);color:rgba(var(--bg-rgb),0.8)}
+.integ-card-title{position:relative;font-size:19px;font-weight:600;line-height:1.25;letter-spacing:-0.01em;color:var(--invert-text)}
+.integ-grid.cols-7 .integ-card:nth-child(-n+3) .integ-card-title{font-size:22px}
+.integ-card-desc{position:relative;font-size:14px;line-height:1.6;color:rgba(var(--bg-rgb),0.74)}
+@media(max-width:1100px){.integ-grid{grid-template-columns:repeat(6,1fr)}.integ-grid .integ-card,.integ-grid.cols-7 .integ-card:nth-child(-n+3){grid-column:span 3}.integ-grid.cols-7 .integ-card:last-child{grid-column:span 6}}
+@media(max-width:640px){.integ-grid{grid-template-columns:1fr;gap:14px}.integ-grid .integ-card,.integ-grid.cols-7 .integ-card:nth-child(-n+3),.integ-grid.cols-7 .integ-card:last-child{grid-column:auto}}
+
 
 /* ── Pill row — connectors, formats, tags ── */
 .pill-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
