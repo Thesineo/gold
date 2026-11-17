@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/curation.jpg">
 <meta name="description" content="Curation is the decision about what belongs in a training set and what does not. For multimodal and LLM teams it is now the highest-leverage operation in the pipeline.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -174,7 +174,7 @@
       <h2>Why scale stopped solving this</h2>
       <p>For a period, the reliable path to a better model was more data. That relationship has weakened substantially, for reasons that are structural rather than temporary.</p>
       <p><strong>Redundancy dominates large corpora.</strong> In video, consecutive frames are near-identical — a thirty-second clip at thirty frames per second contains nine hundred frames and perhaps forty genuinely distinct moments. In text, common phrasings recur at enormous multiples. Adding redundant records increases training cost and dataset size without adding information.</p>
-      <p><strong>Marginal value declines sharply.</strong> The ten-thousandth typical example teaches a model almost nothing. The first example from an underrepresented tail can meaningfully change behaviour on an entire segment of production traffic.</p>
+      <p><strong>Marginal value declines sharply.</strong> The ten-thousandth typical example teaches a model almost nothing. The first example from an underrepresented tail can meaningfully change behavior on an entire segment of production traffic.</p>
       <p><strong>Errors scale with volume.</strong> A 3% label error rate on 100,000 records is 3,000 wrong labels. At scale, error volume grows faster than the capacity to find it, and errors concentrated in a specific slice are functionally invisible in aggregate metrics.</p>
       <p><strong>Compute is not free.</strong> Training cost scales with dataset size. Spending it on redundant records is a direct transfer from budget to no outcome.</p>
       <p>The consequence is that the composition question — what should be in this dataset — has become more important than the volume question.</p>
@@ -183,7 +183,7 @@
       <ul>
         <li><strong>Coverage against production distribution.</strong> The training set should represent what the model will encounter, including the tails. This requires knowing the production distribution, which requires observability. Curation performed without production feedback is guesswork.</li>
         <li><strong>Deduplication beyond exact match.</strong> Near-duplicates — the same scene at a slightly different angle, the same question phrased differently, consecutive video frames — are where the volume is. Semantic deduplication is materially harder and materially more valuable.</li>
-        <li><strong>Class balance, deliberately chosen.</strong> Natural distributions are usually imbalanced, and the imbalance usually favours the class that matters least. Whether to rebalance must be a decision rather than an accident.</li>
+        <li><strong>Class balance, deliberately chosen.</strong> Natural distributions are usually imbalanced, and the imbalance usually favors the class that matters least. Whether to rebalance must be a decision rather than an accident.</li>
         <li><strong>Edge case identification and retention.</strong> The rare, ambiguous, and difficult records are the most informative per unit of annotation cost, and the most likely to be discarded by naive filtering because they look like noise.</li>
         <li><strong>Quality-weighted inclusion.</strong> Not every record deserves equal weight. Verified labels, gold-standard items, and high-agreement records carry more signal than unverified automation output.</li>
       </ul>
@@ -201,12 +201,12 @@
       <p>Continuous curation requires a feedback path from production back to the dataset — a way to observe which slices are failing, determine whether the failure reflects a coverage gap or a labeling error, and adjust composition accordingly. Without that path, curation decays from the moment it is made.</p>
 
       <h2>How Concave AI approaches this</h2>
-      <p>Datalier treats curation as an ongoing operation informed by production behaviour rather than a preprocessing step.</p>
+      <p>Datalier treats curation as an ongoing operation informed by production behavior rather than a preprocessing step.</p>
       <p><strong>Composition measured at every version.</strong> Class distribution, coverage metrics, duplicate rate, and edge-case representation are computed and reported for each frozen version. Distribution changes appear explicitly in the version delta, so composition drift across iterations is visible rather than accumulating unnoticed.</p>
       <p><strong>Deduplication with near-match detection.</strong> Exact and near-duplicate identification during transformation, with counts and examples reported rather than records silently removed.</p>
       <p><strong>Modality-aware handling.</strong> Dozens of annotation types across text, image, video, and audio, each with its own quality criteria and processing path. Video uses keyframe propagation rather than treating every frame as an independent image, addressing temporal redundancy at the architectural level.</p>
-      <p><strong>Uncertainty-first task ordering.</strong> The human review queue prioritises low-confidence and high-disagreement items, concentrating annotation effort where it produces the most information per unit of cost.</p>
-      <p><strong>Coverage informed by production.</strong> The observability layer identifies which production slices are underperforming and whether the corresponding training coverage is thin. Curation decisions are made against observed production behaviour rather than assumed distribution.</p>
+      <p><strong>Uncertainty-first task ordering.</strong> The human review queue prioritizes low-confidence and high-disagreement items, concentrating annotation effort where it produces the most information per unit of cost.</p>
+      <p><strong>Coverage informed by production.</strong> The observability layer identifies which production slices are underperforming and whether the corresponding training coverage is thin. Curation decisions are made against observed production behavior rather than assumed distribution.</p>
       <p><strong>Continuous correction.</strong> Failing slices generate targeted correction datasets through four selection strategies — failing slices, low confidence, recent errors, or drift-affected records. Corrections route through labeling and human verification, are frozen as a new version with full lineage, and export for retraining.</p>
       <p>Curation stops being a decision made once at the beginning and becomes a property of the pipeline that is maintained.</p>
 
@@ -287,6 +287,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

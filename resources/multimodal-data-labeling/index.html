@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/datalabelling.jpeg">
 <meta name="description" content="Running separate single-modal projects and merging outputs is the most common mistake in multimodal AI. Here is why it fails and what a unified workflow requires.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -147,7 +147,7 @@
       <h2>The definition that matters</h2>
       <p><strong>Multimodal data labeling is the labeling of two or more data types in one workflow, with consistency across formats as the defining requirement, not just format support.</strong></p>
       <p>That distinction carries the whole subject. A platform that accepts images, video, audio, and text is not multimodal if each is annotated in a separate project with its own taxonomy, its own reviewers, and its own quality process. It is four unimodal platforms sharing a login.</p>
-      <p>In a unimodal project, you label images or transcribe audio independently. In a multimodal project, labels must agree with each other — a bounding box in a camera frame has to correspond to the same object identified in a synchronised sensor stream at the same moment.</p>
+      <p>In a unimodal project, you label images or transcribe audio independently. In a multimodal project, labels must agree with each other — a bounding box in a camera frame has to correspond to the same object identified in a synchronized sensor stream at the same moment.</p>
 
       <h2>Why the obvious approach fails</h2>
       <p><strong>Running separate single-modal projects and merging outputs afterward is the most common mistake machine learning teams make.</strong> It produces multimodal datasets where labels are individually correct but broken across formats.</p>
@@ -187,17 +187,17 @@
 
       <h2>Where automation helps, and where it stops</h2>
       <p>Model-assisted labeling is standard across the category. Segment Anything for vision tasks, CLIP-style models for image-text alignment, and open multimodal LLMs are all used to accelerate pre-labeling.</p>
-      <p>Automation handles the centre of each distribution well: identifying common objects, transcribing clear speech, classifying unambiguous text. It handles two things poorly.</p>
+      <p>Automation handles the center of each distribution well: identifying common objects, transcribing clear speech, classifying unambiguous text. It handles two things poorly.</p>
       <p><strong>Cross-modal correspondence.</strong> A vision model segments the image. A speech model transcribes the audio. Neither is asked whether the two describe the same event, and neither can answer.</p>
       <p><strong>Modality boundaries under ambiguity.</strong> When a speaker refers to something off-screen, or an object leaves frame mid-utterance, the correct annotation requires understanding both streams simultaneously. This is precisely where automation produces confident, incorrect output.</p>
-      <p>The result is a division of labour that should be designed rather than defaulted into: automation takes the routine and scalable portion, humans control detail, correction, and context where automation loses it.</p>
+      <p>The result is a division of labor that should be designed rather than defaulted into: automation takes the routine and scalable portion, humans control detail, correction, and context where automation loses it.</p>
 
       <h2>How Concave AI approaches this</h2>
       <p>Datalier runs all four modalities through one pipeline, one taxonomy, and one quality system — with modality-appropriate engines behind a shared interface.</p>
-      <p><strong>Twenty-four annotation types across four modalities, one workflow.</strong> Text (6): preference ranking, named entity recognition, classification, summarisation, extractive question answering, relation extraction. Image (7): classification, object detection, instance segmentation, semantic segmentation, keypoint estimation, captioning, OCR. Video (5): classification, object tracking, temporal segmentation, frame annotation, pose tracking. Audio (6): transcription, speaker diarisation, sound event detection, classification, emotion detection, segmentation.</p>
+      <p><strong>Twenty-four annotation types across four modalities, one workflow.</strong> Text (6): preference ranking, named entity recognition, classification, summarization, extractive question answering, relation extraction. Image (7): classification, object detection, instance segmentation, semantic segmentation, keypoint estimation, captioning, OCR. Video (5): classification, object tracking, temporal segmentation, frame annotation, pose tracking. Audio (6): transcription, speaker diarization, sound event detection, classification, emotion detection, segmentation.</p>
       <p><strong>Engines matched to task, not one model for everything.</strong> GPT-4o and GPT-4o-mini for text. GPT-4o Vision for image identification with SAM2 for pixel-level segmentation. SAM2 video propagation for object tracking across frames, which addresses temporal consistency at the architectural level rather than as post-processing. MediaPipe for pose, face mesh, and hand landmarks. Whisper for transcription with word-level timestamps, feeding GPT-4o for downstream audio analysis.</p>
       <p><strong>A single label taxonomy across modalities.</strong> Categories are defined once at the dataset level and applied across every annotation type running against that data — the mechanism that prevents ontology drift, rather than a guideline asking annotators to avoid it.</p>
-      <p><strong>Unified confidence routing.</strong> Every item in every modality receives a numeric confidence and is routed against a configurable threshold. Automation rate, human review rate, and correction rate are reported per modality, so the boundary between automation and human judgement is visible and tunable rather than fixed.</p>
+      <p><strong>Unified confidence routing.</strong> Every item in every modality receives a numeric confidence and is routed against a configurable threshold. Automation rate, human review rate, and correction rate are reported per modality, so the boundary between automation and human judgment is visible and tunable rather than fixed.</p>
       <p><strong>One review interface.</strong> Low-confidence items across all modalities enter the same keyboard-driven annotation stream, where the AI suggestion is pre-loaded and the reviewer accepts, corrects, or rejects — typically three to five seconds per item. The same error taxonomy applies across modalities.</p>
       <p><strong>Quality measured across the whole dataset.</strong> Verified agreement, gold-standard accuracy, calibration error, class distribution, and coverage are computed for the dataset as a whole, not per modality project — which is what makes cross-modal consistency measurable.</p>
       <p><strong>Export in each modality's native training format.</strong> COCO JSON and YOLO for vision, DPO JSONL and CoNLL and SQuAD for text, MOT CSV for tracking, SRT and RTTM for audio. Data files, manifest, and lineage report ship together.</p>
@@ -281,6 +281,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

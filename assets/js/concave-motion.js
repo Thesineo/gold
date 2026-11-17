@@ -1311,7 +1311,7 @@
   }
 
   /* Hero photo wall: the real-world use-case photos (and the five 3D & LiDAR use cases, drawn as point-cloud art) drift slowly across the hero in five tilted rows (alternate rows run in
-     opposite directions, each at its own slow speed), like a wall seen in perspective. A soft clearing in the centre (a CSS
+     opposite directions, each at its own slow speed), like a wall seen in perspective. A soft clearing in the center (a CSS
      mask) keeps the headline, subtitle and buttons clean, while the photos around the edges show at full brightness. All the
      motion is a CSS transform loop, so it is smooth and cheap; this function only builds the rows. */
   function initHeroMosaic() {

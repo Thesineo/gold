@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/drift.jpeg">
 <meta name="description" content="A practical guide to drift detection methods, thresholds, and the far harder question of what happens after the alert fires.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -146,13 +146,13 @@
     <article class="blog-body" data-reveal>
       <h2>What drift actually is</h2>
       <p>Data drift is a change in the statistical properties of the input a model receives, relative to the data it was trained on. The model is unchanged. The world has moved.</p>
-      <p>It matters because models are interpolators. Within the distribution they were trained on, they perform as evaluated. Outside it, behaviour is unconstrained — and, critically, confidence does not reliably fall when it should.</p>
+      <p>It matters because models are interpolators. Within the distribution they were trained on, they perform as evaluated. Outside it, behavior is unconstrained — and, critically, confidence does not reliably fall when it should.</p>
       <p>Roughly 91% of ML models degrade over time, and drift is the primary mechanism.</p>
 
       <h2>Three types, three different responses</h2>
       <p>Conflating these leads to the wrong remediation, which is worse than none because it consumes a retraining cycle and fixes nothing.</p>
-      <p><strong>Data drift</strong> — the input distribution changed. New product lines, new geographies, seasonal variation, new sensors, changed user behaviour. The model may still perform adequately if it generalises well; data drift is a leading indicator, not a verdict.</p>
-      <p><strong>Concept drift</strong> — the relationship between input and correct output changed. The input distribution may be identical, but what counts as the right answer has moved. What was classified as fraud two years ago may be normal behaviour now. This is the most consequential type and the hardest to detect, because it requires ground truth.</p>
+      <p><strong>Data drift</strong> — the input distribution changed. New product lines, new geographies, seasonal variation, new sensors, changed user behavior. The model may still perform adequately if it generalizes well; data drift is a leading indicator, not a verdict.</p>
+      <p><strong>Concept drift</strong> — the relationship between input and correct output changed. The input distribution may be identical, but what counts as the right answer has moved. What was classified as fraud two years ago may be normal behavior now. This is the most consequential type and the hardest to detect, because it requires ground truth.</p>
       <p><strong>Prediction drift</strong> — the model's output distribution changed. If a classifier historically predicted a class 12% of the time and now predicts it 31%, something has shifted even if accuracy has not visibly fallen. Requires no labels, and frequently precedes measurable accuracy loss.</p>
 
       <h2>The detection methods, and when each applies</h2>
@@ -172,7 +172,7 @@
 
       <h2>Aggregate drift hides the failure that matters</h2>
       <p>A single drift score across a dataset is nearly as misleading as a single accuracy number.</p>
-      <p>Drift is usually concentrated. One feature shifted sharply while twenty stayed stable. One category tripled in volume while the rest held. Averaged across the dataset, a serious localised shift disappears into an unremarkable number.</p>
+      <p>Drift is usually concentrated. One feature shifted sharply while twenty stayed stable. One category tripled in volume while the rest held. Averaged across the dataset, a serious localized shift disappears into an unremarkable number.</p>
       <p>Two decompositions are essential: per-feature drift, so the specific input that moved is identifiable rather than inferred, and per-slice performance, so the segment where accuracy actually fell is visible. A model at 94% aggregate can be at 61% on a category representing 4% of volume — and that category is usually the rare, high-consequence one.</p>
       <p>Without both, the alert tells you something changed but not what to do about it.</p>
 
@@ -299,6 +299,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

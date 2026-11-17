@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/WhymodernAImodels.jpg">
 <meta name="description" content="AI-ready data is a governed, traceable, continuously verified state — not a one-time cleaning step. Here is what readiness actually requires, and why most enterprise data fails the test.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -133,7 +133,7 @@
       <div class="layer-hero-content" data-reveal="slide-left">
         <span class="blog-hero-category">Data Readiness</span>
         <h1 class="blog-hero-title">Why Modern AI Models Require Data with Complete AI Readiness</h1>
-        <p class="blog-hero-sub">Model architecture is commoditised. Data readiness is not.</p>
+        <p class="blog-hero-sub">Model architecture is commoditized. Data readiness is not.</p>
         <div class="blog-hero-meta">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Aug 10, 2026</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>8 min read</span>
@@ -148,12 +148,12 @@
   <div class="sec-inner">
     <article class="blog-body" data-reveal>
       <h2>The uncomfortable number</h2>
-      <p>Gartner expects that 60% of AI initiatives lacking AI-ready data will be scrapped. A 2026 Cloudera study found that only 7% of enterprises reported having data that was entirely AI-ready. In the same body of research, 73% of organisations struggle with AI data preparation, and 63% either do not have or are unsure whether they have the right data management practices for AI.</p>
-      <p>These are not adoption statistics. They are failure statistics, and they describe a single root cause: organisations are attempting to train and deploy models on data that was never prepared for the job.</p>
+      <p>Gartner expects that 60% of AI initiatives lacking AI-ready data will be scrapped. A 2026 Cloudera study found that only 7% of enterprises reported having data that was entirely AI-ready. In the same body of research, 73% of organizations struggle with AI data preparation, and 63% either do not have or are unsure whether they have the right data management practices for AI.</p>
+      <p>These are not adoption statistics. They are failure statistics, and they describe a single root cause: organizations are attempting to train and deploy models on data that was never prepared for the job.</p>
       <p>The instinct is to treat this as a data cleaning problem. It is not. Cleaning is one operation inside a much larger requirement.</p>
 
       <h2>What "AI-ready" actually means</h2>
-      <p>Traditional data management optimises for consolidation and storage — get everything into one place, keep it queryable, control access. That was sufficient when the consumer of data was a human analyst writing a query.</p>
+      <p>Traditional data management optimizes for consolidation and storage — get everything into one place, keep it queryable, control access. That was sufficient when the consumer of data was a human analyst writing a query.</p>
       <p>It is not sufficient when the consumer is a model. AI-ready data requires a governed, accessible, and context-rich ecosystem with visible provenance, continuously verified quality, and computational features available for data science.</p>
       <p>Six properties define the state. All six must hold simultaneously; failing any one of them makes the rest academic.</p>
     </article>
@@ -204,7 +204,7 @@
 
       <h2>Readiness is a pipeline property, not a dataset property</h2>
       <p>The most common architectural mistake is treating readiness as a checkpoint — a cleaning script that runs once before training and is never revisited.</p>
-      <p>Consider what actually happens to a training dataset over its life: it is ingested from one or more sources with differing schemas, cleaned, deduplicated, and validated, labeled partly by automation and partly by humans with disagreement between them, frozen for a training run. The model deploys. Production input drifts. The model degrades. New data is collected. The dataset is amended. A second training run occurs on a dataset that is materially different from the first — and in most organisations, nobody can state precisely how it differs.</p>
+      <p>Consider what actually happens to a training dataset over its life: it is ingested from one or more sources with differing schemas, cleaned, deduplicated, and validated, labeled partly by automation and partly by humans with disagreement between them, frozen for a training run. The model deploys. Production input drifts. The model degrades. New data is collected. The dataset is amended. A second training run occurs on a dataset that is materially different from the first — and in most organizations, nobody can state precisely how it differs.</p>
       <p>Each of these steps changes readiness state. If readiness is measured only once, at the start, the measurement is meaningless by the third iteration. This is why the six properties above must be enforced continuously and measured at every version, rather than asserted at the beginning.</p>
 
       <h2>The measurement problem</h2>
@@ -221,7 +221,7 @@
 
       <h2>How Concave AI approaches this</h2>
       <p>Datalier treats readiness as a measured, versioned property of every dataset, enforced across five layers.</p>
-      <p><strong>Transform</strong> runs validation, deduplication, PII detection, and schema normalisation. Every operation reports rows before, rows after, and rows affected. Nothing is silently discarded. A composite quality score is computed and travels with the dataset.</p>
+      <p><strong>Transform</strong> runs validation, deduplication, PII detection, and schema normalization. Every operation reports rows before, rows after, and rows affected. Nothing is silently discarded. A composite quality score is computed and travels with the dataset.</p>
       <p><strong>Label</strong> applies AI annotation with confidence-based routing across dozens of annotation types spanning text, image, video, and audio. Items above the configured confidence threshold are accepted; items below are routed to human review. The platform reports the automation rate, the human review rate, and the correction rate.</p>
       <p><strong>Version</strong> freezes datasets into immutable, hash-verified snapshots. Each version carries a readiness score computed from verified agreement rate, gold standard accuracy, confidence calibration error, class balance, and edge-case coverage, with a clear verdict: ready, review recommended, or not ready. Versions failing the quality gate are blocked from export.</p>
       <p><strong>Observe</strong> monitors deployed models, detects distribution shift, and identifies which slices are degrading — turning freshness from an assumption into a measurement.</p>
@@ -229,7 +229,7 @@
       <p>The result is that the six questions above have answers, generated automatically, for every version of every dataset. Readiness stops being a claim and becomes a number.</p>
 
       <h2>Conclusion</h2>
-      <p>The failure statistics that opened this piece are not a sign that AI is overhyped. They are a sign that most organisations are still treating data readiness as a step instead of a property, measured once instead of continuously. Architecture is no longer where the advantage lives — the teams that ship reliable models in production are the ones who can prove, at every version, that their data was actually ready for the job.</p>
+      <p>The failure statistics that opened this piece are not a sign that AI is overhyped. They are a sign that most organizations are still treating data readiness as a step instead of a property, measured once instead of continuously. Architecture is no longer where the advantage lives — the teams that ship reliable models in production are the ones who can prove, at every version, that their data was actually ready for the job.</p>
     </article>
   </div>
 </section>
@@ -305,6 +305,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

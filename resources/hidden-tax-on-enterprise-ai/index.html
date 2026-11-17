@@ -17,27 +17,27 @@
 <link rel="canonical" href="https://theconcaveai.com/resources/hidden-tax-on-enterprise-ai">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Hidden Data Tax on Enterprise AI">
-<meta property="og:description" content="80% of AI engineering time goes to data preparation, not modelling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.">
+<meta property="og:description" content="80% of AI engineering time goes to data preparation, not modeling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.">
 <meta property="og:image" content="https://theconcaveai.com/imgbgm/datatax.jpg">
 <meta property="og:url" content="https://theconcaveai.com/resources/hidden-tax-on-enterprise-ai">
 <meta property="article:published_time" content="2026-08-18">
 <meta property="article:author" content="Aniket Nerali">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Hidden Data Tax on Enterprise AI">
-<meta name="twitter:description" content="80% of AI engineering time goes to data preparation, not modelling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.">
+<meta name="twitter:description" content="80% of AI engineering time goes to data preparation, not modeling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.">
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/datatax.jpg">
-<meta name="description" content="80% of AI engineering time goes to data preparation, not modelling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.">
+<meta name="description" content="80% of AI engineering time goes to data preparation, not modeling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "The Hidden Data Tax on Enterprise AI",
-  "description": "80% of AI engineering time goes to data preparation, not modelling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.",
+  "description": "80% of AI engineering time goes to data preparation, not modeling. The cost is measurable, compounding, and almost entirely invisible on the balance sheet.",
   "image": "https://theconcaveai.com/imgbgm/datatax.jpg",
   "datePublished": "2026-08-18",
   "dateModified": "2026-08-18",
@@ -65,7 +65,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -166,7 +166,7 @@
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg></div>
           <div class="recipe-card-title">Manual quality inspection</div>
-          <div class="recipe-card-body">Someone opens a spreadsheet and eyeballs a few hundred rows to decide whether a dataset is good enough to train on — the state of the art at a surprising number of well-funded organisations.</div>
+          <div class="recipe-card-body">Someone opens a spreadsheet and eyeballs a few hundred rows to decide whether a dataset is good enough to train on — the state of the art at a surprising number of well-funded organizations.</div>
         </div>
       </div>
     </div>
@@ -183,7 +183,7 @@
       <p>This is why the question how was this model trained is so consistently difficult to answer. The information was never lost through carelessness. It was never captured, because nothing in the chain was responsible for capturing it.</p>
 
       <h2>The cost is measured, and it is large</h2>
-      <p>Gartner estimates that poor data quality costs organisations an average of <strong>$12.9 to $15 million annually</strong>. IBM's Institute for Business Value found that <strong>43% of chief operations officers</strong> name data quality as their most significant data priority, with more than a quarter of organisations losing over $5 million a year and 7% reporting losses above $25 million.</p>
+      <p>Gartner estimates that poor data quality costs organizations an average of <strong>$12.9 to $15 million annually</strong>. IBM's Institute for Business Value found that <strong>43% of chief operations officers</strong> name data quality as their most significant data priority, with more than a quarter of organizations losing over $5 million a year and 7% reporting losses above $25 million.</p>
       <p>For AI specifically the failure rate is stark. Gartner has found that <strong>at least 30% of generative AI projects are abandoned after proof of concept</strong>, with poor data quality among the leading causes. Cloudera's 2026 research found that only <strong>7% of enterprises</strong> consider their data entirely AI-ready, while <strong>73% struggle with AI data preparation</strong>.</p>
       <p>And the reason it stays invisible: <strong>roughly 59% of enterprises do not measure data quality at all.</strong> The cost is real, ongoing, and unbudgeted, because no line item exists for it.</p>
 
@@ -203,9 +203,9 @@
       <h2>How Concave AI approaches this</h2>
       <p>Datalier replaces the chain with a single pipeline. Six layers, one system, no handoffs.</p>
       <p><strong>Ingest.</strong> Connect object storage, data warehouses, and databases — S3, GCS, Azure Blob, Hugging Face Hub, PostgreSQL, Snowflake — or upload directly. Source provenance is recorded on entry and persists through every downstream operation.</p>
-      <p><strong>Transform.</strong> Validation, deduplication, PII detection, and schema normalisation run automatically, each reporting rows before, rows after, and rows affected. Nothing is silently dropped. A composite quality score travels with the dataset.</p>
+      <p><strong>Transform.</strong> Validation, deduplication, PII detection, and schema normalization run automatically, each reporting rows before, rows after, and rows affected. Nothing is silently dropped. A composite quality score travels with the dataset.</p>
       <p><strong>Label.</strong> AI annotation across dozens of types spanning text, image, video, and audio, with confidence-based routing. Items above the threshold are accepted; the rest enter a keyboard-driven review stream at three to five seconds per item. Automation rate, review rate, and correction rate are reported, not estimated.</p>
-      <p><strong>Version.</strong> Immutable, hash-verified snapshots with semantic numbering. Every version carries a quality score, a readiness verdict, and an auto-generated lineage report covering source, transformations, labelling history, and export evidence.</p>
+      <p><strong>Version.</strong> Immutable, hash-verified snapshots with semantic numbering. Every version carries a quality score, a readiness verdict, and an auto-generated lineage report covering source, transformations, labeling history, and export evidence.</p>
       <p><strong>Observe.</strong> Production predictions flow back in. Drift is detected across three types, performance is decomposed by slice, and failing segments are identified automatically.</p>
       <p><strong>Govern.</strong> Provenance, audit trail, access control, and integrity verification are produced as a by-product of the operations themselves — not as a separate documentation exercise that can be skipped.</p>
       <p>The 80% does not disappear because engineers work faster. It shrinks because the work between the tools stops existing.</p>
@@ -289,6 +289,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

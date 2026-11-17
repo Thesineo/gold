@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/observvaability.jpg">
 <meta name="description" content="91% of ML models degrade in production, and the root cause is almost always data. Here is what observability must measure, and why detection alone does not fix anything.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -145,7 +145,7 @@
   <div class="sec-inner">
     <article class="blog-body" data-reveal>
       <h2>The failure is universal</h2>
-      <p>Roughly 91% of machine learning models degrade over time. This is not a defect rate — it is the expected behaviour of a static function applied to a non-static world.</p>
+      <p>Roughly 91% of machine learning models degrade over time. This is not a defect rate — it is the expected behavior of a static function applied to a non-static world.</p>
       <p>The root cause is almost always a data mismatch. The model has not changed. The data flowing into it has.</p>
       <p>What makes this expensive is not the degradation itself but the diagnostic gap that follows it. Data science teams spend excessive time manually investigating performance degradation rather than systematically addressing root causes. The typical sequence is: a metric falls, someone notices, someone else is asked to investigate, and three weeks later the answer is a subset of training data that was mislabeled or unrepresentative.</p>
       <p>Observability exists to close that gap. Most implementations only close half of it.</p>
@@ -153,7 +153,7 @@
       <h2>Monitoring versus observability</h2>
       <p>The distinction is not semantic.</p>
       <p><strong>Monitoring</strong> answers: is the system behaving within expected bounds? It tracks known metrics against known thresholds and alerts when they are breached. Latency, throughput, error rate, aggregate accuracy.</p>
-      <p><strong>Observability</strong> answers: given unexpected behaviour, can I determine why? It requires enough instrumented context to interrogate a failure that nobody anticipated.</p>
+      <p><strong>Observability</strong> answers: given unexpected behavior, can I determine why? It requires enough instrumented context to interrogate a failure that nobody anticipated.</p>
       <p>Applied to models, monitoring tells you accuracy fell from 94% to 87%. Observability tells you the fall is concentrated in a specific input segment, that the segment's share of production traffic tripled in the last month, and that the corresponding region of the training distribution was thinly covered.</p>
       <p>The second is actionable. The first is an alarm.</p>
 
@@ -166,7 +166,7 @@
         <div class="recipe-card" data-reveal="zoom">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></div>
           <div class="recipe-card-title">Data drift</div>
-          <div class="recipe-card-body">A change in the input distribution — the model sees input it was not trained on. Measured per feature via PSI, bucket by bucket. A leading indicator, not a verdict: the model may still generalise well.</div>
+          <div class="recipe-card-body">A change in the input distribution — the model sees input it was not trained on. Measured per feature via PSI, bucket by bucket. A leading indicator, not a verdict: the model may still generalize well.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></div>
@@ -194,7 +194,7 @@
       <h2>Detection without remediation is an incomplete loop</h2>
       <p>This is where most observability tooling stops.</p>
       <p>The typical stack detects drift, raises an alert, and displays a chart. What follows is manual: someone exports predictions, investigates by hand, forms a hypothesis about which training data is responsible, assembles a corrective dataset, arranges for it to be labeled, and eventually retrains.</p>
-      <p>That sequence takes weeks and is entirely undocumented. It is also disconnected — machine learning production issues often stem from organisational disconnects between data science teams building models and engineering teams maintaining production systems, where data scientists lack visibility into production data characteristics.</p>
+      <p>That sequence takes weeks and is entirely undocumented. It is also disconnected — machine learning production issues often stem from organizational disconnects between data science teams building models and engineering teams maintaining production systems, where data scientists lack visibility into production data characteristics.</p>
       <p>Retraining without diagnosis compounds the problem. Retraining on more of the same distribution that caused the failure does not fix the failure; it entrenches it.</p>
       <p>The loop is only closed when a drift signal can be traced to specific training records, those records can be corrected, and the correction can be versioned and returned to training as a documented change.</p>
 
@@ -205,7 +205,7 @@
         <li><strong>Three-way drift computation.</strong> Data, concept, and prediction drift, computed independently on a regular cadence.</li>
         <li><strong>Slice decomposition.</strong> Performance by class, segment, and metadata dimension, with health thresholds per slice.</li>
         <li><strong>Confidence calibration in production.</strong> Whether stated confidence still corresponds to observed accuracy, which frequently degrades before accuracy does.</li>
-        <li><strong>Traceability to training data.</strong> The ability to move from a failing production slice to the specific training records that shaped that slice's behaviour.</li>
+        <li><strong>Traceability to training data.</strong> The ability to move from a failing production slice to the specific training records that shaped that slice's behavior.</li>
         <li><strong>A remediation path.</strong> A mechanism to correct those records and return them to training.</li>
       </ul>
       <p>The last two are what separate an observability product from an observability feature.</p>
@@ -296,6 +296,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

@@ -14,9 +14,9 @@
      disagree. Desktop only (≥900px) — below that, a plain stacked list
      (.layer-mobile) is shown instead; see the CSS media query. */
   var LAYER_SLIDES = [
-    { intro: true, badge: '', tagline: '', heading: 'Run your entire data lifecycle in one place.', desc: 'Most teams stitch together fragmented toolchains and call it a Data Ops stack. Datalier gives you a unified data infrastrucutre foundation transforming raw data into AI ready data for Model training built to work cohesively from day one.', href: '/platform', linkText: '', node: -1 },
-    { intro: false, badge: 'Layer 1 of 5', tagline: 'Clean. Validate. Prepare.', heading: 'Transform', desc: 'Remove duplicates, detect personally identifiable information (PII), validate field integrity, normalise LLM schema score data quality and many more, before any labeling begins.', href: '/platform/transform', linkText: 'Explore Transform →', node: 0 },
-    { intro: false, badge: 'Layer 2 of 5', tagline: 'Annotate. Verify. Certify.', heading: 'Label', desc: 'A multi-engine orchestration layer that routes each data point to the appropriate AI Engine. Labels are backed by confidences and those below the threesold go to reviews before pushing it into next layer. Enriched with automation and focused on quality across all five data modalities.', href: '/platform/label', linkText: 'Explore Label →', node: 1 },
+    { intro: true, badge: '', tagline: '', heading: 'Run your entire data lifecycle in one place.', desc: 'Most teams stitch together fragmented toolchains and call it a Data Ops stack. Datalier gives you a unified data infrastructure foundation transforming raw data into AI ready data for Model training built to work cohesively from day one.', href: '/platform', linkText: '', node: -1 },
+    { intro: false, badge: 'Layer 1 of 5', tagline: 'Clean. Validate. Prepare.', heading: 'Transform', desc: 'Remove duplicates, detect personally identifiable information (PII), validate field integrity, normalize LLM schema score data quality and many more, before any labeling begins.', href: '/platform/transform', linkText: 'Explore Transform →', node: 0 },
+    { intro: false, badge: 'Layer 2 of 5', tagline: 'Annotate. Verify. Certify.', heading: 'Label', desc: 'A multi-engine orchestration layer that routes each data point to the appropriate AI Engine. Labels are backed by confidences and those below the threshold go to reviews before pushing it into next layer. Enriched with automation and focused on quality across all five data modalities.', href: '/platform/label', linkText: 'Explore Label →', node: 1 },
     { intro: false, badge: 'Layer 3 of 5', tagline: 'Snapshot. Trace. Export.', heading: 'Version', desc: 'Every processed AI-ready dataset is frozen into an immutable, hash-verified snapshot, with a full lineage for traceability and get AI-ready data exported in relevant form.', href: '/platform/version', linkText: 'Explore Version →', node: 2 },
     { intro: false, badge: 'Layer 4 of 5', tagline: 'Monitor. Detect. Correct.', heading: 'Observe', desc: 'Get Models registered, to pull prediction logs from deployed models back into the platform. Detect drifts to identify when and where performance is degrading, and route rectified data back through labeling pipeline back into the model training enhancing accuracy.', href: '/platform/observe', linkText: 'Explore Observe →', node: 3 },
     { intro: false, badge: 'Layer 5 of 5', tagline: 'Control. Audit. Comply.', heading: 'Govern', desc: 'An immutable audit log, and regulatory tags that travel with the data wherever it moves. Ensuring trust in data binding the focus on reliability and sustainability of AI models.', href: '/platform/govern', linkText: 'Explore Govern →', node: 4 }
@@ -280,11 +280,11 @@
      does that). All bounds verified numerically before shipping — see the
      scratch harness this was built against. */
   var ENGINE_SLIDES = [
-    { intro: true, tagline: 'AI Engine', heading: 'The AI Engines', desc: 'Five specialised modality families routing each item to the right kind of intelligence labelling engine text, vision, video, audio, and 3D / LiDAR, each producing its own labelling confidence score.', tasks: [] },
-    { intro: false, tagline: 'AI Engine', heading: 'Text', desc: 'Advanced NLP understanding optimized for complex labelling tasks performing entity recognition, preference ranking, document summarization, question answering, and relational mapping.', tasks: ['RLHF Preference', 'Named Entity Recognition', 'Classification', 'Summarisation', 'Extractive QA', 'Relation Extraction'] },
+    { intro: true, tagline: 'AI Engine', heading: 'The AI Engines', desc: 'Five specialized modality families routing each item to the right kind of intelligence labeling engine text, vision, video, audio, and 3D / LiDAR, each producing its own labeling confidence score.', tasks: [] },
+    { intro: false, tagline: 'AI Engine', heading: 'Text', desc: 'Advanced NLP understanding optimized for complex labeling tasks performing entity recognition, preference ranking, document summarization, question answering, and relational mapping.', tasks: ['RLHF Preference', 'Named Entity Recognition', 'Classification', 'Summarization', 'Extractive QA', 'Relation Extraction'] },
     { intro: false, tagline: 'AI Engine', heading: 'Image / Vision', desc: 'Spatial object detection and multi-class recognition paired with pixel-exact segmentation masks, followed by high-density landmark mapping, along with isolating facial, structural, and anatomical pose features with geometric precision.', tasks: ['Classification', 'Object Detection', 'Instance Segmentation', 'Semantic Segmentation', 'Keypoint Estimation', 'Image Captioning', 'OCR'] },
     { intro: false, tagline: 'AI Engine', heading: 'Video', desc: 'High-resolution frame extraction combined with motion tracking and temporal segmentation with pixel-level instance masks are persistently tracked across consecutive frames to maintain complete target continuity.', tasks: ['Classification', 'Object Tracking', 'Instance Segmentation', 'Temporal Segmentation', 'Per-Frame Annotation', 'Pose Tracking'] },
-    { intro: false, tagline: 'AI Engine', heading: 'Audio', desc: 'Precise, word-level speech transcription with exact timestamps along with advanced acoustic analysis decoding speaker diarization, emotional registery, dynamic tones, and subtle background event sounds.', tasks: ['Transcription', 'Speaker Diarisation', 'Sound Event Detection', 'Classification', 'Emotion Detection', 'Audio Segmentation'] },
+    { intro: false, tagline: 'AI Engine', heading: 'Audio', desc: 'Precise, word-level speech transcription with exact timestamps along with advanced acoustic analysis decoding speaker diarization, emotional registry, dynamic tones, and subtle background event sounds.', tasks: ['Transcription', 'Speaker Diarization', 'Sound Event Detection', 'Classification', 'Emotion Detection', 'Audio Segmentation'] },
     { intro: false, tagline: 'AI Engine', heading: '3D & LiDAR', desc: 'Point-cloud native spatial understanding combining volumetric object detection with persistent multi-frame tracking, dense semantic segmentation, cross-sensor fusion, and scan-to-scan registration for consistent world-frame alignment.', tasks: ['3D Object Detection', '3D Object Tracking', 'Segmentation', 'Sensor Fusion', 'Scan Registration'] }
   ];
 
@@ -968,7 +968,7 @@
      connected nodes (an abstract "AI brain" / neural network), standing
      in for an actual anatomical brain which would read as crude at this
      scale. Points are a Fibonacci sphere (even spacing, no lat/lon
-     pinching at the poles); each connects to its few nearest neighbours,
+     pinching at the poles); each connects to its few nearest neighbors,
      giving the mesh look without an O(n²) line count. Same project/
      depth-alpha language as the other wireframes on this page. */
   function initNeuralSphere(canvas) {
@@ -2720,7 +2720,7 @@
          between each stage's target position, so the reel visibly flows
          rather than jumping), plus a per-group opacity fade keyed off
          distance from the current progress so the active stage's images
-         stay full-strength while neighbouring stages fade like they're
+         stay full-strength while neighboring stages fade like they're
          peeking in/out of frame.
      Desktop only (≥900px) — .ov-mobile below is the stacked-list
      fallback, same convention as .layer-mobile. */
@@ -2809,11 +2809,11 @@
      A single square splits into three tilted planes stacked vertically, the planes stand up into
      three squares in a column, the squares round into three circles that slide into a Venn (the
      triple overlap lights up), the circles shrink to three nodes on a ring and are joined by three
-     coloured arcs with arrows (the closed loop), the nodes then rise into three columns that carry a
+     colored arcs with arrows (the closed loop), the nodes then rise into three columns that carry a
      roof and stand on a base (three pillars holding one structure), and everything folds back into the
      one square. Every shape is one pillar (Fabric / Remediation / Governance). Outlines are
      superellipses (rounded square to circle) run through a small rotate-X + perspective projection,
-     so every change is a smooth morph. Hovering a heading on the left emphasises its pillar;
+     so every change is a smooth morph. Hovering a heading on the left emphasizes its pillar;
      otherwise the emphasis cycles. ── */
   var OV_KF = (function () {
     var K0 = { th: 0, hw: [1, 0.94, 0.88], hh: [1, 0.94, 0.88], n: [9, 9, 9], ox: [0, 0, 0], oy: [0, 0.045, 0.09], chip: [1, 0, 0], lab: 0, trd: 0, ix: 0, rg: 0, tp: 0 };
@@ -2982,7 +2982,7 @@
   /* ── Wireframe cards (Label page, "Annotation Capabilities"): each card carries a real 3D wireframe
      model that turns on its own turntable instead of the old pixel-dot icons. Models are built from
      plain line segments (edges), drawn with depth fading; "accent" edges (the part the card is about)
-     are brighter. Satellite, tractor and wind turbine are modelled part by part; the others are a ranked
+     are brighter. Satellite, tractor and wind turbine are modeled part by part; the others are a ranked
      bar chart, a document with a margin note, and two overlapping 3D boxes with a warning sign. ── */
   var WF_BUILD = (function () {
     function kit() {

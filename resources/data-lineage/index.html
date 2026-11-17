@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/lineage.jpg">
 <meta name="description" content="Data lineage for AI is not a compliance artifact. It is the mechanism that makes training runs reproducible and model failures diagnosable.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -124,12 +124,12 @@
 <section class="layer-hero video-bg">
   <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
   <div class="layer-hero-card blog-cover">
-    <div class="bg-media"><img src="/imgbgm/lineage.jpg" alt="Why Data Lineage is Neccessary?"></div>
+    <div class="bg-media"><img src="/imgbgm/lineage.jpg" alt="Why Data Lineage is Necessary?"></div>
     <div class="hero-overlay"></div>
     <div class="sec-inner layer-hero-inner single-col">
       <div class="layer-hero-content" data-reveal="slide-left">
         <span class="blog-hero-category">Lineage &amp; Governance</span>
-        <h1 class="blog-hero-title">Why Data Lineage is Neccessary?</h1>
+        <h1 class="blog-hero-title">Why Data Lineage is Necessary?</h1>
         <p class="blog-hero-sub">Reproducibility, diagnosis, and accountability all reduce to the same question: what produced this dataset?</p>
         <div class="blog-hero-meta">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Jul 20, 2026</span>
@@ -146,7 +146,7 @@
     <article class="blog-body" data-reveal>
       <h2>The question nobody can answer</h2>
       <p>At some point after a model reaches production, someone asks a version of this question: how was this model trained? What data was used? What quality checks were applied? Can you reproduce the training run?</p>
-      <p>The asker may be an auditor, a customer's procurement team, an internal risk function, a regulator, or an engineer trying to diagnose a failure. The question is the same, and in most organisations the answer is assembled retroactively from a combination of memory, Slack history, and a notebook someone still has.</p>
+      <p>The asker may be an auditor, a customer's procurement team, an internal risk function, a regulator, or an engineer trying to diagnose a failure. The question is the same, and in most organizations the answer is assembled retroactively from a combination of memory, Slack history, and a notebook someone still has.</p>
       <p>This is not a documentation problem. It is a structural one. The information required to answer the question is generated during the pipeline's operation and then discarded, because nothing was designed to capture it.</p>
 
       <h2>Lineage for AI is not lineage for analytics</h2>
@@ -155,7 +155,7 @@
       <p>A complete lineage record for a training dataset must include:</p>
       <ul>
         <li><strong>Source provenance.</strong> Which storage backend, which file or query, which time window, and who initiated the import. Multi-source datasets need this per source, with the merge logic recorded.</li>
-        <li><strong>Transformation chain.</strong> Every cleaning, validation, deduplication, and normalisation step, in order, with rows affected at each step. A dataset that entered with 50,000 records and exited with 47,300 needs the 2,700 accounted for.</li>
+        <li><strong>Transformation chain.</strong> Every cleaning, validation, deduplication, and normalization step, in order, with rows affected at each step. A dataset that entered with 50,000 records and exited with 47,300 needs the 2,700 accounted for.</li>
         <li><strong>Labeling history.</strong> Which engine, which model version, which confidence threshold, how many items were auto-labeled versus human-reviewed, and what the correction rate was. Annotation guidelines in force at the time.</li>
         <li><strong>Quality measurements.</strong> Verified agreement, gold standard accuracy, calibration error, class distribution, coverage gaps — measured at the time of freezing, not asserted afterwards.</li>
         <li><strong>Version delta.</strong> What differs from the parent version. Rows added, rows removed, labels changed, schema modified, and the stated reason for the change.</li>
@@ -182,7 +182,7 @@
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3.5v5.5c0 4.5-3 7.7-8 9-5-1.3-8-4.5-8-9V6.5z"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div class="recipe-card-title">Accountability</div>
-          <div class="recipe-card-body">Governance functions, customers, and regulators increasingly ask suppliers to demonstrate that training data was sourced legitimately and quality-controlled. Organisations that can produce this on request win contracts others lose.</div>
+          <div class="recipe-card-body">Governance functions, customers, and regulators increasingly ask suppliers to demonstrate that training data was sourced legitimately and quality-controlled. Organizations that can produce this on request win contracts others lose.</div>
         </div>
       </div>
     </div>
@@ -192,7 +192,7 @@
 
       <h2>Why manual lineage does not hold</h2>
       <p>Most attempts at lineage documentation are manual: a spreadsheet, a wiki page, a README in the dataset directory.</p>
-      <p>This fails predictably for three reasons. It is written after the fact, so it records what someone remembers rather than what occurred. It falls out of sync the first time someone makes an undocumented amendment under time pressure. And it scales linearly with dataset count and version frequency, which means it degrades exactly as the organisation's AI programme succeeds.</p>
+      <p>This fails predictably for three reasons. It is written after the fact, so it records what someone remembers rather than what occurred. It falls out of sync the first time someone makes an undocumented amendment under time pressure. And it scales linearly with dataset count and version frequency, which means it degrades exactly as the organization's AI program succeeds.</p>
       <p>Lineage is only reliable when it is a by-product of the operations themselves — generated automatically because the platform performing the operation records it, with no separate documentation step that can be skipped.</p>
 
       <h2>How Concave AI approaches this</h2>
@@ -282,6 +282,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

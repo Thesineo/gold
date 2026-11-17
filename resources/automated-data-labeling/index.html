@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/img-segment-street-runner.png">
 <meta name="description" content="Automated labeling is now standard. The differentiator is what happens to the uncertain cases — and whether the confidence scores driving that decision can be trusted.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -148,7 +148,7 @@
       <p>Automated data labeling uses a model to produce annotations that a human would otherwise create by hand. In its current form it operates in three modes.</p>
       <p><strong>Pre-labeling.</strong> A model generates a proposed annotation for every item. Humans review and correct rather than annotate from scratch. This is the highest-leverage mode, because correcting a proposed bounding box takes a fraction of the time required to draw one.</p>
       <p><strong>Confidence-based routing.</strong> The model produces both an annotation and a confidence score. Items above a threshold are accepted without review. Items below are routed to a human. This is where the economics of the pipeline are decided.</p>
-      <p><strong>Active learning.</strong> The model identifies which unlabeled items would be most informative to label next, prioritising uncertainty over volume. Useful for allocating a fixed annotation budget efficiently.</p>
+      <p><strong>Active learning.</strong> The model identifies which unlabeled items would be most informative to label next, prioritizing uncertainty over volume. Useful for allocating a fixed annotation budget efficiently.</p>
       <p>Model-in-the-loop labeling is table stakes across the category now. Every serious platform offers some form of it. The differentiation is not whether automation exists — it is whether the confidence scores driving the routing decision are trustworthy, and what happens to the items that fall below the line.</p>
 
       <h2>The confidence problem</h2>
@@ -176,10 +176,10 @@
       <p>The correct approach is to elicit a genuine numeric confidence, then measure calibration empirically against a gold standard sample and report the expected calibration error alongside the annotations. If the calibration is poor, the threshold must move — or the confidence must be recalibrated before routing depends on it.</p>
 
       <h2>Where automation reliably fails</h2>
-      <p>Automation handles the centre of the distribution well and the edges poorly. Specifically:</p>
+      <p>Automation handles the center of the distribution well and the edges poorly. Specifically:</p>
       <ul>
         <li><strong>Genuine ambiguity.</strong> Cases where two annotators would reasonably disagree. A model will produce an answer with apparent confidence, but the underlying task has no single correct label. These require human adjudication and an explicit guideline decision, not a model output.</li>
-        <li><strong>Domain-specific convention.</strong> What counts as a defect, a violation, or a positive case is often defined by an internal standard rather than a universal one. A general-purpose model does not know your organisation's threshold for "unacceptable surface scratch."</li>
+        <li><strong>Domain-specific convention.</strong> What counts as a defect, a violation, or a positive case is often defined by an internal standard rather than a universal one. A general-purpose model does not know your organization's threshold for "unacceptable surface scratch."</li>
         <li><strong>Rare classes.</strong> Categories that appear infrequently in the source data are exactly the categories a model has least experience with, and exactly the categories where errors are most consequential.</li>
         <li><strong>Distribution shift.</strong> New product lines, new sites, new lighting conditions, new phrasing. The model has not seen the pattern, and its confidence does not reliably fall when it should.</li>
         <li><strong>Compounding annotations.</strong> In segmentation, tracking, and relation extraction, a single early error propagates. A misidentified object in frame one corrupts the entire track. Human verification at the initiation point is far cheaper than correction downstream.</li>
@@ -290,6 +290,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>

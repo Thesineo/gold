@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/feedbackloop.svg">
 <meta name="description" content="Continuous monitoring and feedback are not maintenance activities. They are the mechanism by which a production model retains the accuracy it launched with.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117c" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117c">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117c">
+<link rel="icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261117d" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261117d">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261117d">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -79,7 +79,7 @@
           <div>
             <div class="nav-dropdown-group-label">Infrastructure Layers</div>
             <a href="/datalier/transform">Data Transformation</a>
-            <a href="/datalier/label">Data Labelling &amp; Review</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
             <a href="/datalier/version">Data Versioning &amp; Lineage</a>
             <a href="/datalier/observe">Data Observability</a>
             <a href="/datalier/govern">Data Governance</a>
@@ -149,21 +149,21 @@
       <h2>The assumption that breaks every deployment</h2>
       <p>Most ML systems are built on an implicit assumption: that the world the model was trained on will continue to resemble the world it is deployed into.</p>
       <p>It will not. Roughly 91% of ML models degrade over time, and the root cause is almost always a data mismatch. The model has not changed. Everything around it has.</p>
-      <p>What makes this expensive is not the decay itself — decay is predictable and manageable. It is that most organisations discover it reactively, weeks after it began, through a business metric rather than a system alert. By the time a revenue number moves, the model has been quietly wrong for a month.</p>
+      <p>What makes this expensive is not the decay itself — decay is predictable and manageable. It is that most organizations discover it reactively, weeks after it began, through a business metric rather than a system alert. By the time a revenue number moves, the model has been quietly wrong for a month.</p>
 
       <h2>Three clocks that fall out of sync</h2>
-      <p>Production ML runs on three clocks that often fall out of sync. User behaviour changes on one clock. Labels arrive on another. Deployment and approval cycles move on a third. When those clocks drift apart, the model starts learning from a world that has already expired.</p>
+      <p>Production ML runs on three clocks that often fall out of sync. User behavior changes on one clock. Labels arrive on another. Deployment and approval cycles move on a third. When those clocks drift apart, the model starts learning from a world that has already expired.</p>
       <p>This framing is more useful than the usual one, because it explains failures that look like drift but are not.</p>
       <p>A team may retrain daily and still serve stale features. A feature pipeline may stay fresh while labels lag long enough to poison feedback loops. An inference service may promote a candidate that passed offline checks but fails on live traffic slices because the request mix changed between evaluation and release.</p>
       <p>Each of those failures looks like model drift on the surface. In practice, each one starts as a coordination failure inside the pipeline.</p>
-      <p>The implication for engineering leaders is direct: <strong>the pipeline is the adaptive asset and the model is one component inside it.</strong> Budget and attention should favour observability, feedback plumbing, and release control before another round of model tuning.</p>
+      <p>The implication for engineering leaders is direct: <strong>the pipeline is the adaptive asset and the model is one component inside it.</strong> Budget and attention should favor observability, feedback plumbing, and release control before another round of model tuning.</p>
 
       <h2>Why periodic checking is not a feedback loop</h2>
       <p>There is a meaningful difference between checking on a model and operating a feedback loop.</p>
       <p>Periodic checking is a scheduled review — someone opens a dashboard monthly, looks at aggregate accuracy, and decides whether to act. It fails for three reasons.</p>
       <p><strong>Aggregate metrics hide slice failures.</strong> A model at 94% overall can be at 61% on a segment representing 4% of volume — usually the rare, high-consequence segment the system exists to catch. Monthly review of a single number will never surface this.</p>
       <p><strong>Detection lags the cause by weeks.</strong> By the time enough labeled outcomes have accumulated to move an accuracy metric, the underlying distribution shift may be two months old and several thousand bad predictions deep.</p>
-      <p><strong>Human review does not scale with model count.</strong> An organisation with five models can review them manually. An organisation with fifty cannot, and manual drift management becomes unsustainable as model inventories grow.</p>
+      <p><strong>Human review does not scale with model count.</strong> An organization with five models can review them manually. An organization with fifty cannot, and manual drift management becomes unsustainable as model inventories grow.</p>
       <p>A continuous feedback loop instead runs as infrastructure: predictions are ingested as they occur, drift is computed on a fixed cadence, slices are decomposed automatically, and thresholds trigger action without waiting for someone to notice.</p>
 
       <h2>Detecting before ground truth arrives</h2>
@@ -234,7 +234,7 @@
       <h2>Conclusion</h2>
       <p>A model in production is not a finished artifact. It is a system operating in an environment that will not hold still, and its accuracy is a function of how quickly the pipeline around it notices and responds.</p>
       <p>Periodic review cannot do this. It detects late, it hides slice failures inside aggregates, and it does not scale past a handful of models. Continuous feedback can — but only if detection is wired to remediation, and remediation is wired back to the training data.</p>
-      <p>The organisations that sustain model accuracy over years are not the ones with better architectures. They are the ones that treated the loop as infrastructure and built it before they needed it.</p>
+      <p>The organizations that sustain model accuracy over years are not the ones with better architectures. They are the ones that treated the loop as infrastructure and built it before they needed it.</p>
     </article>
   </div>
 </section>
@@ -310,6 +310,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117c" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261117d" defer></script>
 </body>
 </html>
