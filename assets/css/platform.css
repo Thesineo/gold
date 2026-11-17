@@ -216,6 +216,10 @@ nav.nav-scrolled{background:rgba(var(--bg-rgb),0.94);box-shadow:0 1px 24px rgba(
    editorial cover, not empty space. */
 .layer-hero-card.blog-cover{min-height:84vh;min-height:84dvh}
 @media(max-width:768px){.layer-hero-card.blog-cover{min-height:64vh;min-height:64dvh}}
+/* image banner cards (Why It Matters etc.): run wider so the side gaps stay small on large screens, up to 1600px */
+.sec-inner:has(>.layer-hero-card){max-width:1600px;padding-left:32px;padding-right:32px}
+.sec-inner:has(>.layer-hero-card)>.layer-hero-card{max-width:none}
+@media(max-width:768px){.sec-inner:has(>.layer-hero-card){padding-left:24px;padding-right:24px}}
 /* Modality pages' "What It Is" intro — same exact card (size, radius,
    min-height) as the platform pages' layer-hero, just centered content
    instead of bottom-anchored, and a flat dark scrim (not the bottom-
