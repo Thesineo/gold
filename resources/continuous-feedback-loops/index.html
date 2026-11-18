@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>Why Feedback Loops and Monitoring Systems Should Run Continuously to Enhance Model Accuracy — Concave AI Blog</title>
+<title>Why Feedback Loops and Monitoring Systems Should Run Continuously to Enhance Model Accuracy | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/continuous-feedback-loops">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/feedbackloop.svg">
 <meta name="description" content="Continuous monitoring and feedback are not maintenance activities. They are the mechanism by which a production model retains the accuracy it launched with.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -121,7 +121,7 @@
   </div>
 </nav>
 
-<!-- Hero — no cover asset yet, dashed placeholder (see /resources/ai-ready-data
+<!-- Hero: no cover asset yet, dashed placeholder (see /resources/ai-ready-data
      for how this looks once .video-bg + a real image is added). -->
 <section class="layer-hero video-bg">
   <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
@@ -149,7 +149,7 @@
       <h2>The assumption that breaks every deployment</h2>
       <p>Most ML systems are built on an implicit assumption: that the world the model was trained on will continue to resemble the world it is deployed into.</p>
       <p>It will not. Roughly 91% of ML models degrade over time, and the root cause is almost always a data mismatch. The model has not changed. Everything around it has.</p>
-      <p>What makes this expensive is not the decay itself — decay is predictable and manageable. It is that most organizations discover it reactively, weeks after it began, through a business metric rather than a system alert. By the time a revenue number moves, the model has been quietly wrong for a month.</p>
+      <p>What makes this expensive is not the decay itself. Decay is predictable and manageable. It is that most organizations discover it reactively, weeks after it began, through a business metric rather than a system alert. By the time a revenue number moves, the model has been quietly wrong for a month.</p>
 
       <h2>Three clocks that fall out of sync</h2>
       <p>Production ML runs on three clocks that often fall out of sync. User behavior changes on one clock. Labels arrive on another. Deployment and approval cycles move on a third. When those clocks drift apart, the model starts learning from a world that has already expired.</p>
@@ -160,8 +160,8 @@
 
       <h2>Why periodic checking is not a feedback loop</h2>
       <p>There is a meaningful difference between checking on a model and operating a feedback loop.</p>
-      <p>Periodic checking is a scheduled review — someone opens a dashboard monthly, looks at aggregate accuracy, and decides whether to act. It fails for three reasons.</p>
-      <p><strong>Aggregate metrics hide slice failures.</strong> A model at 94% overall can be at 61% on a segment representing 4% of volume — usually the rare, high-consequence segment the system exists to catch. Monthly review of a single number will never surface this.</p>
+      <p>Periodic checking is a scheduled review: someone opens a dashboard monthly, looks at aggregate accuracy, and decides whether to act. It fails for three reasons.</p>
+      <p><strong>Aggregate metrics hide slice failures.</strong> A model at 94% overall can be at 61% on a segment representing 4% of volume, usually the rare, high-consequence segment the system exists to catch. Monthly review of a single number will never surface this.</p>
       <p><strong>Detection lags the cause by weeks.</strong> By the time enough labeled outcomes have accumulated to move an accuracy metric, the underlying distribution shift may be two months old and several thousand bad predictions deep.</p>
       <p><strong>Human review does not scale with model count.</strong> An organization with five models can review them manually. An organization with fifty cannot, and manual drift management becomes unsustainable as model inventories grow.</p>
       <p>A continuous feedback loop instead runs as infrastructure: predictions are ingested as they occur, drift is computed on a fixed cadence, slices are decomposed automatically, and thresholds trigger action without waiting for someone to notice.</p>
@@ -170,13 +170,13 @@
       <p>One practical technique deserves specific mention, because it changes the economics of monitoring.</p>
       <p><strong>Do not wait for labeled data to detect model degradation.</strong> Proxy metrics like prediction distribution shift and feature drift can surface problems days or weeks before you have enough labeled feedback to measure accuracy directly.</p>
       <p>In most production settings, ground truth is delayed. A fraud prediction may not be confirmed for thirty days. A defect classification may not be verified until a downstream inspection. If your only degradation signal requires labels, you are structurally blind for the length of your label delay.</p>
-      <p>Input drift and prediction drift require no labels at all. They are computed entirely from what the model receives and what it emits. They are weaker signals — drift without evaluation impact is a false alarm and burns on-call attention — but they are early, and combining them with accuracy once labels arrive gives you both timeliness and confidence.</p>
+      <p>Input drift and prediction drift require no labels at all. They are computed entirely from what the model receives and what it emits. They are weaker signals (drift without evaluation impact is a false alarm and burns on-call attention), but they are early, and combining them with accuracy once labels arrive gives you both timeliness and confidence.</p>
       <p>The correct posture is a tiered response: automate remediation on small drifts, human review for moderate ones, emergency intervention for severe shifts.</p>
 
       <h2>The trap inside feedback loops</h2>
       <p>Feedback loops have a specific failure mode worth naming, because it is subtle and self-reinforcing.</p>
       <p><strong>Feedback loops occur when a model's predictions influence the data it will be trained on in the next cycle.</strong> A recommendation model that only shows popular items will generate training data that reinforces that bias.</p>
-      <p>The same dynamic applies anywhere the model's output shapes what data gets collected or reviewed. If low-confidence predictions are routed for human review and high-confidence ones are not, the corrected data over-represents cases the model already found hard — useful for targeted improvement, but skewed if used naively for full retraining.</p>
+      <p>The same dynamic applies anywhere the model's output shapes what data gets collected or reviewed. If low-confidence predictions are routed for human review and high-confidence ones are not, the corrected data over-represents cases the model already found hard, useful for targeted improvement, but skewed if used naively for full retraining.</p>
       <p>The mitigation is deliberate composition control: track what proportion of a retraining set came from correction cycles versus fresh sampling, and maintain explicit coverage of cases the model currently handles well. Correction data improves weak slices. It should not be allowed to silently become the entire dataset.</p>
 
       <h2>What a complete loop contains</h2>
@@ -193,7 +193,7 @@
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></div>
           <div class="recipe-card-title">Drift computation</div>
-          <div class="recipe-card-body">Input, prediction, and — where labels permit — concept drift, computed daily or weekly rather than on request.</div>
+          <div class="recipe-card-body">Input, prediction, and, where labels permit, concept drift, computed daily or weekly rather than on request.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l7 4"/></svg></div>
@@ -226,14 +226,14 @@
       <p><strong>Continuous prediction ingestion, three paths.</strong> Upload a prediction log with automatic format detection, import directly from a connected S3, GCS, or Azure backend using the same connection already configured for data import, or stream continuously via an SDK snippet in the inference path.</p>
       <p><strong>Label-independent early signals.</strong> Data drift and prediction drift are computed without ground truth, surfacing distribution shift while labels are still in flight. Concept drift is computed against accuracy history as outcomes arrive.</p>
       <p><strong>Automatic slice decomposition.</strong> Every evaluation breaks performance out by category with per-slice accuracy and a health verdict, sorted worst-first. The failing segment appears immediately rather than being averaged away.</p>
-      <p><strong>Strategy-driven correction, not blanket retraining.</strong> When slices fail, the platform assembles a targeted correction set using one of four strategies — failing slices, low confidence, recent errors, or drift-affected records. The output is the specific records most likely to improve performance when corrected, not a random sample.</p>
+      <p><strong>Strategy-driven correction, not blanket retraining.</strong> When slices fail, the platform assembles a targeted correction set using one of four strategies: failing slices, low confidence, recent errors, or drift-affected records. The output is the specific records most likely to improve performance when corrected, not a random sample.</p>
       <p><strong>Correction routes back through the pipeline.</strong> The correction dataset passes through the labeling layer with AI annotation and human verification, is frozen as a new immutable version with a full lineage report, and exports in the training format the customer's framework expects.</p>
       <p><strong>Quality gates enforced at the version boundary.</strong> Verified agreement, calibration error, class balance, and edge coverage are computed on every version, with a blocking verdict when thresholds fail. Undertested data does not reach a training pipeline.</p>
-      <p><strong>Composition visible across versions.</strong> Because every version records its delta from the parent, the proportion of a dataset originating from correction cycles is explicit — which makes the feedback-loop bias described earlier measurable rather than invisible.</p>
+      <p><strong>Composition visible across versions.</strong> Because every version records its delta from the parent, the proportion of a dataset originating from correction cycles is explicit, which makes the feedback-loop bias described earlier measurable rather than invisible.</p>
 
       <h2>Conclusion</h2>
       <p>A model in production is not a finished artifact. It is a system operating in an environment that will not hold still, and its accuracy is a function of how quickly the pipeline around it notices and responds.</p>
-      <p>Periodic review cannot do this. It detects late, it hides slice failures inside aggregates, and it does not scale past a handful of models. Continuous feedback can — but only if detection is wired to remediation, and remediation is wired back to the training data.</p>
+      <p>Periodic review cannot do this. It detects late, it hides slice failures inside aggregates, and it does not scale past a handful of models. Continuous feedback can, but only if detection is wired to remediation, and remediation is wired back to the training data.</p>
       <p>The organizations that sustain model accuracy over years are not the ones with better architectures. They are the ones that treated the loop as infrastructure and built it before they needed it.</p>
     </article>
   </div>
@@ -310,6 +310,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

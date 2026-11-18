@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>Multimodal Data Versioning — Concave AI Blog</title>
+<title>Multimodal Data Versioning | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/multimodal-data-versioning">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/dataversioning.jpeg">
 <meta name="description" content="Traditional data versioning tracks files. AI training data needs versioning that tracks annotation state across modalities, with quality and lineage attached to every snapshot.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -147,13 +147,13 @@
       <h2>Why Git does not work for training data</h2>
       <p>The instinct to reach for Git is correct in spirit and wrong in mechanics.</p>
       <p>Git is built for text files, line-based diffs, and merge resolution by a human reading a conflict. Training data is binary, large, and changes in ways that produce no meaningful line diff. A ten-gigabyte image directory does not diff. A re-annotated segmentation mask does not merge.</p>
-      <p>The ecosystem has responded — DVC, lakeFS, Pachyderm, Delta Lake, Nessie, Dolt, Git LFS, with consolidation now underway following lakeFS's acquisition of DVC in late 2025. These tools solve the storage and reproducibility problem competently: content-addressed storage, commit history, branch and merge on data.</p>
+      <p>The ecosystem has responded: DVC, lakeFS, Pachyderm, Delta Lake, Nessie, Dolt, Git LFS, with consolidation now underway following lakeFS's acquisition of DVC in late 2025. These tools solve the storage and reproducibility problem competently: content-addressed storage, commit history, branch and merge on data.</p>
       <p>What they do not solve is annotation state.</p>
 
       <h2>The gap: versioning files versus versioning labels</h2>
       <p>Existing data versioning tools treat a dataset as a collection of files. Commit, branch, roll back, reproduce. The unit of change is a file.</p>
       <p>For AI training data, the unit of change is usually not the file. It is the annotation layer sitting on top of the file.</p>
-      <p>Consider a realistic sequence on a single video dataset: the raw video is ingested and never changes again. An object detection pass runs — bounding boxes are produced, reviewed, corrected, frozen. That is one version. Weeks later, the same footage is annotated for temporal segmentation — action boundaries across the timeline. Different task, different output, same underlying asset. Second version. Later still, pose tracking runs across the same clips for a separate model. Third version. Then production drift is detected on the detection model, 300 clips are re-labeled, and a corrected detection version is frozen. Fourth version — a descendant of the first, not the third.</p>
+      <p>Consider a realistic sequence on a single video dataset: the raw video is ingested and never changes again. An object detection pass runs: bounding boxes are produced, reviewed, corrected, frozen. That is one version. Weeks later, the same footage is annotated for temporal segmentation: action boundaries across the timeline. Different task, different output, same underlying asset. Second version. Later still, pose tracking runs across the same clips for a separate model. Third version. Then production drift is detected on the detection model, 300 clips are re-labeled, and a corrected detection version is frozen. Fourth version: a descendant of the first, not the third.</p>
       <p>A file-based versioning tool sees one unchanging video directory and several sets of annotation files. It can store them. It cannot express that they are parallel annotation layers over a shared asset, that two of them are unrelated tasks, and that the fourth supersedes the first.</p>
       <p>That relationship is exactly what an ML team needs to reason about.</p>
 
@@ -170,7 +170,7 @@
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
           <div class="recipe-card-title">Each annotation layer, separately</div>
-          <div class="recipe-card-body">Task type, engine and model version, confidence threshold, label taxonomy, and output — versioned independently so layers can evolve at different rates.</div>
+          <div class="recipe-card-body">Task type, engine and model version, confidence threshold, label taxonomy, and output, versioned independently so layers can evolve at different rates.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.3"/><circle cx="6" cy="18" r="2.3"/><circle cx="18" cy="12" r="2.3"/><path d="M6 8.3V15.7M6 12h6a4 4 0 0 0 4-4"/></svg></div>
@@ -185,7 +185,7 @@
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 9-9 9-9-9 4-4h5z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div>
           <div class="recipe-card-title">Semantic tagging</div>
-          <div class="recipe-card-body">Human-meaningful markers — production-2026-Q1, pre-drift-baseline, held-out-eval — so a version can be retrieved by intent rather than by hash.</div>
+          <div class="recipe-card-body">Human-meaningful markers (production-2026-Q1, pre-drift-baseline, held-out-eval), so a version can be retrieved by intent rather than by hash.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
@@ -196,13 +196,13 @@
     </div>
 
     <article class="blog-body" data-reveal>
-      <p>One more property matters as much as any of the six above: reproducibility. Enough recorded state that the exact dataset can be reconstructed. <strong>Silent breaking changes, missing environment pins, and unversioned datasets cause more outages than model drift ever will</strong> — and irreproducible training runs make every subsequent experiment uninterpretable, because an architecture improvement cannot be distinguished from a data change.</p>
+      <p>One more property matters as much as any of the six above: reproducibility. Enough recorded state that the exact dataset can be reconstructed. <strong>Silent breaking changes, missing environment pins, and unversioned datasets cause more outages than model drift ever will</strong>, and irreproducible training runs make every subsequent experiment uninterpretable, because an architecture improvement cannot be distinguished from a data change.</p>
 
       <h2>Why this matters more in multimodal work</h2>
       <p>Multimodal datasets multiply every versioning problem.</p>
       <p><strong>Layers evolve at different rates.</strong> The transcript for a video may be corrected three times while the object tracks are untouched. Versioning them as a single monolithic snapshot forces unnecessary re-freezing and obscures what actually changed.</p>
       <p><strong>Modalities have different quality criteria.</strong> Transcription quality is word error rate. Segmentation quality is mask IoU. Classification quality is agreement and calibration. A single composite score across all of them is not meaningful, so quality must be recorded per layer.</p>
-      <p><strong>Cross-modal consistency is itself a versioned property.</strong> If the transcript is corrected but the video annotations referencing it are not, the dataset is internally inconsistent — and that inconsistency is a property of a particular version combination, not of any single layer.</p>
+      <p><strong>Cross-modal consistency is itself a versioned property.</strong> If the transcript is corrected but the video annotations referencing it are not, the dataset is internally inconsistent, and that inconsistency is a property of a particular version combination, not of any single layer.</p>
       <p><strong>Rollback must be selective.</strong> Reverting a bad transcription pass should not revert three weeks of correct segmentation work performed in parallel.</p>
 
       <h2>Versioning as the substrate for everything else</h2>
@@ -213,19 +213,19 @@
 
       <h2>How Concave AI approaches this</h2>
       <p>Datalier versions annotation state over shared assets, with quality and lineage attached to every snapshot.</p>
-      <p><strong>Assets stored once, annotated many times.</strong> Raw media is ingested through a connected S3, GCS, Azure, Hugging Face, PostgreSQL, or Snowflake source and stored once. Multiple annotation tasks run against the same asset without duplicating it — a video dataset can carry object tracking, temporal segmentation, and pose tracking layers simultaneously.</p>
+      <p><strong>Assets stored once, annotated many times.</strong> Raw media is ingested through a connected S3, GCS, Azure, Hugging Face, PostgreSQL, or Snowflake source and stored once. Multiple annotation tasks run against the same asset without duplicating it: a video dataset can carry object tracking, temporal segmentation, and pose tracking layers simultaneously.</p>
       <p><strong>Semantic version numbering with recorded intent.</strong> Major for schema change or reprocessing. Minor for new labels, corrections, or quality improvement. Patch for small fixes. Every version records its parent, its delta, and the stated reason for the bump.</p>
       <p><strong>Branching for parallel annotation strategies.</strong> Alternative label taxonomies or threshold settings can be explored on the same base data without disturbing the main line, then compared before one is promoted.</p>
-      <p><strong>Immutable, hash-verified snapshots.</strong> Freezing produces a SHA-256 hash covering data, labels, and metadata. A single changed row changes the hash — cryptographic proof that an export matches the version that passed review.</p>
+      <p><strong>Immutable, hash-verified snapshots.</strong> Freezing produces a SHA-256 hash covering data, labels, and metadata. A single changed row changes the hash, cryptographic proof that an export matches the version that passed review.</p>
       <p><strong>Quality computed per version.</strong> Verified agreement, gold-standard accuracy, calibration error, class balance, and edge coverage, resolving to a readiness verdict: ready, review recommended, or not ready. Versions failing configured gates are blocked from export rather than silently shipped.</p>
-      <p><strong>Lineage reports generated automatically.</strong> Nine sections per version — identity, source provenance, transformation chain, labeling history, version changes, quality summary, lineage path, export evidence, and risk assessment — written for three audiences in one document: an executive summary with the verdict, a technical section for engineers, and export evidence for audit.</p>
+      <p><strong>Lineage reports generated automatically.</strong> Nine sections per version: identity, source provenance, transformation chain, labeling history, version changes, quality summary, lineage path, export evidence, and risk assessment, written for three audiences in one document: an executive summary with the verdict, a technical section for engineers, and export evidence for audit.</p>
       <p><strong>Version comparison.</strong> Any two versions can be diffed: rows added and removed, labels changed, class distribution shift, quality delta. Composition drift across iterations becomes visible rather than accumulating unnoticed.</p>
       <p><strong>Export in each modality's native format, with provenance attached.</strong> COCO JSON, YOLO, DPO JSONL, CoNLL, SQuAD, ImageFolder, mask pairs, MOT CSV, SRT, RTTM. Data files, manifest, and lineage report ship together as one package.</p>
       <p><strong>Push directly to connected storage.</strong> A frozen version exports to the customer's own S3, GCS, Azure, or Hugging Face Hub, landing as three artifacts: the training data, the manifest, and the lineage report.</p>
 
       <h2>Conclusion</h2>
       <p>Git changed software engineering not because it stored files but because it made every state of a codebase recoverable, comparable, and attributable. Training data has needed the same thing for years and has been served by tools that solved only the storage half.</p>
-      <p>The missing half is annotation state — the layers of meaning applied over an asset, evolving at different rates, across modalities, with quality that must be measured at the moment of freezing rather than asserted afterwards.</p>
+      <p>The missing half is annotation state: the layers of meaning applied over an asset, evolving at different rates, across modalities, with quality that must be measured at the moment of freezing rather than asserted afterwards.</p>
       <p>When every annotation state is immutable, hash-verified, semantically tagged, and accompanied by its own quality report and lineage, dataset management stops being an act of discipline and becomes a property of the system. Teams stop asking which version we trained on, and start asking better questions.</p>
     </article>
   </div>
@@ -302,6 +302,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

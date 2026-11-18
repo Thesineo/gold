@@ -38,7 +38,25 @@
       { threshold: 0.12, rootMargin: '-8% 0px -12% 0px' }
     );
 
-    targets.forEach(function (el) { observer.observe(el); });
+    /* Very tall elements (long blog articles) can never show 12% of their
+       area inside the viewport, so a 0.12 threshold would leave them
+       hidden forever. They reveal as soon as any part is on screen. */
+    var tallObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            tallObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0 }
+    );
+
+    targets.forEach(function (el) {
+      if (el.offsetHeight > window.innerHeight * 4) tallObserver.observe(el);
+      else observer.observe(el);
+    });
   }
 
   /* ── Nav scroll state ── */

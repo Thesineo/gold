@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+(function(){
+  try {
+    var stored = localStorage.getItem('concave-theme');
+    var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {}
+})();
+</script>
+<title>What Is Data Observability? | Concave AI Blog</title>
+<meta property="og:site_name" content="Concave AI" />
+<link rel="canonical" href="https://theconcaveai.com/resources/what-is-data-observability">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Is Data Observability?">
+<meta property="og:description" content="Data observability means continuously watching your data for problems nobody predicted. Here is why the warehouse version fails on AI data, and what ML data observability must measure.">
+<meta property="og:image" content="https://theconcaveai.com/imgbgm/what-is-data-observability.jpeg">
+<meta property="og:url" content="https://theconcaveai.com/resources/what-is-data-observability">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Nerali">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://theconcaveai.com/imgbgm/what-is-data-observability.jpeg">
+<meta name="twitter:title" content="What Is Data Observability?">
+<meta name="twitter:description" content="Data observability means continuously watching your data for problems nobody predicted. Here is why the warehouse version fails on AI data, and what ML data observability must measure.">
+<meta name="description" content="Data observability means continuously watching your data for problems nobody predicted. Here is why the warehouse version fails on AI data, and what ML data observability must measure.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What Is Data Observability?",
+  "description": "Data observability means continuously watching your data for problems nobody predicted. Here is why the warehouse version fails on AI data, and what ML data observability must measure.",
+  "image": "https://theconcaveai.com/imgbgm/what-is-data-observability.jpeg",
+  "datePublished": "2026-11-18",
+  "dateModified": "2026-11-18",
+  "author": {
+    "@type": "Person",
+    "name": "Aniket Nerali",
+    "url": "https://theconcaveai.com/company/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Concave AI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://theconcaveai.com/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://theconcaveai.com/resources/what-is-data-observability"
+  },
+  "articleSection": "Observability"
+}
+</script>
+</head>
+<body>
+
+<nav id="siteNav">
+  <a href="/" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+    <span class="logo-text">Concave AI</span>
+  </a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navLinks">
+    <a href="/datalier">Platform</a>
+    <div class="nav-item">
+      <a href="/datalier">Solutions</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel wide">
+          <div>
+            <div class="nav-dropdown-group-label">Infrastructure Layers</div>
+            <a href="/datalier/transform">Data Transformation</a>
+            <a href="/datalier/label">Data labeling &amp; Review</a>
+            <a href="/datalier/version">Data Versioning &amp; Lineage</a>
+            <a href="/datalier/observe">Data Observability</a>
+            <a href="/datalier/govern">Data Governance</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Modalities</div>
+            <a href="/solutions/images">Images</a>
+            <a href="/solutions/videos">Videos</a>
+            <a href="/solutions/audio">Audio</a>
+            <a href="/solutions/nlp-text">NLP/Text</a>
+            <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
+          </div>
+          <div>
+            <div class="nav-dropdown-group-label">Integration</div>
+            <a href="/solutions/cloud-integration">Cloud Integration</a>
+            <a href="/solutions/mlops-integration">MLOps Integration</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/resources">Resources</a>
+    <div class="nav-item">
+      <a href="/company/about">Company</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-panel">
+          <a href="/company/about">About Us</a>
+          <a href="/careers">Careers</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <a href="/contact" class="nav-cta">Book a Demo</a>
+  </div>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<section class="layer-hero video-bg">
+  <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
+  <div class="layer-hero-card blog-cover">
+    <div class="bg-media"><img src="/imgbgm/what-is-data-observability.jpeg" alt="What Is Data Observability? Ten-part closed loop from model registry to model update tracking"></div>
+    <div class="hero-overlay"></div>
+    <div class="sec-inner layer-hero-inner single-col">
+      <div class="layer-hero-content" data-reveal="slide-left">
+        <span class="blog-hero-category">Observability</span>
+        <h1 class="blog-hero-title">What Is Data Observability?</h1>
+        <p class="blog-hero-sub">And why the version built for data warehouses does not work for AI.</p>
+        <div class="blog-hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Nov 18, 2026</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>12 min read</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>Aniket Nerali</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-inner">
+    <article class="blog-body" data-reveal>
+      <h2>Defining data observability</h2>
+      <p>Data observability is the ability to understand the health of your data at any moment. It works not by testing for problems you already thought of, but by continuously watching the data itself and surfacing problems nobody predicted.</p>
+      <p>The distinction matters more than it sounds. A test asks, <em>"is this column null?"</em> A test only catches what somebody anticipated. Observability asks, <em>"has anything about this data changed in a way that should worry me?"</em> It works on problems nobody wrote a test for.</p>
+      <p>In software engineering this distinction is old and settled. You write unit tests for the failure modes you can imagine, and you run observability tooling (logs, metrics, and traces) for everything else. Nobody argues about whether you need both.</p>
+      <p>Data got there much later. And machine learning data is still arriving.</p>
+
+      <h2>Origins: from data downtime to the five pillars</h2>
+      <p>The term was coined in 2019 by Barr Moses, then VP of Customer Success Operations at Gainsight. Her team kept shipping reports that turned out to be wrong, not because the pipelines failed, but because the data flowing through those healthy pipelines was bad. The SQL was reviewed. The jobs ran green. The numbers were still incorrect.</p>
+      <p>She called the condition <strong>data downtime</strong> and borrowed the idea of observability from DevOps to describe the fix.</p>
+      <p>The framework that emerged defines five pillars:</p>
+      <ul>
+        <li><strong>Freshness.</strong> How recently was this data updated, and is that cadence normal?</li>
+        <li><strong>Quality.</strong> Are the values themselves plausible? Null rates, uniqueness, and ranges.</li>
+        <li><strong>Volume.</strong> Is the table complete? A sudden drop in row count usually means something upstream broke.</li>
+        <li><strong>Schema.</strong> Has the structure changed? Who changed it, and when?</li>
+        <li><strong>Lineage.</strong> Where did this data come from, and what depends on it? When something breaks, lineage tells you the blast radius.</li>
+      </ul>
+      <p>This framework is genuinely good. It is also built for a specific world: tables in a warehouse, rows and columns, dbt, Snowflake, and Airflow.</p>
+      <p>Most of it does not survive contact with machine learning data.</p>
+
+      <h2>Why warehouse-era observability breaks on AI data</h2>
+      <p>Consider what the five pillars actually assume.</p>
+      <p><strong>They assume tabular structure.</strong> "Null rate" and "value range" are well defined for a customer_age column. What is the null rate of a 4K video? What is the acceptable range of a LiDAR point cloud?</p>
+      <p><strong>They assume the data is the deliverable.</strong> In analytics, the table is the product: if the numbers are right, you are done. In machine learning, the dataset is an input to a model, and the only meaningful question is whether the model trained on it behaves correctly in production. A dataset can pass every warehouse quality check and still produce a model that fails.</p>
+      <p><strong>They assume the problem is upstream.</strong> Warehouse observability watches for a pipeline breaking, a source going stale, or a schema shifting. ML data has a failure mode with no analogue in analytics: <strong>the data was wrong from the beginning, and nothing ever broke.</strong> A mislabeled image is not a pipeline failure. Nothing errored. No alert fires. The label is simply incorrect. It was incorrect on day one, and it will stay incorrect through every retraining cycle until somebody notices.</p>
+      <p><strong>They assume freshness is a virtue.</strong> In analytics, newer is better. In ML training data, a frozen, immutable, never-updated dataset is exactly what you want, because without it you cannot reproduce a training run.</p>
+      <p>So ML data observability is a different discipline that happens to share a name. It asks different questions, uses different mathematics, and fails in different ways.</p>
+
+      <h2>What ML data observability must measure</h2>
+      <p>Three families of problem need different instruments: drift and the statistics that detect it, the unstructured data problem, and label error and how to find it.</p>
+
+      <h3>Drift: when production data departs from training data</h3>
+      <p>Drift is the catch-all term for live data diverging from the data the model was trained on. It comes in distinct forms, and conflating them causes most of the confusion in the field.</p>
+    </article>
+
+    <div class="blog-breakout">
+      <div class="recipe-grid">
+        <div class="recipe-card" data-reveal="zoom">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></div>
+          <div class="recipe-card-title">Covariate drift (data drift)</div>
+          <div class="recipe-card-body">The inputs changed. A retail model trained on summer product photos now sees winter inventory. The relationship between input and output is unchanged; the inputs themselves moved.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></div>
+          <div class="recipe-card-title">Concept drift</div>
+          <div class="recipe-card-body">The relationship changed. The inputs look the same, but what they mean has shifted. A fraud model trained before a new payment method existed sees familiar-looking transactions whose fraud signature is entirely different.</div>
+        </div>
+        <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
+          <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+          <div class="recipe-card-title">Label drift (prior probability shift)</div>
+          <div class="recipe-card-body">The distribution of outcomes changed. A defect-detection model trained when 2% of parts were defective now runs on a line where 8% are.</div>
+        </div>
+      </div>
+    </div>
+
+    <article class="blog-body" data-reveal>
+      <p>These require different responses. Covariate drift might need new training data. Concept drift means the model's learned relationship is now wrong, and retraining on old labels will not help. Label drift may need nothing more than recalibrated thresholds.</p>
+
+      <h3>The statistical toolkit for detecting drift</h3>
+      <p>Drift is detected by comparing two distributions: the training baseline and the production window. Several tests do this, and each has a domain where it is appropriate.</p>
+      <p><strong>Population Stability Index (PSI)</strong> is the workhorse. It bins both distributions and sums the weighted log-difference between bin proportions. The conventional reading:</p>
+      <table>
+        <thead><tr><th>PSI value</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Below 0.10</td><td>No significant shift</td></tr>
+          <tr><td>0.10 to 0.25</td><td>Moderate shift, investigate</td></tr>
+          <tr><td>Above 0.25</td><td>Significant shift, act</td></tr>
+        </tbody>
+      </table>
+      <p>PSI is interpretable and stable, which is why it dominates in regulated industries. Its weakness is that it needs binnable, roughly tabular features.</p>
+      <ul>
+        <li><strong>Kolmogorov-Smirnov test.</strong> Compares two continuous distributions by their maximum cumulative difference. It is sensitive and assumption-light, but on large samples it flags statistically significant differences that are practically meaningless, a common source of alert fatigue.</li>
+        <li><strong>Chi-square.</strong> Handles categorical variables, testing whether observed category frequencies differ from expected.</li>
+        <li><strong>Jensen-Shannon divergence.</strong> A symmetric, bounded measure of distance between two probability distributions. Because it is bounded between 0 and 1, it is easier to threshold consistently than KL divergence.</li>
+        <li><strong>Wasserstein distance (earth mover's distance).</strong> Measures the minimum "work" needed to transform one distribution into another. It behaves well when distributions barely overlap, where KS and PSI become unstable.</li>
+      </ul>
+
+      <h3>Unstructured data and the embedding approach</h3>
+      <p>Here is where most tooling stops being useful.</p>
+      <p>PSI needs features to bin. An image has no features to bin; it has pixels. So does a video frame, an audio waveform, or a point cloud.</p>
+      <p>The solution is <strong>embeddings</strong>. You pass the data through a pretrained encoder, get a dense vector, and run your drift statistics on the vector space instead of the raw input. Cosine distance between the centroid of the training embeddings and the centroid of the production embeddings becomes a drift signal. Nearest-neighbor distance distributions reveal whether production data is landing in regions the training set never covered.</p>
+      <p>This is not a minor implementation detail. It is a completely different pipeline: encode, reduce, compare, and interpret, with a different set of failure modes and a different interpretation of what the number means. Any platform claiming multimodal drift detection that does not describe its embedding strategy is not doing it.</p>
+
+      <h3>Label error: the failure mode nobody monitors</h3>
+      <p>Drift assumes your training data was correct to begin with. Often it was not.</p>
+      <p>In 2021, researchers at MIT published <em>Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks</em>, which audited the ten most-used benchmark datasets in machine learning. These are the datasets the entire field uses to measure progress. The error rates:</p>
+      <table>
+        <thead><tr><th>Dataset</th><th>Label error rate</th></tr></thead>
+        <tbody>
+          <tr><td>MNIST</td><td>0.15%</td></tr>
+          <tr><td>CIFAR-10</td><td>0.54%</td></tr>
+          <tr><td>Caltech-256</td><td>1.54%</td></tr>
+          <tr><td>AudioSet</td><td>1.35%</td></tr>
+          <tr><td>20news</td><td>1.09%</td></tr>
+          <tr><td>IMDB</td><td>2.90%</td></tr>
+          <tr><td>Amazon Reviews</td><td>3.90%</td></tr>
+          <tr><td>CIFAR-100</td><td>5.85%</td></tr>
+          <tr><td>ImageNet</td><td>5.83%</td></tr>
+          <tr><td>QuickDraw</td><td>10.12%</td></tr>
+        </tbody>
+      </table>
+      <p>The average across all ten is at least 3.3%. For ImageNet, the authors' expert review suggested the true rate is closer to 20%.</p>
+      <p>The second finding is more unsettling than the first. When they corrected the labels and re-ranked models, the overall leaderboard barely moved, but <strong>on the subset of examples whose labels had been wrong, the rankings reversed.</strong> Models that scored best against the original labels scored worst against corrected ones.</p>
+      <p>The mechanism: higher-capacity models have enough parameters to memorize systematic label errors. Lower-capacity models do not. So the bigger model looks better precisely because it learned your mistakes faithfully.</p>
+      <p>The practical consequence is stark. On ImageNet, ResNet-18 outperforms ResNet-50 on corrected labels once noise prevalence rises by roughly 6 percentage points. On CIFAR-10, VGG-11 beats VGG-19 after about 5 points.</p>
+      <p><strong>If you are choosing models by test accuracy on noisy labels, you may be systematically deploying the wrong model.</strong></p>
+
+      <h3>Finding label errors without ground truth: confident learning</h3>
+      <p>The obvious objection: if you knew which labels were wrong, you would have fixed them. How do you find errors without a correct reference?</p>
+      <p><strong>Confident learning</strong> solves this, and the mechanism is elegant enough to be worth understanding.</p>
+      <p>You need two things: the noisy labels you already have, and out-of-sample predicted probabilities, ideally from cross-validation, so that every example is scored by a model that did not train on it.</p>
+      <ol>
+        <li><strong>Per-class thresholds.</strong> For each class <em>j</em>, compute the average predicted probability of <em>j</em> across all examples labeled <em>j</em>. This is the threshold <em>t<sub>j</sub></em>. Making it class-specific matters: it means classes the model is generally uncertain about do not get unfairly flagged.</li>
+        <li><strong>The confident joint.</strong> Build a k&times;k matrix. Entry C[i][j] counts examples that were <em>labeled</em> class <em>i</em> but which the model confidently assigns to class <em>j</em>, where "confidently" means the predicted probability for <em>j</em> exceeded <em>t<sub>j</sub></em> and was the highest such class. The diagonal is agreement. <strong>The off-diagonal entries are your candidate errors.</strong></li>
+        <li><strong>Calibrate.</strong> Normalize the matrix into an estimate of the joint distribution between given labels and latent true labels. Multiply by dataset size to get estimated counts of each error type.</li>
+        <li><strong>Rank and flag.</strong> For each off-diagonal cell, take the examples labeled <em>i</em>, rank them by predicted probability for class <em>j</em>, and flag the top <em>n</em>, where <em>n</em> is the estimated count from step three.</li>
+      </ol>
+      <p>The output is a ranked list of suspected label errors, ordered from most to least likely. No ground truth is required, and there are no hyperparameters. The method is non-iterative and fast enough to audit ImageNet's training labels in about three minutes.</p>
+
+      <h2>The green dashboard paradox</h2>
+      <p>A pattern worth naming, because it causes real arguments in real teams: <strong>model accuracy drops sharply, and the drift monitor stays green the entire time.</strong></p>
+      <p>Most teams conclude that one of the two is broken. Neither is. They are measuring different things, and both are correct.</p>
+      <p>PSI asks: <em>has the input distribution shifted?</em> Accuracy asks: <em>is the model still right?</em></p>
+      <p>A model can fail with a perfectly stable input distribution. The causes:</p>
+      <ul>
+        <li><strong>Label noise that was always present.</strong> Nothing drifted. The data was wrong from day one.</li>
+        <li><strong>Concept drift.</strong> The inputs are identical, but what they mean has changed. Distribution tests on inputs are blind to this by construction.</li>
+        <li><strong>Undertrained classes.</strong> A class the training set barely covered now appears more often in production. The class was always weak; traffic just found it.</li>
+        <li><strong>Insufficient training volume.</strong> The model never converged. No amount of distribution monitoring reveals this.</li>
+      </ul>
+      <p>Distribution monitoring was never designed to catch any of these. This is why <em>"we have observability"</em> and <em>"we can explain this failure"</em> are not the same claim. Detecting that something changed is the easy half.</p>
+
+      <h2>Where Datalier takes a different approach</h2>
+      <p>Most observability tooling terminates at the alert. The dashboard goes red, a Slack message fires, and a human begins an investigation that may take days: reconstructing which dataset version trained the model, which annotation round produced the labels, and which records are implicated.</p>
+      <p>Datalier is built around the position that the alert is the beginning of the work, not the end of it. Seven capabilities make that possible.</p>
+
+      <h3>Root-cause attribution beyond detection</h3>
+      <p>Drift detection tells you a distribution moved. It does not tell you which records caused it or what to do.</p>
+      <p>Datalier runs an ensemble of three independent signals: <strong>classifier AUC</strong> (training a discriminator to separate baseline from production data; if it succeeds easily, the two are meaningfully different, and its feature importances show where), <strong>SHAP attribution</strong> (which features contributed most to the shift), and <strong>embedding nearest-neighbor tracing</strong> (which specific training records sit closest to the production examples the model is getting wrong).</p>
+      <p>The output is not a score. It is a list of records.</p>
+
+      <h3>A drift engine built for every modality</h3>
+      <p>Rather than forcing one statistical method across incompatible data types, Datalier extracts features per modality (image, video, audio, text, document, and 3D/LiDAR) and routes them into a shared statistical core running PSI, KS, Wasserstein, and KDE comparison.</p>
+      <p>This is the difference between claiming multimodal support and having it. The statistics are the same; the feature extraction cannot be.</p>
+
+      <h3>Drift measures for generative models</h3>
+      <p>Classical label PSI is meaningless for generative output, because there are no labels to bin. Datalier adds measures built for the shape of the problem: <strong>topic-cluster PSI</strong> (has the distribution of topics in the output shifted?), <strong>new-topic emergence</strong> (is the model producing categories of output it never produced before?), and <strong>refusal-rate drift</strong> (is the model declining requests at a different rate than at registration?).</p>
+
+      <h3>The closed loop: detect, attribute, correct, retrain, verify</h3>
+      <p>This is the part that distinguishes an observability product from an observability feature. Ten components form a complete cycle:</p>
+      <ol>
+        <li><strong>Model Registry.</strong> Freezes the AI-ready dataset and the trained model together as a baseline. Every later measurement is taken against it, not against a moving reference.</li>
+        <li><strong>Prediction Logs.</strong> Capture live predictions from production.</li>
+        <li><strong>Run Lifecycle.</strong> Evaluates predictions against ground truth, supplied manually or derived from evaluation rules.</li>
+        <li><strong>Drift Detection.</strong> Measures movement from registered performance, and whether that movement is uniform or concentrated.</li>
+        <li><strong>Run Drift Analysis.</strong> Traces drift to the specific records pulling accuracy down.</li>
+        <li><strong>Re-labeling Loop.</strong> Routes those flagged records back through labeling, review, and transformation, writing the result to the registry as a new version.</li>
+        <li><strong>Native Connections.</strong> Pull predictions automatically on a schedule from SageMaker, Vertex AI, Azure ML, and Hugging Face, with no manual export step.</li>
+        <li><strong>Auto-Retrain Trigger.</strong> Starts retraining on the platform where the model already lives, once relabeling completes.</li>
+        <li><strong>Verified Outcome.</strong> Scores the retrained model <strong>on the same held-out rows as the original</strong>, confirming the fix worked rather than assuming it.</li>
+        <li><strong>Model Update Tracking.</strong> Handles retraining done outside the platform, re-baselining drift and accuracy to traffic since that update while still checking against the original held-out score.</li>
+      </ol>
+      <p>The cycle runs: detect, attribute, correct, retrain, and <strong>verify</strong>.</p>
+      <p>That final step is where most remediation stories quietly end. A team detects drift, relabels some data, retrains, and declares victory without ever confirming that the model improved on a comparable basis. Evaluating a retrained model on a fresh random split tells you almost nothing, because you changed the evaluation set at the same time you changed the model.</p>
+
+      <h3>Fix validation across accuracy, calibration, and fairness</h3>
+      <p>A retrained model is scored on the same held-out rows for <strong>accuracy, calibration, and fairness</strong>. A fix that improves accuracy while degrading calibration, making the model confidently wrong, is reported as partial rather than hidden behind a single headline number.</p>
+      <p>This matters because the most common remediation failure is not a fix that does not work. It is a fix that works on the metric you watched and breaks the one you did not.</p>
+
+      <h3>A hold-out set that preserves rare classes</h3>
+      <p>Held-out rows are selected deterministically per label, so every class with sufficient volume contributes at least one example, with a 20-row floor to stop rare classes from disappearing entirely.</p>
+      <p>Random splitting routinely drops rare classes from the evaluation set. That means the classes most likely to be failing in production are the ones your evaluation cannot see.</p>
+
+      <h3>Governance enforced at the retraining boundary</h3>
+      <p>Automated retraining creates a specific risk: data moving into a training pipeline without a human reviewing it. Datalier applies PII and consent enforcement at that handoff, blocking unredacted personal data from entering an automated retrain regardless of whether anyone is watching.</p>
+
+      <h2>Key takeaways</h2>
+      <p>Data observability for analytics asks whether your tables are healthy. Data observability for AI asks whether your model is still correct and, if not, which rows are responsible.</p>
+      <p>They share a name and almost nothing else. Three things are worth holding onto:</p>
+      <ul>
+        <li><strong>A green drift dashboard is not evidence that your model is working.</strong> Distribution stability and model correctness are different measurements. Watch both.</li>
+        <li><strong>Your labels are probably wrong more often than you think.</strong> The best-curated datasets in the field average 3.3% error. Yours were not curated by a research lab with a decade of scrutiny.</li>
+        <li><strong>Detection without attribution is an incomplete product.</strong> An alert that cannot tell you which records to fix converts a measurement problem into an archaeology problem, and archaeology does not scale.</li>
+      </ul>
+      <p>The useful question is not <em>what changed</em>. It is <em>which rows do we fix</em>, and a system that cannot answer the second one has only done half the job.</p>
+
+      <h2>References</h2>
+      <ul>
+        <li>Moses, B. <em>What is Data Observability?</em> Monte Carlo.</li>
+        <li>Northcutt, C., Athalye, A., and Mueller, J. <em>Pervasive Label Errors in Test Sets Destabilize Machine Learning Benchmarks.</em> NeurIPS 2021 (arXiv:2103.14749).</li>
+        <li>Northcutt, C., Jiang, L., and Chuang, I. <em>Confident Learning: Estimating Uncertainty in Dataset Labels.</em> JAIR 2021 (arXiv:1911.00068).</li>
+        <li>MIT. <em>Introduction to Data-Centric AI</em>, Label Errors and Confident Learning.</li>
+      </ul>
+    </article>
+
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="bg-media"><video src="/imgbgm/playback.mp4" autoplay loop muted playsinline aria-hidden="true"></video></div>
+  <div class="hero-overlay"></div>
+  <div class="cta-final-inner">
+  <h2>Get Data Infrastructure to Empower your AI</h2>
+  <div class="cta-final-actions">
+    <a href="/datalier" class="btn-ghost">Explore the Platform</a>
+    <a href="/contact" class="btn-primary large">Book a Demo</a>
+  </div>
+  </div>
+</section>
+
+<footer>
+  <div class="sec-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="nav-logo">
+          <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"><g transform="translate(50,50)"><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(45)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(90)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(135)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(180)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(225)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(270)"/><path d="M0,-35 A15,15 0 0,1 15,-20" stroke-width="8" stroke-linecap="round" transform="rotate(315)"/><circle cx="0" cy="0" r="8" fill="currentColor" stroke="none"/></g></svg>
+          <span class="logo-text">Concave AI</span>
+        </a>
+        <p>Data Infrastructure to Empower Artificial Intelligence</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-links">
+          <a href="/datalier">Overview</a>
+          <a href="/datalier/transform">Transform</a>
+          <a href="/datalier/label">Label</a>
+          <a href="/datalier/version">Version</a>
+          <a href="/datalier/observe">Observe</a>
+          <a href="/datalier/govern">Govern</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-sub-title">Modalities</div>
+        <div class="footer-links">
+          <a href="/solutions/images">Images</a>
+          <a href="/solutions/videos">Videos</a>
+          <a href="/solutions/audio">Audio</a>
+          <a href="/solutions/nlp-text">NLP/Text</a>
+          <a href="/solutions/3d-lidar">3D &amp; LiDAR</a>
+        </div>
+        <div class="footer-sub-title">Integration</div>
+        <div class="footer-links">
+          <a href="/solutions/cloud-integration">Cloud Integration</a>
+          <a href="/solutions/mlops-integration">MLOps Integration</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="/company/about">About</a>
+          <a href="/careers">Careers</a>
+          <a href="/resources">Resources</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Connect</div>
+        <div class="footer-icon-row">
+          <a href="mailto:hello@theconcaveai.com" class="footer-icon-link" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+          <a href="https://www.linkedin.com/company/theconcaveai/" class="footer-icon-link" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.75h3.9V21h-3.9V8.75zM9.5 8.75h3.74v1.68h.05c.52-.98 1.8-2.02 3.7-2.02 3.96 0 4.7 2.6 4.7 6v6.59h-3.9v-5.84c0-1.39-.03-3.18-1.94-3.18-1.94 0-2.24 1.52-2.24 3.08v5.94H9.5V8.75z"/></svg></a>
+          <a href="https://youtube.com/@concaveai?si=dmpMyPxg9f0NQCLu" class="footer-icon-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21.6 7.2s-.21-1.5-.87-2.16c-.83-.87-1.76-.87-2.19-.92C15.44 4 12 4 12 4h-.01s-3.44 0-6.53.12c-.43.05-1.36.05-2.19.92-.66.66-.87 2.16-.87 2.16S2.18 8.96 2.18 10.71v1.63C2.18 14.09 2.4 15.85 2.4 15.85s.21 1.5.87 2.16c.83.87 1.92.84 2.4.93 1.74.17 7.33.22 7.33.22s3.44-.01 6.53-.13c.43-.05 1.36-.05 2.19-.92.66-.66.87-2.16.87-2.16s.22-1.76.22-3.51v-1.63c0-1.75-.22-3.51-.22-3.51zM9.95 14.5V8.9l5.4 2.81-5.4 2.79z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Concave AI</div>
+  </div>
+</footer>
+
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
+</body>
+</html>

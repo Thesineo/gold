@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>How to Detect Data Drift and Rectify It — Concave AI Blog</title>
+<title>How to Detect Data Drift and Rectify It | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/detect-and-fix-data-drift">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/drift.jpeg">
 <meta name="description" content="A practical guide to drift detection methods, thresholds, and the far harder question of what happens after the alert fires.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -146,41 +146,41 @@
     <article class="blog-body" data-reveal>
       <h2>What drift actually is</h2>
       <p>Data drift is a change in the statistical properties of the input a model receives, relative to the data it was trained on. The model is unchanged. The world has moved.</p>
-      <p>It matters because models are interpolators. Within the distribution they were trained on, they perform as evaluated. Outside it, behavior is unconstrained — and, critically, confidence does not reliably fall when it should.</p>
+      <p>It matters because models are interpolators. Within the distribution they were trained on, they perform as evaluated. Outside it, behavior is unconstrained, and, critically, confidence does not reliably fall when it should.</p>
       <p>Roughly 91% of ML models degrade over time, and drift is the primary mechanism.</p>
 
       <h2>Three types, three different responses</h2>
       <p>Conflating these leads to the wrong remediation, which is worse than none because it consumes a retraining cycle and fixes nothing.</p>
-      <p><strong>Data drift</strong> — the input distribution changed. New product lines, new geographies, seasonal variation, new sensors, changed user behavior. The model may still perform adequately if it generalizes well; data drift is a leading indicator, not a verdict.</p>
-      <p><strong>Concept drift</strong> — the relationship between input and correct output changed. The input distribution may be identical, but what counts as the right answer has moved. What was classified as fraud two years ago may be normal behavior now. This is the most consequential type and the hardest to detect, because it requires ground truth.</p>
-      <p><strong>Prediction drift</strong> — the model's output distribution changed. If a classifier historically predicted a class 12% of the time and now predicts it 31%, something has shifted even if accuracy has not visibly fallen. Requires no labels, and frequently precedes measurable accuracy loss.</p>
+      <p><strong>Data drift</strong>: the input distribution changed. New product lines, new geographies, seasonal variation, new sensors, changed user behavior. The model may still perform adequately if it generalizes well; data drift is a leading indicator, not a verdict.</p>
+      <p><strong>Concept drift</strong>: the relationship between input and correct output changed. The input distribution may be identical, but what counts as the right answer has moved. What was classified as fraud two years ago may be normal behavior now. This is the most consequential type and the hardest to detect, because it requires ground truth.</p>
+      <p><strong>Prediction drift</strong>: the model's output distribution changed. If a classifier historically predicted a class 12% of the time and now predicts it 31%, something has shifted even if accuracy has not visibly fallen. Requires no labels, and frequently precedes measurable accuracy loss.</p>
 
       <h2>The detection methods, and when each applies</h2>
       <p><strong>Population Stability Index (PSI).</strong> Bucket the reference and production distributions, then compute the sum over bins of (actual − expected) × ln(actual / expected). Conventional interpretation: under 0.1 means no significant shift, 0.1 to 0.2 moderate, above 0.2 significant drift on that feature.</p>
-      <p>PSI's advantage is stability and interpretability — it returns the same result regardless of sample size, which makes it predictable and well suited to environments where business stakeholders act on the number. Its disadvantage is low sensitivity: it will not surface small shifts. Use it when you have a lot of data and want to react only to major changes.</p>
-      <p><strong>Kolmogorov-Smirnov test.</strong> A non-parametric test comparing cumulative distributions for continuous features. Use the two-sample KS statistic with a p-value threshold, calibrated against expected batch size to avoid alert fatigue at scale. Highly sensitive — which becomes a liability at large sample sizes, where statistically significant differences are detected that have no practical effect.</p>
+      <p>PSI's advantage is stability and interpretability: it returns the same result regardless of sample size, which makes it predictable and well suited to environments where business stakeholders act on the number. Its disadvantage is low sensitivity: it will not surface small shifts. Use it when you have a lot of data and want to react only to major changes.</p>
+      <p><strong>Kolmogorov-Smirnov test.</strong> A non-parametric test comparing cumulative distributions for continuous features. Use the two-sample KS statistic with a p-value threshold, calibrated against expected batch size to avoid alert fatigue at scale. Highly sensitive, which becomes a liability at large sample sizes, where statistically significant differences are detected that have no practical effect.</p>
       <p><strong>Chi-square test.</strong> The categorical equivalent. Bucket categories, compare observed against expected counts.</p>
-      <p><strong>Jensen-Shannon and Wasserstein distance.</strong> Smoother alternatives to KL divergence for noisy production distributions. JS is symmetric and always finite, which makes it more stable on sparse distributions than KL. KL divergence is asymmetric — the order of comparison matters, so it estimates degree of drift but drift sizes cannot be meaningfully compared against each other.</p>
-      <p><strong>Embedding drift via cosine distance.</strong> For unstructured data — images, text, audio — feature-level statistics are not available. Compute the mean embedding for the reference and production windows, then track cosine distance between centroids with a moving-window threshold. This is the only practical approach for multimodal pipelines.</p>
+      <p><strong>Jensen-Shannon and Wasserstein distance.</strong> Smoother alternatives to KL divergence for noisy production distributions. JS is symmetric and always finite, which makes it more stable on sparse distributions than KL. KL divergence is asymmetric: the order of comparison matters, so it estimates degree of drift but drift sizes cannot be meaningfully compared against each other.</p>
+      <p><strong>Embedding drift via cosine distance.</strong> For unstructured data (images, text, audio), feature-level statistics are not available. Compute the mean embedding for the reference and production windows, then track cosine distance between centroids with a moving-window threshold. This is the only practical approach for multimodal pipelines.</p>
       <p><strong>Windowed streaming detection.</strong> For continuous streams, methods like KSWIN maintain a sliding window and apply the KS test between recent and historical sub-windows, detecting change points without a fixed reference batch.</p>
 
       <h2>Thresholds are a starting point, not an answer</h2>
-      <p>Published thresholds — PSI above 0.2, p-value below 0.05 — are conventions, not physics. Two adjustments matter in practice.</p>
+      <p>Published thresholds (PSI above 0.2, p-value below 0.05) are conventions, not physics. Two adjustments matter in practice.</p>
       <p><strong>Calibrate against your own batch size.</strong> Statistical tests scale with sample size. A KS test on ten million records will flag differences with no operational meaning. Set thresholds empirically against historical batches where you know the model performed acceptably.</p>
-      <p><strong>Confirm impact before acting.</strong> Not every drift signal requires action; confirm that distribution changes actually affect model accuracy before retraining. The strongest practice is to alert on a joint condition — input drift plus a measurable evaluation drop. Drift without evaluation impact is a false alarm and burns on-call attention.</p>
+      <p><strong>Confirm impact before acting.</strong> Not every drift signal requires action; confirm that distribution changes actually affect model accuracy before retraining. The strongest practice is to alert on a joint condition: input drift plus a measurable evaluation drop. Drift without evaluation impact is a false alarm and burns on-call attention.</p>
       <p>And drift statistics are not a substitute for performance measurement. Fraud detection accuracy can fall three points in two weeks while PSI still reads as minor. The statistic is an early indicator. Performance is the verdict.</p>
 
       <h2>Aggregate drift hides the failure that matters</h2>
       <p>A single drift score across a dataset is nearly as misleading as a single accuracy number.</p>
       <p>Drift is usually concentrated. One feature shifted sharply while twenty stayed stable. One category tripled in volume while the rest held. Averaged across the dataset, a serious localized shift disappears into an unremarkable number.</p>
-      <p>Two decompositions are essential: per-feature drift, so the specific input that moved is identifiable rather than inferred, and per-slice performance, so the segment where accuracy actually fell is visible. A model at 94% aggregate can be at 61% on a category representing 4% of volume — and that category is usually the rare, high-consequence one.</p>
+      <p>Two decompositions are essential: per-feature drift, so the specific input that moved is identifiable rather than inferred, and per-slice performance, so the segment where accuracy actually fell is visible. A model at 94% aggregate can be at 61% on a category representing 4% of volume, and that category is usually the rare, high-consequence one.</p>
       <p>Without both, the alert tells you something changed but not what to do about it.</p>
 
       <h2>The part most tooling skips: what happens next</h2>
       <p>Detection is comparatively easy. Every monitoring product does it competently.</p>
       <p>What follows is where the time actually goes. The conventional sequence is manual: export predictions, investigate by hand, form a hypothesis about which training data is responsible, assemble a corrective set, arrange labeling, retrain, hope. It takes weeks, produces no documentation, and is repeated from scratch on the next incident.</p>
       <p><strong>Retraining without diagnosis is the expensive failure mode.</strong> Retraining on more data from the same distribution that caused the failure entrenches it. And when retraining is necessary, versioning both datasets and models ensures stability and allows safe rollbacks if the new model underperforms.</p>
-      <p>A useful discipline is to build an intervention library rather than a retraining reflex — a healthy pipeline chooses among several responses based on what changed and where the risk sits.</p>
+      <p>A useful discipline is to build an intervention library rather than a retraining reflex: a healthy pipeline chooses among several responses based on what changed and where the risk sits.</p>
     </article>
 
     <div class="blog-breakout">
@@ -213,17 +213,17 @@
 
       <h2>How Concave AI approaches this</h2>
       <p>Datalier computes drift and connects the result directly to the data that caused it, because the two halves belong in one system.</p>
-      <p><strong>Three-way detection.</strong> Data drift via PSI computed per feature, with drifted features identified individually rather than as an aggregate score. Concept drift by comparing historical against recent accuracy across the retained metrics history. Prediction drift via PSI on the output distribution — label-independent, so it surfaces while ground truth is still in flight.</p>
+      <p><strong>Three-way detection.</strong> Data drift via PSI computed per feature, with drifted features identified individually rather than as an aggregate score. Concept drift by comparing historical against recent accuracy across the retained metrics history. Prediction drift via PSI on the output distribution, label-independent, so it surfaces while ground truth is still in flight.</p>
       <p><strong>Slice decomposition on every evaluation.</strong> Performance broken out by category with per-slice accuracy and a health verdict, sorted worst-first. The failing segment surfaces immediately.</p>
       <p><strong>Confidence calibration in production.</strong> Whether stated confidence still corresponds to observed accuracy, bucketed by confidence range. Calibration frequently degrades before accuracy does, making it a useful early signal.</p>
       <p><strong>Drift history, not point measurements.</strong> Each computation is retained, so trajectory is visible. A PSI of 0.18 means something different if last month it was 0.05 than if it was 0.22.</p>
-      <p><strong>Traceability to training records.</strong> Because labeling, versioning, and observability sit in one platform, a failing slice can be traced to the training data that shaped it — which is what makes the intervention choice above possible rather than theoretical.</p>
+      <p><strong>Traceability to training records.</strong> Because labeling, versioning, and observability sit in one platform, a failing slice can be traced to the training data that shaped it, which is what makes the intervention choice above possible rather than theoretical.</p>
       <p><strong>Four correction strategies.</strong> Failing slices, low confidence, recent errors, or drift-affected records. Each assembles a targeted dataset rather than a random sample, routes it through AI annotation and human verification, freezes it as a new immutable version with lineage, and exports in the training format required.</p>
 
       <h2>Conclusion</h2>
       <p>Drift detection is a solved statistics problem. PSI, KS, JS divergence, and embedding cosine distance are well understood, widely implemented, and available in open-source libraries.</p>
       <p>The unsolved problem is everything after the alert. Knowing that a distribution moved does not tell you which training records to fix, whether the fault is coverage or labeling, or how to get a corrected dataset back into training without three weeks of manual work.</p>
-      <p>That gap is not a monitoring gap. It is an infrastructure gap — and it closes only when the system that detects the drift is the same system that holds the training data, the labels, and the version history.</p>
+      <p>That gap is not a monitoring gap. It is an infrastructure gap, and it closes only when the system that detects the drift is the same system that holds the training data, the labels, and the version history.</p>
     </article>
   </div>
 </section>
@@ -299,6 +299,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

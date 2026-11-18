@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>Why Data Lineage Decides Whether an AI Model Can Be Deployed — Concave AI Blog</title>
+<title>Why Data Lineage Decides Whether an AI Model Can Be Deployed | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/data-lineage">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/lineage.jpg">
 <meta name="description" content="Data lineage for AI is not a compliance artifact. It is the mechanism that makes training runs reproducible and model failures diagnosable.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -150,14 +150,14 @@
       <p>This is not a documentation problem. It is a structural one. The information required to answer the question is generated during the pipeline's operation and then discarded, because nothing was designed to capture it.</p>
 
       <h2>Lineage for AI is not lineage for analytics</h2>
-      <p>Traditional data lineage tracks how a value moved between systems — this column came from that table, which was populated by this job. It answers a plumbing question.</p>
+      <p>Traditional data lineage tracks how a value moved between systems: this column came from that table, which was populated by this job. It answers a plumbing question.</p>
       <p>AI training data lineage must answer a substantially harder set of questions, because a training dataset is not a passive artifact. It is the accumulated result of a sequence of decisions, most of them consequential and most of them irreversible.</p>
       <p>A complete lineage record for a training dataset must include:</p>
       <ul>
         <li><strong>Source provenance.</strong> Which storage backend, which file or query, which time window, and who initiated the import. Multi-source datasets need this per source, with the merge logic recorded.</li>
         <li><strong>Transformation chain.</strong> Every cleaning, validation, deduplication, and normalization step, in order, with rows affected at each step. A dataset that entered with 50,000 records and exited with 47,300 needs the 2,700 accounted for.</li>
         <li><strong>Labeling history.</strong> Which engine, which model version, which confidence threshold, how many items were auto-labeled versus human-reviewed, and what the correction rate was. Annotation guidelines in force at the time.</li>
-        <li><strong>Quality measurements.</strong> Verified agreement, gold standard accuracy, calibration error, class distribution, coverage gaps — measured at the time of freezing, not asserted afterwards.</li>
+        <li><strong>Quality measurements.</strong> Verified agreement, gold standard accuracy, calibration error, class distribution, coverage gaps, measured at the time of freezing, not asserted afterwards.</li>
         <li><strong>Version delta.</strong> What differs from the parent version. Rows added, rows removed, labels changed, schema modified, and the stated reason for the change.</li>
         <li><strong>Integrity proof.</strong> A content hash covering the data, the labels, and the metadata, so the exported artifact can be verified as identical to the version that passed quality review.</li>
         <li><strong>Export record.</strong> Where the dataset was sent, in which format, when, by whom, and with which checksum.</li>
@@ -172,7 +172,7 @@
         <div class="recipe-card" data-reveal="zoom">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3M21 3v6h-6"/></svg></div>
           <div class="recipe-card-title">Reproducibility</div>
-          <div class="recipe-card-body">A training run is reproducible only if the exact dataset state can be reconstructed. Irreproducible runs make every subsequent experiment uninterpretable — you cannot distinguish an architecture change from a data change.</div>
+          <div class="recipe-card-body">A training run is reproducible only if the exact dataset state can be reconstructed. Irreproducible runs make every subsequent experiment uninterpretable: you cannot distinguish an architecture change from a data change.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
@@ -193,20 +193,20 @@
       <h2>Why manual lineage does not hold</h2>
       <p>Most attempts at lineage documentation are manual: a spreadsheet, a wiki page, a README in the dataset directory.</p>
       <p>This fails predictably for three reasons. It is written after the fact, so it records what someone remembers rather than what occurred. It falls out of sync the first time someone makes an undocumented amendment under time pressure. And it scales linearly with dataset count and version frequency, which means it degrades exactly as the organization's AI program succeeds.</p>
-      <p>Lineage is only reliable when it is a by-product of the operations themselves — generated automatically because the platform performing the operation records it, with no separate documentation step that can be skipped.</p>
+      <p>Lineage is only reliable when it is a by-product of the operations themselves, generated automatically because the platform performing the operation records it, with no separate documentation step that can be skipped.</p>
 
       <h2>How Concave AI approaches this</h2>
       <p>In Datalier, lineage is produced by the pipeline rather than written about it.</p>
       <p><strong>Provenance captured at ingestion.</strong> Source backend, path or query, format, original row count, and import method are recorded when data enters and persist through every subsequent layer.</p>
-      <p><strong>Operations logged as structured events.</strong> Every transformation, labeling decision, human review action, version freeze, and export is recorded with a timestamp, an actor — AI engine or named reviewer — and a before-and-after state. These records are immutable.</p>
+      <p><strong>Operations logged as structured events.</strong> Every transformation, labeling decision, human review action, version freeze, and export is recorded with a timestamp, an actor (AI engine or named reviewer), and a before-and-after state. These records are immutable.</p>
       <p><strong>Immutable, hash-verified versions.</strong> Freezing a dataset produces a SHA-256 hash covering data, labels, and metadata. A single changed row changes the hash, which provides cryptographic proof that an exported artifact matches the version that passed quality review.</p>
-      <p><strong>Auto-generated lineage reports.</strong> Every version produces a structured report across nine sections: identity, source provenance, transformation chain, labeling history, version changes, quality summary, lineage path, export evidence, and risk assessment. Written in three registers — an executive summary with a readiness verdict, a technical section for engineers, and export evidence for audit — so a single document serves the three audiences that ask for it.</p>
+      <p><strong>Auto-generated lineage reports.</strong> Every version produces a structured report across nine sections: identity, source provenance, transformation chain, labeling history, version changes, quality summary, lineage path, export evidence, and risk assessment. Written in three registers: an executive summary with a readiness verdict, a technical section for engineers, and export evidence for audit, so a single document serves the three audiences that ask for it.</p>
       <p><strong>Included with every export.</strong> Data files, manifest, and lineage report ship together. The training pipeline consumes the data. The experiment tracker consumes the manifest. The governance function reads the lineage.</p>
-      <p><strong>Quality gates enforced before export.</strong> Versions failing configured thresholds — verified agreement, error rate, class balance, calibration — are flagged with a blocking verdict. Undertested data does not silently reach a training pipeline.</p>
+      <p><strong>Quality gates enforced before export.</strong> Versions failing configured thresholds (verified agreement, error rate, class balance, calibration) are flagged with a blocking verdict. Undertested data does not silently reach a training pipeline.</p>
       <p>The question that opened this article stops requiring an investigation. It becomes a document that already exists.</p>
 
       <h2>Conclusion</h2>
-      <p>Lineage is often treated as the least urgent layer to build — right up until an auditor, a customer, or an engineer asks a question that nobody can answer without days of reconstruction. Reproducibility, diagnosis, and accountability are not three separate features; they are three consequences of the same underlying discipline, which is capturing what produced a dataset at the moment it happens, not after someone asks.</p>
+      <p>Lineage is often treated as the least urgent layer to build, right up until an auditor, a customer, or an engineer asks a question that nobody can answer without days of reconstruction. Reproducibility, diagnosis, and accountability are not three separate features; they are three consequences of the same underlying discipline, which is capturing what produced a dataset at the moment it happens, not after someone asks.</p>
     </article>
   </div>
 </section>
@@ -282,6 +282,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

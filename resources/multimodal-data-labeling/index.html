@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>Multimodal Data Labeling in One Workflow: Vision, Video, Audio, and Text — Concave AI Blog</title>
+<title>Multimodal Data Labeling in One Workflow: Vision, Video, Audio, and Text | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/multimodal-data-labeling">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/datalabelling.jpeg">
 <meta name="description" content="Running separate single-modal projects and merging outputs is the most common mistake in multimodal AI. Here is why it fails and what a unified workflow requires.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -147,7 +147,7 @@
       <h2>The definition that matters</h2>
       <p><strong>Multimodal data labeling is the labeling of two or more data types in one workflow, with consistency across formats as the defining requirement, not just format support.</strong></p>
       <p>That distinction carries the whole subject. A platform that accepts images, video, audio, and text is not multimodal if each is annotated in a separate project with its own taxonomy, its own reviewers, and its own quality process. It is four unimodal platforms sharing a login.</p>
-      <p>In a unimodal project, you label images or transcribe audio independently. In a multimodal project, labels must agree with each other — a bounding box in a camera frame has to correspond to the same object identified in a synchronized sensor stream at the same moment.</p>
+      <p>In a unimodal project, you label images or transcribe audio independently. In a multimodal project, labels must agree with each other: a bounding box in a camera frame has to correspond to the same object identified in a synchronized sensor stream at the same moment.</p>
 
       <h2>Why the obvious approach fails</h2>
       <p><strong>Running separate single-modal projects and merging outputs afterward is the most common mistake machine learning teams make.</strong> It produces multimodal datasets where labels are individually correct but broken across formats.</p>
@@ -164,24 +164,24 @@
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 9-9 9-9-9 4-4h5z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div>
           <div class="recipe-card-title">Ontology drift</div>
-          <div class="recipe-card-body">When separate teams label different formats, interpretation drifts. Without a shared, enforced ontology, the same word means slightly different things in each modality — and the model learns the inconsistency as signal.</div>
+          <div class="recipe-card-body">When separate teams label different formats, interpretation drifts. Without a shared, enforced ontology, the same word means slightly different things in each modality, and the model learns the inconsistency as signal.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
           <div class="recipe-card-title">QA blind spots at boundaries</div>
-          <div class="recipe-card-body">Each modality's quality process validates its own output. Nothing validates the relationship between them — a caption can be well-formed and an image well-segmented while the caption describes a different image entirely.</div>
+          <div class="recipe-card-body">Each modality's quality process validates its own output. Nothing validates the relationship between them: a caption can be well-formed and an image well-segmented while the caption describes a different image entirely.</div>
         </div>
       </div>
     </div>
 
     <article class="blog-body" data-reveal>
       <h2>Cross-modal alignment is the actual product</h2>
-      <p>The reason multimodal labeling exists is that modern models learn from signals linked across modalities — images, text, audio, and time — which makes independent labeling increasingly insufficient.</p>
-      <p>Vision-language models learn the relationship between an image and its description. If that relationship is wrong in the training data, the model learns a wrong association — worse than learning nothing, because it produces confident incorrect output rather than uncertainty.</p>
+      <p>The reason multimodal labeling exists is that modern models learn from signals linked across modalities (images, text, audio, and time), which makes independent labeling increasingly insufficient.</p>
+      <p>Vision-language models learn the relationship between an image and its description. If that relationship is wrong in the training data, the model learns a wrong association, worse than learning nothing, because it produces confident incorrect output rather than uncertainty.</p>
       <p>A unified workflow therefore has to support cross-modal alignment, such as linking transcripts to video timestamps or image regions; temporal consistency across sequences, sessions, and evolving datasets; auditability and traceability, particularly as AI governance requirements tighten; and human-in-the-loop correction for ambiguous, edge-case, or safety-critical items.</p>
 
       <h2>Quality measurement across modalities</h2>
-      <p>Quality in multi-format datasets is established by annotation accuracy, consistency across modalities, completeness of coverage, and reproducibility of results. Three of those four are cross-cutting — they cannot be computed inside a single modality's project.</p>
+      <p>Quality in multi-format datasets is established by annotation accuracy, consistency across modalities, completeness of coverage, and reproducibility of results. Three of those four are cross-cutting: they cannot be computed inside a single modality's project.</p>
       <p>Inter-annotator agreement deserves particular attention. <strong>Label quality is now the primary bottleneck for tasks like object detection, which makes a platform's approach to measuring and surfacing annotator disagreement a genuine buying criterion, not a checkbox.</strong></p>
       <p>In a multimodal setting, agreement must be measured twice: within a modality, and across the boundary. Two annotators agreeing that an image contains a pedestrian while disagreeing on whether the transcript references that pedestrian is a cross-modal disagreement that no single-modality metric will report.</p>
 
@@ -193,18 +193,18 @@
       <p>The result is a division of labor that should be designed rather than defaulted into: automation takes the routine and scalable portion, humans control detail, correction, and context where automation loses it.</p>
 
       <h2>How Concave AI approaches this</h2>
-      <p>Datalier runs all four modalities through one pipeline, one taxonomy, and one quality system — with modality-appropriate engines behind a shared interface.</p>
+      <p>Datalier runs all four modalities through one pipeline, one taxonomy, and one quality system, with modality-appropriate engines behind a shared interface.</p>
       <p><strong>Twenty-four annotation types across four modalities, one workflow.</strong> Text (6): preference ranking, named entity recognition, classification, summarization, extractive question answering, relation extraction. Image (7): classification, object detection, instance segmentation, semantic segmentation, keypoint estimation, captioning, OCR. Video (5): classification, object tracking, temporal segmentation, frame annotation, pose tracking. Audio (6): transcription, speaker diarization, sound event detection, classification, emotion detection, segmentation.</p>
       <p><strong>Engines matched to task, not one model for everything.</strong> GPT-4o and GPT-4o-mini for text. GPT-4o Vision for image identification with SAM2 for pixel-level segmentation. SAM2 video propagation for object tracking across frames, which addresses temporal consistency at the architectural level rather than as post-processing. MediaPipe for pose, face mesh, and hand landmarks. Whisper for transcription with word-level timestamps, feeding GPT-4o for downstream audio analysis.</p>
-      <p><strong>A single label taxonomy across modalities.</strong> Categories are defined once at the dataset level and applied across every annotation type running against that data — the mechanism that prevents ontology drift, rather than a guideline asking annotators to avoid it.</p>
+      <p><strong>A single label taxonomy across modalities.</strong> Categories are defined once at the dataset level and applied across every annotation type running against that data, the mechanism that prevents ontology drift, rather than a guideline asking annotators to avoid it.</p>
       <p><strong>Unified confidence routing.</strong> Every item in every modality receives a numeric confidence and is routed against a configurable threshold. Automation rate, human review rate, and correction rate are reported per modality, so the boundary between automation and human judgment is visible and tunable rather than fixed.</p>
-      <p><strong>One review interface.</strong> Low-confidence items across all modalities enter the same keyboard-driven annotation stream, where the AI suggestion is pre-loaded and the reviewer accepts, corrects, or rejects — typically three to five seconds per item. The same error taxonomy applies across modalities.</p>
-      <p><strong>Quality measured across the whole dataset.</strong> Verified agreement, gold-standard accuracy, calibration error, class distribution, and coverage are computed for the dataset as a whole, not per modality project — which is what makes cross-modal consistency measurable.</p>
+      <p><strong>One review interface.</strong> Low-confidence items across all modalities enter the same keyboard-driven annotation stream, where the AI suggestion is pre-loaded and the reviewer accepts, corrects, or rejects, typically three to five seconds per item. The same error taxonomy applies across modalities.</p>
+      <p><strong>Quality measured across the whole dataset.</strong> Verified agreement, gold-standard accuracy, calibration error, class distribution, and coverage are computed for the dataset as a whole, not per modality project, which is what makes cross-modal consistency measurable.</p>
       <p><strong>Export in each modality's native training format.</strong> COCO JSON and YOLO for vision, DPO JSONL and CoNLL and SQuAD for text, MOT CSV for tracking, SRT and RTTM for audio. Data files, manifest, and lineage report ship together.</p>
 
       <h2>Conclusion</h2>
       <p>The multimodal label is not the hard part. Every serious platform can draw a box, transcribe an utterance, and tag a span.</p>
-      <p>The hard part is that a bounding box, a transcript segment, and a text label describing the same moment must agree — in taxonomy, in timing, and in interpretation — and that agreement cannot be established by four separate projects reconciled afterwards.</p>
+      <p>The hard part is that a bounding box, a transcript segment, and a text label describing the same moment must agree in taxonomy, in timing, and in interpretation, and that agreement cannot be established by four separate projects reconciled afterwards.</p>
       <p>A unified workflow is not a convenience feature. It is the only architecture where cross-modal consistency can be enforced during annotation rather than discovered as a defect after training.</p>
     </article>
   </div>
@@ -281,6 +281,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

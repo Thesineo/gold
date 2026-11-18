@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>Why Data Curation Is the Bottleneck for LLM and Multimodal Teams — Concave AI Blog</title>
+<title>Why Data Curation Is the Bottleneck for LLM and Multimodal Teams | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/data-curation">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/curation.jpg">
 <meta name="description" content="Curation is the decision about what belongs in a training set and what does not. For multimodal and LLM teams it is now the highest-leverage operation in the pipeline.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -155,17 +155,17 @@
         <div class="recipe-card" data-reveal="zoom">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></div>
           <div class="recipe-card-title">Cleaning</div>
-          <div class="recipe-card-body">Removes what is broken — malformed records, corrupt files, missing fields, duplicates. A processing problem, record by record.</div>
+          <div class="recipe-card-body">Removes what is broken: malformed records, corrupt files, missing fields, duplicates. A processing problem, record by record.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l9 9-9 9-9-9 4-4h5z"/><circle cx="8.5" cy="8.5" r="1.2"/></svg></div>
           <div class="recipe-card-title">Labeling</div>
-          <div class="recipe-card-body">Assigns meaning — what this image contains, which response is preferred, where the entities are. Also a per-record operation.</div>
+          <div class="recipe-card-body">Assigns meaning: what this image contains, which response is preferred, where the entities are. Also a per-record operation.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
           <div class="recipe-card-title">Curation</div>
-          <div class="recipe-card-body">Decides what belongs in the training set at all — which records to include, exclude, weight, or acquire more of. A selection problem over the dataset as a whole.</div>
+          <div class="recipe-card-body">Decides what belongs in the training set at all: which records to include, exclude, weight, or acquire more of. A selection problem over the dataset as a whole.</div>
         </div>
       </div>
     </div>
@@ -173,16 +173,16 @@
     <article class="blog-body" data-reveal>
       <h2>Why scale stopped solving this</h2>
       <p>For a period, the reliable path to a better model was more data. That relationship has weakened substantially, for reasons that are structural rather than temporary.</p>
-      <p><strong>Redundancy dominates large corpora.</strong> In video, consecutive frames are near-identical — a thirty-second clip at thirty frames per second contains nine hundred frames and perhaps forty genuinely distinct moments. In text, common phrasings recur at enormous multiples. Adding redundant records increases training cost and dataset size without adding information.</p>
+      <p><strong>Redundancy dominates large corpora.</strong> In video, consecutive frames are near-identical: a thirty-second clip at thirty frames per second contains nine hundred frames and perhaps forty genuinely distinct moments. In text, common phrasings recur at enormous multiples. Adding redundant records increases training cost and dataset size without adding information.</p>
       <p><strong>Marginal value declines sharply.</strong> The ten-thousandth typical example teaches a model almost nothing. The first example from an underrepresented tail can meaningfully change behavior on an entire segment of production traffic.</p>
       <p><strong>Errors scale with volume.</strong> A 3% label error rate on 100,000 records is 3,000 wrong labels. At scale, error volume grows faster than the capacity to find it, and errors concentrated in a specific slice are functionally invisible in aggregate metrics.</p>
       <p><strong>Compute is not free.</strong> Training cost scales with dataset size. Spending it on redundant records is a direct transfer from budget to no outcome.</p>
-      <p>The consequence is that the composition question — what should be in this dataset — has become more important than the volume question.</p>
+      <p>The consequence is that the composition question (what should be in this dataset) has become more important than the volume question.</p>
 
       <h2>The curation decisions that matter</h2>
       <ul>
         <li><strong>Coverage against production distribution.</strong> The training set should represent what the model will encounter, including the tails. This requires knowing the production distribution, which requires observability. Curation performed without production feedback is guesswork.</li>
-        <li><strong>Deduplication beyond exact match.</strong> Near-duplicates — the same scene at a slightly different angle, the same question phrased differently, consecutive video frames — are where the volume is. Semantic deduplication is materially harder and materially more valuable.</li>
+        <li><strong>Deduplication beyond exact match.</strong> Near-duplicates (the same scene at a slightly different angle, the same question phrased differently, consecutive video frames) are where the volume is. Semantic deduplication is materially harder and materially more valuable.</li>
         <li><strong>Class balance, deliberately chosen.</strong> Natural distributions are usually imbalanced, and the imbalance usually favors the class that matters least. Whether to rebalance must be a decision rather than an accident.</li>
         <li><strong>Edge case identification and retention.</strong> The rare, ambiguous, and difficult records are the most informative per unit of annotation cost, and the most likely to be discarded by naive filtering because they look like noise.</li>
         <li><strong>Quality-weighted inclusion.</strong> Not every record deserves equal weight. Verified labels, gold-standard items, and high-agreement records carry more signal than unverified automation output.</li>
@@ -190,7 +190,7 @@
 
       <h2>What multimodal adds</h2>
       <p>Multimodal training compounds every curation problem and introduces several that are specific to it.</p>
-      <p><strong>Cross-modal alignment.</strong> An image-caption pair requires the caption to correspond to the image. Misalignment is common in scraped data, hard to detect automatically, and directly harmful — the model learns an incorrect association rather than simply failing to learn a correct one.</p>
+      <p><strong>Cross-modal alignment.</strong> An image-caption pair requires the caption to correspond to the image. Misalignment is common in scraped data, hard to detect automatically, and directly harmful: the model learns an incorrect association rather than simply failing to learn a correct one.</p>
       <p><strong>Divergent quality standards by modality.</strong> Image quality is resolution and composition. Audio quality is signal-to-noise and speaker separation. Video adds temporal consistency. Text adds coherence and factuality. A single quality score across modalities is not meaningful.</p>
       <p><strong>Volume asymmetry.</strong> One minute of video at thirty frames per second is eighteen hundred frames. One minute of audio is a few hundred words of transcript. Naive combination produces a dataset where one modality overwhelms the others by orders of magnitude.</p>
       <p><strong>Preference and evaluation data.</strong> For LLM alignment, curation extends to the selection of prompts, the diversity of response pairs, and the coverage of failure modes the model is expected to handle. Preference datasets that oversample easy comparisons produce alignment that fails on the hard ones.</p>
@@ -198,7 +198,7 @@
       <h2>Curation is continuous, not initial</h2>
       <p>The most consequential structural point: curation is usually treated as a one-time step before the first training run, and it is not.</p>
       <p>Production distribution shifts. New categories appear. Edge cases that were rare become common. A dataset curated correctly for the world of twelve months ago is miscurated for today, and nothing in a static pipeline will surface that.</p>
-      <p>Continuous curation requires a feedback path from production back to the dataset — a way to observe which slices are failing, determine whether the failure reflects a coverage gap or a labeling error, and adjust composition accordingly. Without that path, curation decays from the moment it is made.</p>
+      <p>Continuous curation requires a feedback path from production back to the dataset: a way to observe which slices are failing, determine whether the failure reflects a coverage gap or a labeling error, and adjust composition accordingly. Without that path, curation decays from the moment it is made.</p>
 
       <h2>How Concave AI approaches this</h2>
       <p>Datalier treats curation as an ongoing operation informed by production behavior rather than a preprocessing step.</p>
@@ -207,11 +207,11 @@
       <p><strong>Modality-aware handling.</strong> Dozens of annotation types across text, image, video, and audio, each with its own quality criteria and processing path. Video uses keyframe propagation rather than treating every frame as an independent image, addressing temporal redundancy at the architectural level.</p>
       <p><strong>Uncertainty-first task ordering.</strong> The human review queue prioritizes low-confidence and high-disagreement items, concentrating annotation effort where it produces the most information per unit of cost.</p>
       <p><strong>Coverage informed by production.</strong> The observability layer identifies which production slices are underperforming and whether the corresponding training coverage is thin. Curation decisions are made against observed production behavior rather than assumed distribution.</p>
-      <p><strong>Continuous correction.</strong> Failing slices generate targeted correction datasets through four selection strategies — failing slices, low confidence, recent errors, or drift-affected records. Corrections route through labeling and human verification, are frozen as a new version with full lineage, and export for retraining.</p>
+      <p><strong>Continuous correction.</strong> Failing slices generate targeted correction datasets through four selection strategies: failing slices, low confidence, recent errors, or drift-affected records. Corrections route through labeling and human verification, are frozen as a new version with full lineage, and export for retraining.</p>
       <p>Curation stops being a decision made once at the beginning and becomes a property of the pipeline that is maintained.</p>
 
       <h2>Conclusion</h2>
-      <p>More data was never really the strategy — it was a proxy for it, and one that stopped working once redundancy, marginal value, and compute cost caught up with it. What actually moves model quality now is the discipline of deciding, continuously and with production feedback, what belongs in the training set and what does not. Teams that treat curation as a one-time preprocessing step will keep re-learning that lesson on every retrain.</p>
+      <p>More data was never really the strategy. It was a proxy for it, and one that stopped working once redundancy, marginal value, and compute cost caught up with it. What actually moves model quality now is the discipline of deciding, continuously and with production feedback, what belongs in the training set and what does not. Teams that treat curation as a one-time preprocessing step will keep re-learning that lesson on every retrain.</p>
     </article>
   </div>
 </section>
@@ -287,6 +287,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

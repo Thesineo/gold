@@ -12,31 +12,31 @@
   } catch (e) {}
 })();
 </script>
-<title>What Is Data Observability — Concave AI Blog</title>
+<title>Beyond the Observability Alert: Protecting Model Accuracy in Production | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/data-observability">
 <meta property="og:type" content="article">
-<meta property="og:title" content="What Is Data Observability">
+<meta property="og:title" content="Beyond the Observability Alert: Protecting Model Accuracy in Production">
 <meta property="og:description" content="91% of ML models degrade in production, and the root cause is almost always data. Here is what observability must measure, and why detection alone does not fix anything.">
 <meta property="og:image" content="https://theconcaveai.com/imgbgm/observvaability.jpg">
 <meta property="og:url" content="https://theconcaveai.com/resources/data-observability">
 <meta property="article:published_time" content="2026-07-27">
 <meta property="article:author" content="Aniket Nerali">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="What Is Data Observability">
+<meta name="twitter:title" content="Beyond the Observability Alert: Protecting Model Accuracy in Production">
 <meta name="twitter:description" content="91% of ML models degrade in production, and the root cause is almost always data. Here is what observability must measure, and why detection alone does not fix anything.">
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/observvaability.jpg">
 <meta name="description" content="91% of ML models degrade in production, and the root cause is almost always data. Here is what observability must measure, and why detection alone does not fix anything.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "What Is Data Observability",
+  "headline": "Beyond the Observability Alert: Protecting Model Accuracy in Production",
   "description": "91% of ML models degrade in production, and the root cause is almost always data. Here is what observability must measure, and why detection alone does not fix anything.",
   "image": "https://theconcaveai.com/imgbgm/observvaability.jpg",
   "datePublished": "2026-07-27",
@@ -124,12 +124,12 @@
 <section class="layer-hero video-bg">
   <a href="/resources" class="layer-back-btn" aria-label="Back to Blog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></a>
   <div class="layer-hero-card blog-cover">
-    <div class="bg-media"><img src="/imgbgm/observvaability.jpg" alt="What Is Data Observability & How It Protects Model Accuracy in Production"></div>
+    <div class="bg-media"><img src="/imgbgm/observvaability.jpg" alt="Beyond the Observability Alert: Protecting Model Accuracy in Production"></div>
     <div class="hero-overlay"></div>
     <div class="sec-inner layer-hero-inner single-col">
       <div class="layer-hero-content" data-reveal="slide-left">
         <span class="blog-hero-category">Observability</span>
-        <h1 class="blog-hero-title">What Is Data Observability & How It Protects Model Accuracy in Production</h1>
+        <h1 class="blog-hero-title">Beyond the Observability Alert: Protecting Model Accuracy in Production</h1>
         <p class="blog-hero-sub">Detecting drift is the easy half. Knowing which data caused it is the half that matters.</p>
         <div class="blog-hero-meta">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Jul 27, 2026</span>
@@ -145,7 +145,7 @@
   <div class="sec-inner">
     <article class="blog-body" data-reveal>
       <h2>The failure is universal</h2>
-      <p>Roughly 91% of machine learning models degrade over time. This is not a defect rate — it is the expected behavior of a static function applied to a non-static world.</p>
+      <p>Roughly 91% of machine learning models degrade over time. This is not a defect rate. It is the expected behavior of a static function applied to a non-static world.</p>
       <p>The root cause is almost always a data mismatch. The model has not changed. The data flowing into it has.</p>
       <p>What makes this expensive is not the degradation itself but the diagnostic gap that follows it. Data science teams spend excessive time manually investigating performance degradation rather than systematically addressing root causes. The typical sequence is: a metric falls, someone notices, someone else is asked to investigate, and three weeks later the answer is a subset of training data that was mislabeled or unrepresentative.</p>
       <p>Observability exists to close that gap. Most implementations only close half of it.</p>
@@ -166,17 +166,17 @@
         <div class="recipe-card" data-reveal="zoom">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7"/></svg></div>
           <div class="recipe-card-title">Data drift</div>
-          <div class="recipe-card-body">A change in the input distribution — the model sees input it was not trained on. Measured per feature via PSI, bucket by bucket. A leading indicator, not a verdict: the model may still generalize well.</div>
+          <div class="recipe-card-body">A change in the input distribution: the model sees input it was not trained on. Measured per feature via PSI, bucket by bucket. A leading indicator, not a verdict: the model may still generalize well.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="1">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h11l-3-3M17 17H6l3 3"/></svg></div>
           <div class="recipe-card-title">Concept drift</div>
-          <div class="recipe-card-body">A change in the relationship between input and correct output — what counts as the right answer has changed. Measured against labeled production data. The most consequential type, and the hardest to detect.</div>
+          <div class="recipe-card-body">A change in the relationship between input and correct output: what counts as the right answer has changed. Measured against labeled production data. The most consequential type, and the hardest to detect.</div>
         </div>
         <div class="recipe-card" data-reveal="zoom" data-reveal-delay="2">
           <div class="recipe-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg></div>
           <div class="recipe-card-title">Prediction drift</div>
-          <div class="recipe-card-body">A change in the model's own output distribution. Measured with PSI on predictions. Requires no ground truth, and often precedes measurable accuracy loss — an early warning signal.</div>
+          <div class="recipe-card-body">A change in the model's own output distribution. Measured with PSI on predictions. Requires no ground truth, and often precedes measurable accuracy loss, an early warning signal.</div>
         </div>
       </div>
     </div>
@@ -187,14 +187,14 @@
       <h2>Aggregate metrics hide the failures that matter</h2>
       <p>A single accuracy number is the most misleading measurement in production ML.</p>
       <p>Consider a defect classifier at 94% aggregate accuracy. Decomposed by class: Class A, 78% of volume, 98% accurate. Class B, 18% of volume, 91% accurate. Class C, 4% of volume, 61% accurate.</p>
-      <p>The aggregate looks healthy. Class C is failing badly, and Class C is very likely the rare, high-consequence category — the one the system exists to catch.</p>
+      <p>The aggregate looks healthy. Class C is failing badly, and Class C is very likely the rare, high-consequence category, the one the system exists to catch.</p>
       <p>Slice analysis decomposes performance across categories, input segments, time windows, and metadata dimensions. Without it, the failures that matter most are the ones most effectively concealed by the reporting.</p>
       <p>The corollary is that observability must operate at the level of individual predictions, not aggregate statistics. You cannot decompose what you did not retain.</p>
 
       <h2>Detection without remediation is an incomplete loop</h2>
       <p>This is where most observability tooling stops.</p>
       <p>The typical stack detects drift, raises an alert, and displays a chart. What follows is manual: someone exports predictions, investigates by hand, forms a hypothesis about which training data is responsible, assembles a corrective dataset, arranges for it to be labeled, and eventually retrains.</p>
-      <p>That sequence takes weeks and is entirely undocumented. It is also disconnected — machine learning production issues often stem from organizational disconnects between data science teams building models and engineering teams maintaining production systems, where data scientists lack visibility into production data characteristics.</p>
+      <p>That sequence takes weeks and is entirely undocumented. It is also disconnected: machine learning production issues often stem from organizational disconnects between data science teams building models and engineering teams maintaining production systems, where data scientists lack visibility into production data characteristics.</p>
       <p>Retraining without diagnosis compounds the problem. Retraining on more of the same distribution that caused the failure does not fix the failure; it entrenches it.</p>
       <p>The loop is only closed when a drift signal can be traced to specific training records, those records can be corrected, and the correction can be versioned and returned to training as a documented change.</p>
 
@@ -215,12 +215,12 @@
       <p><strong>Prediction ingestion, three paths.</strong> Upload a prediction log file with automatic format detection, import directly from a connected storage backend using the same connection already configured for data import, or stream continuously via a webhook SDK snippet inserted into the inference path.</p>
       <p><strong>Three-way drift detection.</strong> Data drift computed per feature via PSI with drifted features identified individually. Concept drift computed by comparing historical to recent accuracy across the metrics history. Prediction drift computed via PSI on output distribution. Each is reported with severity and history, so trajectory is visible rather than a point measurement.</p>
       <p><strong>Slice analysis.</strong> Performance decomposed by category with per-slice accuracy and a health verdict, sorted worst-first. The failing segment surfaces immediately instead of being averaged into an aggregate.</p>
-      <p><strong>Automated re-labeling with strategy selection.</strong> Once failing slices are identified, the platform assembles a targeted correction dataset — failing slices, low confidence, recent errors, or drift-affected records. The output is not a random sample; it is the specific records most likely to improve model performance when corrected.</p>
+      <p><strong>Automated re-labeling with strategy selection.</strong> Once failing slices are identified, the platform assembles a targeted correction dataset: failing slices, low confidence, recent errors, or drift-affected records. The output is not a random sample; it is the specific records most likely to improve model performance when corrected.</p>
       <p><strong>Return to the pipeline.</strong> The correction dataset routes through the labeling layer, receives AI annotation and human verification, is frozen as a new version with a full lineage report, and exports in the training format the customer's framework expects.</p>
       <p>Detection identifies the problem. The loop is what fixes it.</p>
 
       <h2>Conclusion</h2>
-      <p>Ninety-one percent of models degrading in production is not a statistic teams can dashboard their way out of. It requires observability that goes past the alert — one that can name the specific slice failing, trace it back to the training records responsible, and route a correction back into the pipeline without three weeks of manual archaeology in between. Detection without that loop is just a more sophisticated way of watching things break.</p>
+      <p>Ninety-one percent of models degrading in production is not a statistic teams can dashboard their way out of. It requires observability that goes past the alert, one that can name the specific slice failing, trace it back to the training records responsible, and route a correction back into the pipeline without three weeks of manual archaeology in between. Detection without that loop is just a more sophisticated way of watching things break.</p>
     </article>
   </div>
 </section>
@@ -296,6 +296,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>

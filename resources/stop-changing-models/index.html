@@ -12,7 +12,7 @@
   } catch (e) {}
 })();
 </script>
-<title>Stop Changing Models — Concave AI Blog</title>
+<title>Stop Changing Models | Concave AI Blog</title>
 <meta property="og:site_name" content="Concave AI" />
 <link rel="canonical" href="https://theconcaveai.com/resources/stop-changing-models">
 <meta property="og:type" content="article">
@@ -28,10 +28,10 @@
 <meta name="twitter:image" content="https://theconcaveai.com/imgbgm/stopchangingmodel.png">
 <meta name="description" content="Most AI research is model-centric, but the evidence keeps pointing the other way: fix the data supply chain before you touch the architecture.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="shortcut icon" href="/logo.png?v=20261117i" type="image/png">
-<link rel="apple-touch-icon" href="/logo.png?v=20261117i">
-<link rel="stylesheet" href="/assets/css/platform.css?v=20261117i">
+<link rel="icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="shortcut icon" href="/logo.png?v=20261118e" type="image/png">
+<link rel="apple-touch-icon" href="/logo.png?v=20261118e">
+<link rel="stylesheet" href="/assets/css/platform.css?v=20261118e">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -131,25 +131,25 @@
   <div class="sec-inner">
     <article class="blog-body" data-reveal>
       <h2>The reflex</h2>
-      <p>When a model underperforms, the reflex in most organizations is the same: try a bigger architecture, tune the hyperparameters, swap in the newest published technique. It feels like progress because it produces something concrete to point to — a new run, a new leaderboard number, a new line in a changelog.</p>
-      <p>It is also, in most cases, the wrong lever. <strong>Andrew Ng has estimated that more than 90% of AI research effort is model-centric</strong> — improving code while holding the dataset fixed — despite growing evidence that for the majority of practical problems, the dataset is where the ceiling actually sits.</p>
+      <p>When a model underperforms, the reflex in most organizations is the same: try a bigger architecture, tune the hyperparameters, swap in the newest published technique. It feels like progress because it produces something concrete to point to: a new run, a new leaderboard number, a new line in a changelog.</p>
+      <p>It is also, in most cases, the wrong lever. <strong>Andrew Ng has estimated that more than 90% of AI research effort is model-centric</strong> (improving code while holding the dataset fixed), despite growing evidence that for the majority of practical problems, the dataset is where the ceiling actually sits.</p>
 
       <h2>The evidence</h2>
-      <p>A steel-defect-detection experiment made the comparison directly. Two teams tackled the same underperforming model. One team was restricted to model-centric changes only — architecture search, regularization, hyperparameter tuning. The other was restricted to data-centric changes only — fixing label inconsistencies, correcting mislabeled examples, improving annotation quality on the existing dataset, with the model held constant.</p>
-      <p>The model-centric team produced <strong>0% improvement</strong>. The data-centric team produced <strong>roughly 16% improvement</strong> — without touching the architecture at all.</p>
+      <p>A steel-defect-detection experiment made the comparison directly. Two teams tackled the same underperforming model. One team was restricted to model-centric changes only: architecture search, regularization, hyperparameter tuning. The other was restricted to data-centric changes only: fixing label inconsistencies, correcting mislabeled examples, improving annotation quality on the existing dataset, with the model held constant.</p>
+      <p>The model-centric team produced <strong>0% improvement</strong>. The data-centric team produced <strong>roughly 16% improvement</strong>, without touching the architecture at all.</p>
       <p>Ng's own research group found a related result on a steel-defect dataset: cleaning label errors in the existing data outperformed collecting <strong>3x more raw data</strong>. More data without quality control did not help; less data with fewer errors did.</p>
-      <p>A separate result on CIFAR-10 reinforces the same point from a different angle: a model trained on a smaller set of correctly labeled images consistently outperformed the same model trained on a larger set that included noisy labels — even though the noisy set had strictly more examples.</p>
+      <p>A separate result on CIFAR-10 reinforces the same point from a different angle: a model trained on a smaller set of correctly labeled images consistently outperformed the same model trained on a larger set that included noisy labels, even though the noisy set had strictly more examples.</p>
 
       <h2>Scale has stopped compensating</h2>
-      <p>For years, the default answer to weak model performance was simply more data — the assumption being that scale would statistically average out whatever noise the labels contained.</p>
+      <p>For years, the default answer to weak model performance was simply more data, the assumption being that scale would statistically average out whatever noise the labels contained.</p>
       <p>That assumption is breaking down. As datasets have grown into the billions of examples, curation and filtering have started to outperform raw volume scaling on a growing number of benchmarks. Several recent large-scale training runs have found that aggressively filtered, smaller-but-cleaner datasets beat larger, noisier ones on downstream evaluation.</p>
-      <p>Uncurated scale increasingly produces diminishing — and in some cases negative — returns, because the marginal example added at scale is more likely to be redundant or mislabeled than genuinely informative.</p>
+      <p>Uncurated scale increasingly produces diminishing, and in some cases negative, returns, because the marginal example added at scale is more likely to be redundant or mislabeled than genuinely informative.</p>
 
       <h2>Three things a data-centric approach requires</h2>
-      <p>Being data-centric is not a slogan — it is three concrete disciplines, each of which most teams currently skip.</p>
+      <p>Being data-centric is not a slogan. It is three concrete disciplines, each of which most teams currently skip.</p>
       <p><strong>Consistency enforced and measured.</strong> Labeling consistency has to be actively checked, not assumed. Two annotators should agree on the same example at a measured rate, and that rate should be tracked over time, not eyeballed once during a pilot.</p>
       <p><strong>Error analysis as the driver of what to fix next.</strong> Rather than retraining blindly after a performance drop, the team examines which specific examples the model gets wrong, looks for patterns in those failures, and directs labeling or cleanup effort at exactly that failure mode.</p>
-      <p><strong>Data as a versioned asset.</strong> Every change to the training set — a relabel, a correction round, a filtering pass — is tracked with the same rigor as a code change, so a performance shift can be attributed to a specific data change rather than treated as unexplained variance.</p>
+      <p><strong>Data as a versioned asset.</strong> Every change to the training set (a relabel, a correction round, a filtering pass) is tracked with the same rigor as a code change, so a performance shift can be attributed to a specific data change rather than treated as unexplained variance.</p>
       <p>Concretely, "fix the pipeline" means:</p>
     </article>
 
@@ -180,7 +180,7 @@
 
     <article class="blog-body" data-reveal>
       <h2>How Concave AI approaches this</h2>
-      <p><strong>Datasets as versioned assets.</strong> Every dataset carries full version history — what changed, when, and why — with the same discipline applied to code. A performance change can always be attributed to a specific, named data change.</p>
+      <p><strong>Datasets as versioned assets.</strong> Every dataset carries full version history (what changed, when, and why), with the same discipline applied to code. A performance change can always be attributed to a specific, named data change.</p>
       <p><strong>Quality measured, not asserted.</strong> Inter-annotator agreement, label consistency, and coverage gaps are tracked continuously rather than checked once during a pilot phase and then assumed to hold indefinitely.</p>
       <p><strong>Label-error detection via Confident Learning.</strong> Rather than relying on manual audits to catch mislabeled examples, the platform surfaces likely label errors algorithmically, directing review effort at exactly the examples most likely to be wrong.</p>
       <p><strong>Error analysis wired directly into the loop.</strong> Slice-level performance breakdowns point straight at the specific examples and categories driving underperformance, so labeling effort is targeted rather than applied uniformly across the dataset.</p>
@@ -264,6 +264,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/concave-motion.js?v=20261117i" defer></script>
+<script src="/assets/js/concave-motion.js?v=20261118e" defer></script>
 </body>
 </html>
