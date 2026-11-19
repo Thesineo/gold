@@ -1840,3 +1840,16 @@ a.modality-box:focus-visible{outline:2px solid var(--text);outline-offset:4px}
 .up-row.is-wrap .up-card{flex:0 0 calc((100% - 36px) / 4);aspect-ratio:1/0.98}
 .loop-row i{font-style:normal;font-size:13px;color:var(--text-dimmer)}
 @media(max-width:560px){.up-row.is-wrap .up-card{flex:0 0 calc((100% - 24px) / 3)}.up-display.is-export{padding:22px 16px}}
+
+/* Blog cover that shows the supplied image in full (no cropping): text left, whole image right */
+.layer-hero-card.blog-cover.cover-full{background:#0b0f14}
+.cover-full .hero-overlay{display:none}
+.cover-full .bg-media{inset:0 0 0 auto;width:52%;display:flex;align-items:center;justify-content:center;padding:32px}
+.cover-full .bg-media img{width:100%;height:auto;max-height:100%;object-fit:contain;border-radius:16px}
+.cover-full .layer-hero-content{max-width:44%}
+.cover-full .blog-hero-title{font-size:clamp(28px,3.4vw,52px)}
+@media(max-width:900px){
+  .layer-hero-card.blog-cover.cover-full{min-height:0;display:flex;flex-direction:column}
+  .cover-full .bg-media{position:relative;inset:auto;width:100%;padding:20px 20px 0;order:-1}
+  .cover-full .layer-hero-content{max-width:100%}
+}
